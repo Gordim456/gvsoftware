@@ -131,6 +131,53 @@ const About = () => {
               </p>
             </div>
           </motion.div>
+          
+          {/* Team Images */}
+          <motion.div 
+            className="mt-20"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h3 className="text-2xl font-bold mb-8 text-center">Nossa <span className="gradient-text">Equipe</span></h3>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              {[1, 2, 3, 4].map((index) => (
+                <motion.div 
+                  key={index}
+                  className="bg-gv-darker rounded-lg overflow-hidden"
+                  whileHover={{ y: -10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <img 
+                    src={`/project-${index}.jpg`} 
+                    alt={`Team Member ${index}`} 
+                    className="w-full h-48 object-cover" 
+                  />
+                  <div className="p-4">
+                    <h4 className="font-semibold">Desenvolvedor {index}</h4>
+                    <p className="text-gv-gray text-sm">Especialista em Software</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+          
+          {/* Centered Copyright Notice */}
+          <motion.div 
+            className="mt-20"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 p-6 rounded-lg shadow-lg text-center">
+              <h2 className="text-2xl font-bold text-white mb-2">
+                © {new Date().getFullYear()} GV Software
+              </h2>
+              <p className="text-gray-200">Todos os direitos reservados.</p>
+            </div>
+          </motion.div>
         </div>
       </section>
 

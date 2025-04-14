@@ -58,33 +58,17 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
-              {isHomePage ? (
-                <ScrollLink to="contact" smooth={true} duration={500}>
-                  <Button className="px-6 py-3 bg-gv-primary hover:bg-indigo-600 text-white rounded-md font-medium text-base flex items-center gap-2">
-                    Fale Conosco <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </ScrollLink>
-              ) : (
-                <RouterLink to="/contact">
-                  <Button className="px-6 py-3 bg-gv-primary hover:bg-indigo-600 text-white rounded-md font-medium text-base flex items-center gap-2">
-                    Fale Conosco <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </RouterLink>
-              )}
+              <RouterLink to="/contact">
+                <Button className="px-6 py-3 bg-gv-primary hover:bg-indigo-600 text-white rounded-md font-medium text-base flex items-center gap-2">
+                  Fale Conosco <ArrowRight className="w-4 h-4" />
+                </Button>
+              </RouterLink>
               
-              {isHomePage ? (
-                <ScrollLink to="services" smooth={true} duration={500}>
-                  <Button variant="outline" className="px-6 py-3 border-gv-gray text-white hover:bg-gray-800 rounded-md font-medium text-base">
-                    Nossos Serviços
-                  </Button>
-                </ScrollLink>
-              ) : (
-                <RouterLink to="/services">
-                  <Button variant="outline" className="px-6 py-3 border-gv-gray text-white hover:bg-gray-800 rounded-md font-medium text-base">
-                    Nossos Serviços
-                  </Button>
-                </RouterLink>
-              )}
+              <RouterLink to="/portfolio">
+                <Button variant="outline" className="px-6 py-3 border-gv-gray text-white hover:bg-gray-800 rounded-md font-medium text-base">
+                  Nossos Serviços
+                </Button>
+              </RouterLink>
             </motion.div>
             
             <motion.div
@@ -241,6 +225,21 @@ const Hero = () => {
                 <p className="text-gray-300 mt-2">Sistema de entregas com rastreamento em tempo real</p>
               </div>
             </motion.div>
+          </div>
+        </motion.div>
+        
+        {/* Copyright notice - centered and prominent */}
+        <motion.div 
+          className="mt-24 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.0 }}
+        >
+          <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 p-8 rounded-lg shadow-lg">
+            <h2 className="text-3xl font-bold text-white mb-2">
+              © {new Date().getFullYear()} GV Software
+            </h2>
+            <p className="text-gray-200 text-lg">Todos os direitos reservados.</p>
           </div>
         </motion.div>
       </div>
