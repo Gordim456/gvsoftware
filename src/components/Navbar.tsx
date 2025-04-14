@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Link as ScrollLink } from 'react-scroll';
@@ -32,7 +33,7 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '/' },
+    { name: 'Início', href: '/' },
     { name: 'Sobre', href: '/about' },
     { name: 'Serviços', href: '/services' },
     { name: 'Portfólio', href: '/portfolio' },
@@ -40,7 +41,7 @@ const Navbar = () => {
   ];
 
   const homeNavLinks = [
-    { name: 'Home', href: 'hero' },
+    { name: 'Início', href: 'hero' },
     { name: 'Sobre', href: 'about' },
     { name: 'Serviços', href: 'services' },
     { name: 'Portfólio', href: 'portfolio' },
@@ -94,11 +95,6 @@ const Navbar = () => {
                   </RouterLink>
                 ))
               )}
-              <RouterLink to="/contact">
-                <Button className="bg-gv-primary hover:bg-indigo-600 text-white">
-                  Contato
-                </Button>
-              </RouterLink>
             </div>
           </div>
           

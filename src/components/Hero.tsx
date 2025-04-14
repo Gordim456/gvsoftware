@@ -1,5 +1,5 @@
 
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Code, Server, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link as ScrollLink } from 'react-scroll';
 import { Link as RouterLink } from 'react-router-dom';
@@ -7,6 +7,22 @@ import { motion } from 'framer-motion';
 
 const Hero = () => {
   const isHomePage = window.location.pathname === '/';
+
+  // Feature cards animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center bg-gv-darker pt-16">
@@ -122,6 +138,111 @@ const Hero = () => {
             </div>
           </motion.div>
         </div>
+
+        {/* Featured Technologies */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8"
+        >
+          <motion.div 
+            variants={itemVariants}
+            className="bg-gv-dark p-6 rounded-lg border border-gray-800 hover:border-gv-primary transition-all duration-300 group"
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+          >
+            <div className="mb-4 bg-gv-primary bg-opacity-10 p-3 rounded-md w-fit">
+              <Code className="w-6 h-6 text-gv-primary" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Desenvolvimento Web</h3>
+            <p className="text-gv-gray">Criamos sites e aplicações web modernas utilizando as melhores tecnologias do mercado.</p>
+          </motion.div>
+          
+          <motion.div 
+            variants={itemVariants}
+            className="bg-gv-dark p-6 rounded-lg border border-gray-800 hover:border-gv-primary transition-all duration-300 group"
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+          >
+            <div className="mb-4 bg-gv-primary bg-opacity-10 p-3 rounded-md w-fit">
+              <Server className="w-6 h-6 text-gv-primary" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Aplicações Empresariais</h3>
+            <p className="text-gv-gray">Desenvolvemos soluções sob medida para otimizar processos e aumentar a produtividade.</p>
+          </motion.div>
+          
+          <motion.div 
+            variants={itemVariants}
+            className="bg-gv-dark p-6 rounded-lg border border-gray-800 hover:border-gv-primary transition-all duration-300 group"
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+          >
+            <div className="mb-4 bg-gv-primary bg-opacity-10 p-3 rounded-md w-fit">
+              <Globe className="w-6 h-6 text-gv-primary" />
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Presença Digital</h3>
+            <p className="text-gv-gray">Estratégias completas para destacar sua marca no ambiente digital com soluções personalizadas.</p>
+          </motion.div>
+        </motion.div>
+
+        {/* Featured Projects */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mt-20"
+        >
+          <h2 className="text-3xl font-bold mb-8 text-center">Projetos <span className="gradient-text">Destacados</span></h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <motion.div 
+              className="relative overflow-hidden rounded-lg group"
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.2 }}
+            >
+              <img 
+                src="/project-1.jpg" 
+                alt="E-commerce App" 
+                className="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-110" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-6 flex flex-col justify-end">
+                <h3 className="text-xl font-semibold text-white">E-commerce App</h3>
+                <p className="text-gray-300 mt-2">Plataforma completa com sistema de pagamentos</p>
+              </div>
+            </motion.div>
+            
+            <motion.div 
+              className="relative overflow-hidden rounded-lg group"
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.2 }}
+            >
+              <img 
+                src="/project-3.jpg" 
+                alt="App Móvel" 
+                className="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-110" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-6 flex flex-col justify-end">
+                <h3 className="text-xl font-semibold text-white">App Móvel</h3>
+                <p className="text-gray-300 mt-2">Aplicativo de produtividade com sincronização</p>
+              </div>
+            </motion.div>
+            
+            <motion.div 
+              className="relative overflow-hidden rounded-lg group"
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.2 }}
+            >
+              <img 
+                src="/project-6.jpg" 
+                alt="Aplicativo de Delivery" 
+                className="w-full h-60 object-cover transition-transform duration-500 group-hover:scale-110" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-6 flex flex-col justify-end">
+                <h3 className="text-xl font-semibold text-white">App de Delivery</h3>
+                <p className="text-gray-300 mt-2">Sistema de entregas com rastreamento em tempo real</p>
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

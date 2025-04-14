@@ -11,7 +11,7 @@ import Footer from '../components/Footer';
 
 const Home = () => {
   useEffect(() => {
-    document.title = 'GV Software - Desenvolvimento de Software';
+    document.title = 'Início | GV Software - Desenvolvimento de Software';
   }, []);
   
   // Animation for the reveal effect on scroll
