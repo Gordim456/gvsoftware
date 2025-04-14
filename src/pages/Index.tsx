@@ -1,29 +1,14 @@
 
-import React, { useEffect } from 'react';
-import Navbar from '../components/Navbar';
-import Hero from '../components/Hero';
-import About from '../components/About';
-import Services from '../components/Services';
-import Portfolio from '../components/Portfolio';
-import Contact from '../components/Contact';
-import Footer from '../components/Footer';
+import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 
+// This file is now just a redirect to the new Home page
 const Index = () => {
   useEffect(() => {
     document.title = 'GV Software - Desenvolvimento de Software';
   }, []);
 
-  return (
-    <div className="min-h-screen">
-      <Navbar />
-      <Hero />
-      <About />
-      <Services />
-      <Portfolio />
-      <Contact />
-      <Footer />
-    </div>
-  );
+  return <Navigate to="/" replace />;
 };
 
 export default Index;

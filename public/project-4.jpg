@@ -1,0 +1,39 @@
+
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" rx="10" fill="#1E1E2E"/>
+  <rect x="100" y="100" width="600" height="400" rx="8" fill="#6366F1" fillOpacity="0.1"/>
+  
+  <!-- Dashboard Header -->
+  <rect x="150" y="130" width="500" height="60" rx="5" fill="#6366F1" fillOpacity="0.2"/>
+  <rect x="170" y="150" width="150" height="20" rx="5" fill="#8B5CF6" fillOpacity="0.5"/>
+  <rect x="500" y="150" width="120" height="20" rx="5" fill="#8B5CF6" fillOpacity="0.3"/>
+  
+  <!-- Chart Area 1 -->
+  <rect x="150" y="210" width="240" height="140" rx="5" fill="#6366F1" fillOpacity="0.2"/>
+  <path d="M170 310 L190 290 L210 330 L230 280 L250 300 L270 270 L290 310 L310 290 L330 320 L350 270" 
+        stroke="#8B5CF6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+  <rect x="170" y="230" width="80" height="15" rx="2" fill="#8B5CF6" fillOpacity="0.5"/>
+  
+  <!-- Chart Area 2 -->
+  <rect x="410" y="210" width="240" height="140" rx="5" fill="#6366F1" fillOpacity="0.2"/>
+  <circle cx="530" cy="280" r="60" fill="transparent" stroke="#8B5CF6" strokeWidth="25" strokeDasharray="120 180"/>
+  <circle cx="530" cy="280" r="60" fill="transparent" stroke="#6366F1" strokeWidth="25" strokeDasharray="75 225" strokeDashoffset="-120"/>
+  <rect x="430" y="230" width="80" height="15" rx="2" fill="#8B5CF6" fillOpacity="0.5"/>
+  
+  <!-- Data Cards -->
+  <rect x="150" y="370" width="115" height="100" rx="5" fill="#6366F1" fillOpacity="0.2"/>
+  <rect x="170" y="390" width="75" height="15" rx="2" fill="#8B5CF6" fillOpacity="0.5"/>
+  <rect x="170" y="420" width="40" height="30" rx="2" fill="#8B5CF6" fillOpacity="0.8"/>
+  
+  <rect x="285" y="370" width="115" height="100" rx="5" fill="#6366F1" fillOpacity="0.2"/>
+  <rect x="305" y="390" width="75" height="15" rx="2" fill="#8B5CF6" fillOpacity="0.5"/>
+  <rect x="305" y="420" width="60" height="30" rx="2" fill="#8B5CF6" fillOpacity="0.8"/>
+  
+  <rect x="420" y="370" width="115" height="100" rx="5" fill="#6366F1" fillOpacity="0.2"/>
+  <rect x="440" y="390" width="75" height="15" rx="2" fill="#8B5CF6" fillOpacity="0.5"/>
+  <rect x="440" y="420" width="50" height="30" rx="2" fill="#8B5CF6" fillOpacity="0.8"/>
+  
+  <rect x="555" y="370" width="115" height="100" rx="5" fill="#6366F1" fillOpacity="0.2"/>
+  <rect x="575" y="390" width="75" height="15" rx="2" fill="#8B5CF6" fillOpacity="0.5"/>
+  <rect x="575" y="420" width="35" height="30" rx="2" fill="#8B5CF6" fillOpacity="0.8"/>
+</svg>

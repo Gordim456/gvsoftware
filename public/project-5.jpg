@@ -1,0 +1,35 @@
+
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" rx="10" fill="#1E1E2E"/>
+  <rect x="100" y="100" width="600" height="400" rx="8" fill="#6366F1" fillOpacity="0.1"/>
+  
+  <!-- Blog Header -->
+  <rect x="150" y="130" width="500" height="60" rx="5" fill="#6366F1" fillOpacity="0.2"/>
+  <rect x="170" y="150" width="200" height="25" rx="5" fill="#8B5CF6" fillOpacity="0.5"/>
+  <rect x="500" y="150" width="120" height="20" rx="5" fill="#8B5CF6" fillOpacity="0.3"/>
+  
+  <!-- Blog Content Area -->
+  <rect x="150" y="210" width="500" height="270" rx="5" fill="#6366F1" fillOpacity="0.2"/>
+  
+  <!-- Text Editor Toolbar -->
+  <rect x="170" y="230" width="460" height="30" rx="3" fill="#6366F1" fillOpacity="0.3"/>
+  <rect x="180" y="240" width="20" height="10" rx="2" fill="white" fillOpacity="0.5"/>
+  <rect x="210" y="240" width="20" height="10" rx="2" fill="white" fillOpacity="0.5"/>
+  <rect x="240" y="240" width="20" height="10" rx="2" fill="white" fillOpacity="0.5"/>
+  <rect x="270" y="240" width="20" height="10" rx="2" fill="white" fillOpacity="0.5"/>
+  <rect x="300" y="240" width="20" height="10" rx="2" fill="white" fillOpacity="0.5"/>
+  <rect x="330" y="240" width="20" height="10" rx="2" fill="white" fillOpacity="0.5"/>
+  
+  <!-- Content Lines -->
+  <rect x="170" y="280" width="460" height="20" rx="2" fill="white" fillOpacity="0.1"/>
+  <rect x="170" y="310" width="460" height="20" rx="2" fill="white" fillOpacity="0.1"/>
+  <rect x="170" y="340" width="460" height="20" rx="2" fill="white" fillOpacity="0.1"/>
+  <rect x="170" y="370" width="460" height="20" rx="2" fill="white" fillOpacity="0.1"/>
+  <rect x="170" y="400" width="300" height="20" rx="2" fill="white" fillOpacity="0.1"/>
+  
+  <!-- Image Placeholder -->
+  <rect x="200" y="430" width="200" height="30" rx="5" fill="#8B5CF6" fillOpacity="0.4"/>
+  <path d="M210 445 L220 435 L230 445" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  <circle cx="240" cy="440" r="5" fill="white" fillOpacity="0.7"/>
+  <rect x="255" y="435" width="120" height="10" rx="2" fill="white" fillOpacity="0.5"/>
+</svg>

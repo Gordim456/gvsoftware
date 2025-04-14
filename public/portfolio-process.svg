@@ -1,0 +1,47 @@
+
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" rx="10" fill="#1E1E2E"/>
+  
+  <!-- Background Elements -->
+  <circle cx="400" cy="300" r="250" fill="#6366F1" fillOpacity="0.05"/>
+  <circle cx="400" cy="300" r="200" fill="#6366F1" fillOpacity="0.1"/>
+  <circle cx="400" cy="300" r="150" fill="#6366F1" fillOpacity="0.15"/>
+  
+  <!-- Central Icon -->
+  <circle cx="400" cy="300" r="80" fill="#8B5CF6" fillOpacity="0.6"/>
+  <path d="M400 250V350" stroke="white" strokeWidth="6" strokeLinecap="round"/>
+  <path d="M350 300H450" stroke="white" strokeWidth="6" strokeLinecap="round"/>
+  
+  <!-- Orbit Elements -->
+  <circle cx="550" cy="180" r="40" fill="#6366F1" fillOpacity="0.4" stroke="white" strokeWidth="2"/>
+  <path d="M550 170V190" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+  <path d="M540 180H560" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+  
+  <circle cx="600" cy="350" r="40" fill="#6366F1" fillOpacity="0.4" stroke="white" strokeWidth="2"/>
+  <path d="M590 350H610" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+  <path d="M600 340L600 360" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+  
+  <circle cx="500" cy="480" r="40" fill="#6366F1" fillOpacity="0.4" stroke="white" strokeWidth="2"/>
+  <path d="M500 470V490" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+  <path d="M490 480H510" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+  
+  <circle cx="300" cy="480" r="40" fill="#6366F1" fillOpacity="0.4" stroke="white" strokeWidth="2"/>
+  <path d="M290 480H310" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+  <path d="M300 470L300 490" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+  
+  <circle cx="200" cy="350" r="40" fill="#6366F1" fillOpacity="0.4" stroke="white" strokeWidth="2"/>
+  <path d="M190 350H210" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+  <path d="M200 340L200 360" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+  
+  <circle cx="250" cy="180" r="40" fill="#6366F1" fillOpacity="0.4" stroke="white" strokeWidth="2"/>
+  <path d="M250 170V190" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+  <path d="M240 180H260" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+  
+  <!-- Connection Lines -->
+  <path d="M470 243L520 210" stroke="#8B5CF6" strokeWidth="2" strokeDasharray="4 4"/>
+  <path d="M470 350L560 350" stroke="#8B5CF6" strokeWidth="2" strokeDasharray="4 4"/>
+  <path d="M470 400L480 440" stroke="#8B5CF6" strokeWidth="2" strokeDasharray="4 4"/>
+  <path d="M340 400L320 440" stroke="#8B5CF6" strokeWidth="2" strokeDasharray="4 4"/>
+  <path d="M330 350L240 350" stroke="#8B5CF6" strokeWidth="2" strokeDasharray="4 4"/>
+  <path d="M330 243L280 210" stroke="#8B5CF6" strokeWidth="2" strokeDasharray="4 4"/>
+</svg>
