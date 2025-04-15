@@ -1,14 +1,10 @@
-
 import { ArrowRight, Code, Server, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link as ScrollLink } from 'react-scroll';
 import { Link as RouterLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { BackgroundGradient } from './BackgroundGradient';
 
 const Hero = () => {
-  const isHomePage = window.location.pathname === '/';
-
-  // Feature cards animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -25,7 +21,9 @@ const Hero = () => {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center bg-gv-darker pt-16">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+      <BackgroundGradient />
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <motion.div 
@@ -35,12 +33,12 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <motion.h1 
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
+              className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              Desenvolvimento de <span className="gradient-text">Software</span> & Consultoria
+              Transformando ideias em <span className="gradient-text font-extrabold">realidade digital</span>
             </motion.h1>
             
             <motion.p 
@@ -100,7 +98,7 @@ const Hero = () => {
           >
             <div className="relative">
               <motion.div 
-                className="w-full h-96 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg opacity-80 blur-2xl absolute -top-10 -left-10 z-0"
+                className="w-full h-96 bg-gradient-to-br from-indigo-500/30 to-purple-600/30 rounded-lg blur-2xl absolute -top-10 -left-10 z-0"
                 animate={{ 
                   opacity: [0.6, 0.8, 0.6],
                   scale: [1, 1.05, 1],
@@ -111,7 +109,7 @@ const Hero = () => {
                   repeat: Infinity,
                   repeatType: "reverse"
                 }}
-              ></motion.div>
+              />
               <motion.img 
                 src="/hero-image.svg" 
                 alt="GV Software Development" 

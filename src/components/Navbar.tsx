@@ -38,7 +38,8 @@ const Navbar = () => {
 
   return (
     <motion.nav 
-      className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-gv-darker bg-opacity-90 shadow-lg backdrop-blur-sm' : 'bg-transparent'}`}
+      className={`fixed w-full z-50 transition-all duration-300 
+        ${scrolled ? 'bg-gv-darker/95 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -46,28 +47,39 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <RouterLink to="/" className="cursor-pointer">
-                <h1 className="text-2xl font-bold text-white">
-                  <span className="gradient-text">GV</span> Software
-                </h1>
-              </RouterLink>
-            </div>
+            <RouterLink to="/" className="cursor-pointer">
+              <motion.h1 
+                className="text-2xl font-bold text-white"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <span className="gradient-text">GV</span> Software
+              </motion.h1>
+            </RouterLink>
           </div>
           
           {/* Desktop Menu */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-4">
+            <div className="ml-10 flex items-center space-x-8">
               {navLinks.map((link) => (
                 <RouterLink
                   key={link.name}
                   to={link.href}
-                  className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium cursor-pointer hover:bg-gray-800 transition-all"
-                  onClick={() => setIsOpen(false)}
+                  className="relative group"
                 >
-                  {link.name}
+                  <span className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium cursor-pointer transition-colors">
+                    {link.name}
+                  </span>
+                  <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                 </RouterLink>
               ))}
+              <RouterLink to="/contact">
+                <Button 
+                  className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-medium px-6 py-2"
+                >
+                  Contato
+                </Button>
+              </RouterLink>
             </div>
           </div>
           
@@ -75,7 +87,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
-              className="text-gray-400 hover:text-white focus:outline-none"
+              className="text-gray-400 hover:text-white focus:outline-none p-2 rounded-md bg-gray-800/50 backdrop-blur-sm"
             >
               {isOpen ? (
                 <X className="h-6 w-6" />
@@ -91,7 +103,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            className="md:hidden bg-gv-darker"
+            className="md:hidden bg-gv-darker/95 backdrop-blur-md"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -102,7 +114,7 @@ const Navbar = () => {
                 <RouterLink
                   key={link.name}
                   to={link.href}
-                  className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium cursor-pointer"
+                  className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium cursor-pointer hover:bg-gray-800/50 transition-all"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.name}
@@ -110,7 +122,7 @@ const Navbar = () => {
               ))}
               <RouterLink to="/contact" onClick={() => setIsOpen(false)}>
                 <Button 
-                  className="w-full mt-2 bg-gv-primary hover:bg-indigo-600 text-white"
+                  className="w-full mt-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white"
                 >
                   Contato
                 </Button>
