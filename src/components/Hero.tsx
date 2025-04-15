@@ -27,13 +27,13 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <motion.div 
-            className="space-y-6"
+            className="space-y-8"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <motion.h1 
-              className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500"
+              className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -42,28 +42,28 @@ const Hero = () => {
             </motion.h1>
             
             <motion.p 
-              className="text-lg md:text-xl text-gv-gray max-w-lg"
+              className="text-xl md:text-2xl text-gv-gray max-w-lg"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              Transformamos suas ideias em soluções digitais inovadoras e personalizadas para o seu negócio.
+              Soluções digitais inovadoras e personalizadas para o seu negócio.
             </motion.p>
             
             <motion.div 
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
               <RouterLink to="/contact">
-                <Button className="px-6 py-3 bg-gv-primary hover:bg-indigo-600 text-white rounded-md font-medium text-base flex items-center gap-2">
-                  Fale Conosco <ArrowRight className="w-4 h-4" />
+                <Button className="px-8 py-6 bg-gv-primary hover:bg-indigo-600 text-white rounded-xl font-medium text-lg flex items-center gap-3 transform hover:scale-105 transition-all duration-300">
+                  Fale Conosco <ArrowRight className="w-5 h-5" />
                 </Button>
               </RouterLink>
               
               <RouterLink to="/portfolio">
-                <Button variant="outline" className="px-6 py-3 border-gv-gray text-white hover:bg-gray-800 rounded-md font-medium text-base">
+                <Button variant="outline" className="px-8 py-6 border-2 border-gv-gray text-white hover:bg-gray-800 rounded-xl font-medium text-lg transform hover:scale-105 transition-all duration-300">
                   Nossos Serviços
                 </Button>
               </RouterLink>
@@ -98,11 +98,11 @@ const Hero = () => {
           >
             <div className="relative">
               <motion.div 
-                className="w-full h-96 bg-gradient-to-br from-indigo-500/30 to-purple-600/30 rounded-lg blur-2xl absolute -top-10 -left-10 z-0"
+                className="w-full h-96 bg-gradient-to-br from-indigo-500/30 to-purple-600/30 rounded-2xl blur-2xl absolute -top-10 -left-10 z-0"
                 animate={{ 
                   opacity: [0.6, 0.8, 0.6],
                   scale: [1, 1.05, 1],
-                  rotate: [0, 1, 0]
+                  rotate: [0, 5, 0]
                 }}
                 transition={{
                   duration: 8,
@@ -113,15 +113,14 @@ const Hero = () => {
               <motion.img 
                 src="/hero-image.svg" 
                 alt="GV Software Development" 
-                className="w-full h-auto object-cover rounded-lg shadow-xl relative z-10" 
-                whileHover={{ scale: 1.03 }}
+                className="w-full h-auto object-cover rounded-2xl shadow-2xl relative z-10" 
+                whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300 }}
               />
             </div>
           </motion.div>
         </div>
 
-        {/* Featured Technologies */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -165,7 +164,6 @@ const Hero = () => {
           </motion.div>
         </motion.div>
 
-        {/* Featured Projects */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

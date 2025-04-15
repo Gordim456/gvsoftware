@@ -1,7 +1,6 @@
-
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Code, Layout, Database, PenTool, Settings, BarChart, Server, Shield, Cloud, Globe, Smartphone, Tv } from 'lucide-react';
+import { Code, Layout, Database, PenTool, Settings, BarChart, Server, Shield, Cloud, Globe, Smartphone, Tv, Instagram, Coffee } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -92,6 +91,27 @@ const Services = () => {
     <div className="min-h-screen">
       <Navbar />
       
+      <motion.div 
+        className="fixed right-6 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-50"
+        animate={{
+          y: [-10, 0, -10],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      >
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" 
+           className="bg-gv-primary p-3 rounded-full hover:scale-110 transition-transform">
+          <Instagram className="w-6 h-6 text-white" />
+        </a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer"
+           className="bg-gv-primary p-3 rounded-full hover:scale-110 transition-transform">
+          <Coffee className="w-6 h-6 text-white" />
+        </a>
+      </motion.div>
+
       <section className="py-20 bg-gv-darker pt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
