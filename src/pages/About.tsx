@@ -1,9 +1,9 @@
-
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, Instagram, Tiktok } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const About = () => {
   useEffect(() => {
@@ -28,6 +28,28 @@ const About = () => {
     <div className="min-h-screen">
       <Navbar />
       
+      {/* Fixed Social Icons */}
+      <motion.div 
+        className="fixed right-6 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-50"
+        animate={{
+          y: [-10, 0, -10],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      >
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" 
+           className="bg-gv-primary p-3 rounded-full hover:scale-110 transition-transform">
+          <Instagram className="w-6 h-6 text-white" />
+        </a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer"
+           className="bg-gv-primary p-3 rounded-full hover:scale-110 transition-transform">
+          <Tiktok className="w-6 h-6 text-white" />
+        </a>
+      </motion.div>
+
       <section className="py-20 bg-gv-dark pt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
@@ -42,13 +64,44 @@ const About = () => {
             </p>
           </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <motion.div 
-              className="relative"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
+          {/* Image Carousel */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="mb-16"
+          >
+            <Carousel className="w-full max-w-5xl mx-auto">
+              <CarouselContent>
+                {[1, 2, 3, 4].map((_, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <div className="p-2">
+                      <motion.div 
+                        className="relative aspect-video rounded-xl overflow-hidden"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        <img
+                          src={`/project-${index + 1}.jpg`}
+                          alt={`Programming Project ${index + 1}`}
+                          className="object-cover w-full h-full"
+                        />
+                      </motion.div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </motion.div>
+
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="relative">
               <div className="w-full h-96 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg opacity-80 blur-2xl absolute -top-10 -left-10 z-0"></div>
               <motion.img 
                 src="/about-image.svg" 
@@ -57,7 +110,7 @@ const About = () => {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               />
-            </motion.div>
+            </div>
             
             <motion.div 
               className="space-y-6"
@@ -101,7 +154,7 @@ const About = () => {
                 </p>
               </motion.div>
             </motion.div>
-          </div>
+          </motion.div>
 
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
@@ -129,53 +182,6 @@ const About = () => {
                 Trabalhamos em estreita colaboração com nossos clientes, entendendo suas necessidades
                 e desenvolvendo soluções que realmente agregam valor ao seu negócio.
               </p>
-            </div>
-          </motion.div>
-          
-          {/* Team Images */}
-          <motion.div 
-            className="mt-20"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h3 className="text-2xl font-bold mb-8 text-center">Nossa <span className="gradient-text">Equipe</span></h3>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {[1, 2, 3, 4].map((index) => (
-                <motion.div 
-                  key={index}
-                  className="bg-gv-darker rounded-lg overflow-hidden"
-                  whileHover={{ y: -10 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <img 
-                    src={`/project-${index}.jpg`} 
-                    alt={`Team Member ${index}`} 
-                    className="w-full h-48 object-cover" 
-                  />
-                  <div className="p-4">
-                    <h4 className="font-semibold">Desenvolvedor {index}</h4>
-                    <p className="text-gv-gray text-sm">Especialista em Software</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-          
-          {/* Centered Copyright Notice */}
-          <motion.div 
-            className="mt-20"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 p-6 rounded-lg shadow-lg text-center">
-              <h2 className="text-2xl font-bold text-white mb-2">
-                © {new Date().getFullYear()} GV Software
-              </h2>
-              <p className="text-gray-200">Todos os direitos reservados.</p>
             </div>
           </motion.div>
         </div>

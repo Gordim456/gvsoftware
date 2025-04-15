@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
+import { Instagram, Tiktok } from 'lucide-react';
 
 const Home = () => {
   useEffect(() => {
@@ -13,25 +14,30 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <Hero />
       
-      {/* Additional centered copyright notice */}
+      {/* Fixed Social Icons */}
       <motion.div 
-        className="bg-gv-dark py-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.8 }}
+        className="fixed right-6 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-50"
+        animate={{
+          y: [-10, 0, -10],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 p-6 rounded-lg shadow-lg text-center">
-            <h2 className="text-2xl font-bold text-white mb-2">
-              © {new Date().getFullYear()} GV Software
-            </h2>
-            <p className="text-gray-200">Todos os direitos reservados.</p>
-          </div>
-        </div>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" 
+           className="bg-gv-primary p-3 rounded-full hover:scale-110 transition-transform">
+          <Instagram className="w-6 h-6 text-white" />
+        </a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer"
+           className="bg-gv-primary p-3 rounded-full hover:scale-110 transition-transform">
+          <Tiktok className="w-6 h-6 text-white" />
+        </a>
       </motion.div>
-      
+
+      <Hero />
       <Footer />
     </div>
   );

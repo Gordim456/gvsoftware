@@ -1,11 +1,10 @@
-
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
-import { MapPin, Mail, Phone, Clock, Check } from 'lucide-react';
+import { Mail, Phone, Clock, Check, Instagram, Tiktok } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -18,7 +17,7 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitted, setIsSubmitted] useState(false);
 
   useEffect(() => {
     document.title = 'Contato | GV Software';
@@ -61,10 +60,32 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gv-darker">
       <Navbar />
       
-      <section className="py-20 bg-gv-darker pt-24">
+      {/* Fixed Social Icons */}
+      <motion.div 
+        className="fixed right-6 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-50"
+        animate={{
+          y: [-10, 0, -10],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      >
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" 
+           className="bg-gv-primary p-3 rounded-full hover:scale-110 transition-transform">
+          <Instagram className="w-6 h-6 text-white" />
+        </a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer"
+           className="bg-gv-primary p-3 rounded-full hover:scale-110 transition-transform">
+          <Tiktok className="w-6 h-6 text-white" />
+        </a>
+      </motion.div>
+
+      <section className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="text-center mb-16"
@@ -72,9 +93,9 @@ const Contact = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Entre em <span className="gradient-text">Contato</span></h2>
-            <p className="text-gv-gray max-w-2xl mx-auto">
-              Estamos prontos para atender às suas necessidades de desenvolvimento de software.
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Entre em <span className="gradient-text">Contato</span></h2>
+            <p className="text-gv-gray max-w-2xl mx-auto text-lg">
+              Estamos prontos para transformar suas ideias em realidade.
             </p>
           </motion.div>
           
@@ -93,32 +114,15 @@ const Contact = () => {
             >
               <motion.div 
                 variants={fadeInUp}
-                className="bg-gv-dark p-6 rounded-lg border border-gray-800 hover:border-gv-primary transition-all duration-300"
+                className="bg-gv-dark p-8 rounded-lg border border-gray-800 hover:border-gv-primary transition-all duration-300"
                 whileHover={{ y: -5 }}
               >
-                <div className="flex gap-4 items-start">
-                  <div className="bg-gv-primary bg-opacity-20 p-3 rounded-md">
-                    <MapPin className="w-6 h-6 text-gv-primary" />
+                <div className="flex gap-6 items-center">
+                  <div className="bg-gv-primary bg-opacity-20 p-4 rounded-full">
+                    <Mail className="w-8 h-8 text-gv-primary" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-2">Localização</h3>
-                    <p className="text-gv-gray">Recife, PE, Brasil</p>
-                    <p className="text-gv-gray mt-1">Av. Boa Viagem, 1234</p>
-                  </div>
-                </div>
-              </motion.div>
-              
-              <motion.div 
-                variants={fadeInUp}
-                className="bg-gv-dark p-6 rounded-lg border border-gray-800 hover:border-gv-primary transition-all duration-300"
-                whileHover={{ y: -5 }}
-              >
-                <div className="flex gap-4 items-start">
-                  <div className="bg-gv-primary bg-opacity-20 p-3 rounded-md">
-                    <Mail className="w-6 h-6 text-gv-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">Email</h3>
+                    <h3 className="text-xl font-semibold mb-2">Email</h3>
                     <p className="text-gv-gray">contato@gvsoftware.tech</p>
                     <p className="text-gv-gray mt-1">suporte@gvsoftware.tech</p>
                   </div>
@@ -127,15 +131,15 @@ const Contact = () => {
               
               <motion.div 
                 variants={fadeInUp}
-                className="bg-gv-dark p-6 rounded-lg border border-gray-800 hover:border-gv-primary transition-all duration-300"
+                className="bg-gv-dark p-8 rounded-lg border border-gray-800 hover:border-gv-primary transition-all duration-300"
                 whileHover={{ y: -5 }}
               >
-                <div className="flex gap-4 items-start">
-                  <div className="bg-gv-primary bg-opacity-20 p-3 rounded-md">
-                    <Phone className="w-6 h-6 text-gv-primary" />
+                <div className="flex gap-6 items-center">
+                  <div className="bg-gv-primary bg-opacity-20 p-4 rounded-full">
+                    <Phone className="w-8 h-8 text-gv-primary" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-2">Telefone</h3>
+                    <h3 className="text-xl font-semibold mb-2">Telefone</h3>
                     <p className="text-gv-gray">(81) 99999-9999</p>
                     <p className="text-gv-gray mt-1">(81) 3333-3333</p>
                   </div>
@@ -144,15 +148,15 @@ const Contact = () => {
 
               <motion.div 
                 variants={fadeInUp}
-                className="bg-gv-dark p-6 rounded-lg border border-gray-800 hover:border-gv-primary transition-all duration-300"
+                className="bg-gv-dark p-8 rounded-lg border border-gray-800 hover:border-gv-primary transition-all duration-300"
                 whileHover={{ y: -5 }}
               >
-                <div className="flex gap-4 items-start">
-                  <div className="bg-gv-primary bg-opacity-20 p-3 rounded-md">
-                    <Clock className="w-6 h-6 text-gv-primary" />
+                <div className="flex gap-6 items-center">
+                  <div className="bg-gv-primary bg-opacity-20 p-4 rounded-full">
+                    <Clock className="w-8 h-8 text-gv-primary" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-2">Horário</h3>
+                    <h3 className="text-xl font-semibold mb-2">Horário</h3>
                     <p className="text-gv-gray">Segunda - Sexta: 8h às 18h</p>
                     <p className="text-gv-gray mt-1">Sábado: 9h às 13h</p>
                   </div>
@@ -251,27 +255,6 @@ const Contact = () => {
               </div>
             </motion.div>
           </div>
-
-          <motion.div 
-            className="mt-16"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.7 }}
-          >
-            <div className="bg-gv-dark p-6 rounded-lg border border-gray-800">
-              <h3 className="text-2xl font-bold mb-6 text-center">Nossa Localização</h3>
-              <div className="relative w-full h-96 rounded-lg overflow-hidden">
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63201.44826788247!2d-34.921483805954895!3d-8.064745257831162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ab196f88c446e5%3A0x3c9ef52922447fd4!2sRecife%2C%20PE!5e0!3m2!1spt-BR!2sbr!4v1702420651182!5m2!1spt-BR!2sbr"
-                  style={{ border: 0 }}
-                  allowFullScreen={false}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
       
