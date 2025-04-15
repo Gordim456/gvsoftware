@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
-import { Instagram, BrandTiktok } from 'lucide-react';
+import { Instagram, Coffee } from 'lucide-react';
 
 const Home = () => {
   useEffect(() => {
@@ -33,7 +33,7 @@ const Home = () => {
         </a>
         <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer"
            className="bg-gv-primary p-3 rounded-full hover:scale-110 transition-transform">
-          <BrandTiktok className="w-6 h-6 text-white" />
+          <Coffee className="w-6 h-6 text-white" />
         </a>
       </motion.div>
 

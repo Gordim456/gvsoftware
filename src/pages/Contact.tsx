@@ -1,11 +1,10 @@
-
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
-import { Mail, Phone, Clock, Check, Instagram, BrandTiktok } from 'lucide-react';
+import { Mail, Phone, Clock, Check, Instagram, Coffee } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -18,7 +17,7 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false); // Added '=' sign
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     document.title = 'Contato | GV Software';
@@ -82,7 +81,7 @@ const Contact = () => {
         </a>
         <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer"
            className="bg-gv-primary p-3 rounded-full hover:scale-110 transition-transform">
-          <BrandTiktok className="w-6 h-6 text-white" />
+          <Coffee className="w-6 h-6 text-white" />
         </a>
       </motion.div>
 
