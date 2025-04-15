@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -17,7 +18,7 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false); // Added '=' sign
 
   useEffect(() => {
     document.title = 'Contato | GV Software';
