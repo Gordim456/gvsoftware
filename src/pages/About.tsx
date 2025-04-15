@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, Instagram, Tiktok } from 'lucide-react';
+import { CheckCircle, Instagram, BrandTiktok } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -46,7 +46,7 @@ const About = () => {
         </a>
         <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer"
            className="bg-gv-primary p-3 rounded-full hover:scale-110 transition-transform">
-          <Tiktok className="w-6 h-6 text-white" />
+          <BrandTiktok className="w-6 h-6 text-white" />
         </a>
       </motion.div>
 

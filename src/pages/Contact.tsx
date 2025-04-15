@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
-import { Mail, Phone, Clock, Check, Instagram, Tiktok } from 'lucide-react';
+import { Mail, Phone, Clock, Check, Instagram, BrandTiktok } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -82,7 +82,7 @@ const Contact = () => {
         </a>
         <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer"
            className="bg-gv-primary p-3 rounded-full hover:scale-110 transition-transform">
-          <Tiktok className="w-6 h-6 text-white" />
+          <BrandTiktok className="w-6 h-6 text-white" />
         </a>
       </motion.div>
 
