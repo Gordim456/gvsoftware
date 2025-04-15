@@ -225,21 +225,6 @@ const Hero = () => {
             </motion.div>
           </div>
         </motion.div>
-        
-        {/* Copyright notice - centered and prominent */}
-        <motion.div 
-          className="mt-24 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-        >
-          <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 p-8 rounded-lg shadow-lg">
-            <h2 className="text-3xl font-bold text-white mb-2">
-              © {new Date().getFullYear()} GV Software
-            </h2>
-            <p className="text-gray-200 text-lg">Todos os direitos reservados.</p>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
