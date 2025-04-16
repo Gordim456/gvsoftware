@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Link as RouterLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { BackgroundGradient } from './BackgroundGradient';
+import { HeroSlider } from './HeroSlider';
 
 const Hero = () => {
   const containerVariants = {
@@ -96,28 +97,7 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <div className="relative">
-              <motion.div 
-                className="w-full h-96 bg-gradient-to-br from-indigo-500/30 to-purple-600/30 rounded-2xl blur-2xl absolute -top-10 -left-10 z-0"
-                animate={{ 
-                  opacity: [0.6, 0.8, 0.6],
-                  scale: [1, 1.05, 1],
-                  rotate: [0, 5, 0]
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  repeatType: "reverse"
-                }}
-              />
-              <motion.img 
-                src="/hero-image.svg" 
-                alt="GV Software Development" 
-                className="w-full h-auto object-cover rounded-2xl shadow-2xl relative z-10" 
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              />
-            </div>
+            <HeroSlider />
           </motion.div>
         </div>
 

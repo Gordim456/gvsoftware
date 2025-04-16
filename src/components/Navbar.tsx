@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
@@ -32,8 +31,7 @@ const Navbar = () => {
     { name: 'Início', href: '/' },
     { name: 'Sobre', href: '/about' },
     { name: 'Serviços', href: '/services' },
-    { name: 'Portfólio', href: '/portfolio' },
-    { name: 'Contato', href: '/contact' }
+    { name: 'Portfólio', href: '/portfolio' }
   ];
 
   return (
@@ -58,7 +56,6 @@ const Navbar = () => {
             </RouterLink>
           </div>
           
-          {/* Desktop Menu */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-8">
               {navLinks.map((link) => (
@@ -73,33 +70,20 @@ const Navbar = () => {
                   <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                 </RouterLink>
               ))}
-              <RouterLink to="/contact">
-                <Button 
-                  className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-medium px-6 py-2"
-                >
-                  Contato
-                </Button>
-              </RouterLink>
             </div>
           </div>
           
-          {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
               className="text-gray-400 hover:text-white focus:outline-none p-2 rounded-md bg-gray-800/50 backdrop-blur-sm"
             >
-              {isOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
@@ -120,13 +104,6 @@ const Navbar = () => {
                   {link.name}
                 </RouterLink>
               ))}
-              <RouterLink to="/contact" onClick={() => setIsOpen(false)}>
-                <Button 
-                  className="w-full mt-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white"
-                >
-                  Contato
-                </Button>
-              </RouterLink>
             </div>
           </motion.div>
         )}
