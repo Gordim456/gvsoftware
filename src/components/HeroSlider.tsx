@@ -5,19 +5,23 @@ import { motion } from "framer-motion";
 const sliderItems = [
   {
     image: "/project-1.jpg",
-    title: "Desenvolvimento Web"
+    title: "Desenvolvimento Web",
+    gradient: "from-indigo-500/60 to-purple-600/60"
   },
   {
     image: "/project-2.jpg",
-    title: "Aplicações Mobile"
+    title: "Aplicações Mobile",
+    gradient: "from-blue-500/60 to-indigo-600/60"
   },
   {
     image: "/project-3.jpg",
-    title: "Design UI/UX"
+    title: "Design UI/UX",
+    gradient: "from-purple-500/60 to-pink-600/60"
   },
   {
     image: "/project-4.jpg",
-    title: "Sistemas Empresariais"
+    title: "Sistemas Empresariais",
+    gradient: "from-pink-500/60 to-rose-600/60"
   }
 ];
 
@@ -41,7 +45,14 @@ export const HeroSlider = () => {
         <CarouselContent>
           {sliderItems.map((item, index) => (
             <CarouselItem key={index} className="relative">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
+              <motion.div 
+                className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-60 backdrop-blur-sm z-10 transition-opacity duration-500`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.6 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-20" />
               <motion.img
                 src={item.image}
                 alt={item.title}
@@ -51,13 +62,13 @@ export const HeroSlider = () => {
                 transition={{ duration: 20, repeat: Infinity, repeatType: "reverse" }}
               />
               <motion.div 
-                className="absolute bottom-8 left-8 z-20"
+                className="absolute bottom-8 left-8 z-30"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <h3 className="text-3xl font-bold text-white mb-2">{item.title}</h3>
-                <div className="h-1 w-24 bg-gradient-to-r from-indigo-500 to-purple-600" />
+                <h3 className="text-4xl font-bold text-white mb-4">{item.title}</h3>
+                <div className="h-1.5 w-32 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full" />
               </motion.div>
             </CarouselItem>
           ))}

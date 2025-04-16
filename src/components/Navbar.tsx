@@ -31,7 +31,12 @@ const Navbar = () => {
     { name: 'Início', href: '/' },
     { name: 'Sobre', href: '/about' },
     { name: 'Serviços', href: '/services' },
-    { name: 'Portfólio', href: '/portfolio' }
+    { name: 'Portfólio', href: '/portfolio' },
+    { 
+      name: 'Contato', 
+      href: '/contact',
+      isHighlighted: true 
+    }
   ];
 
   return (
@@ -62,12 +67,22 @@ const Navbar = () => {
                 <RouterLink
                   key={link.name}
                   to={link.href}
-                  className="relative group"
+                  className={`relative group ${
+                    link.isHighlighted 
+                      ? 'bg-gradient-to-r from-indigo-500 to-purple-600 px-6 py-2 rounded-full text-white hover:shadow-lg transform hover:scale-105 transition-all duration-300'
+                      : 'relative group'
+                  }`}
                 >
-                  <span className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium cursor-pointer transition-colors">
+                  <span className={`${
+                    link.isHighlighted
+                      ? 'text-white font-medium'
+                      : 'text-gray-300 hover:text-white px-3 py-2 text-sm font-medium cursor-pointer transition-colors'
+                  }`}>
                     {link.name}
                   </span>
-                  <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+                  {!link.isHighlighted && (
+                    <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+                  )}
                 </RouterLink>
               ))}
             </div>
