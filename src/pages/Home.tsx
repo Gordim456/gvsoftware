@@ -1,15 +1,30 @@
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { useCallback } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
 
 const Home = () => {
   useEffect(() => {
     document.title = 'Início | GV Software - Desenvolvimento de Software';
   }, []);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 20 });
+  
+  // Auto-slide functionality
+  useEffect(() => {
+    if (emblaApi) {
+      const interval = setInterval(() => {
+        emblaApi.scrollNext();
+      }, 5000); // Change slides every 5 seconds
+      
+      return () => clearInterval(interval);
+    }
+  }, [emblaApi]);
 
   const slides = [
     {
@@ -29,22 +44,24 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       <div className="fixed inset-0 z-0">
-        <Carousel className="w-full h-screen" opts={{ loop: true, duration: 20 }} autoPlay={true}>
-          <CarouselContent>
-            {slides.map((slide, index) => (
-              <CarouselItem key={index} className="w-full h-screen">
-                <div className="relative w-full h-full">
-                  <div className="absolute inset-0 bg-black/60 z-10"></div>
-                  <img
-                    src={slide.image}
-                    alt={slide.title}
-                    className="w-full h-full object-cover"
-                  />
+        <div className="w-full h-screen">
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex h-screen">
+              {slides.map((slide, index) => (
+                <div key={index} className="flex-[0_0_100%] h-screen min-w-0">
+                  <div className="relative w-full h-full">
+                    <div className="absolute inset-0 bg-black/60 z-10"></div>
+                    <img
+                      src={slide.image}
+                      alt={slide.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="relative z-10">

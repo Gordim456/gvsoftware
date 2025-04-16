@@ -1,7 +1,7 @@
 
-import { useState, useEffect } from "react";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import useEmblaCarousel from 'embla-carousel-react';
 
 const sliderItems = [
   {
@@ -34,17 +34,36 @@ export const HeroSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
   
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  
+  // Auto-slide functionality
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTransitioning(true);
-      setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % sliderItems.length);
-        setTransitioning(false);
-      }, 500);
-    }, 5000);
+    if (emblaApi) {
+      const interval = setInterval(() => {
+        setTransitioning(true);
+        
+        setTimeout(() => {
+          emblaApi.scrollNext();
+          setCurrentIndex((prev) => (prev + 1) % sliderItems.length);
+          setTransitioning(false);
+        }, 500);
+      }, 5000);
+      
+      return () => clearInterval(interval);
+    }
+  }, [emblaApi]);
+
+  // Sync current index with embla carousel
+  useEffect(() => {
+    if (!emblaApi) return;
     
-    return () => clearInterval(interval);
-  }, []);
+    const onSelect = () => {
+      setCurrentIndex(emblaApi.selectedScrollSnap());
+    };
+    
+    emblaApi.on('select', onSelect);
+    return () => emblaApi.off('select', onSelect);
+  }, [emblaApi]);
 
   return (
     <div className="w-full h-[500px] relative overflow-hidden rounded-2xl">
@@ -61,70 +80,73 @@ export const HeroSlider = () => {
           repeatType: "reverse"
         }}
       />
-      <Carousel className="w-full h-full rounded-2xl relative z-10" autoPlay={true} opts={{ loop: true }}>
-        <CarouselContent>
-          {sliderItems.map((item, index) => (
-            <CarouselItem key={index} className="relative">
-              <AnimatePresence>
-                <motion.div 
-                  className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-60 backdrop-blur-sm z-10`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: transitioning ? 0 : 0.6 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.8 }}
+      
+      <div className="w-full h-full rounded-2xl relative z-10">
+        <div className="overflow-hidden h-full" ref={emblaRef}>
+          <div className="flex h-full">
+            {sliderItems.map((item, index) => (
+              <div key={index} className="flex-[0_0_100%] min-w-0 h-full relative">
+                <AnimatePresence>
+                  <motion.div 
+                    className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-60 backdrop-blur-sm z-10`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: transitioning ? 0 : 0.6 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.8 }}
+                  />
+                </AnimatePresence>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-20" />
+                <motion.img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-[500px] object-cover"
+                  initial={{ scale: 1 }}
+                  animate={{ 
+                    scale: 1.1,
+                    filter: transitioning ? "blur(4px)" : "blur(0px)" 
+                  }}
+                  transition={{ 
+                    scale: { duration: 20, repeat: Infinity, repeatType: "reverse" },
+                    filter: { duration: 0.5 }
+                  }}
                 />
-              </AnimatePresence>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-20" />
-              <motion.img
-                src={item.image}
-                alt={item.title}
-                className="w-full h-[500px] object-cover"
-                initial={{ scale: 1 }}
-                animate={{ 
-                  scale: 1.1,
-                  filter: transitioning ? "blur(4px)" : "blur(0px)" 
-                }}
-                transition={{ 
-                  scale: { duration: 20, repeat: Infinity, repeatType: "reverse" },
-                  filter: { duration: 0.5 }
-                }}
-              />
-              <motion.div 
-                className="absolute bottom-8 left-8 z-30"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ 
-                  opacity: transitioning ? 0 : 1, 
-                  y: transitioning ? 20 : 0 
-                }}
-                transition={{ delay: 0.2, duration: 0.8 }}
-              >
-                <motion.h3 
-                  className="text-4xl font-bold text-white mb-2"
+                <motion.div 
+                  className="absolute bottom-8 left-8 z-30"
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.6 }}
+                  animate={{ 
+                    opacity: transitioning ? 0 : 1, 
+                    y: transitioning ? 20 : 0 
+                  }}
+                  transition={{ delay: 0.2, duration: 0.8 }}
                 >
-                  {item.title}
-                </motion.h3>
-                <motion.p 
-                  className="text-xl text-gray-200 mb-4 max-w-md"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.6, duration: 0.6 }}
-                >
-                  {item.description}
-                </motion.p>
-                <motion.div 
-                  className="h-1.5 w-32 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full"
-                  initial={{ width: 0 }}
-                  animate={{ width: "8rem" }}
-                  transition={{ delay: 0.8, duration: 0.6 }}
-                />
-              </motion.div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
+                  <motion.h3 
+                    className="text-4xl font-bold text-white mb-2"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 0.6 }}
+                  >
+                    {item.title}
+                  </motion.h3>
+                  <motion.p 
+                    className="text-xl text-gray-200 mb-4 max-w-md"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.6, duration: 0.6 }}
+                  >
+                    {item.description}
+                  </motion.p>
+                  <motion.div 
+                    className="h-1.5 w-32 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ width: "8rem" }}
+                    transition={{ delay: 0.8, duration: 0.6 }}
+                  />
+                </motion.div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

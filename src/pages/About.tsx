@@ -1,15 +1,27 @@
-
 import { useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { CheckCircle, Users, Award, Clock } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import useEmblaCarousel from 'embla-carousel-react';
 
 const About = () => {
   useEffect(() => {
     document.title = 'Sobre Nós | GV Software';
   }, []);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  
+  useEffect(() => {
+    if (emblaApi) {
+      const interval = setInterval(() => {
+        emblaApi.scrollNext();
+      }, 5000); // Change slides every 5 seconds
+      
+      return () => clearInterval(interval);
+    }
+  }, [emblaApi]);
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -73,11 +85,11 @@ const About = () => {
             transition={{ duration: 0.8 }}
             className="mb-20"
           >
-            <Carousel className="w-full max-w-5xl mx-auto" opts={{ loop: true }} autoPlay={true}>
-              <CarouselContent>
-                {[1, 2, 3, 4].map((_, index) => (
-                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                    <div className="p-2">
+            <div className="w-full max-w-5xl mx-auto">
+              <div className="overflow-hidden" ref={emblaRef}>
+                <div className="flex">
+                  {[1, 2, 3, 4].map((_, index) => (
+                    <div key={index} className="flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 p-2">
                       <motion.div 
                         className="relative aspect-video rounded-xl overflow-hidden group"
                         whileHover={{ scale: 1.05 }}
@@ -90,14 +102,20 @@ const About = () => {
                         />
                       </motion.div>
                     </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <div className="flex justify-center mt-4">
-                <CarouselPrevious className="relative inset-0 translate-x-0 translate-y-0 bg-gv-darker border-gray-700 hover:bg-indigo-600 hover:border-indigo-600 mr-2" />
-                <CarouselNext className="relative inset-0 translate-x-0 translate-y-0 bg-gv-darker border-gray-700 hover:bg-indigo-600 hover:border-indigo-600" />
+                  ))}
+                </div>
               </div>
-            </Carousel>
+              <div className="flex justify-center mt-4">
+                <CarouselPrevious 
+                  onClick={() => emblaApi?.scrollPrev()} 
+                  className="relative inset-0 translate-x-0 translate-y-0 bg-gv-darker border-gray-700 hover:bg-indigo-600 hover:border-indigo-600 mr-2" 
+                />
+                <CarouselNext 
+                  onClick={() => emblaApi?.scrollNext()} 
+                  className="relative inset-0 translate-x-0 translate-y-0 bg-gv-darker border-gray-700 hover:bg-indigo-600 hover:border-indigo-600" 
+                />
+              </div>
+            </div>
           </motion.div>
 
           <motion.div 
