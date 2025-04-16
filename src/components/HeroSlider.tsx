@@ -42,9 +42,10 @@ export const HeroSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
   
+  // Fix: Replaced 'speed' with 'duration' which is the correct property
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     loop: true,
-    speed: 15
+    duration: 15 // This is the correct property for controlling animation speed in Embla
   });
   
   // Auto-slide functionality

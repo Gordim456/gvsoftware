@@ -12,6 +12,7 @@ const Home = () => {
     document.title = 'Início | GV Software - Desenvolvimento de Software';
   }, []);
 
+  // Fix: Use 'duration' instead of non-existent 'speed' property
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 20 });
   
   // Auto-slide functionality
