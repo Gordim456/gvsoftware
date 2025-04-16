@@ -1,7 +1,8 @@
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import useEmblaCarousel from 'embla-carousel-react';
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 const sliderItems = [
   {

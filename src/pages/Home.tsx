@@ -1,11 +1,10 @@
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import { useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 
 const Home = () => {
