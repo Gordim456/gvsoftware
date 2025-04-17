@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { CheckCircle, Users, Award, Clock, ArrowRight, Shield, Code, Star, Zap, Sparkles } from 'lucide-react';
@@ -439,7 +438,8 @@ const About = () => {
       <Footer />
       
       {/* Add animation utility styles */}
-      <style jsx>{`
+      <style>
+        {`
         @keyframes blob {
           0%, 100% { transform: translate(0, 0) scale(1); }
           25% { transform: translate(20px, -20px) scale(1.1); }
@@ -455,7 +455,8 @@ const About = () => {
         .animation-delay-4000 {
           animation-delay: 4s;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 };
