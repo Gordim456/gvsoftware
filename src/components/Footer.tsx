@@ -34,7 +34,6 @@ const Footer = () => {
           variants={containerVariants}
           className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12"
         >
-          {/* Logo & About */}
           <motion.div 
             variants={itemVariants}
             className="col-span-1 md:col-span-5 space-y-4"
@@ -51,7 +50,6 @@ const Footer = () => {
             </p>
           </motion.div>
           
-          {/* Quick Links */}
           <motion.div 
             variants={itemVariants}
             className="col-span-1 md:col-span-2"
@@ -84,7 +82,6 @@ const Footer = () => {
             </ul>
           </motion.div>
           
-          {/* Services */}
           <motion.div 
             variants={itemVariants}
             className="col-span-1 md:col-span-3"
@@ -117,7 +114,6 @@ const Footer = () => {
             </ul>
           </motion.div>
           
-          {/* Contact */}
           <motion.div 
             variants={itemVariants}
             className="col-span-1 md:col-span-2"
@@ -143,11 +139,26 @@ const Footer = () => {
           </motion.div>
         </motion.div>
         
-        {/* Centered, larger copyright text */}
-        <div className="text-center mt-12">
-          <p className="text-xl text-gv-gray">
+        <div className="text-center mt-12 space-y-4">
+          <div className="h-1 w-24 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto mb-4"></div>
+          <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">
             © {currentYear} GV Software. Todos os direitos reservados.
           </p>
+          <div className="flex justify-center space-x-4 mt-4">
+            <a 
+              href="#" 
+              className="text-gv-gray hover:text-indigo-400 transition-colors duration-300 hover:scale-105"
+            >
+              Termos de Uso
+            </a>
+            <div className="w-px bg-gray-700 h-4"></div>
+            <a 
+              href="#" 
+              className="text-gv-gray hover:text-indigo-400 transition-colors duration-300 hover:scale-105"
+            >
+              Política de Privacidade
+            </a>
+          </div>
         </div>
       </div>
     </footer>
