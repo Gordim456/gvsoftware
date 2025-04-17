@@ -4,8 +4,6 @@ import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
-import Portfolio from '../components/Portfolio';
-import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import useEmblaCarousel from 'embla-carousel-react';
@@ -211,8 +209,6 @@ const Home = () => {
           </div>
         </div>
         
-        <Portfolio />
-        <Contact />
         <Footer />
       </div>
     </motion.div>

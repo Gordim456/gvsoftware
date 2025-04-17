@@ -1,10 +1,11 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
-import { Mail, Phone, Clock, Check, Instagram, Coffee, MapPin, Send, MessageSquare, User, AtSign } from 'lucide-react';
+import { Mail, Phone, Clock, Check, Instagram, Coffee, Send, MessageSquare, User, AtSign } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -198,26 +199,6 @@ const Contact = () => {
                     className="bg-indigo-500 bg-opacity-20 p-4 rounded-full group-hover:bg-indigo-500 group-hover:bg-opacity-100 transition-all duration-300"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                   >
-                    <MapPin className="w-8 h-8 text-indigo-500 group-hover:text-white transition-colors duration-300" />
-                  </motion.div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">Localização</h3>
-                    <p className="text-gv-gray">Av. Agamenon Magalhães, 1234</p>
-                    <p className="text-gv-gray">Recife, PE, Brasil</p>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div 
-                variants={fadeInUp}
-                className="bg-gv-dark p-8 rounded-xl border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 group"
-                whileHover={{ y: -5, boxShadow: "0 10px 30px -15px rgba(79, 70, 229, 0.2)" }}
-              >
-                <div className="flex gap-6 items-start">
-                  <motion.div 
-                    className="bg-indigo-500 bg-opacity-20 p-4 rounded-full group-hover:bg-indigo-500 group-hover:bg-opacity-100 transition-all duration-300"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                  >
                     <Clock className="w-8 h-8 text-indigo-500 group-hover:text-white transition-colors duration-300" />
                   </motion.div>
                   <div>
@@ -349,24 +330,6 @@ const Contact = () => {
                   </motion.form>
                 )}
               </div>
-              
-              {/* Map Embed */}
-              <motion.div 
-                className="mt-8 border border-gray-800 rounded-xl overflow-hidden hover:border-indigo-500/50 transition-all duration-300"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-              >
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63173.7483630025!2d-34.93984750418543!3d-8.047565634977052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ab196f88c446e5%3A0x3c9ef52922447fd4!2sRecife%2C%20PE!5e0!3m2!1spt-BR!2sbr!4v1708970891810!5m2!1spt-BR!2sbr" 
-                  width="100%" 
-                  height="300" 
-                  style={{ border: 0 }} 
-                  allowFullScreen={true} 
-                  loading="lazy" 
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </motion.div>
             </motion.div>
           </div>
           

@@ -1,6 +1,6 @@
 
 import { Link } from 'react-scroll';
-import { Mail, MapPin, Phone, Facebook, Instagram, Linkedin, Twitter, ChevronRight } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Footer = () => {
@@ -38,7 +38,7 @@ const Footer = () => {
           {/* Logo & About */}
           <motion.div 
             variants={itemVariants}
-            className="col-span-1 md:col-span-4 space-y-4"
+            className="col-span-1 md:col-span-5 space-y-4"
           >
             <Link to="hero" smooth={true} duration={500} className="cursor-pointer inline-block">
               <h2 className="text-2xl font-bold text-white mb-2 flex items-center">
@@ -47,23 +47,9 @@ const Footer = () => {
             </Link>
             <p className="text-gv-gray">
               Transformando ideias em soluções digitais inovadoras para o seu negócio.
+              Criamos experiências que impulsionam o sucesso dos nossos clientes através
+              da tecnologia e design de ponta.
             </p>
-            
-            {/* Social Media Icons */}
-            <div className="flex space-x-4 mt-6">
-              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 hover:bg-indigo-600 flex items-center justify-center transition-colors duration-300">
-                <Facebook size={18} className="text-white" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 hover:bg-indigo-600 flex items-center justify-center transition-colors duration-300">
-                <Instagram size={18} className="text-white" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 hover:bg-indigo-600 flex items-center justify-center transition-colors duration-300">
-                <Linkedin size={18} className="text-white" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-gray-800 hover:bg-indigo-600 flex items-center justify-center transition-colors duration-300">
-                <Twitter size={18} className="text-white" />
-              </a>
-            </div>
           </motion.div>
           
           {/* Quick Links */}
@@ -78,22 +64,22 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="transition-transform hover:translate-x-1">
                 <Link to="hero" smooth={true} duration={500} className="text-gv-gray hover:text-indigo-400 cursor-pointer flex items-center">
-                  <ChevronRight size={16} className="mr-1 text-indigo-500" /> Home
+                  Home
                 </Link>
               </li>
               <li className="transition-transform hover:translate-x-1">
                 <Link to="about" smooth={true} duration={500} className="text-gv-gray hover:text-indigo-400 cursor-pointer flex items-center">
-                  <ChevronRight size={16} className="mr-1 text-indigo-500" /> Sobre
+                  Sobre
                 </Link>
               </li>
               <li className="transition-transform hover:translate-x-1">
                 <Link to="services" smooth={true} duration={500} className="text-gv-gray hover:text-indigo-400 cursor-pointer flex items-center">
-                  <ChevronRight size={16} className="mr-1 text-indigo-500" /> Serviços
+                  Serviços
                 </Link>
               </li>
               <li className="transition-transform hover:translate-x-1">
                 <Link to="portfolio" smooth={true} duration={500} className="text-gv-gray hover:text-indigo-400 cursor-pointer flex items-center">
-                  <ChevronRight size={16} className="mr-1 text-indigo-500" /> Portfólio
+                  Portfólio
                 </Link>
               </li>
             </ul>
@@ -111,22 +97,22 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="transition-transform hover:translate-x-1">
                 <a href="#" className="text-gv-gray hover:text-indigo-400 flex items-center">
-                  <ChevronRight size={16} className="mr-1 text-indigo-500" /> Desenvolvimento Web
+                  Desenvolvimento Web
                 </a>
               </li>
               <li className="transition-transform hover:translate-x-1">
                 <a href="#" className="text-gv-gray hover:text-indigo-400 flex items-center">
-                  <ChevronRight size={16} className="mr-1 text-indigo-500" /> Aplicações Mobile
+                  Aplicações Mobile
                 </a>
               </li>
               <li className="transition-transform hover:translate-x-1">
                 <a href="#" className="text-gv-gray hover:text-indigo-400 flex items-center">
-                  <ChevronRight size={16} className="mr-1 text-indigo-500" /> UI/UX Design
+                  UI/UX Design
                 </a>
               </li>
               <li className="transition-transform hover:translate-x-1">
                 <a href="#" className="text-gv-gray hover:text-indigo-400 flex items-center">
-                  <ChevronRight size={16} className="mr-1 text-indigo-500" /> Consultoria em TI
+                  Consultoria em TI
                 </a>
               </li>
             </ul>
@@ -135,19 +121,13 @@ const Footer = () => {
           {/* Contact */}
           <motion.div 
             variants={itemVariants}
-            className="col-span-1 md:col-span-3"
+            className="col-span-1 md:col-span-2"
           >
             <h3 className="text-lg font-semibold mb-5 relative">
               <span className="gradient-text">Contato</span>
               <span className="block h-1 w-10 bg-indigo-500 mt-2"></span>
             </h3>
             <ul className="space-y-4">
-              <li>
-                <div className="flex items-start">
-                  <MapPin size={18} className="text-indigo-500 mr-3 mt-1" />
-                  <span className="text-gv-gray">Recife, PE, Brasil</span>
-                </div>
-              </li>
               <li>
                 <a href="mailto:contato@gvsoftware.tech" className="flex items-start hover:text-indigo-400 text-gv-gray transition-colors">
                   <Mail size={18} className="text-indigo-500 mr-3 mt-1" />
@@ -164,7 +144,7 @@ const Footer = () => {
           </motion.div>
         </motion.div>
         
-        {/* Bottom Bar & Copyright */}
+        {/* Bottom Bar & Copyright - restored to original style with modernized look */}
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gv-gray mb-4 md:mb-0">
