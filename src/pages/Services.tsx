@@ -1,7 +1,10 @@
-
 import { useEffect, useState, useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { Code, Layout, Database, PenTool, Settings, BarChart, Server, Shield, Cloud, Globe, Smartphone, Tv, CheckCircle, ArrowRight } from 'lucide-react';
+import { 
+  Code, Layout, Database, PenTool, Settings, BarChart, Server, 
+  Shield, Cloud, Globe, Smartphone, Tv, CheckCircle, ArrowRight,
+  Users, Clock, Award
+} from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
