@@ -1,4 +1,3 @@
-
 import { Link } from 'react-scroll';
 import { Mail, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -144,17 +143,11 @@ const Footer = () => {
           </motion.div>
         </motion.div>
         
-        {/* Bottom Bar & Copyright - restored to original style with modernized look */}
-        <div className="border-t border-gray-800 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gv-gray mb-4 md:mb-0">
-              © {currentYear} <span className="gradient-text font-medium">GV Software</span>. Todos os direitos reservados.
-            </p>
-            <div className="flex space-x-6">
-              <a href="#" className="text-gv-gray hover:text-indigo-400 text-sm transition-colors">Termos de Uso</a>
-              <a href="#" className="text-gv-gray hover:text-indigo-400 text-sm transition-colors">Política de Privacidade</a>
-            </div>
-          </div>
+        {/* Centered, larger copyright text */}
+        <div className="text-center mt-12">
+          <p className="text-xl text-gv-gray">
+            © {currentYear} GV Software. Todos os direitos reservados.
+          </p>
         </div>
       </div>
     </footer>
