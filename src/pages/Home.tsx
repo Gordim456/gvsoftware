@@ -33,22 +33,22 @@ const Home = () => {
   // Updated slides with opacity animation
   const slides = [
     {
-      image: '/project-1.jpg',
+      image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
       title: 'Desenvolvimento Web',
       description: 'Soluções modernas e responsivas para sua presença online'
     },
     {
-      image: '/project-2.jpg',
+      image: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7',
       title: 'Aplicações Mobile',
       description: 'Apps nativos para iOS e Android com experiências incríveis'
     },
     {
-      image: '/project-3.jpg',
+      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6',
       title: 'Design UI/UX',
       description: 'Interfaces intuitivas e experiências memoráveis'
     },
     {
-      image: '/project-6.jpg',
+      image: 'https://images.unsplash.com/photo-1605810230434-7631ac76ec81',
       title: 'Soluções Empresariais',
       description: 'Software personalizado para transformar seu negócio'
     }

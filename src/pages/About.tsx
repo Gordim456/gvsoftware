@@ -57,7 +57,7 @@ const About = () => {
             className="w-full h-full"
           >
             <img
-              src="/project-4.jpg"
+              src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05"
               alt="About Us"
               className="w-full h-full object-cover"
             />

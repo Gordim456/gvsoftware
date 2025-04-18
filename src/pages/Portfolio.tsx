@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Search, Filter, Code, PenTool, Layout, ChevronRight, ArrowRight } from 'lucide-react';
@@ -40,7 +39,11 @@ const Portfolio = () => {
   // Enhanced project data with multiple images per project
   const projects = [
     {
-      images: ["/project-1.jpg", "/project-4.jpg", "/project-5.jpg"],
+      images: [
+        "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+        "https://images.unsplash.com/photo-1605810230434-7631ac76ec81",
+        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
+      ],
       title: "E-commerce App",
       category: "Web App",
       description: "Plataforma de comércio eletrônico completa com sistema de pagamentos integrado.",
@@ -48,7 +51,11 @@ const Portfolio = () => {
       link: "#"
     },
     {
-      images: ["/project-2.jpg", "/project-6.jpg", "/project-3.jpg"],
+      images: [
+        "https://images.unsplash.com/photo-1518770660439-4636190af475",
+        "https://images.unsplash.com/photo-1605810230434-7631ac76ec81",
+        "https://images.unsplash.com/photo-1649972904349-6e44c42644a7"
+      ],
       title: "Sistema de Gestão",
       category: "Software",
       description: "Sistema de gestão empresarial personalizado para pequenas empresas.",
@@ -56,7 +63,11 @@ const Portfolio = () => {
       link: "#"
     },
     {
-      images: ["/project-3.jpg", "/project-1.jpg", "/project-2.jpg"],
+      images: [
+        "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+        "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
+      ],
       title: "App Móvel",
       category: "Mobile",
       description: "Aplicativo móvel para gestão de tarefas e produtividade pessoal.",
@@ -64,7 +75,11 @@ const Portfolio = () => {
       link: "#"
     },
     {
-      images: ["/project-4.jpg", "/project-5.jpg", "/project-6.jpg"],
+      images: [
+        "https://images.unsplash.com/photo-1605810230434-7631ac76ec81",
+        "https://images.unsplash.com/photo-1518770660439-4636190af475",
+        "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b"
+      ],
       title: "Dashboard Analytics",
       category: "Web App",
       description: "Painel de controle para visualização e análise de dados de negócios.",
@@ -72,7 +87,11 @@ const Portfolio = () => {
       link: "#"
     },
     {
-      images: ["/project-5.jpg", "/project-2.jpg", "/project-4.jpg"],
+      images: [
+        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
+        "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+        "https://images.unsplash.com/photo-1605810230434-7631ac76ec81"
+      ],
       title: "Blog CMS",
       category: "Web App",
       description: "Sistema de gerenciamento de conteúdo para blogs com editor rico.",
@@ -80,7 +99,11 @@ const Portfolio = () => {
       link: "#"
     },
     {
-      images: ["/project-6.jpg", "/project-3.jpg", "/project-1.jpg"],
+      images: [
+        "https://images.unsplash.com/photo-1518770660439-4636190af475",
+        "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
+      ],
       title: "Aplicativo de Delivery",
       category: "Mobile",
       description: "Aplicativo de entrega para restaurantes com rastreamento em tempo real.",
