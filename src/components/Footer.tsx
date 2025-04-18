@@ -1,14 +1,8 @@
 
 import { Link } from 'react-scroll';
-import { Mail, Phone } from 'lucide-react';
+import { Link as RouterLink } from 'react-router-dom';
+import { Mail, Phone, ExternalLink, Shield, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -153,68 +147,104 @@ const Footer = () => {
           transition={{ duration: 0.8 }}
           className="text-center mt-12 space-y-6 relative"
         >
+          {/* Enhanced footer with animated gradient elements */}
+          <motion.div 
+            className="absolute inset-0 -z-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.5 }}
+          >
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-indigo-500/10 filter blur-3xl"></div>
+            <motion.div 
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-purple-500/10 filter blur-2xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.5, 0.3]
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            ></motion.div>
+          </motion.div>
+          
           {/* Animated gradient line */}
           <div className="h-1 w-32 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto rounded-full animate-pulse"></div>
           
-          {/* Glowing effect behind copyright text */}
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-3xl"></div>
-          
-          {/* Copyright text with gradient and animation */}
-          <motion.p 
-            className="text-3xl font-bold relative"
+          {/* Copyright text with enhanced visual effects */}
+          <motion.div 
+            className="relative"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              © {currentYear} GV Software
-            </span>
-            <br />
-            <span className="text-xl text-gv-gray">
-              Todos os direitos reservados.
-            </span>
-          </motion.p>
+            <motion.div
+              className="absolute -inset-4 rounded-xl bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-xl -z-10"
+              animate={{
+                background: [
+                  "linear-gradient(90deg, rgba(99,102,241,0.2) 0%, rgba(168,85,247,0.2) 50%, rgba(236,72,153,0.2) 100%)",
+                  "linear-gradient(90deg, rgba(236,72,153,0.2) 0%, rgba(99,102,241,0.2) 50%, rgba(168,85,247,0.2) 100%)",
+                  "linear-gradient(90deg, rgba(168,85,247,0.2) 0%, rgba(236,72,153,0.2) 50%, rgba(99,102,241,0.2) 100%)"
+                ]
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            ></motion.div>
+            <h3 className="text-3xl font-bold relative">
+              <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                © {currentYear} GV Software
+              </span>
+              <br />
+              <span className="text-xl text-gv-gray">
+                Todos os direitos reservados.
+              </span>
+            </h3>
+          </motion.div>
 
-          {/* Terms and Privacy Links with Dialogs */}
+          {/* Terms and Privacy Links with Improved Styling */}
           <div className="flex justify-center space-x-8 mt-8">
-            <Dialog>
-              <DialogTrigger asChild>
-                <button className="px-6 py-2 rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10 hover:from-indigo-500/20 hover:to-purple-500/20 border border-indigo-500/20 hover:border-indigo-500/40 text-indigo-400 transition-all duration-300 hover:scale-105">
-                  Termos de Uso
-                </button>
-              </DialogTrigger>
-              <DialogContent className="bg-gv-darker border-gray-800">
-                <DialogHeader>
-                  <DialogTitle className="text-2xl font-bold gradient-text">Termos de Uso</DialogTitle>
-                </DialogHeader>
-                <div className="text-gv-gray space-y-4">
-                  <p>1. Aceitação dos Termos</p>
-                  <p>Ao acessar e usar este website, você aceita e concorda em cumprir estes termos e condições de uso.</p>
-                  <p>2. Uso do Serviço</p>
-                  <p>Nossos serviços devem ser utilizados de acordo com as leis aplicáveis e de forma ética.</p>
-                  {/* Add more terms as needed */}
+            <RouterLink to="/terms">
+              <motion.div
+                className="px-6 py-2 rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 group relative overflow-hidden"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-indigo-600/0 to-purple-600/0 group-hover:from-indigo-600/20 group-hover:to-purple-600/20 transition-all duration-300"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: 0 }}
+                  transition={{ type: "tween", ease: "easeInOut" }}
+                />
+                <div className="flex items-center gap-2 relative z-10">
+                  <FileText className="text-indigo-400 w-4 h-4 group-hover:text-indigo-300 transition-colors" />
+                  <span className="text-indigo-400 group-hover:text-indigo-300 transition-colors">Termos de Uso</span>
+                  <ExternalLink className="w-3 h-3 text-indigo-400/70 group-hover:text-indigo-300/70 transition-colors" />
                 </div>
-              </DialogContent>
-            </Dialog>
+              </motion.div>
+            </RouterLink>
 
-            <Dialog>
-              <DialogTrigger asChild>
-                <button className="px-6 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 hover:from-purple-500/20 hover:to-pink-500/20 border border-purple-500/20 hover:border-purple-500/40 text-purple-400 transition-all duration-300 hover:scale-105">
-                  Política de Privacidade
-                </button>
-              </DialogTrigger>
-              <DialogContent className="bg-gv-darker border-gray-800">
-                <DialogHeader>
-                  <DialogTitle className="text-2xl font-bold gradient-text">Política de Privacidade</DialogTitle>
-                </DialogHeader>
-                <div className="text-gv-gray space-y-4">
-                  <p>1. Coleta de Dados</p>
-                  <p>Coletamos apenas as informações necessárias para fornecer nossos serviços.</p>
-                  <p>2. Uso de Informações</p>
-                  <p>Suas informações são utilizadas apenas para melhorar nossos serviços e sua experiência.</p>
-                  {/* Add more privacy policy content as needed */}
+            <RouterLink to="/privacy">
+              <motion.div
+                className="px-6 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 group relative overflow-hidden"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-purple-600/0 to-pink-600/0 group-hover:from-purple-600/20 group-hover:to-pink-600/20 transition-all duration-300"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: 0 }}
+                  transition={{ type: "tween", ease: "easeInOut" }}
+                />
+                <div className="flex items-center gap-2 relative z-10">
+                  <Shield className="text-purple-400 w-4 h-4 group-hover:text-purple-300 transition-colors" />
+                  <span className="text-purple-400 group-hover:text-purple-300 transition-colors">Política de Privacidade</span>
+                  <ExternalLink className="w-3 h-3 text-purple-400/70 group-hover:text-purple-300/70 transition-colors" />
                 </div>
-              </DialogContent>
-            </Dialog>
+              </motion.div>
+            </RouterLink>
           </div>
         </motion.div>
       </div>

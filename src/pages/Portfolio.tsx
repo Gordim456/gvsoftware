@@ -5,72 +5,7 @@ import { ExternalLink, Search, Filter, Code, PenTool, Layout, ChevronRight, Arro
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
-
-const ProjectCard = ({ 
-  image, 
-  title, 
-  category, 
-  description, 
-  link,
-  technologies,
-  delay 
-}: { 
-  image: string, 
-  title: string, 
-  category: string, 
-  description: string, 
-  link: string,
-  technologies: string[],
-  delay: number
-}) => {
-  return (
-    <motion.div 
-      className="bg-gv-darker p-6 rounded-lg border border-gray-800 overflow-hidden group hover:border-indigo-500 transition-all duration-300"
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay }}
-      whileHover={{ y: -8, transition: { duration: 0.2 } }}
-      layout
-    >
-      <div className="relative mb-6 overflow-hidden rounded-lg group-hover:shadow-lg group-hover:shadow-indigo-500/20">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 to-purple-600/0 group-hover:from-indigo-500/30 group-hover:to-purple-600/30 transition-all duration-300 z-10"></div>
-        <img 
-          src={image} 
-          alt={title} 
-          className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110" 
-        />
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 transition-opacity duration-300">
-          <a 
-            href={link} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-full flex items-center gap-2 text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
-          >
-            Ver projeto <ExternalLink className="w-4 h-4" />
-          </a>
-        </div>
-      </div>
-      <div className="space-y-3">
-        <div className="flex justify-between items-center">
-          <span className="text-sm bg-indigo-500 bg-opacity-20 text-indigo-300 px-3 py-1 rounded-full">
-            {category}
-          </span>
-        </div>
-        <h3 className="text-xl font-semibold group-hover:text-indigo-300 transition-colors">{title}</h3>
-        <p className="text-gv-gray">{description}</p>
-        
-        {/* Technologies */}
-        <div className="flex flex-wrap gap-2 mt-4">
-          {technologies.map((tech, index) => (
-            <span key={index} className="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">
-              {tech}
-            </span>
-          ))}
-        </div>
-      </div>
-    </motion.div>
-  );
-};
+import ProjectCarousel from '@/components/ProjectCarousel';
 
 const PortfolioCategory = ({ category, isActive, onClick }: { category: string, isActive: boolean, onClick: () => void }) => {
   return (
@@ -102,9 +37,10 @@ const Portfolio = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Enhanced project data with multiple images per project
   const projects = [
     {
-      image: "/project-1.jpg",
+      images: ["/project-1.jpg", "/project-4.jpg", "/project-5.jpg"],
       title: "E-commerce App",
       category: "Web App",
       description: "Plataforma de comércio eletrônico completa com sistema de pagamentos integrado.",
@@ -112,7 +48,7 @@ const Portfolio = () => {
       link: "#"
     },
     {
-      image: "/project-2.jpg",
+      images: ["/project-2.jpg", "/project-6.jpg", "/project-3.jpg"],
       title: "Sistema de Gestão",
       category: "Software",
       description: "Sistema de gestão empresarial personalizado para pequenas empresas.",
@@ -120,7 +56,7 @@ const Portfolio = () => {
       link: "#"
     },
     {
-      image: "/project-3.jpg",
+      images: ["/project-3.jpg", "/project-1.jpg", "/project-2.jpg"],
       title: "App Móvel",
       category: "Mobile",
       description: "Aplicativo móvel para gestão de tarefas e produtividade pessoal.",
@@ -128,7 +64,7 @@ const Portfolio = () => {
       link: "#"
     },
     {
-      image: "/project-4.jpg",
+      images: ["/project-4.jpg", "/project-5.jpg", "/project-6.jpg"],
       title: "Dashboard Analytics",
       category: "Web App",
       description: "Painel de controle para visualização e análise de dados de negócios.",
@@ -136,7 +72,7 @@ const Portfolio = () => {
       link: "#"
     },
     {
-      image: "/project-5.jpg",
+      images: ["/project-5.jpg", "/project-2.jpg", "/project-4.jpg"],
       title: "Blog CMS",
       category: "Web App",
       description: "Sistema de gerenciamento de conteúdo para blogs com editor rico.",
@@ -144,7 +80,7 @@ const Portfolio = () => {
       link: "#"
     },
     {
-      image: "/project-6.jpg",
+      images: ["/project-6.jpg", "/project-3.jpg", "/project-1.jpg"],
       title: "Aplicativo de Delivery",
       category: "Mobile",
       description: "Aplicativo de entrega para restaurantes com rastreamento em tempo real.",
@@ -172,9 +108,35 @@ const Portfolio = () => {
       <Navbar />
 
       <section className="py-20 pt-28 relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob"></div>
-        <div className="absolute bottom-20 right-10 w-72 h-72 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob animation-delay-2000"></div>
+        {/* Enhanced decorative elements with animations */}
+        <motion.div 
+          className="absolute top-20 left-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5"
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 20, 0],
+            y: [0, -20, 0]
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        ></motion.div>
+        
+        <motion.div 
+          className="absolute bottom-20 right-10 w-72 h-72 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5"
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [0, -30, 0],
+            y: [0, 30, 0]
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+        ></motion.div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
@@ -232,15 +194,14 @@ const Portfolio = () => {
               layout
             >
               {filteredProjects.map((project, index) => (
-                <ProjectCard
+                <ProjectCarousel
                   key={index}
-                  image={project.image}
+                  images={project.images}
                   title={project.title}
                   category={project.category}
                   description={project.description}
                   technologies={project.technologies}
                   link={project.link}
-                  delay={index * 0.1}
                 />
               ))}
             </motion.div>
@@ -335,6 +296,7 @@ const Portfolio = () => {
             </motion.div>
           </motion.div>
           
+          {/* Enhanced methodology section with hover animations */}
           <motion.div 
             className="mt-20 bg-gv-darker p-8 rounded-xl border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 group"
             initial={{ opacity: 0, y: 50 }}
@@ -407,7 +369,7 @@ const Portfolio = () => {
             </div>
           </motion.div>
           
-          {/* CTA Section */}
+          {/* CTA Section with enhanced animations */}
           <motion.div 
             className="mt-20 text-center"
             initial={{ opacity: 0, y: 30 }}
@@ -419,12 +381,17 @@ const Portfolio = () => {
             <p className="text-gv-gray max-w-2xl mx-auto mb-8">
               Entre em contato conosco hoje mesmo para discutir como podemos transformar sua ideia em realidade.
             </p>
-            <Button 
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-6 rounded-full text-lg font-medium"
-              size="lg"
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Iniciar Projeto
-            </Button>
+              <Button 
+                className="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-6 rounded-full text-lg font-medium"
+                size="lg"
+              >
+                Iniciar Projeto
+              </Button>
+            </motion.div>
           </motion.div>
         </div>
       </section>
