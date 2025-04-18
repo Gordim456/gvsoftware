@@ -1,7 +1,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface ProjectCarouselProps {
@@ -32,10 +32,10 @@ const ProjectCarousel = ({
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  // Auto-slide functionality
+  // Auto-slide functionality with continuous sliding
   useEffect(() => {
-    // Start auto-sliding
-    intervalRef.current = window.setInterval(nextImage, 4000);
+    // Start auto-sliding immediately
+    intervalRef.current = window.setInterval(nextImage, 3000);
     
     // Cleanup on component unmount
     return () => {
@@ -45,21 +45,6 @@ const ProjectCarousel = ({
     };
   }, [images.length]);
 
-  // Pause auto-slide on hover
-  const pauseAutoSlide = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-  };
-
-  // Resume auto-slide when not hovering
-  const resumeAutoSlide = () => {
-    if (!intervalRef.current) {
-      intervalRef.current = window.setInterval(nextImage, 4000);
-    }
-  };
-
   return (
     <motion.div 
       className="bg-gv-darker p-6 rounded-lg border border-gray-800 overflow-hidden group hover:border-indigo-500 transition-all duration-300"
@@ -68,8 +53,6 @@ const ProjectCarousel = ({
       transition={{ duration: 0.6 }}
       whileHover={{ y: -8, transition: { duration: 0.2 } }}
       layout
-      onMouseEnter={pauseAutoSlide}
-      onMouseLeave={resumeAutoSlide}
     >
       <div className="relative mb-6 overflow-hidden rounded-lg h-48 group-hover:shadow-lg group-hover:shadow-indigo-500/20">
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 to-purple-600/0 group-hover:from-indigo-500/30 group-hover:to-purple-600/30 transition-all duration-300 z-10"></div>
@@ -134,18 +117,6 @@ const ProjectCarousel = ({
               }`}
             />
           ))}
-        </div>
-        
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4 transition-opacity duration-300">
-          <a 
-            href={link} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-full flex items-center gap-2 text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
-            onClick={(e) => e.stopPropagation()}
-          >
-            Ver projeto <ExternalLink className="w-4 h-4" />
-          </a>
         </div>
       </div>
       
