@@ -1,6 +1,14 @@
+
 import { Link } from 'react-scroll';
 import { Mail, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -139,27 +147,76 @@ const Footer = () => {
           </motion.div>
         </motion.div>
         
-        <div className="text-center mt-12 space-y-4">
-          <div className="h-1 w-24 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto mb-4"></div>
-          <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">
-            © {currentYear} GV Software. Todos os direitos reservados.
-          </p>
-          <div className="flex justify-center space-x-4 mt-4">
-            <a 
-              href="#" 
-              className="text-gv-gray hover:text-indigo-400 transition-colors duration-300 hover:scale-105"
-            >
-              Termos de Uso
-            </a>
-            <div className="w-px bg-gray-700 h-4"></div>
-            <a 
-              href="#" 
-              className="text-gv-gray hover:text-indigo-400 transition-colors duration-300 hover:scale-105"
-            >
-              Política de Privacidade
-            </a>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mt-12 space-y-6 relative"
+        >
+          {/* Animated gradient line */}
+          <div className="h-1 w-32 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto rounded-full animate-pulse"></div>
+          
+          {/* Glowing effect behind copyright text */}
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-3xl"></div>
+          
+          {/* Copyright text with gradient and animation */}
+          <motion.p 
+            className="text-3xl font-bold relative"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              © {currentYear} GV Software
+            </span>
+            <br />
+            <span className="text-xl text-gv-gray">
+              Todos os direitos reservados.
+            </span>
+          </motion.p>
+
+          {/* Terms and Privacy Links with Dialogs */}
+          <div className="flex justify-center space-x-8 mt-8">
+            <Dialog>
+              <DialogTrigger asChild>
+                <button className="px-6 py-2 rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10 hover:from-indigo-500/20 hover:to-purple-500/20 border border-indigo-500/20 hover:border-indigo-500/40 text-indigo-400 transition-all duration-300 hover:scale-105">
+                  Termos de Uso
+                </button>
+              </DialogTrigger>
+              <DialogContent className="bg-gv-darker border-gray-800">
+                <DialogHeader>
+                  <DialogTitle className="text-2xl font-bold gradient-text">Termos de Uso</DialogTitle>
+                </DialogHeader>
+                <div className="text-gv-gray space-y-4">
+                  <p>1. Aceitação dos Termos</p>
+                  <p>Ao acessar e usar este website, você aceita e concorda em cumprir estes termos e condições de uso.</p>
+                  <p>2. Uso do Serviço</p>
+                  <p>Nossos serviços devem ser utilizados de acordo com as leis aplicáveis e de forma ética.</p>
+                  {/* Add more terms as needed */}
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <button className="px-6 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 hover:from-purple-500/20 hover:to-pink-500/20 border border-purple-500/20 hover:border-purple-500/40 text-purple-400 transition-all duration-300 hover:scale-105">
+                  Política de Privacidade
+                </button>
+              </DialogTrigger>
+              <DialogContent className="bg-gv-darker border-gray-800">
+                <DialogHeader>
+                  <DialogTitle className="text-2xl font-bold gradient-text">Política de Privacidade</DialogTitle>
+                </DialogHeader>
+                <div className="text-gv-gray space-y-4">
+                  <p>1. Coleta de Dados</p>
+                  <p>Coletamos apenas as informações necessárias para fornecer nossos serviços.</p>
+                  <p>2. Uso de Informações</p>
+                  <p>Suas informações são utilizadas apenas para melhorar nossos serviços e sua experiência.</p>
+                  {/* Add more privacy policy content as needed */}
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );
