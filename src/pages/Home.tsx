@@ -1,3 +1,5 @@
+import React from 'react';
+import SocialIcons from '@/components/SocialIcons';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
@@ -95,6 +97,7 @@ const Home = () => {
       </div>
 
       <div className="relative z-10">
+        <SocialIcons />
         <Navbar />
         <Hero />
         <Services />
