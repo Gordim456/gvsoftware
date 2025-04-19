@@ -1,18 +1,53 @@
+
 import React from 'react';
 import SocialIcons from '@/components/SocialIcons';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Shell } from "lucide-react"
-import { Github } from "lucide-react"
-import { Link } from "lucide-react"
-import { ArrowRight } from "lucide-react"
-import { useToast } from "@/components/ui/use-toast"
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import ProjectCarousel from '../components/ProjectCarousel';
 
 const Portfolio = () => {
+  const projects = [
+    {
+      images: [
+        "/project-1.jpg",
+        "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+        "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7"
+      ],
+      title: "E-commerce App",
+      category: "Web App",
+      description: "Plataforma de comércio eletrônico completa com sistema de pagamentos integrado.",
+      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
+      link: "#"
+    },
+    {
+      images: [
+        "/project-2.jpg",
+        "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
+      ],
+      title: "Sistema de Gestão",
+      category: "Software",
+      description: "Sistema de gestão empresarial personalizado para pequenas empresas.",
+      technologies: ["Vue.js", "Python", "PostgreSQL", "Docker"],
+      link: "#"
+    },
+    {
+      images: [
+        "/project-3.jpg",
+        "https://images.unsplash.com/photo-1531297484001-80022131f5a1",
+        "https://images.unsplash.com/photo-1518770660439-4636190af475"
+      ],
+      title: "App Móvel",
+      category: "Mobile",
+      description: "Aplicativo móvel para gestão de tarefas e produtividade pessoal.",
+      technologies: ["React Native", "Firebase", "TypeScript"],
+      link: "#"
+    }
+  ];
+
   return (
     <div>
       <SocialIcons />
@@ -40,192 +75,18 @@ const Portfolio = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Project Card 1 */}
-              <motion.div
-                className="bg-gv-dark p-6 rounded-xl border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 hover-card-shadow"
-                whileHover={{ y: -5 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Nome do Projeto 1</CardTitle>
-                    <CardDescription>Descrição breve do projeto.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p>Detalhes adicionais sobre o projeto e as tecnologias utilizadas.</p>
-                  </CardContent>
-                  <CardFooter className="flex justify-between items-center">
-                    <Button variant="ghost">
-                      <Github className="mr-2 h-4 w-4" />
-                      Ver no GitHub
-                    </Button>
-                    <Button asChild>
-                      <a href="#">
-                        Visitar Site
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </a>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </motion.div>
-
-              {/* Project Card 2 */}
-              <motion.div
-                className="bg-gv-dark p-6 rounded-xl border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 hover-card-shadow"
-                whileHover={{ y: -5 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Nome do Projeto 2</CardTitle>
-                    <CardDescription>Descrição breve do projeto.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p>Detalhes adicionais sobre o projeto e as tecnologias utilizadas.</p>
-                  </CardContent>
-                  <CardFooter className="flex justify-between items-center">
-                    <Button variant="ghost">
-                      <Github className="mr-2 h-4 w-4" />
-                      Ver no GitHub
-                    </Button>
-                    <Button asChild>
-                      <a href="#">
-                        Visitar Site
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </a>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </motion.div>
-
-              {/* Project Card 3 */}
-              <motion.div
-                className="bg-gv-dark p-6 rounded-xl border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 hover-card-shadow"
-                whileHover={{ y: -5 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Nome do Projeto 3</CardTitle>
-                    <CardDescription>Descrição breve do projeto.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p>Detalhes adicionais sobre o projeto e as tecnologias utilizadas.</p>
-                  </CardContent>
-                  <CardFooter className="flex justify-between items-center">
-                    <Button variant="ghost">
-                      <Github className="mr-2 h-4 w-4" />
-                      Ver no GitHub
-                    </Button>
-                    <Button asChild>
-                      <a href="#">
-                        Visitar Site
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </a>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </motion.div>
-
-              {/* Project Card 4 */}
-              <motion.div
-                className="bg-gv-dark p-6 rounded-xl border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 hover-card-shadow"
-                whileHover={{ y: -5 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-              >
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Nome do Projeto 4</CardTitle>
-                    <CardDescription>Descrição breve do projeto.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p>Detalhes adicionais sobre o projeto e as tecnologias utilizadas.</p>
-                  </CardContent>
-                  <CardFooter className="flex justify-between items-center">
-                    <Button variant="ghost">
-                      <Github className="mr-2 h-4 w-4" />
-                      Ver no GitHub
-                    </Button>
-                    <Button asChild>
-                      <a href="#">
-                        Visitar Site
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </a>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </motion.div>
-
-              {/* Project Card 5 */}
-              <motion.div
-                className="bg-gv-dark p-6 rounded-xl border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 hover-card-shadow"
-                whileHover={{ y: -5 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.8 }}
-              >
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Nome do Projeto 5</CardTitle>
-                    <CardDescription>Descrição breve do projeto.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p>Detalhes adicionais sobre o projeto e as tecnologias utilizadas.</p>
-                  </CardContent>
-                  <CardFooter className="flex justify-between items-center">
-                    <Button variant="ghost">
-                      <Github className="mr-2 h-4 w-4" />
-                      Ver no GitHub
-                    </Button>
-                    <Button asChild>
-                      <a href="#">
-                        Visitar Site
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </a>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </motion.div>
-
-              {/* Project Card 6 */}
-              <motion.div
-                className="bg-gv-dark p-6 rounded-xl border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 hover-card-shadow"
-                whileHover={{ y: -5 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1.0 }}
-              >
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Nome do Projeto 6</CardTitle>
-                    <CardDescription>Descrição breve do projeto.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p>Detalhes adicionais sobre o projeto e as tecnologias utilizadas.</p>
-                  </CardContent>
-                  <CardFooter className="flex justify-between items-center">
-                    <Button variant="ghost">
-                      <Github className="mr-2 h-4 w-4" />
-                      Ver no GitHub
-                    </Button>
-                    <Button asChild>
-                      <a href="#">
-                        Visitar Site
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </a>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </motion.div>
+            <div className="grid grid-cols-1 gap-8">
+              {projects.map((project, index) => (
+                <ProjectCarousel
+                  key={index}
+                  images={project.images}
+                  title={project.title}
+                  category={project.category}
+                  description={project.description}
+                  technologies={project.technologies}
+                  link={project.link}
+                />
+              ))}
             </div>
           </div>
         </section>

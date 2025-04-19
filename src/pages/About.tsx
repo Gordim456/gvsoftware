@@ -1,3 +1,4 @@
+
 import React from 'react';
 import SocialIcons from '@/components/SocialIcons';
 import { useState, useEffect } from 'react';
@@ -109,85 +110,6 @@ const About = () => {
               </p>
             </motion.div>
           </div>
-
-          {/* Our Team Section */}
-          <motion.div
-            className="mt-24"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold mb-4">
-                Nosso <span className="gradient-text">Time</span>
-              </h3>
-              <p className="text-gv-gray max-w-2xl mx-auto">
-                Conheça os profissionais que tornam a GV Software uma referência em desenvolvimento de software.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <motion.div
-                className="bg-gv-dark p-6 rounded-xl border border-gray-800 hover:border-indigo-500/50 transition-all duration-300"
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Team Member"
-                  className="w-24 h-24 rounded-full mx-auto mb-4"
-                />
-                <h4 className="text-xl font-semibold mb-2 text-center">João Silva</h4>
-                <p className="text-gv-gray text-center">
-                  Desenvolvedor Full-Stack
-                </p>
-              </motion.div>
-
-              <motion.div
-                className="bg-gv-dark p-6 rounded-xl border border-gray-800 hover:border-indigo-500/50 transition-all duration-300"
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-              >
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Team Member"
-                  className="w-24 h-24 rounded-full mx-auto mb-4"
-                />
-                <h4 className="text-xl font-semibold mb-2 text-center">Maria Oliveira</h4>
-                <p className="text-gv-gray text-center">
-                  Designer de UI/UX
-                </p>
-              </motion.div>
-
-              <motion.div
-                className="bg-gv-dark p-6 rounded-xl border border-gray-800 hover:border-indigo-500/50 transition-all duration-300"
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-              >
-                <img
-                  src="https://via.placeholder.com/150"
-                  alt="Team Member"
-                  className="w-24 h-24 rounded-full mx-auto mb-4"
-                />
-                <h4 className="text-xl font-semibold mb-2 text-center">Carlos Pereira</h4>
-                <p className="text-gv-gray text-center">
-                  Gerente de Projetos
-                </p>
-              </motion.div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
