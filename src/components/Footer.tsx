@@ -1,7 +1,7 @@
 
-import { Link } from 'react-scroll';
 import { Link as RouterLink } from 'react-router-dom';
-import { Mail, Phone, ExternalLink, Shield, FileText } from 'lucide-react';
+import { Link } from 'react-scroll';
+import { Mail, Phone, ExternalLink, Shield, FileText, HelpCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Footer = () => {
@@ -80,6 +80,11 @@ const Footer = () => {
                 <Link to="portfolio" smooth={true} duration={500} className="text-gv-gray hover:text-indigo-400 cursor-pointer flex items-center">
                   Portfólio
                 </Link>
+              </li>
+              <li className="transition-transform hover:translate-x-1">
+                <RouterLink to="/faq" className="text-gv-gray hover:text-indigo-400 cursor-pointer flex items-center">
+                  <HelpCircle className="w-4 h-4 mr-1 text-indigo-500" /> FAQ
+                </RouterLink>
               </li>
             </ul>
           </motion.div>

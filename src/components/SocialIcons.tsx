@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, Coffee } from 'lucide-react';
+import { Instagram, TrendingUp } from 'lucide-react';
 
 const SocialIcons = () => {
   return (
@@ -29,7 +29,7 @@ const SocialIcons = () => {
         whileHover={{ scale: 1.1, rotate: 5 }}
         whileTap={{ scale: 0.9 }}
       >
-        <Coffee className="w-6 h-6 text-white" />
+        <TrendingUp className="w-6 h-6 text-white" />
       </motion.a>
     </motion.div>
   );

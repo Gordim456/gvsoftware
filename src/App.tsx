@@ -14,6 +14,7 @@ import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
 import ChatBot from "./components/chat/ChatBot";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
+import FAQ from "./pages/FAQ";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/faq" element={<FAQ />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <ChatBot />

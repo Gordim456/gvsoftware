@@ -5,24 +5,38 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { MapPin, Mail, Phone } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
+
+// Define the form schema with validation rules
+const formSchema = z.object({
+  name: z.string().min(2, { message: "Nome deve ter pelo menos 2 caracteres" }).max(50),
+  email: z.string().email({ message: "Email inválido" }),
+  subject: z.string().min(3, { message: "Assunto deve ter pelo menos 3 caracteres" }).max(100),
+  message: z.string().min(10, { message: "Mensagem deve ter pelo menos 10 caracteres" }).max(1000)
+});
+
+// Type for our form values
+type FormValues = z.infer<typeof formSchema>;
 
 const Contact = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  // Initialize the form with react-hook-form and zod validation
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      subject: '',
+      message: ''
+    }
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit = (data: FormValues) => {
     setIsSubmitting(true);
     
     // Simulate form submission
@@ -32,12 +46,7 @@ const Contact = () => {
         title: "Mensagem enviada",
         description: "Entraremos em contato em breve!",
       });
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
+      form.reset();
     }, 1500);
   };
 
@@ -55,8 +64,8 @@ const Contact = () => {
           <div className="col-span-1 space-y-8">
             <div className="bg-gv-dark p-6 rounded-lg border border-gray-800">
               <div className="flex gap-4 items-start">
-                <div className="bg-gv-primary bg-opacity-20 p-3 rounded-md">
-                  <MapPin className="w-6 h-6 text-gv-primary" />
+                <div className="bg-indigo-500 bg-opacity-20 p-3 rounded-md">
+                  <MapPin className="w-6 h-6 text-indigo-400" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Localização</h3>
@@ -67,8 +76,8 @@ const Contact = () => {
             
             <div className="bg-gv-dark p-6 rounded-lg border border-gray-800">
               <div className="flex gap-4 items-start">
-                <div className="bg-gv-primary bg-opacity-20 p-3 rounded-md">
-                  <Mail className="w-6 h-6 text-gv-primary" />
+                <div className="bg-indigo-500 bg-opacity-20 p-3 rounded-md">
+                  <Mail className="w-6 h-6 text-indigo-400" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Email</h3>
@@ -79,8 +88,8 @@ const Contact = () => {
             
             <div className="bg-gv-dark p-6 rounded-lg border border-gray-800">
               <div className="flex gap-4 items-start">
-                <div className="bg-gv-primary bg-opacity-20 p-3 rounded-md">
-                  <Phone className="w-6 h-6 text-gv-primary" />
+                <div className="bg-indigo-500 bg-opacity-20 p-3 rounded-md">
+                  <Phone className="w-6 h-6 text-indigo-400" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Telefone</h3>
@@ -91,70 +100,97 @@ const Contact = () => {
           </div>
           
           <div className="col-span-1 lg:col-span-2">
-            <form onSubmit={handleSubmit} className="bg-gv-dark p-8 rounded-lg border border-gray-800">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <label htmlFor="name" className="block mb-2 text-sm">Nome</label>
-                  <Input
-                    id="name"
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="bg-gv-dark p-8 rounded-lg border border-gray-800">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <FormField
+                    control={form.control}
                     name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Seu nome"
-                    required
-                    className="w-full border border-gray-700 bg-gv-darker focus:ring-gv-primary focus:border-gv-primary"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nome</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Seu nome"
+                            className="w-full border border-gray-700 bg-gv-darker focus:ring-indigo-400 focus:border-indigo-400"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-500" />
+                      </FormItem>
+                    )}
                   />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block mb-2 text-sm">Email</label>
-                  <Input
-                    id="email"
+                  
+                  <FormField
+                    control={form.control}
                     name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="seu@email.com"
-                    required
-                    className="w-full border border-gray-700 bg-gv-darker focus:ring-gv-primary focus:border-gv-primary"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="seu@email.com"
+                            type="email"
+                            className="w-full border border-gray-700 bg-gv-darker focus:ring-indigo-400 focus:border-indigo-400"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-500" />
+                      </FormItem>
+                    )}
                   />
                 </div>
-              </div>
-              
-              <div className="mb-6">
-                <label htmlFor="subject" className="block mb-2 text-sm">Assunto</label>
-                <Input
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  placeholder="Como podemos ajudar?"
-                  required
-                  className="w-full border border-gray-700 bg-gv-darker focus:ring-gv-primary focus:border-gv-primary"
-                />
-              </div>
-              
-              <div className="mb-6">
-                <label htmlFor="message" className="block mb-2 text-sm">Mensagem</label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={5}
-                  placeholder="Descreva sua necessidade em detalhes..."
-                  required
-                  className="w-full border border-gray-700 bg-gv-darker focus:ring-gv-primary focus:border-gv-primary"
-                />
-              </div>
-              
-              <Button 
-                type="submit" 
-                className="w-full bg-gv-primary hover:bg-indigo-600 text-white py-3"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
-              </Button>
-            </form>
+                
+                <div className="mb-6">
+                  <FormField
+                    control={form.control}
+                    name="subject"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Assunto</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Como podemos ajudar?"
+                            className="w-full border border-gray-700 bg-gv-darker focus:ring-indigo-400 focus:border-indigo-400"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-500" />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                
+                <div className="mb-6">
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Mensagem</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            rows={5}
+                            placeholder="Descreva sua necessidade em detalhes..."
+                            className="w-full border border-gray-700 bg-gv-darker focus:ring-indigo-400 focus:border-indigo-400"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-500" />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                
+                <Button 
+                  type="submit" 
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
+                </Button>
+              </form>
+            </Form>
           </div>
         </div>
       </div>

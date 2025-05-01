@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
-import { Mail, Phone, Clock, Check, Instagram, Coffee, Send, MessageSquare, User, AtSign } from 'lucide-react';
+import { Mail, Phone, Clock, Check, Instagram, TrendingUp, Send, MessageSquare, User, AtSign } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -110,7 +110,7 @@ const Contact = () => {
           whileHover={{ scale: 1.1, rotate: 5 }}
           whileTap={{ scale: 0.9 }}
         >
-          <Coffee className="w-6 h-6 text-white" />
+          <TrendingUp className="w-6 h-6 text-white" />
         </motion.a>
       </motion.div>
 
