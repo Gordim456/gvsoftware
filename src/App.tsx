@@ -14,7 +14,6 @@ import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
 import ChatBot from "./components/chat/ChatBot";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
-import { ThemeToggle } from "./components/theme/ThemeToggle";
 
 const queryClient = new QueryClient();
 
@@ -36,7 +35,6 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
           <ChatBot />
-          <ThemeToggle />
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>
