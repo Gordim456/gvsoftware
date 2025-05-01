@@ -6,6 +6,9 @@ import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Rocket, Sparkles, Award, BarChart, Users, Heart, Clock, CheckCircle, Star } from 'lucide-react';
+import AboutHeader from '../components/about/AboutHeader';
+import AboutFeatures from '../components/about/AboutFeatures';
+import AboutImage from '../components/about/AboutImage';
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -15,47 +18,6 @@ const About = () => {
     const timer = setTimeout(() => setIsVisible(true), 300);
     return () => clearTimeout(timer);
   }, []);
-
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: 'easeInOut'
-      }
-    }
-  };
-
-  // Timeline items
-  const timeline = [
-    {
-      year: '2015',
-      title: 'Fundação da GV Software',
-      description: 'Nascemos com a missão de transformar ideias em soluções digitais excepcionais.'
-    },
-    {
-      year: '2017',
-      title: 'Expansão Nacional',
-      description: 'Expandimos nossa atuação para todo o Brasil, com clientes em mais de 10 estados.'
-    },
-    {
-      year: '2019',
-      title: 'Prêmio Inovação',
-      description: 'Reconhecidos como uma das empresas mais inovadoras do setor de tecnologia.'
-    },
-    {
-      year: '2021',
-      title: 'Internacionalização',
-      description: 'Iniciamos projetos internacionais, expandindo nossa presença global.'
-    },
-    {
-      year: '2023',
-      title: 'Prêmio Excelência',
-      description: 'Conquistamos o prêmio de excelência em desenvolvimento de software.'
-    }
-  ];
 
   // Statistics
   const stats = [
@@ -109,6 +71,36 @@ const About = () => {
               Transformando ideias em soluções digitais inovadoras desde 2015, com paixão pela excelência e compromisso com resultados.
             </p>
           </motion.div>
+        </div>
+      </section>
+
+      {/* About GV Software Section */}
+      <section id="about" className="py-20 bg-gv-darker relative overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <AboutHeader />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <AboutImage />
+            
+            <motion.div 
+              className="space-y-6"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <h3 className="text-3xl font-bold">Nossa Missão</h3>
+              <p className="text-gv-gray">
+                Ajudamos empresas a transformar suas ideias em produtos digitais de alta qualidade, 
+                entregando soluções personalizadas que impulsionam o crescimento e a inovação.
+              </p>
+              
+              <AboutFeatures />
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -248,67 +240,6 @@ const About = () => {
               </motion.div>
             ))}
           </motion.div>
-        </div>
-      </section>
-
-      {/* Timeline Section */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <motion.div
-              className="w-16 h-16 mx-auto bg-purple-500/20 rounded-full flex items-center justify-center mb-6"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
-            >
-              <Clock className="w-8 h-8 text-purple-400" />
-            </motion.div>
-            <h2 className="text-4xl font-bold mb-4">Nossa <span className="gradient-text">Jornada</span></h2>
-            <p className="text-gv-gray max-w-2xl mx-auto text-lg">
-              A trajetória que nos trouxe até aqui e continua nos impulsionando para o futuro.
-            </p>
-          </motion.div>
-
-          <div className="relative flex flex-col items-center">
-            {/* Timeline line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-indigo-500 to-purple-600 rounded-full"></div>
-            
-            {timeline.map((item, index) => (
-              <motion.div
-                key={index}
-                className={`relative flex items-center justify-between w-full mb-16 last:mb-0`}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <div className={`w-5/12 ${index % 2 === 0 ? 'text-right pr-8' : 'order-last text-left pl-8'}`}>
-                  <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
-                  <p className="text-gv-gray">{item.description}</p>
-                </div>
-                
-                <div className="z-10">
-                  <motion.div 
-                    className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold"
-                    whileHover={{ scale: 1.2 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  >
-                    {item.year.substring(2)}
-                  </motion.div>
-                </div>
-                
-                <div className={`w-5/12 ${index % 2 === 0 ? 'order-last text-left pl-8' : 'text-right pr-8'}`}>
-                  <span className="text-sm font-bold text-indigo-400">{item.year}</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 

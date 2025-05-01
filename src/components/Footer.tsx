@@ -1,7 +1,7 @@
 
 import { Link as RouterLink } from 'react-router-dom';
 import { Link } from 'react-scroll';
-import { Mail, Phone, ExternalLink, Shield, FileText, HelpCircle } from 'lucide-react';
+import { Mail, Phone, ExternalLink, Shield, FileText, HelpCircle, MessageSquare, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Footer = () => {
@@ -27,6 +27,56 @@ const Footer = () => {
       {/* Decorative Elements */}
       <div className="absolute top-0 left-1/4 w-72 h-72 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob"></div>
       <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob animation-delay-2000"></div>
+      
+      {/* FAQ Highlight Section */}
+      <div className="relative z-10 mx-auto py-12 px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 rounded-2xl overflow-hidden border border-indigo-500/20"
+        >
+          <div className="relative p-8 md:p-12">
+            {/* Background decoration */}
+            <div className="absolute top-0 left-0 w-full h-full">
+              <div className="absolute -top-24 -right-24 w-48 h-48 bg-indigo-500/20 rounded-full blur-2xl"></div>
+              <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-500/20 rounded-full blur-2xl"></div>
+            </div>
+
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="text-center md:text-left max-w-lg">
+                <motion.div 
+                  className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-500/20 mb-6"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                >
+                  <MessageSquare className="w-8 h-8 text-indigo-300" />
+                </motion.div>
+                <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                  Dúvidas Frequentes?
+                </h3>
+                <p className="text-gray-300 mb-6">
+                  Confira nossa página de perguntas frequentes com respostas para as dúvidas mais comuns sobre nossos serviços.
+                </p>
+              </div>
+              
+              <RouterLink to="/faq">
+                <motion.button 
+                  className="rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-4 text-white font-medium text-lg flex items-center gap-2 transform hover:scale-105 transition-all duration-300 group shadow-lg shadow-indigo-500/20"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  <span>Ver FAQs</span>
+                  <ChevronRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
+                </motion.button>
+              </RouterLink>
+            </div>
+          </div>
+        </motion.div>
+      </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
         <motion.div 
@@ -67,22 +117,22 @@ const Footer = () => {
                 </Link>
               </li>
               <li className="transition-transform hover:translate-x-1">
-                <Link to="about" smooth={true} duration={500} className="text-gv-gray hover:text-indigo-400 cursor-pointer flex items-center">
+                <RouterLink to="/about" className="text-gv-gray hover:text-indigo-400 flex items-center">
                   Sobre
-                </Link>
+                </RouterLink>
               </li>
               <li className="transition-transform hover:translate-x-1">
-                <Link to="services" smooth={true} duration={500} className="text-gv-gray hover:text-indigo-400 cursor-pointer flex items-center">
+                <RouterLink to="/services" className="text-gv-gray hover:text-indigo-400 flex items-center">
                   Serviços
-                </Link>
+                </RouterLink>
               </li>
               <li className="transition-transform hover:translate-x-1">
-                <Link to="portfolio" smooth={true} duration={500} className="text-gv-gray hover:text-indigo-400 cursor-pointer flex items-center">
+                <RouterLink to="/portfolio" className="text-gv-gray hover:text-indigo-400 flex items-center">
                   Portfólio
-                </Link>
+                </RouterLink>
               </li>
               <li className="transition-transform hover:translate-x-1">
-                <RouterLink to="/faq" className="text-gv-gray hover:text-indigo-400 cursor-pointer flex items-center">
+                <RouterLink to="/faq" className="text-gv-gray hover:text-indigo-400 flex items-center">
                   <HelpCircle className="w-4 h-4 mr-1 text-indigo-500" /> FAQ
                 </RouterLink>
               </li>

@@ -7,16 +7,6 @@ import { BackgroundGradient } from './BackgroundGradient';
 import { HeroSlider } from './HeroSlider';
 
 const Hero = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
@@ -154,11 +144,19 @@ const Hero = () => {
         </div>
 
         <motion.div
-          variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
         >
           <motion.div 
             variants={itemVariants}

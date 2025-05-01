@@ -7,10 +7,7 @@ import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
 import Footer from '../components/Footer';
-import About from '../components/About';
-import Portfolio from '../components/Portfolio';
 import Testimonials from '../components/Testimonials';
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import useEmblaCarousel from 'embla-carousel-react';
 
 const Home = () => {
@@ -105,8 +102,6 @@ const Home = () => {
         <Navbar />
         <Hero />
         <Services />
-        <About />
-        <Portfolio />
         <Testimonials />
         <Footer />
       </div>
