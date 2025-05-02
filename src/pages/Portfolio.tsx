@@ -1,123 +1,11 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import SocialIcons from '@/components/SocialIcons';
 import { motion } from 'framer-motion';
-import { Shell, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react"
+import { Shell, ExternalLink } from "lucide-react"
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { Button } from '@/components/ui/button';
-
-const ProjectCard = ({ 
-  images, 
-  title, 
-  category, 
-  description, 
-  technologies
-}: { 
-  images: string[], 
-  title: string, 
-  category: string, 
-  description: string,
-  technologies: string[]
-}) => {
-  const [currentImage, setCurrentImage] = useState(0);
-
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  return (
-    <motion.div 
-      className="bg-gv-darker p-6 rounded-lg border border-gray-800 overflow-hidden group hover:border-indigo-500/30"
-      whileHover={{ y: -5, boxShadow: "0 10px 30px -15px rgba(79, 70, 229, 0.2)" }}
-      transition={{ duration: 0.3 }}
-    >
-      <div className="relative mb-6 overflow-hidden rounded-md">
-        {/* Image slider */}
-        <div className="relative h-48 w-full">
-          {images.map((image, idx) => (
-            <div 
-              key={idx} 
-              className={`absolute inset-0 transition-opacity duration-300 ${currentImage === idx ? 'opacity-100' : 'opacity-0'}`}
-            >
-              <img 
-                src={image} 
-                alt={`${title} - slide ${idx + 1}`} 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-                loading="lazy"
-              />
-            </div>
-          ))}
-          
-          {/* Navigation arrows */}
-          <div className="absolute inset-0 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity">
-            <Button 
-              variant="outline" 
-              size="icon" 
-              className="h-8 w-8 rounded-full bg-black/50 border-gray-600 hover:bg-black/70"
-              onClick={(e) => {
-                e.stopPropagation();
-                prevImage();
-              }}
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <Button 
-              variant="outline" 
-              size="icon" 
-              className="h-8 w-8 rounded-full bg-black/50 border-gray-600 hover:bg-black/70"
-              onClick={(e) => {
-                e.stopPropagation();
-                nextImage();
-              }}
-            >
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-          
-          {/* Slide indicators */}
-          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1">
-            {images.map((_, idx) => (
-              <div 
-                key={idx} 
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  currentImage === idx ? "bg-white w-3" : "bg-white/50 w-1.5"
-                }`}
-              />
-            ))}
-          </div>
-          
-          {/* Overlay on hover */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-            <span className="p-4 text-sm text-white font-medium">{category}</span>
-          </div>
-        </div>
-      </div>
-      <div className="space-y-3">
-        <div className="flex justify-between items-center">
-          <span className="text-sm bg-indigo-500 bg-opacity-20 text-indigo-400 px-3 py-1 rounded-full">
-            {category}
-          </span>
-        </div>
-        <h3 className="text-xl font-semibold">{title}</h3>
-        <p className="text-gv-gray">{description}</p>
-        
-        {/* Technologies */}
-        <div className="flex flex-wrap gap-2 mt-4">
-          {technologies.map((tech, index) => (
-            <span key={index} className="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">
-              {tech}
-            </span>
-          ))}
-        </div>
-      </div>
-    </motion.div>
-  );
-};
+import ProjectCarousel from '@/components/ProjectCarousel';
 
 const Portfolio = () => {
   const projects = [
@@ -185,7 +73,8 @@ const Portfolio = () => {
       images: [
         "/project-6.jpg",
         "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
-        "https://images.unsplash.com/photo-1555421689-491a97ff2040"
+        "https://images.unsplash.com/photo-1555421689-491a97ff2040",
+        "https://images.unsplash.com/photo-1649972904349-6e44c42644a7"
       ],
       title: "CRM Personalizado",
       category: "Enterprise Solution",
@@ -261,12 +150,13 @@ const Portfolio = () => {
                   viewport={{ once: true, amount: 0.1 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <ProjectCard
+                  <ProjectCarousel
                     images={project.images}
                     title={project.title}
                     category={project.category}
                     description={project.description}
                     technologies={project.technologies}
+                    link={project.link}
                   />
                 </motion.div>
               ))}
