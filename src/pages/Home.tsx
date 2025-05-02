@@ -22,18 +22,18 @@ const Home = () => {
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 20 });
   
-  // Auto-slide functionality
+  // Auto-slide functionality with reduced interval for better performance
   useEffect(() => {
     if (emblaApi) {
       const interval = setInterval(() => {
         emblaApi.scrollNext();
-      }, 5000); // Change slides every 5 seconds
+      }, 8000); // Changed from 5000ms to 8000ms for better performance
       
       return () => clearInterval(interval);
     }
   }, [emblaApi]);
 
-  // Updated slides with opacity animation
+  // Optimized slides with reduced animations
   const slides = [
     {
       image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
@@ -77,17 +77,11 @@ const Home = () => {
                       animate={{ opacity: 1 }}
                       transition={{ duration: 1 }}
                     />
-                    <motion.img
+                    <img
                       src={slide.image}
                       alt={slide.title}
                       className="w-full h-full object-cover"
-                      initial={{ scale: 1 }}
-                      animate={{ scale: 1.1 }}
-                      transition={{ 
-                        duration: 20, 
-                        repeat: Infinity, 
-                        repeatType: "reverse" 
-                      }}
+                      loading="lazy"
                     />
                   </div>
                 </div>
