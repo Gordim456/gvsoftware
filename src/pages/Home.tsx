@@ -1,7 +1,6 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SocialIcons from '@/components/SocialIcons';
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
@@ -20,20 +19,23 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 20 });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    loop: true, 
+    duration: 30 // Slower transitions for better performance
+  });
   
-  // Auto-slide functionality with reduced interval for better performance
+  // Auto-slide with longer interval
   useEffect(() => {
     if (emblaApi) {
       const interval = setInterval(() => {
         emblaApi.scrollNext();
-      }, 8000); // Changed from 5000ms to 8000ms for better performance
+      }, 10000); // 10 seconds for better performance
       
       return () => clearInterval(interval);
     }
   }, [emblaApi]);
 
-  // Optimized slides with reduced animations
+  // Optimized slides with lazy loading
   const slides = [
     {
       image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
@@ -58,11 +60,8 @@ const Home = () => {
   ];
 
   return (
-    <motion.div 
-      className="min-h-screen"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isLoaded ? 1 : 0 }}
-      transition={{ duration: 0.5 }}
+    <div 
+      className={`min-h-screen transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
     >
       <div className="fixed inset-0 z-0">
         <div className="w-full h-screen">
@@ -71,17 +70,12 @@ const Home = () => {
               {slides.map((slide, index) => (
                 <div key={index} className="flex-[0_0_100%] h-screen min-w-0">
                   <div className="relative w-full h-full">
-                    <motion.div 
-                      className="absolute inset-0 bg-gradient-to-r from-black/90 to-indigo-900/70 z-10"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 1 }}
-                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-indigo-900/70 z-10" />
                     <img
                       src={slide.image}
                       alt={slide.title}
                       className="w-full h-full object-cover"
-                      loading="lazy"
+                      loading={index === 0 ? "eager" : "lazy"}
                     />
                   </div>
                 </div>
@@ -99,7 +93,7 @@ const Home = () => {
         <Testimonials />
         <Footer />
       </div>
-    </motion.div>
+    </div>
   );
 };
 

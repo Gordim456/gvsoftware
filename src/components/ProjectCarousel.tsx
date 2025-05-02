@@ -32,12 +32,11 @@ const ProjectCarousel = ({
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  // Auto-slide functionality with continuous sliding
+  // Longer auto-slide interval and pause on hover
   useEffect(() => {
-    // Start auto-sliding immediately
-    intervalRef.current = window.setInterval(nextImage, 3000);
+    // Use a longer interval (5s instead of 3s)
+    intervalRef.current = window.setInterval(nextImage, 5000);
     
-    // Cleanup on component unmount
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -46,36 +45,28 @@ const ProjectCarousel = ({
   }, [images.length]);
 
   return (
-    <motion.div 
+    <div 
       className="bg-gv-darker p-6 rounded-lg border border-gray-800 overflow-hidden group hover:border-indigo-500 transition-all duration-300"
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      whileHover={{ y: -8, transition: { duration: 0.2 } }}
-      layout
     >
       <div className="relative mb-6 overflow-hidden rounded-lg h-48 group-hover:shadow-lg group-hover:shadow-indigo-500/20">
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 to-purple-600/0 group-hover:from-indigo-500/30 group-hover:to-purple-600/30 transition-all duration-300 z-10"></div>
         
-        {/* Image carousel */}
+        {/* Image carousel with optimized animations */}
         <div className="relative h-full w-full">
           {images.map((image, index) => (
-            <motion.div
+            <div
               key={index}
-              className="absolute top-0 left-0 w-full h-full"
-              initial={{ opacity: 0 }}
-              animate={{ 
-                opacity: currentImageIndex === index ? 1 : 0,
-                scale: currentImageIndex === index ? 1 : 1.1
-              }}
-              transition={{ duration: 0.7 }}
+              className={`absolute top-0 left-0 w-full h-full transition-opacity duration-500 ${
+                currentImageIndex === index ? 'opacity-100' : 'opacity-0'
+              }`}
             >
               <img 
                 src={image} 
                 alt={`${title} - image ${index + 1}`}
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
-            </motion.div>
+            </div>
           ))}
         </div>
 
@@ -129,7 +120,7 @@ const ProjectCarousel = ({
         <h3 className="text-xl font-semibold group-hover:text-indigo-300 transition-colors">{title}</h3>
         <p className="text-gv-gray">{description}</p>
         
-        {/* Technologies */}
+        {/* Technologies with simplified rendering */}
         <div className="flex flex-wrap gap-2 mt-4">
           {technologies.map((tech, index) => (
             <span key={index} className="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">
@@ -138,7 +129,7 @@ const ProjectCarousel = ({
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
