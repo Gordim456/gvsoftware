@@ -1,7 +1,6 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import SocialIcons from '@/components/SocialIcons';
-import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
@@ -12,31 +11,33 @@ import useEmblaCarousel from 'embla-carousel-react';
 const Home = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Optimized loading
   useEffect(() => {
     document.title = 'Início | GV Software - Desenvolvimento de Software';
-    // Add a small delay to trigger loading animation
-    const timer = setTimeout(() => setIsLoaded(true), 300);
+    // Very small delay to ensure smooth initial render
+    const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
+  // Optimized carousel with reduced animations and improved performance
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     loop: true, 
-    duration: 30 // Slower transitions for better performance
+    duration: 45 // Much slower transitions for better performance
   });
   
-  // Auto-slide with longer interval
+  // Auto-slide with much longer interval for better performance
   useEffect(() => {
     if (emblaApi) {
       const interval = setInterval(() => {
         emblaApi.scrollNext();
-      }, 10000); // 10 seconds for better performance
+      }, 15000); // 15 seconds for much better performance
       
       return () => clearInterval(interval);
     }
   }, [emblaApi]);
 
-  // Optimized slides with lazy loading
-  const slides = [
+  // Memoized slides data to prevent unnecessary re-renders
+  const slides = React.useMemo(() => [
     {
       image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
       title: 'Desenvolvimento Web',
@@ -57,29 +58,36 @@ const Home = () => {
       title: 'Soluções Empresariais',
       description: 'Software personalizado para transformar seu negócio'
     }
-  ];
+  ], []);
+
+  // Optimized slide rendering with memoization
+  const renderSlides = useCallback(() => {
+    return slides.map((slide, index) => (
+      <div key={index} className="flex-[0_0_100%] h-screen min-w-0">
+        <div className="relative w-full h-full">
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-indigo-900/70 z-10" />
+          <img
+            src={slide.image}
+            alt={slide.title}
+            className="w-full h-full object-cover"
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
+            fetchPriority={index === 0 ? "high" : "low"}
+          />
+        </div>
+      </div>
+    ));
+  }, [slides]);
 
   return (
     <div 
-      className={`min-h-screen transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+      className={`min-h-screen transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
     >
       <div className="fixed inset-0 z-0">
         <div className="w-full h-screen">
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex h-screen">
-              {slides.map((slide, index) => (
-                <div key={index} className="flex-[0_0_100%] h-screen min-w-0">
-                  <div className="relative w-full h-full">
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-indigo-900/70 z-10" />
-                    <img
-                      src={slide.image}
-                      alt={slide.title}
-                      className="w-full h-full object-cover"
-                      loading={index === 0 ? "eager" : "lazy"}
-                    />
-                  </div>
-                </div>
-              ))}
+              {renderSlides()}
             </div>
           </div>
         </div>

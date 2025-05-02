@@ -1,6 +1,5 @@
 
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -23,6 +22,7 @@ const ProjectCarousel = ({
 }: ProjectCarouselProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const intervalRef = useRef<number | null>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
@@ -32,14 +32,34 @@ const ProjectCarousel = ({
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  // Longer auto-slide interval and pause on hover
+  // Optimized auto-slide with longer interval and cleanup
   useEffect(() => {
-    // Use a longer interval (5s instead of 3s)
-    intervalRef.current = window.setInterval(nextImage, 5000);
+    // Use a much longer interval (8s) to reduce CPU usage
+    intervalRef.current = window.setInterval(nextImage, 8000);
+    
+    const carousel = carouselRef.current;
+    
+    // Pause on hover to improve user experience
+    const pauseSlider = () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+    
+    const resumeSlider = () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      intervalRef.current = window.setInterval(nextImage, 8000);
+    };
+    
+    if (carousel) {
+      carousel.addEventListener('mouseenter', pauseSlider);
+      carousel.addEventListener('mouseleave', resumeSlider);
+    }
     
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      
+      if (carousel) {
+        carousel.removeEventListener('mouseenter', pauseSlider);
+        carousel.removeEventListener('mouseleave', resumeSlider);
       }
     };
   }, [images.length]);
@@ -47,11 +67,12 @@ const ProjectCarousel = ({
   return (
     <div 
       className="bg-gv-darker p-6 rounded-lg border border-gray-800 overflow-hidden group hover:border-indigo-500 transition-all duration-300"
+      ref={carouselRef}
     >
-      <div className="relative mb-6 overflow-hidden rounded-lg h-48 group-hover:shadow-lg group-hover:shadow-indigo-500/20">
+      <div className="relative mb-6 overflow-hidden rounded-lg h-48">
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 to-purple-600/0 group-hover:from-indigo-500/30 group-hover:to-purple-600/30 transition-all duration-300 z-10"></div>
         
-        {/* Image carousel with optimized animations */}
+        {/* Image carousel with optimized rendering */}
         <div className="relative h-full w-full">
           {images.map((image, index) => (
             <div
@@ -59,18 +80,20 @@ const ProjectCarousel = ({
               className={`absolute top-0 left-0 w-full h-full transition-opacity duration-500 ${
                 currentImageIndex === index ? 'opacity-100' : 'opacity-0'
               }`}
+              style={{ willChange: 'opacity' }}
             >
               <img 
                 src={image} 
                 alt={`${title} - image ${index + 1}`}
                 className="w-full h-full object-cover"
                 loading="lazy"
+                decoding="async"
               />
             </div>
           ))}
         </div>
 
-        {/* Navigation controls */}
+        {/* Navigation controls - optimized to prevent propagation */}
         <div className="absolute bottom-2 right-2 z-20 flex gap-2">
           <Button 
             variant="outline" 
@@ -80,6 +103,7 @@ const ProjectCarousel = ({
               e.stopPropagation();
               prevImage();
             }}
+            aria-label="Previous image"
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
@@ -91,20 +115,21 @@ const ProjectCarousel = ({
               e.stopPropagation();
               nextImage();
             }}
+            aria-label="Next image"
           >
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
         
-        {/* Progress indicators */}
+        {/* Simplified progress indicators */}
         <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-20 flex gap-1">
           {images.map((_, index) => (
             <div 
               key={index} 
-              className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${
+              className={`h-1.5 rounded-full transition-all duration-300 ${
                 currentImageIndex === index 
                   ? "bg-white w-3" 
-                  : "bg-white/50"
+                  : "bg-white/50 w-1.5"
               }`}
             />
           ))}
@@ -120,7 +145,7 @@ const ProjectCarousel = ({
         <h3 className="text-xl font-semibold group-hover:text-indigo-300 transition-colors">{title}</h3>
         <p className="text-gv-gray">{description}</p>
         
-        {/* Technologies with simplified rendering */}
+        {/* Technologies with optimized rendering */}
         <div className="flex flex-wrap gap-2 mt-4">
           {technologies.map((tech, index) => (
             <span key={index} className="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">
