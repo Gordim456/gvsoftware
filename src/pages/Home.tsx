@@ -23,7 +23,6 @@ const Home = () => {
     loop: true, 
     duration: 60, // Even slower transitions for better performance
     skipSnaps: true, // Skip position calculations between slides
-    draggable: false // Disable dragging to reduce event handling
   });
   
   // Auto-slide with longer interval and optimized animation
@@ -31,7 +30,7 @@ const Home = () => {
     if (emblaApi) {
       const interval = setInterval(() => {
         requestAnimationFrame(() => {
-          emblaApi.scrollNext({ animation: { duration: 1000 } });
+          emblaApi.scrollNext();
         });
       }, 20000); // 20 seconds for much better performance
       
