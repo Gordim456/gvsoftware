@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -23,30 +23,32 @@ const ProjectCarousel = ({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const intervalRef = useRef<number | null>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
 
-  const nextImage = () => {
+  // Optimized image navigation functions
+  const nextImage = useCallback(() => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
-  };
+  }, [images.length]);
 
-  const prevImage = () => {
+  const prevImage = useCallback(() => {
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
+  }, [images.length]);
 
-  // Optimized auto-slide with longer interval and cleanup
+  // Highly optimized auto-slide with significant performance improvements
   useEffect(() => {
-    // Use a much longer interval (8s) to reduce CPU usage
-    intervalRef.current = window.setInterval(nextImage, 8000);
+    // Use a much longer interval (12s) to drastically reduce CPU usage
+    intervalRef.current = window.setInterval(nextImage, 12000);
     
     const carousel = carouselRef.current;
     
-    // Pause on hover to improve user experience
+    // Optimized event listeners
     const pauseSlider = () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
     
     const resumeSlider = () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
-      intervalRef.current = window.setInterval(nextImage, 8000);
+      intervalRef.current = window.setInterval(nextImage, 12000);
     };
     
     if (carousel) {
@@ -62,25 +64,34 @@ const ProjectCarousel = ({
         carousel.removeEventListener('mouseleave', resumeSlider);
       }
     };
-  }, [images.length]);
+  }, [nextImage]);
+
+  // Preload images for smoother transitions
+  useEffect(() => {
+    images.forEach((src, i) => {
+      const img = new Image();
+      img.src = src;
+      imagesRef.current[i] = img;
+    });
+  }, [images]);
 
   return (
     <div 
-      className="bg-gv-darker p-6 rounded-lg border border-gray-800 overflow-hidden group hover:border-indigo-500 transition-all duration-300"
+      className="bg-gv-darker p-6 rounded-lg border border-gray-800 overflow-hidden hover:border-indigo-500 transition-colors duration-300"
       ref={carouselRef}
     >
       <div className="relative mb-6 overflow-hidden rounded-lg h-48">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 to-purple-600/0 group-hover:from-indigo-500/30 group-hover:to-purple-600/30 transition-all duration-300 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 to-purple-600/0 hover:from-indigo-500/30 hover:to-purple-600/30 transition-colors duration-300 z-10"></div>
         
-        {/* Image carousel with optimized rendering */}
+        {/* Optimized image carousel with reduced DOM updates */}
         <div className="relative h-full w-full">
           {images.map((image, index) => (
             <div
               key={index}
+              aria-hidden={currentImageIndex !== index}
               className={`absolute top-0 left-0 w-full h-full transition-opacity duration-500 ${
-                currentImageIndex === index ? 'opacity-100' : 'opacity-0'
+                currentImageIndex === index ? 'opacity-100' : 'opacity-0 pointer-events-none'
               }`}
-              style={{ willChange: 'opacity' }}
             >
               <img 
                 src={image} 
@@ -93,7 +104,7 @@ const ProjectCarousel = ({
           ))}
         </div>
 
-        {/* Navigation controls - optimized to prevent propagation */}
+        {/* Navigation controls with optimized event handling */}
         <div className="absolute bottom-2 right-2 z-20 flex gap-2">
           <Button 
             variant="outline" 
@@ -123,7 +134,7 @@ const ProjectCarousel = ({
         
         {/* Simplified progress indicators */}
         <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-20 flex gap-1">
-          {images.map((_, index) => (
+          {images.length <= 5 && images.map((_, index) => (
             <div 
               key={index} 
               className={`h-1.5 rounded-full transition-all duration-300 ${

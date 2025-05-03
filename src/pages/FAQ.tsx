@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { HelpCircle, Plus, Minus, Search } from 'lucide-react';
 import Navbar from '../components/Navbar';
@@ -21,11 +21,12 @@ const FAQ = () => {
 
   useEffect(() => {
     document.title = 'FAQ | GV Software';
-    const timer = setTimeout(() => setIsVisible(true), 300);
-    return () => clearTimeout(timer);
+    // Immediate visibility for better performance
+    setIsVisible(true);
   }, []);
 
-  const faqItems: FAQItem[] = [
+  // Memoized FAQ items
+  const faqItems: FAQItem[] = useMemo(() => [
     {
       question: "Quanto tempo leva para desenvolver um site?",
       answer: "O prazo varia de acordo com a complexidade do projeto. Websites simples podem levar de 2 a 4 semanas, enquanto projetos mais complexos podem levar de 2 a 6 meses. Durante nossa consulta inicial, podemos fornecer uma estimativa mais precisa com base nas suas necessidades específicas.",
@@ -66,33 +67,38 @@ const FAQ = () => {
       answer: "Sim, entendemos que projetos podem evoluir. Pequenas alterações geralmente são acomodadas sem custo adicional. Mudanças significativas no escopo podem exigir ajustes no orçamento e cronograma, que serão discutidos antes de qualquer implementação.",
       category: "desenvolvimento"
     }
-  ];
+  ], []);
 
-  const categories = ['all', 'desenvolvimento', 'design', 'comercial', 'suporte'];
+  // Memoized categories
+  const categories = useMemo(() => ['all', 'desenvolvimento', 'design', 'comercial', 'suporte'], []);
 
-  const filteredFAQs = faqItems.filter(item => {
-    const matchesSearch = item.question.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          item.answer.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  // Memoized filtered FAQs for better performance
+  const filteredFAQs = useMemo(() => {
+    return faqItems.filter(item => {
+      const matchesSearch = item.question.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                            item.answer.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
+      return matchesSearch && matchesCategory;
+    });
+  }, [faqItems, searchTerm, selectedCategory]);
 
   const toggleFAQ = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
+  // Optimized motion variants with reduced animation complexity
   const container = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: 0.05 // Reduced stagger time
       }
     }
   };
 
   const item = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 10 }, // Reduced movement
     show: { opacity: 1, y: 0 }
   };
 
@@ -101,28 +107,28 @@ const FAQ = () => {
       className="min-h-screen bg-gv-darker"
       initial={{ opacity: 0 }}
       animate={{ opacity: isVisible ? 1 : 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.3 }} // Shorter transition
     >
       <Navbar />
       <SocialIcons />
 
       <section className="pt-32 pb-20 relative overflow-hidden">
-        {/* Decorative Blobs */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob"></div>
-        <div className="absolute bottom-40 right-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob animation-delay-2000"></div>
+        {/* Simplified decorative elements */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5"></div>
+        <div className="absolute bottom-40 right-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5"></div>
         
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="text-center mb-16"
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }} // Reduced movement
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4 }} // Shorter transition
           >
             <motion.div
               className="w-16 h-16 mx-auto bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6"
-              initial={{ scale: 0 }}
+              initial={{ scale: 0.9 }} // Less dramatic scale
               animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }} // Gentler spring
             >
               <HelpCircle className="w-8 h-8 text-indigo-400" />
             </motion.div>
@@ -172,6 +178,7 @@ const FAQ = () => {
                   key={index}
                   variants={item}
                   className="bg-gv-dark border border-gray-800 rounded-xl overflow-hidden"
+                  style={{ willChange: 'auto' }} // Let browser optimize
                 >
                   <button
                     className="w-full px-6 py-4 text-left flex justify-between items-center"
@@ -187,9 +194,10 @@ const FAQ = () => {
                     </div>
                   </button>
                   <div 
-                    className={`px-6 transition-all duration-300 ${
-                      expandedIndex === index ? 'py-4 border-t border-gray-800' : 'max-h-0 overflow-hidden'
+                    className={`px-6 transition-all ease-in-out ${
+                      expandedIndex === index ? 'py-4 border-t border-gray-800 max-h-[500px]' : 'max-h-0 overflow-hidden'
                     }`}
+                    style={{ transitionProperty: 'max-height, padding', transitionDuration: '300ms' }}
                   >
                     <p className="text-gv-gray">{faq.answer}</p>
                   </div>
@@ -209,9 +217,9 @@ const FAQ = () => {
 
           <motion.div 
             className="mt-16 text-center"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }} // Reduced movement
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
+            transition={{ delay: 0.3, duration: 0.4 }} // Shorter transition with small delay
           >
             <p className="text-gv-gray mb-4">Ainda tem dúvidas?</p>
             <a 

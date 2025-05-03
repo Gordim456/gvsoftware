@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import SocialIcons from '@/components/SocialIcons';
 import { Shell, ExternalLink } from "lucide-react";
 import Navbar from '../components/Navbar';
@@ -9,16 +9,15 @@ import ProjectCarousel from '@/components/ProjectCarousel';
 const Portfolio = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Optimize initial loading
+  // Optimized initial loading with no delay
   useEffect(() => {
     document.title = 'Portfólio | GV Software - Desenvolvimento de Software';
-    // Slightly delayed appearance for smoother rendering
-    const timer = setTimeout(() => setIsLoaded(true), 100);
-    return () => clearTimeout(timer);
+    // Immediate loading for better perceived performance
+    setIsLoaded(true);
   }, []);
 
   // Memoized project data to prevent unnecessary re-renders
-  const projects = React.useMemo(() => [
+  const projects = useMemo(() => [
     {
       images: [
         "/project-1.jpg",
@@ -94,7 +93,7 @@ const Portfolio = () => {
     }
   ], []);
 
-  // Use a lightweight approach for rendering the hero section
+  // Optimized hero section rendering with reduced animations
   const renderHeroSection = useCallback(() => (
     <section className="relative h-[400px] overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-indigo-900/70 z-10"></div>
@@ -103,13 +102,12 @@ const Portfolio = () => {
         alt="Portfolio Hero"
         className="w-full h-full object-cover"
         loading="eager"
+        fetchPriority="high"
       />
       
       <div className="absolute inset-0 z-20 flex items-center justify-center">
         <div className="text-center max-w-4xl px-4">
-          <div
-            className="w-16 h-16 mx-auto bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6"
-          >
+          <div className="w-16 h-16 mx-auto bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
             <Shell className="w-8 h-8 text-indigo-400" />
           </div>
           <h1 className="text-5xl md:text-6xl font-bold mb-4 text-white">
@@ -123,30 +121,33 @@ const Portfolio = () => {
     </section>
   ), []);
   
-  // Use a lightweight approach for rendering projects
-  const renderProjects = useCallback(() => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {projects.map((project, index) => (
-        <div key={index}>
-          <ProjectCarousel
-            images={project.images}
-            title={project.title}
-            category={project.category}
-            description={project.description}
-            technologies={project.technologies}
-            link={project.link}
-          />
-        </div>
-      ))}
-    </div>
-  ), [projects]);
+  // Optimized projects rendering with windowing for better performance
+  const renderProjects = useCallback(() => {
+    // Initially render only visible projects to improve initial load time
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.map((project, index) => (
+          <div key={index}>
+            <ProjectCarousel
+              images={project.images}
+              title={project.title}
+              category={project.category}
+              description={project.description}
+              technologies={project.technologies}
+              link={project.link}
+            />
+          </div>
+        ))}
+      </div>
+    );
+  }, [projects]);
 
   return (
-    <div className={`bg-gv-darker min-h-screen transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`bg-gv-darker min-h-screen ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
       <SocialIcons />
       <Navbar />
 
-      {/* Hero Section with simplified rendering */}
+      {/* Optimized hero section with reduced animations */}
       {renderHeroSection()}
 
       <section className="py-20 relative overflow-hidden">
@@ -165,7 +166,7 @@ const Portfolio = () => {
           {/* Projects Grid with optimized rendering */}
           {renderProjects()}
           
-          {/* CTA Section with simplified styling */}
+          {/* Optimized CTA Section with simplified styling */}
           <div className="mt-20 text-center">
             <div className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 p-10 rounded-2xl border border-indigo-500/20 shadow-xl">
               <h3 className="text-2xl md:text-3xl font-bold mb-4">

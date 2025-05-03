@@ -11,32 +11,35 @@ import useEmblaCarousel from 'embla-carousel-react';
 const Home = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Optimized loading
+  // Optimized loading with reduced animation overhead
   useEffect(() => {
     document.title = 'Início | GV Software - Desenvolvimento de Software';
-    // Very small delay to ensure smooth initial render
-    const timer = setTimeout(() => setIsLoaded(true), 100);
-    return () => clearTimeout(timer);
+    // Immediate loading for better perceived performance
+    setIsLoaded(true);
   }, []);
 
-  // Optimized carousel with reduced animations and improved performance
+  // Highly optimized carousel with minimal animations
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     loop: true, 
-    duration: 45 // Much slower transitions for better performance
+    duration: 60, // Even slower transitions for better performance
+    skipSnaps: true, // Skip position calculations between slides
+    draggable: false // Disable dragging to reduce event handling
   });
   
-  // Auto-slide with much longer interval for better performance
+  // Auto-slide with longer interval and optimized animation
   useEffect(() => {
     if (emblaApi) {
       const interval = setInterval(() => {
-        emblaApi.scrollNext();
-      }, 15000); // 15 seconds for much better performance
+        requestAnimationFrame(() => {
+          emblaApi.scrollNext({ animation: { duration: 1000 } });
+        });
+      }, 20000); // 20 seconds for much better performance
       
       return () => clearInterval(interval);
     }
   }, [emblaApi]);
 
-  // Memoized slides data to prevent unnecessary re-renders
+  // Memoized slides data with optimized image loading
   const slides = React.useMemo(() => [
     {
       image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
@@ -60,7 +63,7 @@ const Home = () => {
     }
   ], []);
 
-  // Optimized slide rendering with memoization
+  // Highly optimized slide rendering with reduced DOM operations
   const renderSlides = useCallback(() => {
     return slides.map((slide, index) => (
       <div key={index} className="flex-[0_0_100%] h-screen min-w-0">
@@ -73,6 +76,7 @@ const Home = () => {
             loading={index === 0 ? "eager" : "lazy"}
             decoding="async"
             fetchPriority={index === 0 ? "high" : "low"}
+            style={{ willChange: 'auto' }} // Let browser optimize
           />
         </div>
       </div>
@@ -80,9 +84,7 @@ const Home = () => {
   }, [slides]);
 
   return (
-    <div 
-      className={`min-h-screen transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-    >
+    <div className={`min-h-screen ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
       <div className="fixed inset-0 z-0">
         <div className="w-full h-screen">
           <div className="overflow-hidden" ref={emblaRef}>
