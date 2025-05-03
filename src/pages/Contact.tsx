@@ -1,16 +1,17 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 import { Mail, Phone, Clock, Check, Instagram, TrendingUp, Send, MessageSquare, User, AtSign } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { submitContactForm } from '@/services/contactService';
 
 const Contact = () => {
-  const { toast } = useToast();
+  const { toast: hookToast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,6 +21,7 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [formErrors, setFormErrors] = useState<{[key: string]: string}>({});
 
   const formRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(formRef, { once: true, margin: "-100px" });
@@ -33,32 +35,87 @@ const Contact = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    // Clear the error for this field when the user starts typing
+    if (formErrors[name]) {
+      setFormErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const validateForm = () => {
+    const errors: {[key: string]: string} = {};
+    
+    if (!formData.name.trim()) {
+      errors.name = 'Nome é obrigatório';
+    } else if (formData.name.trim().length < 2) {
+      errors.name = 'Nome deve ter pelo menos 2 caracteres';
+    }
+    
+    if (!formData.email.trim()) {
+      errors.email = 'Email é obrigatório';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = 'Email inválido';
+    }
+    
+    if (!formData.subject.trim()) {
+      errors.subject = 'Assunto é obrigatório';
+    } else if (formData.subject.trim().length < 3) {
+      errors.subject = 'Assunto deve ter pelo menos 3 caracteres';
+    }
+    
+    if (!formData.message.trim()) {
+      errors.message = 'Mensagem é obrigatória';
+    } else if (formData.message.trim().length < 10) {
+      errors.message = 'Mensagem deve ter pelo menos 10 caracteres';
+    }
+    
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      toast("Por favor, corrija os erros no formulário", {
+        description: "Alguns campos precisam ser preenchidos corretamente.",
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      toast({
-        title: "Mensagem enviada",
-        description: "Entraremos em contato em breve!",
-      });
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
+    try {
+      const success = await submitContactForm(formData);
       
-      // Reset the success state after 3 seconds
-      setTimeout(() => {
-        setIsSubmitted(false);
-      }, 3000);
-    }, 1500);
+      if (success) {
+        setIsSubmitted(true);
+        hookToast({
+          title: "Mensagem enviada",
+          description: "Entraremos em contato em breve!",
+        });
+        
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+        
+        // Reset the success state after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+        }, 5000);
+      }
+    } catch (error) {
+      console.error("Error in form submission:", error);
+      hookToast({
+        title: "Erro ao enviar mensagem",
+        description: "Por favor, tente novamente mais tarde.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const fadeInUp = {
@@ -257,10 +314,10 @@ const Contact = () => {
                             value={formData.name}
                             onChange={handleChange}
                             placeholder="Seu nome"
-                            required
-                            className="pl-10 w-full border border-gray-700 bg-gv-darker focus:ring-indigo-500 focus:border-indigo-500"
+                            className={`pl-10 w-full border ${formErrors.name ? 'border-red-500' : 'border-gray-700'} bg-gv-darker focus:ring-indigo-500 focus:border-indigo-500`}
                           />
                         </div>
+                        {formErrors.name && <p className="text-red-500 text-sm mt-1">{formErrors.name}</p>}
                       </motion.div>
                       <motion.div variants={fadeInUp}>
                         <label htmlFor="email" className="block mb-2 text-sm">Email</label>
@@ -275,10 +332,10 @@ const Contact = () => {
                             value={formData.email}
                             onChange={handleChange}
                             placeholder="seu@email.com"
-                            required
-                            className="pl-10 w-full border border-gray-700 bg-gv-darker focus:ring-indigo-500 focus:border-indigo-500"
+                            className={`pl-10 w-full border ${formErrors.email ? 'border-red-500' : 'border-gray-700'} bg-gv-darker focus:ring-indigo-500 focus:border-indigo-500`}
                           />
                         </div>
+                        {formErrors.email && <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>}
                       </motion.div>
                     </div>
                     
@@ -294,10 +351,10 @@ const Contact = () => {
                           value={formData.subject}
                           onChange={handleChange}
                           placeholder="Como podemos ajudar?"
-                          required
-                          className="pl-10 w-full border border-gray-700 bg-gv-darker focus:ring-indigo-500 focus:border-indigo-500"
+                          className={`pl-10 w-full border ${formErrors.subject ? 'border-red-500' : 'border-gray-700'} bg-gv-darker focus:ring-indigo-500 focus:border-indigo-500`}
                         />
                       </div>
+                      {formErrors.subject && <p className="text-red-500 text-sm mt-1">{formErrors.subject}</p>}
                     </motion.div>
                     
                     <motion.div variants={fadeInUp}>
@@ -309,9 +366,9 @@ const Contact = () => {
                         onChange={handleChange}
                         rows={5}
                         placeholder="Descreva sua necessidade em detalhes..."
-                        required
-                        className="w-full border border-gray-700 bg-gv-darker focus:ring-indigo-500 focus:border-indigo-500"
+                        className={`w-full border ${formErrors.message ? 'border-red-500' : 'border-gray-700'} bg-gv-darker focus:ring-indigo-500 focus:border-indigo-500`}
                       />
+                      {formErrors.message && <p className="text-red-500 text-sm mt-1">{formErrors.message}</p>}
                     </motion.div>
                     
                     <motion.div variants={fadeInUp}>

@@ -16,6 +16,7 @@ import ChatBot from "./components/chat/ChatBot";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
 import FAQ from "./pages/FAQ";
 import ScrollToTop from "./components/ScrollToTop";
+import AdminMessages from "./pages/AdminMessages";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/admin/messages" element={<AdminMessages />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <ChatBot />
