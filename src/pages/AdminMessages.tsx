@@ -15,7 +15,7 @@ import {
   TableRow 
 } from "@/components/ui/table";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Trash2, Mail, AlertTriangle, Clock } from "lucide-react";
+import { Trash2, Mail, AlertTriangle, Clock, Keyboard } from "lucide-react";
 
 const AdminMessages = () => {
   const [messages, setMessages] = useState<any[]>([]);
@@ -82,6 +82,10 @@ const AdminMessages = () => {
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Admin Messages</h1>
           <p className="text-gv-gray">View and manage contact form submissions.</p>
+          <div className="mt-2 flex items-center text-sm text-gv-gray bg-gv-dark/30 p-2 rounded-md">
+            <Keyboard className="h-4 w-4 mr-2" />
+            <span>Atalho de teclado: <kbd className="px-2 py-0.5 bg-gray-700 rounded text-xs">ALT + A</kbd> para acessar esta página.</span>
+          </div>
         </div>
 
         {isLoading ? (
