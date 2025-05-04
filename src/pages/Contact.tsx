@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { BackgroundGradient } from '../components/BackgroundGradient';
-import { submitContactForm } from '../services/contactService';
+import { submitContactForm, ContactFormData } from '../services/contactService';
 import { AlertCircle, CheckCircle, Mail, Phone, MapPin } from 'lucide-react';
 import SocialIcons from '../components/SocialIcons';
 
@@ -44,7 +44,15 @@ const Contact = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
-      await submitContactForm(values);
+      // Ensuring all required fields are present as non-optional
+      const formData: ContactFormData = {
+        name: values.name,
+        email: values.email,
+        subject: values.subject,
+        message: values.message
+      };
+      
+      await submitContactForm(formData);
       setFormSubmitted(true);
       toast.success("Mensagem enviada com sucesso!", {
         description: "Entraremos em contato em breve.",
