@@ -6,8 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
-// A senha simples para acessar a área de administração
-const ADMIN_PASSWORD = "admin123";
+// A senha de administração
+const ADMIN_PASSWORD = "admingvs1530";
 
 const AdminPasswordProtection: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);

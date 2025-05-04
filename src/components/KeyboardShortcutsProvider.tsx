@@ -8,12 +8,12 @@ const KeyboardShortcutsProvider = () => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Detectar ALT + A para acessar a página de administração
-      if (event.altKey && event.key === 'a') {
+      // Detectar CTRL + SHIFT + A para acessar a página de administração
+      if (event.ctrlKey && event.shiftKey && event.key === 'A') {
         event.preventDefault();
         navigate('/admin/messages');
         toast.info("Atalho de teclado ativado", {
-          description: "ALT + A: Acessando área administrativa"
+          description: "CTRL + SHIFT + A: Acessando área administrativa"
         });
       }
     };

@@ -84,7 +84,7 @@ const AdminMessages = () => {
           <p className="text-gv-gray">View and manage contact form submissions.</p>
           <div className="mt-2 flex items-center text-sm text-gv-gray bg-gv-dark/30 p-2 rounded-md">
             <Keyboard className="h-4 w-4 mr-2" />
-            <span>Atalho de teclado: <kbd className="px-2 py-0.5 bg-gray-700 rounded text-xs">ALT + A</kbd> para acessar esta página.</span>
+            <span>Atalho de teclado: <kbd className="px-2 py-0.5 bg-gray-700 rounded text-xs">CTRL + SHIFT + A</kbd> para acessar esta página.</span>
           </div>
         </div>
 

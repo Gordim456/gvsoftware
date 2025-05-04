@@ -5,10 +5,11 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { toast } from 'sonner';
-import { Mail, Phone, Clock, Check, Instagram, TrendingUp, Send, MessageSquare, User, AtSign } from 'lucide-react';
+import { Mail, Phone, Clock, Check, MessageSquare, User, AtSign } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { submitContactForm } from '@/services/contactService';
+import SocialIcons from '../components/SocialIcons';
 
 const Contact = () => {
   const { toast: hookToast } = useToast();
@@ -142,34 +143,8 @@ const Contact = () => {
     >
       <Navbar />
       
-      {/* Fixed Social Icons */}
-      <motion.div 
-        className="fixed right-6 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-50"
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 1 }}
-      >
-        <motion.a 
-          href="https://instagram.com" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="bg-indigo-600 p-3 rounded-full hover:scale-110 hover:bg-indigo-700 transition-all"
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <Instagram className="w-6 h-6 text-white" />
-        </motion.a>
-        <motion.a 
-          href="https://tiktok.com" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="bg-indigo-600 p-3 rounded-full hover:scale-110 hover:bg-indigo-700 transition-all"
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <TrendingUp className="w-6 h-6 text-white" />
-        </motion.a>
-      </motion.div>
+      {/* Social Icons */}
+      <SocialIcons />
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative overflow-hidden">

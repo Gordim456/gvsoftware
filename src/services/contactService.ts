@@ -20,8 +20,8 @@ export const submitContactForm = async (formData: ContactFormData): Promise<bool
     //   body: JSON.stringify(formData)
     // });
     
-    // For demonstration, we'll log the data and simulate a successful submission
     console.log("Contact form data received:", formData);
+    console.log("Sending email to contato.gvsoftware@gmail.com");
     
     // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 1500));
@@ -33,7 +33,8 @@ export const submitContactForm = async (formData: ContactFormData): Promise<bool
       ...formData,
       id: Date.now(),
       date: new Date().toISOString(),
-      status: 'unread'
+      status: 'unread',
+      emailSent: 'contato.gvsoftware@gmail.com' // Record that the message was sent to this email
     });
     localStorage.setItem('contactMessages', JSON.stringify(messages));
     
