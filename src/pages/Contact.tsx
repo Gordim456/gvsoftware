@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import BackgroundGradient from '../components/BackgroundGradient';
+import { BackgroundGradient } from '../components/BackgroundGradient';
 import { submitContactForm } from '../services/contactService';
 import { AlertCircle, CheckCircle, Mail, Phone, MapPin } from 'lucide-react';
 import SocialIcons from '../components/SocialIcons';
