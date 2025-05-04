@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
-import { MapPin, Mail, Phone, CheckCircle } from 'lucide-react';
+import { MapPin, Mail, Phone, CheckCircle, SendHorizontal } from 'lucide-react';
 import { submitContactForm, ContactFormData } from '@/services/contactService';
 
 // Define o schema com regras de validação
@@ -89,7 +89,7 @@ const Contact = () => {
             <p className="text-gv-gray mb-6">
               Obrigado por entrar em contato. Responderemos o mais breve possível.
             </p>
-            <Button onClick={() => setFormSubmitted(false)} className="bg-indigo-600 hover:bg-indigo-700">
+            <Button onClick={() => setFormSubmitted(false)} className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg">
               Enviar Nova Mensagem
             </Button>
           </div>
@@ -232,10 +232,20 @@ const Contact = () => {
                 
                 <Button 
                   type="submit" 
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3"
+                  className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all duration-300"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
+                  {isSubmitting ? (
+                    <span className="flex items-center justify-center">
+                      <span className="animate-spin mr-2">●</span>
+                      Enviando...
+                    </span>
+                  ) : (
+                    <span className="flex items-center justify-center">
+                      <SendHorizontal className="w-5 h-5 mr-2" />
+                      Enviar Mensagem
+                    </span>
+                  )}
                 </Button>
               </form>
             </Form>

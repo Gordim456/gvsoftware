@@ -13,31 +13,40 @@ export interface ContactFormData {
 export const submitContactForm = async (formData: ContactFormData): Promise<boolean> => {
   try {
     // Log the information for demonstration
-    console.log("Contact form data received:", formData);
-    console.log(`Sending email with contact information to contato.gvsoftware@gmail.com`);
+    console.log("Enviando mensagem de contato:", formData);
     
-    // In a real application, you would send this to a service that handles emails
-    // For example, using a serverless function or a dedicated email service
+    // Prepare email content
+    const emailContent = `
+      Nome: ${formData.name}
+      Email: ${formData.email}
+      Assunto: ${formData.subject}
+      Mensagem: ${formData.message}
+    `;
     
-    // Simulate network delay for demonstration
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    console.log(`Enviando email para contato.gvsoftware@gmail.com com conteúdo:`, emailContent);
     
-    // Here you would use a service like EmailJS, SendGrid, or similar
-    // Example pseudo-code for email sending:
-    // await sendEmailService({
-    //   to: "contato.gvsoftware@gmail.com",
-    //   subject: `Novo contato: ${formData.subject}`,
-    //   body: `
-    //     Nome: ${formData.name}
-    //     Email: ${formData.email}
-    //     Mensagem: ${formData.message}
-    //   `
+    // Simulate network delay - in production, remove this
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    // In a real implementation, you would use an email service here
+    // For example:
+    // const response = await fetch('/api/send-email', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     to: "contato.gvsoftware@gmail.com",
+    //     subject: `Novo contato: ${formData.subject}`,
+    //     text: emailContent
+    //   })
     // });
+    
+    // For demonstration purposes, we'll return success
+    // In a real app, you'd check if the email was actually sent
     
     return true;
   } catch (error) {
-    console.error("Error submitting contact form:", error);
-    toast("Erro ao enviar mensagem", {
+    console.error("Erro ao enviar formulário de contato:", error);
+    toast.error("Erro ao enviar mensagem", {
       description: "Por favor tente novamente mais tarde.",
       duration: 5000,
     });

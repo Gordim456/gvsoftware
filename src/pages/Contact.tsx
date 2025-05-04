@@ -12,8 +12,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { BackgroundGradient } from '../components/BackgroundGradient';
 import { submitContactForm, ContactFormData } from '../services/contactService';
-import { AlertCircle, CheckCircle, Mail, Phone, MapPin } from 'lucide-react';
-import SocialIcons from '../components/SocialIcons';
+import { AlertCircle, CheckCircle, Mail, Phone, MapPin, SendHorizontal } from 'lucide-react';
 
 // Schema de validação do formulário
 const formSchema = z.object({
@@ -118,11 +117,6 @@ const Contact = () => {
                     </div>
                   </div>
                 </div>
-                
-                <div className="mt-8 pt-6 border-t border-gray-800">
-                  <h3 className="font-medium mb-4">Redes Sociais</h3>
-                  <SocialIcons />
-                </div>
               </div>
             </div>
             
@@ -218,7 +212,8 @@ const Contact = () => {
                           <Button 
                             type="submit" 
                             disabled={isSubmitting}
-                            className="px-6"
+                            className="px-8 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium rounded-md shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all duration-300"
+                            size="lg"
                           >
                             {isSubmitting ? (
                               <span className="flex items-center">
@@ -227,7 +222,7 @@ const Contact = () => {
                               </span>
                             ) : (
                               <span className="flex items-center">
-                                <Mail className="h-4 w-4 mr-2" />
+                                <SendHorizontal className="h-5 w-5 mr-2" />
                                 Enviar mensagem
                               </span>
                             )}
