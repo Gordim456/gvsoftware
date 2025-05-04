@@ -12,7 +12,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { BackgroundGradient } from '../components/BackgroundGradient';
 import { submitContactForm, ContactFormData } from '../services/contactService';
-import { AlertCircle, CheckCircle, Mail, Phone, MapPin, SendHorizontal } from 'lucide-react';
+import { AlertCircle, CheckCircle, Mail, Phone, SendHorizontal } from 'lucide-react';
 
 // Schema de validação do formulário
 const formSchema = z.object({
@@ -76,44 +76,68 @@ const Contact = () => {
       <BackgroundGradient>
         <div className="container mx-auto px-4 py-24">
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4 from-indigo-600 to-purple-600 bg-gradient-to-r bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-indigo-400 via-purple-500 to-indigo-600 bg-clip-text text-transparent">
               Entre em Contato
             </h1>
-            <p className="text-gv-gray max-w-2xl mx-auto">
-              Precisa de ajuda com seu projeto de software? Preencha o formulário abaixo e entraremos em contato o mais breve possível.
+            <p className="text-gv-gray max-w-2xl mx-auto text-lg">
+              Transformamos suas ideias em soluções digitais inovadoras. Fale conosco e descubra como podemos ajudar.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-12 gap-12">
+          <div className="grid md:grid-cols-12 gap-8 lg:gap-12">
             {/* Info Section */}
-            <div className="md:col-span-4 space-y-8">
-              <div className="bg-gv-dark border border-gray-800 rounded-xl p-8 h-full">
-                <h2 className="text-2xl font-bold mb-6 from-indigo-600 to-purple-500 bg-gradient-to-r bg-clip-text text-transparent">
+            <div className="md:col-span-5 space-y-6">
+              <div className="bg-gradient-to-br from-indigo-900/30 to-purple-900/20 backdrop-blur-sm p-8 rounded-2xl border border-indigo-500/20 shadow-xl h-full">
+                <h2 className="text-2xl md:text-3xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
                   Informações de Contato
                 </h2>
                 
-                <div className="space-y-6">
-                  <div className="flex items-start">
-                    <Mail className="h-5 w-5 text-indigo-500 mt-1 mr-3" />
+                <div className="space-y-8">
+                  <div className="flex items-start space-x-5">
+                    <div className="shrink-0">
+                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
+                        <Mail className="h-6 w-6 text-white" />
+                      </div>
+                    </div>
                     <div>
-                      <h3 className="font-medium">Email</h3>
-                      <p className="text-gv-gray">contato.gvsoftware@gmail.com</p>
+                      <h3 className="text-xl font-semibold mb-2 text-white">Email</h3>
+                      <p className="text-indigo-200">contato.gvsoftware@gmail.com</p>
+                      <a href="mailto:contato.gvsoftware@gmail.com" className="inline-block mt-3 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
+                        Enviar email →
+                      </a>
                     </div>
                   </div>
                   
-                  <div className="flex items-start">
-                    <Phone className="h-5 w-5 text-indigo-500 mt-1 mr-3" />
+                  <div className="flex items-start space-x-5">
+                    <div className="shrink-0">
+                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
+                        <Phone className="h-6 w-6 text-white" />
+                      </div>
+                    </div>
                     <div>
-                      <h3 className="font-medium">Telefone</h3>
-                      <p className="text-gv-gray">(11) 95432-1234</p>
+                      <h3 className="text-xl font-semibold mb-2 text-white">Telefone</h3>
+                      <p className="text-indigo-200">(11) 95432-1234</p>
+                      <a href="tel:+5511954321234" className="inline-block mt-3 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
+                        Ligar agora →
+                      </a>
                     </div>
                   </div>
                   
-                  <div className="flex items-start">
-                    <MapPin className="h-5 w-5 text-indigo-500 mt-1 mr-3" />
-                    <div>
-                      <h3 className="font-medium">Endereço</h3>
-                      <p className="text-gv-gray">São Paulo, SP - Brasil</p>
+                  <div className="bg-indigo-900/30 p-6 rounded-xl border border-indigo-500/30 mt-12">
+                    <h3 className="text-xl font-semibold mb-4 text-white">Horário de Atendimento</h3>
+                    <div className="space-y-2 text-indigo-200">
+                      <div className="flex justify-between">
+                        <span>Segunda - Sexta:</span>
+                        <span className="font-medium text-white">9:00 - 18:00</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Sábado:</span>
+                        <span className="font-medium text-white">10:00 - 14:00</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Domingo:</span>
+                        <span className="font-medium text-white">Fechado</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -121,24 +145,29 @@ const Contact = () => {
             </div>
             
             {/* Form Section */}
-            <div className="md:col-span-8">
-              <div className="bg-gv-dark border border-gray-800 rounded-xl p-8">
+            <div className="md:col-span-7">
+              <div className="bg-gradient-to-br from-indigo-900/30 to-purple-900/20 backdrop-blur-sm p-8 rounded-2xl border border-indigo-500/20 shadow-xl">
                 {formSubmitted ? (
                   <div className="text-center py-12">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-6">
-                      <CheckCircle className="h-8 w-8 text-green-600" />
+                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 text-white shadow-lg shadow-green-500/30 mb-6">
+                      <CheckCircle className="h-10 w-10" />
                     </div>
-                    <h2 className="text-2xl font-bold mb-3">Mensagem Enviada!</h2>
-                    <p className="text-gv-gray mb-6">
-                      Obrigado pelo contato! Responderemos o mais breve possível.
+                    <h2 className="text-2xl md:text-3xl font-bold mb-4 text-white">Mensagem Enviada!</h2>
+                    <p className="text-indigo-200 mb-8 text-lg">
+                      Agradecemos seu contato! Nossa equipe responderá o mais breve possível.
                     </p>
-                    <Button onClick={() => setFormSubmitted(false)}>
-                      Enviar outra mensagem
+                    <Button 
+                      onClick={() => setFormSubmitted(false)} 
+                      className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-600/30 px-8 py-6 text-lg font-medium rounded-xl transition-all duration-300 hover:scale-105"
+                    >
+                      Enviar nova mensagem
                     </Button>
                   </div>
                 ) : (
                   <>
-                    <h2 className="text-2xl font-bold mb-6">Envie-nos uma mensagem</h2>
+                    <h2 className="text-2xl md:text-3xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+                      Envie-nos uma mensagem
+                    </h2>
                     
                     <Form {...form}>
                       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -148,11 +177,15 @@ const Contact = () => {
                             name="name"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel>Nome</FormLabel>
+                                <FormLabel className="text-white font-medium">Nome</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Seu nome" {...field} />
+                                  <Input 
+                                    placeholder="Seu nome"
+                                    className="border-indigo-500/30 bg-indigo-900/20 backdrop-blur-sm text-white focus:ring-indigo-500 focus:border-indigo-500 h-12 rounded-xl" 
+                                    {...field} 
+                                  />
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage className="text-pink-400" />
                               </FormItem>
                             )}
                           />
@@ -162,11 +195,15 @@ const Contact = () => {
                             name="email"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel className="text-white font-medium">Email</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="seu.email@exemplo.com" {...field} />
+                                  <Input 
+                                    placeholder="seu.email@exemplo.com"
+                                    className="border-indigo-500/30 bg-indigo-900/20 backdrop-blur-sm text-white focus:ring-indigo-500 focus:border-indigo-500 h-12 rounded-xl" 
+                                    {...field} 
+                                  />
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage className="text-pink-400" />
                               </FormItem>
                             )}
                           />
@@ -177,11 +214,15 @@ const Contact = () => {
                           name="subject"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Assunto</FormLabel>
+                              <FormLabel className="text-white font-medium">Assunto</FormLabel>
                               <FormControl>
-                                <Input placeholder="Assunto da mensagem" {...field} />
+                                <Input 
+                                  placeholder="Assunto da mensagem" 
+                                  className="border-indigo-500/30 bg-indigo-900/20 backdrop-blur-sm text-white focus:ring-indigo-500 focus:border-indigo-500 h-12 rounded-xl" 
+                                  {...field} 
+                                />
                               </FormControl>
-                              <FormMessage />
+                              <FormMessage className="text-pink-400" />
                             </FormItem>
                           )}
                         />
@@ -191,28 +232,30 @@ const Contact = () => {
                           name="message"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Mensagem</FormLabel>
+                              <FormLabel className="text-white font-medium">Mensagem</FormLabel>
                               <FormControl>
                                 <Textarea 
                                   placeholder="Digite sua mensagem..." 
                                   rows={6}
+                                  className="border-indigo-500/30 bg-indigo-900/20 backdrop-blur-sm text-white focus:ring-indigo-500 focus:border-indigo-500 min-h-[150px] resize-none rounded-xl" 
                                   {...field} 
                                 />
                               </FormControl>
-                              <FormMessage />
+                              <FormMessage className="text-pink-400" />
                             </FormItem>
                           )}
                         />
                         
-                        <div className="flex items-center justify-between pt-2">
-                          <div className="text-sm text-gv-gray flex items-center">
+                        <div className="flex items-center justify-between pt-4">
+                          <div className="text-sm text-indigo-200 flex items-center">
                             <AlertCircle className="h-4 w-4 mr-1" />
                             <span>Todos os campos são obrigatórios</span>
                           </div>
+                          
                           <Button 
                             type="submit" 
                             disabled={isSubmitting}
-                            className="px-8 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium rounded-md shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all duration-300"
+                            className="px-8 py-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium text-lg rounded-xl shadow-lg shadow-indigo-600/30 transition-all duration-300 hover:scale-105"
                             size="lg"
                           >
                             {isSubmitting ? (

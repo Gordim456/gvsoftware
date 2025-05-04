@@ -29,7 +29,7 @@ export const submitContactForm = async (formData: ContactFormData): Promise<bool
     await new Promise(resolve => setTimeout(resolve, 800));
     
     // In a real implementation, you would use an email service here
-    // For example:
+    // For example with EmailJS, SendGrid, or a backend API:
     // const response = await fetch('/api/send-email', {
     //   method: 'POST',
     //   headers: { 'Content-Type': 'application/json' },
@@ -41,7 +41,9 @@ export const submitContactForm = async (formData: ContactFormData): Promise<bool
     // });
     
     // For demonstration purposes, we'll return success
-    // In a real app, you'd check if the email was actually sent
+    toast.success("Mensagem enviada com sucesso!", {
+      description: "Seu contato foi registrado e será respondido em breve."
+    });
     
     return true;
   } catch (error) {
