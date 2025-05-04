@@ -1,34 +1,29 @@
 
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
 const KeyboardShortcutsProvider = () => {
-  const navigate = useNavigate();
-
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Detectar CTRL + SHIFT + A para acessar a página de administração
-      if (event.ctrlKey && event.shiftKey && event.key === 'A') {
-        event.preventDefault();
-        navigate('/admin/messages');
-        toast.info("Atalho de teclado ativado", {
-          description: "CTRL + SHIFT + A: Acessando área administrativa"
-        });
-        console.log("Keyboard shortcut activated: CTRL + SHIFT + A");
-      }
+      // Podemos implementar atalhos úteis para o usuário aqui, como:
+      // - Ir para a página de contato
+      // - Acessar o menu principal
+      // - Ativar o modo de alto contraste
+      
+      // Mantemos o console log para debugging
+      console.log("KeyboardShortcutsProvider está ativo");
     };
 
     window.addEventListener('keydown', handleKeyDown);
 
-    // For debugging purposes
-    console.log("KeyboardShortcutsProvider mounted, keyboard listener active");
+    // Para debugging
+    console.log("KeyboardShortcutsProvider montado, listener de teclado ativo");
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      console.log("KeyboardShortcutsProvider unmounted, keyboard listener removed");
+      console.log("KeyboardShortcutsProvider desmontado, listener de teclado removido");
     };
-  }, [navigate]);
+  }, []);
 
   return null;
 };

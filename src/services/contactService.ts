@@ -12,45 +12,35 @@ export interface ContactFormData {
 // Function to submit contact form data
 export const submitContactForm = async (formData: ContactFormData): Promise<boolean> => {
   try {
-    // In a real application, you would send this data to a server
-    // For example with fetch or axios:
-    // const response = await fetch('https://api.yourbackend.com/contact', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(formData)
-    // });
-    
+    // Log the information for demonstration
     console.log("Contact form data received:", formData);
-    console.log("Sending email to contato.gvsoftware@gmail.com");
+    console.log(`Sending email with contact information to contato.gvsoftware@gmail.com`);
     
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    // In a real application, you would send this to a service that handles emails
+    // For example, using a serverless function or a dedicated email service
     
-    // Store the contact message in localStorage for demonstration
-    const storedMessages = localStorage.getItem('contactMessages');
-    const messages = storedMessages ? JSON.parse(storedMessages) : [];
-    messages.push({
-      ...formData,
-      id: Date.now(),
-      date: new Date().toISOString(),
-      status: 'unread',
-      emailSent: 'contato.gvsoftware@gmail.com' // Record that the message was sent to this email
-    });
-    localStorage.setItem('contactMessages', JSON.stringify(messages));
+    // Simulate network delay for demonstration
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Here you would use a service like EmailJS, SendGrid, or similar
+    // Example pseudo-code for email sending:
+    // await sendEmailService({
+    //   to: "contato.gvsoftware@gmail.com",
+    //   subject: `Novo contato: ${formData.subject}`,
+    //   body: `
+    //     Nome: ${formData.name}
+    //     Email: ${formData.email}
+    //     Mensagem: ${formData.message}
+    //   `
+    // });
     
     return true;
   } catch (error) {
     console.error("Error submitting contact form:", error);
-    toast("Error submitting form", {
-      description: "Please try again later.",
+    toast("Erro ao enviar mensagem", {
+      description: "Por favor tente novamente mais tarde.",
       duration: 5000,
     });
     return false;
   }
-};
-
-// Function to retrieve stored contact messages
-export const getStoredContactMessages = () => {
-  const storedMessages = localStorage.getItem('contactMessages');
-  return storedMessages ? JSON.parse(storedMessages) : [];
 };

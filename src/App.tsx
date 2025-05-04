@@ -16,9 +16,6 @@ import ChatBot from "./components/chat/ChatBot";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
 import FAQ from "./pages/FAQ";
 import ScrollToTop from "./components/ScrollToTop";
-import AdminMessages from "./pages/AdminMessages";
-import AdminPasswordProtection from "./components/AdminPasswordProtection";
-import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 
 const queryClient = new QueryClient();
 
@@ -30,7 +27,6 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
-          <KeyboardShortcutsProvider />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -40,14 +36,6 @@ const App = () => (
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/faq" element={<FAQ />} />
-            <Route 
-              path="/admin/messages" 
-              element={
-                <AdminPasswordProtection>
-                  <AdminMessages />
-                </AdminPasswordProtection>
-              } 
-            />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <ChatBot />

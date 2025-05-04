@@ -3,14 +3,15 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/components/ui/use-toast';
-import { MapPin, Mail, Phone } from 'lucide-react';
+import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
+import { MapPin, Mail, Phone, CheckCircle } from 'lucide-react';
+import { submitContactForm, ContactFormData } from '@/services/contactService';
 
-// Define the form schema with validation rules
+// Define o schema com regras de validação
 const formSchema = z.object({
   name: z.string().min(2, { message: "Nome deve ter pelo menos 2 caracteres" }).max(50),
   email: z.string().email({ message: "Email inválido" }),
@@ -18,14 +19,14 @@ const formSchema = z.object({
   message: z.string().min(10, { message: "Mensagem deve ter pelo menos 10 caracteres" }).max(1000)
 });
 
-// Type for our form values
+// Tipo para os valores do formulário
 type FormValues = z.infer<typeof formSchema>;
 
 const Contact = () => {
-  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  // Initialize the form with react-hook-form and zod validation
+  // Inicializa o formulário com validação zod
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,19 +37,66 @@ const Contact = () => {
     }
   });
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast({
-        title: "Mensagem enviada",
-        description: "Entraremos em contato em breve!",
+    try {
+      // Garante que todos os campos obrigatórios estejam presentes
+      const formData: ContactFormData = {
+        name: data.name,
+        email: data.email,
+        subject: data.subject,
+        message: data.message
+      };
+      
+      const success = await submitContactForm(formData);
+      
+      if (success) {
+        setFormSubmitted(true);
+        toast.success("Mensagem enviada", {
+          description: "Entraremos em contato em breve!",
+        });
+        form.reset();
+      }
+    } catch (error) {
+      console.error("Erro ao enviar formulário:", error);
+      toast.error("Erro ao enviar mensagem", {
+        description: "Por favor tente novamente.",
       });
-      form.reset();
-    }, 1500);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  if (formSubmitted) {
+    return (
+      <section id="contact" className="py-20 bg-gv-darker">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Entre em <span className="gradient-text">Contato</span></h2>
+            <p className="text-gv-gray max-w-2xl mx-auto">
+              Estamos prontos para atender às suas necessidades de desenvolvimento de software.
+            </p>
+          </div>
+          
+          <div className="max-w-md mx-auto text-center bg-gv-dark p-8 rounded-lg border border-gray-800">
+            <div className="mb-6">
+              <div className="mx-auto w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                <CheckCircle className="w-8 h-8" />
+              </div>
+            </div>
+            <h3 className="text-xl font-semibold mb-4">Mensagem Enviada!</h3>
+            <p className="text-gv-gray mb-6">
+              Obrigado por entrar em contato. Responderemos o mais breve possível.
+            </p>
+            <Button onClick={() => setFormSubmitted(false)} className="bg-indigo-600 hover:bg-indigo-700">
+              Enviar Nova Mensagem
+            </Button>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="contact" className="py-20 bg-gv-darker">

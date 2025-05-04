@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -27,7 +26,6 @@ const formSchema = z.object({
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const navigate = useNavigate();
 
   // useForm hook com validação zod
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,7 +42,7 @@ const Contact = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
-      // Ensuring all required fields are present as non-optional
+      // Garantindo que todos os campos obrigatórios estejam presentes
       const formData: ContactFormData = {
         name: values.name,
         email: values.email,
@@ -52,18 +50,17 @@ const Contact = () => {
         message: values.message
       };
       
-      await submitContactForm(formData);
-      setFormSubmitted(true);
-      toast.success("Mensagem enviada com sucesso!", {
-        description: "Entraremos em contato em breve.",
-      });
-      form.reset();
+      const success = await submitContactForm(formData);
+      if (success) {
+        setFormSubmitted(true);
+        toast.success("Mensagem enviada com sucesso!", {
+          description: "Entraremos em contato em breve.",
+        });
+        form.reset();
+      }
       
       // Scroll to top after submission
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      
-      // Opcional: redirecionar após alguns segundos
-      // setTimeout(() => navigate('/'), 3000);
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Erro ao enviar mensagem", {
