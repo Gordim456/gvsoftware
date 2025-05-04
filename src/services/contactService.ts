@@ -1,7 +1,7 @@
 
 import { toast } from "sonner";
 
-// Define the contact form data type
+// Define the contact form data type with all required fields
 export interface ContactFormData {
   name: string;
   email: string;
