@@ -2,36 +2,62 @@
 import { toast } from "sonner";
 import emailjs from 'emailjs-com';
 
-// Define the contact form data type with all required fields
+// Atualizando a interface com sobrenome e telefone
 export interface ContactFormData {
   name: string;
+  lastName: string;
+  phone: string;
   email: string;
   subject: string;
   message: string;
 }
 
-// Function to submit contact form data
+// Função para enviar o formulário de contato
 export const submitContactForm = async (formData: ContactFormData): Promise<boolean> => {
   try {
-    // Log the information
+    // Log das informações
     console.log("Enviando mensagem de contato:", formData);
     
-    // Initialize EmailJS with your User ID
+    // Inicializa o EmailJS com seu ID de usuário
     emailjs.init("bag3pcxnV3zHGfNTm"); 
     
-    // Prepare template parameters with proper variable names matching the EmailJS template
+    // Prepara parâmetros para o template com os nomes corretos das variáveis
     const templateParams = {
       name: formData.name,
+      lastName: formData.lastName,
+      phone: formData.phone,
       email: formData.email,
       subject: formData.subject,
       message: formData.message,
-      // Make sure these match exactly what's in your EmailJS template
-      from_name: formData.name,
+      // Parâmetros específicos para o template do EmailJS
+      from_name: `${formData.name} ${formData.lastName}`,
       reply_to: formData.email,
-      to_name: "GV Software"
+      to_name: "GV Software",
+      // Conteúdo formatado para o corpo do email
+      html_message: `
+        <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #eaeaea;">
+          <h2 style="color: #4f46e5; border-bottom: 2px solid #4f46e5; padding-bottom: 10px;">Nova Mensagem de Contato</h2>
+          
+          <div style="margin: 20px 0;">
+            <p style="margin: 10px 0;"><strong>Nome Completo:</strong> ${formData.name} ${formData.lastName}</p>
+            <p style="margin: 10px 0;"><strong>Telefone:</strong> ${formData.phone}</p>
+            <p style="margin: 10px 0;"><strong>E-mail:</strong> ${formData.email}</p>
+            <p style="margin: 10px 0;"><strong>Assunto:</strong> ${formData.subject}</p>
+          </div>
+          
+          <div style="background-color: white; padding: 15px; border-radius: 5px; border-left: 4px solid #4f46e5;">
+            <h3 style="color: #4f46e5; margin-top: 0;">Mensagem:</h3>
+            <p style="line-height: 1.6;">${formData.message.replace(/\n/g, '<br>')}</p>
+          </div>
+          
+          <div style="margin-top: 30px; font-size: 12px; color: #666; border-top: 1px solid #eaeaea; padding-top: 10px;">
+            <p>Esta mensagem foi enviada através do formulário de contato do site da GV Software.</p>
+          </div>
+        </div>
+      `
     };
     
-    // Send email using EmailJS
+    // Envia o email usando EmailJS
     const response = await emailjs.send(
       "service_wz0y9kn", 
       "template_y19vqfe", 

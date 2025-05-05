@@ -14,7 +14,9 @@ import { submitContactForm, ContactFormData } from '@/services/contactService';
 // Define o schema com regras de validação
 const formSchema = z.object({
   name: z.string().min(2, { message: "Nome deve ter pelo menos 2 caracteres" }).max(50),
+  lastName: z.string().min(2, { message: "Sobrenome deve ter pelo menos 2 caracteres" }).max(50),
   email: z.string().email({ message: "Email inválido" }),
+  phone: z.string().min(10, { message: "Telefone deve ter pelo menos 10 caracteres" }).max(15),
   subject: z.string().min(3, { message: "Assunto deve ter pelo menos 3 caracteres" }).max(100),
   message: z.string().min(10, { message: "Mensagem deve ter pelo menos 10 caracteres" }).max(1000)
 });
@@ -31,7 +33,9 @@ const Contact = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
+      lastName: '',
       email: '',
+      phone: '',
       subject: '',
       message: ''
     }
@@ -44,6 +48,8 @@ const Contact = () => {
       // Garante que todos os campos obrigatórios estejam presentes
       const formData: ContactFormData = {
         name: data.name,
+        lastName: data.lastName,
+        phone: data.phone,
         email: data.email,
         subject: data.subject,
         message: data.message
@@ -200,6 +206,26 @@ const Contact = () => {
                   
                   <FormField
                     control={form.control}
+                    name="lastName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white font-medium">Sobrenome</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Seu sobrenome"
+                            className="border-indigo-500/30 bg-indigo-900/20 backdrop-blur-sm text-white focus:ring-indigo-500 focus:border-indigo-500 h-12 rounded-xl"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-pink-400" />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  <FormField
+                    control={form.control}
                     name="email"
                     render={({ field }) => (
                       <FormItem>
@@ -208,6 +234,24 @@ const Contact = () => {
                           <Input
                             placeholder="seu@email.com"
                             type="email"
+                            className="border-indigo-500/30 bg-indigo-900/20 backdrop-blur-sm text-white focus:ring-indigo-500 focus:border-indigo-500 h-12 rounded-xl"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-pink-400" />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white font-medium">Telefone</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="(00) 00000-0000"
                             className="border-indigo-500/30 bg-indigo-900/20 backdrop-blur-sm text-white focus:ring-indigo-500 focus:border-indigo-500 h-12 rounded-xl"
                             {...field}
                           />

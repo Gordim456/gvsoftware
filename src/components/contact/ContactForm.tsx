@@ -10,9 +10,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { submitContactForm, ContactFormData } from '@/services/contactService';
 import { CheckCircle, AlertCircle, SendHorizontal } from 'lucide-react';
 
-// Schema de validação do formulário
+// Schema de validação do formulário atualizado
 const formSchema = z.object({
-  name: z.string().min(3, { message: "O nome deve ter pelo menos 3 caracteres." }),
+  name: z.string().min(2, { message: "O nome deve ter pelo menos 2 caracteres." }),
+  lastName: z.string().min(2, { message: "O sobrenome deve ter pelo menos 2 caracteres." }),
+  phone: z.string().min(10, { message: "Insira um número de telefone válido." }),
   email: z.string().email({ message: "Email inválido." }),
   subject: z.string().min(5, { message: "O assunto deve ter pelo menos 5 caracteres." }),
   message: z.string().min(10, { message: "A mensagem deve ter pelo menos 10 caracteres." }),
@@ -29,6 +31,8 @@ const ContactForm = ({ onSuccess }: ContactFormProps) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      lastName: "",
+      phone: "",
       email: "",
       subject: "",
       message: "",
@@ -40,6 +44,8 @@ const ContactForm = ({ onSuccess }: ContactFormProps) => {
     try {
       const formData: ContactFormData = {
         name: values.name,
+        lastName: values.lastName,
+        phone: values.phone,
         email: values.email,
         subject: values.subject,
         message: values.message
@@ -52,7 +58,7 @@ const ContactForm = ({ onSuccess }: ContactFormProps) => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Erro ao enviar formulário:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -82,6 +88,26 @@ const ContactForm = ({ onSuccess }: ContactFormProps) => {
           
           <FormField
             control={form.control}
+            name="lastName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-white font-medium">Sobrenome</FormLabel>
+                <FormControl>
+                  <Input 
+                    placeholder="Seu sobrenome"
+                    className="border-indigo-500/30 bg-indigo-900/20 backdrop-blur-sm text-white focus:ring-indigo-500 focus:border-indigo-500 h-12 rounded-xl" 
+                    {...field} 
+                  />
+                </FormControl>
+                <FormMessage className="text-pink-400" />
+              </FormItem>
+            )}
+          />
+        </div>
+        
+        <div className="grid md:grid-cols-2 gap-6">
+          <FormField
+            control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
@@ -89,6 +115,24 @@ const ContactForm = ({ onSuccess }: ContactFormProps) => {
                 <FormControl>
                   <Input 
                     placeholder="seu.email@exemplo.com"
+                    className="border-indigo-500/30 bg-indigo-900/20 backdrop-blur-sm text-white focus:ring-indigo-500 focus:border-indigo-500 h-12 rounded-xl" 
+                    {...field} 
+                  />
+                </FormControl>
+                <FormMessage className="text-pink-400" />
+              </FormItem>
+            )}
+          />
+          
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-white font-medium">Telefone</FormLabel>
+                <FormControl>
+                  <Input 
+                    placeholder="(00) 00000-0000"
                     className="border-indigo-500/30 bg-indigo-900/20 backdrop-blur-sm text-white focus:ring-indigo-500 focus:border-indigo-500 h-12 rounded-xl" 
                     {...field} 
                   />
