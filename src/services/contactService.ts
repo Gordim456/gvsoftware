@@ -1,5 +1,6 @@
 
 import { toast } from "sonner";
+import emailjs from 'emailjs-com';
 
 // Define the contact form data type with all required fields
 export interface ContactFormData {
@@ -12,35 +13,30 @@ export interface ContactFormData {
 // Function to submit contact form data
 export const submitContactForm = async (formData: ContactFormData): Promise<boolean> => {
   try {
-    // Log the information for demonstration
+    // Log the information
     console.log("Enviando mensagem de contato:", formData);
     
-    // Prepare email content
-    const emailContent = `
-      Nome: ${formData.name}
-      Email: ${formData.email}
-      Assunto: ${formData.subject}
-      Mensagem: ${formData.message}
-    `;
+    // Initialize EmailJS with your User ID (you'll need to sign up at emailjs.com)
+    // and create a template in your EmailJS account
+    emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS User ID
     
-    console.log(`Enviando email para contato.gvsoftware@gmail.com com conteúdo:`, emailContent);
+    // Prepare template parameters
+    const templateParams = {
+      from_name: formData.name,
+      reply_to: formData.email,
+      subject: formData.subject,
+      message: formData.message
+    };
     
-    // Simulate network delay - in production, remove this
-    await new Promise(resolve => setTimeout(resolve, 800));
+    // Send email using EmailJS
+    const response = await emailjs.send(
+      "YOUR_SERVICE_ID", // Replace with your EmailJS Service ID
+      "YOUR_TEMPLATE_ID", // Replace with your EmailJS Template ID
+      templateParams
+    );
     
-    // In a real implementation, you would use an email service here
-    // For example with EmailJS, SendGrid, or a backend API:
-    // const response = await fetch('/api/send-email', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     to: "contato.gvsoftware@gmail.com",
-    //     subject: `Novo contato: ${formData.subject}`,
-    //     text: emailContent
-    //   })
-    // });
+    console.log("Email enviado com sucesso:", response);
     
-    // For demonstration purposes, we'll return success
     toast.success("Mensagem enviada com sucesso!", {
       description: "Seu contato foi registrado e será respondido em breve."
     });

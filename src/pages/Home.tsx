@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, lazy, Suspense, useMemo } from 'react';
+import { useEffect, useState, lazy, Suspense, useMemo } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SocialIcons from '@/components/SocialIcons';
@@ -22,8 +22,8 @@ const SectionLoading = () => (
   </div>
 );
 
-// Background Slide component - optimized with useMemo
-const BackgroundSlides = () => {
+// Background Slides component - optimized with useMemo and requestAnimationFrame
+const BackgroundSlides = memo(() => {
   const slides = useMemo(() => [
     {
       image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
@@ -45,46 +45,53 @@ const BackgroundSlides = () => {
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Use requestAnimationFrame for smoother transitions
   useEffect(() => {
     let animationFrameId: number;
-    const interval = setInterval(() => {
-      animationFrameId = requestAnimationFrame(() => {
+    let lastTime = 0;
+    const interval = 5000; // 5 seconds
+    
+    const animate = (timestamp: number) => {
+      if (!lastTime) lastTime = timestamp;
+      const elapsed = timestamp - lastTime;
+      
+      if (elapsed > interval) {
         setCurrentSlide(prev => (prev + 1) % slides.length);
-      });
-    }, 5000);
-
+        lastTime = timestamp;
+      }
+      
+      animationFrameId = requestAnimationFrame(animate);
+    };
+    
+    animationFrameId = requestAnimationFrame(animate);
+    
     return () => {
-      clearInterval(interval);
       cancelAnimationFrame(animationFrameId);
     };
   }, [slides.length]);
 
   return (
     <div className="fixed inset-0 z-0">
-      <div className="w-full h-screen">
-        <div className="relative w-full h-full overflow-hidden">
-          {slides.map((slide, index) => (
-            <div 
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                index === currentSlide ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-indigo-900/70 z-10" />
-              <img
-                src={slide.image}
-                alt={slide.alt}
-                className="w-full h-full object-cover"
-                loading={index === 0 ? "eager" : "lazy"}
-              />
-            </div>
-          ))}
+      {slides.map((slide, index) => (
+        <div 
+          key={index}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+            index === currentSlide ? 'opacity-100' : 'opacity-0'
+          }`}
+          aria-hidden={index !== currentSlide}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-indigo-900/70 z-10" />
+          <img
+            src={slide.image}
+            alt={slide.alt}
+            className="w-full h-full object-cover"
+            loading={index === 0 ? "eager" : "lazy"}
+            fetchPriority={index === 0 ? "high" : "auto"}
+          />
         </div>
-      </div>
+      ))}
     </div>
   );
-};
+});
 
 const Home = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -92,17 +99,21 @@ const Home = () => {
   useEffect(() => {
     document.title = 'Início | GV Software - Desenvolvimento de Software';
     
-    // Use requestAnimationFrame for smoother animations
-    const animationId = requestAnimationFrame(() => {
-      setIsLoaded(true);
-    });
+    // Use requestIdleCallback for non-critical operations when browser is idle
+    const idleId = "requestIdleCallback" in window ? 
+      window.requestIdleCallback(() => setIsLoaded(true)) : 
+      setTimeout(() => setIsLoaded(true), 10);
     
     return () => {
-      cancelAnimationFrame(animationId);
+      if ("requestIdleCallback" in window) {
+        window.cancelIdleCallback(idleId as any);
+      } else {
+        clearTimeout(idleId);
+      }
     };
   }, []);
 
-  // Apply fade-in effect using CSS transitions instead of animations
+  // Apply fade-in effect using CSS transitions
   const contentClasses = `min-h-screen transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`;
 
   return (
