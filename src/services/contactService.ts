@@ -16,9 +16,8 @@ export const submitContactForm = async (formData: ContactFormData): Promise<bool
     // Log the information
     console.log("Enviando mensagem de contato:", formData);
     
-    // Initialize EmailJS with your User ID (you'll need to sign up at emailjs.com)
-    // and create a template in your EmailJS account
-    emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS User ID
+    // Initialize EmailJS with your User ID
+    emailjs.init("bag3pcxnV3zHGfNTm"); 
     
     // Prepare template parameters
     const templateParams = {
@@ -30,8 +29,8 @@ export const submitContactForm = async (formData: ContactFormData): Promise<bool
     
     // Send email using EmailJS
     const response = await emailjs.send(
-      "YOUR_SERVICE_ID", // Replace with your EmailJS Service ID
-      "YOUR_TEMPLATE_ID", // Replace with your EmailJS Template ID
+      "service_wz0y9kn", 
+      "template_y19vqfe", 
       templateParams
     );
     
