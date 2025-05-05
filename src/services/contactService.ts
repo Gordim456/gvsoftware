@@ -19,12 +19,16 @@ export const submitContactForm = async (formData: ContactFormData): Promise<bool
     // Initialize EmailJS with your User ID
     emailjs.init("bag3pcxnV3zHGfNTm"); 
     
-    // Prepare template parameters
+    // Prepare template parameters with proper variable names matching the EmailJS template
     const templateParams = {
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+      // Make sure these match exactly what's in your EmailJS template
       from_name: formData.name,
       reply_to: formData.email,
-      subject: formData.subject,
-      message: formData.message
+      to_name: "GV Software"
     };
     
     // Send email using EmailJS
