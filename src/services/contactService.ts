@@ -2,7 +2,7 @@
 import { toast } from "sonner";
 import emailjs from 'emailjs-com';
 
-// Atualizando a interface com sobrenome e telefone
+// Interface com sobrenome e telefone
 export interface ContactFormData {
   name: string;
   lastName: string;
@@ -21,18 +21,18 @@ export const submitContactForm = async (formData: ContactFormData): Promise<bool
     // Inicializa o EmailJS com seu ID de usuário
     emailjs.init("bag3pcxnV3zHGfNTm"); 
     
-    // Prepara parâmetros para o template com os nomes corretos das variáveis
+    // Prepara parâmetros para o template
     const templateParams = {
+      from_name: `${formData.name} ${formData.lastName}`,
+      reply_to: formData.email,
+      // Usamos o email do cliente como reply_to, não como from_email
+      // Todos os campos do formulário
       name: formData.name,
       lastName: formData.lastName,
       phone: formData.phone,
       email: formData.email,
       subject: formData.subject,
       message: formData.message,
-      // Parâmetros específicos para o template do EmailJS
-      from_name: `${formData.name} ${formData.lastName}`,
-      reply_to: formData.email,
-      to_name: "GV Software",
       // Conteúdo formatado para o corpo do email
       html_message: `
         <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #eaeaea;">
