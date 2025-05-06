@@ -21,25 +21,28 @@ export const submitContactForm = async (formData: ContactFormData): Promise<bool
     // Inicializa o EmailJS com seu ID de usuário
     emailjs.init("bag3pcxnV3zHGfNTm"); 
     
-    // Prepara parâmetros para o template
+    // Prepara parâmetros para o template - corrigindo campos e assunto
     const templateParams = {
+      // Remetente apenas com nome, sem email
       from_name: `${formData.name} ${formData.lastName}`,
+      // Resposta vai para o email do cliente
       reply_to: formData.email,
-      // Usamos o email do cliente como reply_to, não como from_email
-      // Todos os campos do formulário
+      // Assunto do email com o assunto informado pelo cliente
+      subject: formData.subject,
+      // Todos os campos do formulário corretamente identificados
       name: formData.name,
       lastName: formData.lastName,
       phone: formData.phone,
       email: formData.email,
-      subject: formData.subject,
       message: formData.message,
-      // Conteúdo formatado para o corpo do email
+      // Conteúdo formatado para o corpo do email em português
       html_message: `
         <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #eaeaea;">
           <h2 style="color: #4f46e5; border-bottom: 2px solid #4f46e5; padding-bottom: 10px;">Nova Mensagem de Contato</h2>
           
           <div style="margin: 20px 0;">
-            <p style="margin: 10px 0;"><strong>Nome Completo:</strong> ${formData.name} ${formData.lastName}</p>
+            <p style="margin: 10px 0;"><strong>Nome:</strong> ${formData.name}</p>
+            <p style="margin: 10px 0;"><strong>Sobrenome:</strong> ${formData.lastName}</p>
             <p style="margin: 10px 0;"><strong>Telefone:</strong> ${formData.phone}</p>
             <p style="margin: 10px 0;"><strong>E-mail:</strong> ${formData.email}</p>
             <p style="margin: 10px 0;"><strong>Assunto:</strong> ${formData.subject}</p>
@@ -57,7 +60,7 @@ export const submitContactForm = async (formData: ContactFormData): Promise<bool
       `
     };
     
-    // Envia o email usando EmailJS
+    // Envia o email usando EmailJS - garantindo que o assunto seja passado corretamente
     const response = await emailjs.send(
       "service_wz0y9kn", 
       "template_y19vqfe", 
