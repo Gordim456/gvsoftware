@@ -9,7 +9,7 @@ type ContactSuccessProps = {
 
 const ContactSuccess = ({ onReset }: ContactSuccessProps) => {
   return (
-    <div className="text-center py-12">
+    <div className="text-center py-6">
       <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 text-white shadow-lg shadow-green-500/30 mb-6">
         <CheckCircle className="h-10 w-10" />
       </div>
