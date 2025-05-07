@@ -7,6 +7,7 @@ import { BackgroundGradient } from '../components/BackgroundGradient';
 import ContactForm from '../components/contact/ContactForm';
 import ContactSuccess from '../components/contact/ContactSuccess';
 import ContactInfo from '../components/contact/ContactInfo';
+import SocialIcons from '../components/SocialIcons';
 
 const Contact = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -56,6 +57,7 @@ const Contact = () => {
           </div>
         </div>
       </BackgroundGradient>
+      <SocialIcons />
       <Footer />
     </div>
   );
