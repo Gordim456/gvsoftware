@@ -14,8 +14,8 @@ const ContactInfo = () => {
           </div>
           <div>
             <h3 className="text-xl font-semibold mb-2 text-white">Email</h3>
-            <p className="text-indigo-200">contato@gvsoftware.tech</p>
-            <a href="mailto:contato@gvsoftware.tech" className="inline-block mt-3 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
+            <p className="text-indigo-200">contato.gvsoftware@gmail.com</p>
+            <a href="mailto:contato.gvsoftware@gmail.com" className="inline-block mt-3 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
               Enviar email →
             </a>
           </div>
@@ -29,8 +29,8 @@ const ContactInfo = () => {
           </div>
           <div>
             <h3 className="text-xl font-semibold mb-2 text-white">Telefone</h3>
-            <p className="text-indigo-200">(81) 99999-9999</p>
-            <a href="tel:+5581999999999" className="inline-block mt-3 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
+            <p className="text-indigo-200">(17) 99785-3416</p>
+            <a href="tel:+5517997853416" className="inline-block mt-3 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
               Ligar agora →
             </a>
           </div>
