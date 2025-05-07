@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star } from "lucide-react";
@@ -42,26 +42,29 @@ const sliderItems = [
 
 export const HeroSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
   
-  // Simplified carousel with longer duration
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     loop: true,
-    duration: 30 // Slower transitions for better performance
+    duration: 40 // Tornando transições mais lentas para melhorar performance
   });
   
-  // Auto-slide with longer interval and better cleanup
+  // Implementando um intervalo de timer maior para diminuir atualizações
   useEffect(() => {
     if (emblaApi) {
-      const interval = setInterval(() => {
+      // Usar 12 segundos ao invés de 8 para reduzir uso de CPU
+      autoScrollRef.current = setTimeout(() => {
         emblaApi.scrollNext();
         setCurrentIndex((prev) => (prev + 1) % sliderItems.length);
-      }, 8000); // 8 seconds between slides
+      }, 12000); 
       
-      return () => clearInterval(interval);
+      return () => {
+        if (autoScrollRef.current) clearTimeout(autoScrollRef.current);
+      };
     }
-  }, [emblaApi, sliderItems.length]);
+  }, [emblaApi, currentIndex, sliderItems.length]);
 
-  // Sync current index with embla carousel
+  // Sincronizando index atual com carrossel embla
   useEffect(() => {
     if (!emblaApi) return;
     
@@ -79,13 +82,16 @@ export const HeroSlider = () => {
     if (emblaApi) {
       emblaApi.scrollTo(index);
       setCurrentIndex(index);
+      
+      // Limpa e reinicia o timer quando o usuário navega
+      if (autoScrollRef.current) clearTimeout(autoScrollRef.current);
     }
   };
 
   return (
-    <div className="w-full h-[600px] relative overflow-hidden rounded-2xl shadow-2xl shadow-indigo-500/20">
-      {/* Simplified background gradient */}
-      <div className="absolute -top-20 -left-20 w-full h-full bg-gradient-to-br from-indigo-600/50 to-purple-800/50 rounded-[30px] blur-3xl z-0 opacity-60" />
+    <div className="w-full h-[600px] relative overflow-hidden rounded-2xl shadow-lg">
+      {/* Simplificando o gradiente de fundo */}
+      <div className="absolute -top-20 -left-20 w-full h-full bg-gradient-to-br from-indigo-600/50 to-purple-800/50 rounded-[30px] blur-3xl z-0 opacity-50" />
       
       <div className="w-full h-full rounded-2xl relative z-10">
         <div className="overflow-hidden h-full rounded-2xl" ref={emblaRef}>
@@ -98,7 +104,7 @@ export const HeroSlider = () => {
                   src={item.image}
                   alt={item.title}
                   className="w-full h-[600px] object-cover rounded-2xl"
-                  loading="lazy" 
+                  loading={index === 0 ? "eager" : "lazy"}
                 />
                 
                 {/* Tag */}
@@ -121,9 +127,9 @@ export const HeroSlider = () => {
                   </p>
                   <div>
                     <Link to="/services">
-                      <Button className="bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white px-8 py-6 rounded-xl flex items-center gap-3 group font-medium shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-all duration-300">
+                      <Button className="bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white px-8 py-6 rounded-xl flex items-center gap-3 group font-medium shadow-lg">
                         {item.cta}
-                        <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                        <ArrowRight className="w-5 h-5" />
                       </Button>
                     </Link>
                   </div>
@@ -133,15 +139,15 @@ export const HeroSlider = () => {
           </div>
         </div>
         
-        {/* Custom navigation dots with simplified styling */}
+        {/* Navegação simplificada */}
         <div className="absolute bottom-6 right-10 flex space-x-3 z-40">
           {sliderItems.map((_, index) => (
             <button
               key={index}
               onClick={() => handleDotClick(index)}
-              className={`h-3 rounded-full transition-all duration-300 ${
+              className={`h-3 rounded-full transition-all ${
                 currentIndex === index 
-                  ? 'bg-white w-8 shadow-md shadow-white/20' 
+                  ? 'bg-white w-8' 
                   : 'bg-white/40 w-3 hover:bg-white/60'
               }`}
               aria-label={`Go to slide ${index + 1}`}

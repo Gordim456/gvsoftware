@@ -8,7 +8,7 @@ const ContactInfo = () => {
       <div className="space-y-8">
         <div className="flex items-start space-x-5">
           <div className="shrink-0">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg">
               <Mail className="w-6 h-6 text-white" />
             </div>
           </div>
@@ -23,7 +23,7 @@ const ContactInfo = () => {
         
         <div className="flex items-start space-x-5">
           <div className="shrink-0">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg">
               <Phone className="w-6 h-6 text-white" />
             </div>
           </div>

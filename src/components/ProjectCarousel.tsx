@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -21,11 +21,8 @@ const ProjectCarousel = ({
   link
 }: ProjectCarouselProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const intervalRef = useRef<number | null>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const imagesRef = useRef<HTMLImageElement[]>([]);
-
-  // Optimized image navigation functions
+  
+  // Funções de navegação otimizadas
   const nextImage = useCallback(() => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
   }, [images.length]);
@@ -34,56 +31,21 @@ const ProjectCarousel = ({
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   }, [images.length]);
 
-  // Highly optimized auto-slide with significant performance improvements
+  // Implementando auto-slide com intervalo grande para melhorar a performance
   useEffect(() => {
-    // Use a much longer interval (12s) to drastically reduce CPU usage
-    intervalRef.current = window.setInterval(nextImage, 12000);
+    // Usando 15s para reduzir drasticamente o uso de CPU
+    const interval = setTimeout(nextImage, 15000);
     
-    const carousel = carouselRef.current;
-    
-    // Optimized event listeners
-    const pauseSlider = () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-    
-    const resumeSlider = () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      intervalRef.current = window.setInterval(nextImage, 12000);
-    };
-    
-    if (carousel) {
-      carousel.addEventListener('mouseenter', pauseSlider);
-      carousel.addEventListener('mouseleave', resumeSlider);
-    }
-    
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      
-      if (carousel) {
-        carousel.removeEventListener('mouseenter', pauseSlider);
-        carousel.removeEventListener('mouseleave', resumeSlider);
-      }
-    };
-  }, [nextImage]);
-
-  // Preload images for smoother transitions
-  useEffect(() => {
-    images.forEach((src, i) => {
-      const img = new Image();
-      img.src = src;
-      imagesRef.current[i] = img;
-    });
-  }, [images]);
+    return () => clearTimeout(interval);
+  }, [currentImageIndex, nextImage]);
 
   return (
-    <div 
-      className="bg-gv-darker p-6 rounded-lg border border-gray-800 overflow-hidden hover:border-indigo-500 transition-colors duration-300"
-      ref={carouselRef}
-    >
+    <div className="bg-gv-darker p-6 rounded-lg border border-gray-800 overflow-hidden hover:border-indigo-500 transition-colors duration-300">
       <div className="relative mb-6 overflow-hidden rounded-lg h-48">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 to-purple-600/0 hover:from-indigo-500/30 hover:to-purple-600/30 transition-colors duration-300 z-10"></div>
+        {/* Simplificando a sobreposição de gradiente */}
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-600/10 hover:from-indigo-500/20 hover:to-purple-600/20 transition-colors duration-300 z-10"></div>
         
-        {/* Optimized image carousel with reduced DOM updates */}
+        {/* Carrossel de imagens otimizado */}
         <div className="relative h-full w-full">
           {images.map((image, index) => (
             <div
@@ -98,22 +60,18 @@ const ProjectCarousel = ({
                 alt={`${title} - image ${index + 1}`}
                 className="w-full h-full object-cover"
                 loading="lazy"
-                decoding="async"
               />
             </div>
           ))}
         </div>
 
-        {/* Navigation controls with optimized event handling */}
+        {/* Controles de navegação */}
         <div className="absolute bottom-2 right-2 z-20 flex gap-2">
           <Button 
             variant="outline" 
             size="icon" 
             className="h-7 w-7 rounded-full bg-black/50 border-gray-600 hover:bg-black/70 hover:border-gray-400"
-            onClick={(e) => {
-              e.stopPropagation();
-              prevImage();
-            }}
+            onClick={prevImage}
             aria-label="Previous image"
           >
             <ChevronLeft className="h-4 w-4" />
@@ -122,29 +80,28 @@ const ProjectCarousel = ({
             variant="outline" 
             size="icon" 
             className="h-7 w-7 rounded-full bg-black/50 border-gray-600 hover:bg-black/70 hover:border-gray-400"
-            onClick={(e) => {
-              e.stopPropagation();
-              nextImage();
-            }}
+            onClick={nextImage}
             aria-label="Next image"
           >
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
         
-        {/* Simplified progress indicators */}
-        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-20 flex gap-1">
-          {images.length <= 5 && images.map((_, index) => (
-            <div 
-              key={index} 
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                currentImageIndex === index 
-                  ? "bg-white w-3" 
-                  : "bg-white/50 w-1.5"
-              }`}
-            />
-          ))}
-        </div>
+        {/* Indicadores de progresso simplificados */}
+        {images.length <= 5 && (
+          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-20 flex gap-1">
+            {images.map((_, index) => (
+              <div 
+                key={index} 
+                className={`h-1.5 rounded-full ${
+                  currentImageIndex === index 
+                    ? "bg-white w-3" 
+                    : "bg-white/50 w-1.5"
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </div>
       
       <div className="space-y-3">
@@ -156,7 +113,7 @@ const ProjectCarousel = ({
         <h3 className="text-xl font-semibold group-hover:text-indigo-300 transition-colors">{title}</h3>
         <p className="text-gv-gray">{description}</p>
         
-        {/* Technologies with optimized rendering */}
+        {/* Technologies */}
         <div className="flex flex-wrap gap-2 mt-4">
           {technologies.map((tech, index) => (
             <span key={index} className="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">

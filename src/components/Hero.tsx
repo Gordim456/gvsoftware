@@ -2,45 +2,19 @@
 import { ArrowRight, Code, Server, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link as RouterLink } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { BackgroundGradient } from './BackgroundGradient';
 import { HeroSlider } from './HeroSlider';
 
 const Hero = () => {
-  // Animações simplificadas para melhor desempenho
-  const floatingAnimation = {
-    y: [0, -10, 0],
-    transition: {
-      duration: 3,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }
-  };
-
-  const pulseAnimation = {
-    scale: [1, 1.05, 1],
-    opacity: [0.7, 1, 0.7],
-    transition: {
-      duration: 3.5,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }
-  };
-
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       <BackgroundGradient>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <motion.div 
-              className="space-y-8"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <motion.div className="inline-block bg-indigo-600/20 px-4 py-1 rounded-full mb-6 border border-indigo-500/30">
+            <div className="space-y-8">
+              <div className="inline-block bg-indigo-600/20 px-4 py-1 rounded-full mb-6 border border-indigo-500/30">
                 <span className="text-indigo-300 text-sm font-medium">Inovação & Tecnologia</span>
-              </motion.div>
+              </div>
               
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
                 Transformando ideias em <span className="gradient-text font-extrabold">realidade digital</span>
@@ -52,13 +26,13 @@ const Hero = () => {
               
               <div className="flex flex-col sm:flex-row gap-6">
                 <RouterLink to="/contact">
-                  <Button className="px-8 py-6 bg-gv-primary hover:bg-indigo-600 text-white rounded-xl font-medium text-lg flex items-center gap-3 transform hover:scale-105 transition-all duration-300">
+                  <Button className="px-8 py-6 bg-gv-primary hover:bg-indigo-600 text-white rounded-xl font-medium text-lg flex items-center gap-3 transition-colors">
                     Fale Conosco <ArrowRight className="w-5 h-5" />
                   </Button>
                 </RouterLink>
                 
                 <RouterLink to="/services">
-                  <Button variant="outline" className="px-8 py-6 border-2 border-gv-gray text-white hover:bg-gray-800 rounded-xl font-medium text-lg transform hover:scale-105 transition-all duration-300">
+                  <Button variant="outline" className="px-8 py-6 border-2 border-gv-gray text-white hover:bg-gray-800 rounded-xl font-medium text-lg transition-colors">
                     Nossos Serviços
                   </Button>
                 </RouterLink>
@@ -78,29 +52,15 @@ const Hero = () => {
                   <p className="text-gv-gray">Anos de Experiência</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
             
-            <motion.div 
-              className="hidden md:block relative"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <motion.div 
-                className="absolute -top-16 -right-16 w-64 h-64 bg-indigo-600/30 rounded-full filter blur-3xl"
-                animate={pulseAnimation}
-              />
-              <motion.div 
-                className="absolute -bottom-8 -left-8 w-48 h-48 bg-purple-600/20 rounded-full filter blur-3xl"
-                animate={pulseAnimation}
-              />
-              <motion.div 
-                className="relative z-10"
-                animate={floatingAnimation}
-              >
+            <div className="hidden md:block relative">
+              <div className="absolute -top-16 -right-16 w-64 h-64 bg-indigo-600/20 rounded-full filter blur-3xl opacity-50" />
+              <div className="absolute -bottom-8 -left-8 w-48 h-48 bg-purple-600/20 rounded-full filter blur-3xl opacity-50" />
+              <div className="relative z-10">
                 <HeroSlider />
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </div>
 
           <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
