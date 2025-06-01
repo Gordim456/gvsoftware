@@ -1,4 +1,3 @@
-
 import { useEffect, useState, lazy, Suspense, useMemo } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -98,23 +97,27 @@ const Home = () => {
       <ModernBackground />
       
       <div className="relative z-10">
-        <MemoizedSocialIcons />
         <MemoizedNavbar />
         
-        <Suspense fallback={<FastLoading />}>
-          <Hero />
-        </Suspense>
+        <div className="relative">
+          <MemoizedSocialIcons />
+          
+          <Suspense fallback={<FastLoading />}>
+            <Hero />
+          </Suspense>
+          
+          <Suspense fallback={<FastLoading />}>
+            <Services />
+          </Suspense>
+          
+          <Suspense fallback={<FastLoading />}>
+            <Testimonials />
+          </Suspense>
+          
+          <MemoizedCallToAction />
+          <MemoizedQuickFAQ />
+        </div>
         
-        <Suspense fallback={<FastLoading />}>
-          <Services />
-        </Suspense>
-        
-        <Suspense fallback={<FastLoading />}>
-          <Testimonials />
-        </Suspense>
-        
-        <MemoizedCallToAction />
-        <MemoizedQuickFAQ />
         <MemoizedFooter />
       </div>
     </div>
