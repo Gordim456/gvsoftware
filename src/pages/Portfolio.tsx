@@ -1,189 +1,257 @@
 
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import SocialIcons from '@/components/SocialIcons';
-import { Shell, ExternalLink } from "lucide-react";
+import { Briefcase, ExternalLink, Github, Eye } from "lucide-react";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProjectCarousel from '@/components/ProjectCarousel';
+import { motion } from 'framer-motion';
 
 const Portfolio = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [filter, setFilter] = useState('all');
 
-  // Optimized initial loading with no delay
   useEffect(() => {
-    document.title = 'Portfólio | GV Software - Desenvolvimento de Software';
-    // Immediate loading for better perceived performance
+    document.title = 'Portfólio | GV Software - Nossos Projetos';
     setIsLoaded(true);
+    
+    // SEO optimization
+    const meta = document.createElement('meta');
+    meta.name = 'description';
+    meta.content = 'Explore nosso portfólio de projetos - websites modernos, aplicações web e soluções digitais desenvolvidas pela GV Software.';
+    if (!document.querySelector('meta[name="description"]')) {
+      document.head.appendChild(meta);
+    }
   }, []);
 
-  // Memoized project data to prevent unnecessary re-renders
+  // Enhanced project data with better organization
   const projects = useMemo(() => [
     {
       images: [
-        "/project-1.jpg",
-        "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
-        "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7"
+        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80"
       ],
-      title: "E-commerce App",
-      category: "Web App",
-      description: "Plataforma de comércio eletrônico completa com sistema de pagamentos integrado.",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      link: "#"
+      title: "E-commerce Moderno",
+      category: "E-commerce",
+      description: "Plataforma completa de comércio eletrônico com pagamentos integrados e dashboard administrativo.",
+      technologies: ["React", "Node.js", "MongoDB", "Stripe", "TypeScript"],
+      link: "#",
+      featured: true
     },
     {
       images: [
-        "/project-2.jpg",
-        "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80"
       ],
-      title: "Sistema de Gestão",
-      category: "Software",
-      description: "Sistema de gestão empresarial personalizado para pequenas empresas.",
-      technologies: ["Vue.js", "Python", "PostgreSQL", "Docker"],
-      link: "#"
+      title: "Sistema de Gestão ERP",
+      category: "Enterprise",
+      description: "Sistema completo de gestão empresarial com módulos de vendas, estoque e financeiro.",
+      technologies: ["Vue.js", "Python", "PostgreSQL", "Docker", "Redis"],
+      link: "#",
+      featured: true
     },
     {
       images: [
-        "/project-3.jpg",
-        "https://images.unsplash.com/photo-1531297484001-80022131f5a1",
-        "https://images.unsplash.com/photo-1518770660439-4636190af475"
+        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80"
       ],
-      title: "App Móvel",
+      title: "App de Produtividade",
       category: "Mobile",
-      description: "Aplicativo móvel para gestão de tarefas e produtividade pessoal.",
-      technologies: ["React Native", "Firebase", "TypeScript"],
-      link: "#"
+      description: "Aplicativo móvel para gestão de tarefas com sincronização em tempo real.",
+      technologies: ["React Native", "Firebase", "TypeScript", "Expo"],
+      link: "#",
+      featured: false
     },
     {
       images: [
-        "/project-4.jpg",
-        "https://images.unsplash.com/photo-1563986768609-322da13575f3",
-        "https://images.unsplash.com/photo-1573165850883-9b0e18c44bd2"
+        "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80"
       ],
       title: "Plataforma Educacional",
       category: "EdTech",
-      description: "Sistema de ensino online com recursos avançados de aprendizagem interativa.",
-      technologies: ["Next.js", "GraphQL", "AWS", "MongoDB"],
-      link: "#"
+      description: "Sistema de ensino online com videoaulas, exercícios interativos e acompanhamento de progresso.",
+      technologies: ["Next.js", "GraphQL", "AWS", "MongoDB", "WebRTC"],
+      link: "#",
+      featured: true
     },
     {
       images: [
-        "/project-5.jpg",
-        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b",
-        "https://images.unsplash.com/photo-1581090700227-1e37b190418e"
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80"
       ],
       title: "Dashboard Analytics",
       category: "Business Intelligence",
-      description: "Dashboard interativo para visualização de dados e métricas de negócio em tempo real.",
-      technologies: ["Angular", "D3.js", "Node.js", "MySQL"],
-      link: "#"
+      description: "Dashboard interativo para visualização de dados com gráficos em tempo real.",
+      technologies: ["Angular", "D3.js", "Node.js", "MySQL", "WebSocket"],
+      link: "#",
+      featured: false
     },
     {
       images: [
-        "/project-6.jpg",
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
-        "https://images.unsplash.com/photo-1555421689-491a97ff2040",
-        "https://images.unsplash.com/photo-1649972904349-6e44c42644a7"
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1555421689-491a97ff2040?auto=format&fit=crop&w=800&q=80"
       ],
-      title: "CRM Personalizado",
-      category: "Enterprise Solution",
-      description: "Sistema de gestão de relacionamento com clientes adaptado para necessidades específicas.",
-      technologies: ["React", "Java Spring", "PostgreSQL", "Redis"],
-      link: "#"
+      title: "CRM Inteligente",
+      category: "CRM",
+      description: "Sistema de gestão de relacionamento com clientes com IA para análise de vendas.",
+      technologies: ["React", "Java Spring", "PostgreSQL", "Redis", "TensorFlow"],
+      link: "#",
+      featured: false
     }
   ], []);
 
-  // Optimized hero section rendering with reduced animations
-  const renderHeroSection = useCallback(() => (
-    <section className="relative h-[400px] overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-indigo-900/70 z-10"></div>
-      <img
-        src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d"
-        alt="Portfolio Hero"
-        className="w-full h-full object-cover"
-        loading="eager"
-        fetchPriority="high"
+  // Filter categories
+  const categories = useMemo(() => ['all', 'E-commerce', 'Enterprise', 'Mobile', 'EdTech', 'Business Intelligence', 'CRM'], []);
+
+  // Filtered projects
+  const filteredProjects = useMemo(() => {
+    return filter === 'all' ? projects : projects.filter(project => project.category === filter);
+  }, [projects, filter]);
+
+  // Modern hero section
+  const HeroSection = useCallback(() => (
+    <section className="relative h-[60vh] overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-indigo-900/80 to-purple-900/90 z-10"></div>
+      <div 
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=2000&q=80)',
+          transform: 'translateZ(0)'
+        }}
       />
       
-      <div className="absolute inset-0 z-20 flex items-center justify-center">
-        <div className="text-center max-w-4xl px-4">
-          <div className="w-16 h-16 mx-auto bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
-            <Shell className="w-8 h-8 text-indigo-400" />
-          </div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-4 text-white">
-            Nosso <span className="gradient-text">Portfólio</span>
-          </h1>
-          <p className="text-xl text-gray-200 max-w-3xl mx-auto">
-            Explore alguns dos nossos projetos mais recentes e descubra como transformamos ideias em realidade.
-          </p>
-        </div>
-      </div>
+      <motion.div 
+        className="relative z-20 text-center max-w-4xl px-4"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <motion.div
+          className="w-20 h-20 mx-auto bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-8 shadow-2xl"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+        >
+          <Briefcase className="w-10 h-10 text-white" />
+        </motion.div>
+        
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent">
+          Nosso <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Portfólio</span>
+        </h1>
+        
+        <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
+          Projetos que transformam ideias em soluções digitais de impacto
+        </p>
+      </motion.div>
     </section>
   ), []);
-  
-  // Optimized projects rendering with windowing for better performance
-  const renderProjects = useCallback(() => {
-    // Initially render only visible projects to improve initial load time
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project, index) => (
-          <div key={index}>
-            <ProjectCarousel
-              images={project.images}
-              title={project.title}
-              category={project.category}
-              description={project.description}
-              technologies={project.technologies}
-              link={project.link}
-            />
-          </div>
-        ))}
-      </div>
-    );
-  }, [projects]);
 
   return (
-    <div className={`bg-gv-darker min-h-screen ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`bg-slate-950 min-h-screen transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
       <SocialIcons />
       <Navbar />
 
-      {/* Optimized hero section with reduced animations */}
-      {renderHeroSection()}
+      <HeroSection />
 
       <section className="py-20 relative overflow-hidden">
-        {/* Simplified static decorative elements */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5"></div>
-        <div className="absolute bottom-40 right-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl"></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Projetos <span className="gradient-text">Recentes</span></h2>
-            <p className="text-gv-gray max-w-2xl mx-auto text-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Modern Filter Section */}
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              Projetos <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Recentes</span>
+            </h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
               Cada projeto é uma história de sucesso que combina design elegante, funcionalidade robusta e experiência excepcional.
             </p>
-          </div>
+            
+            {/* Category Filter */}
+            <div className="flex flex-wrap justify-center gap-3 mb-12">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setFilter(category)}
+                  className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                    filter === category
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                      : 'bg-slate-800/50 text-gray-400 hover:bg-slate-700/50 hover:text-white border border-slate-600/30'
+                  }`}
+                >
+                  {category === 'all' ? 'Todos' : category}
+                </button>
+              ))}
+            </div>
+          </motion.div>
 
-          {/* Projects Grid with optimized rendering */}
-          {renderProjects()}
+          {/* Projects Grid */}
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+              >
+                <ProjectCarousel
+                  images={project.images}
+                  title={project.title}
+                  category={project.category}
+                  description={project.description}
+                  technologies={project.technologies}
+                  link={project.link}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
           
-          {/* Optimized CTA Section with simplified styling */}
-          <div className="mt-20 text-center">
-            <div className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 p-10 rounded-2xl border border-indigo-500/20 shadow-xl">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                Pronto para <span className="gradient-text">iniciar seu projeto</span>?
+          {/* Modern CTA Section */}
+          <motion.div 
+            className="mt-20 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 p-12 rounded-3xl border border-slate-700/50 backdrop-blur-sm shadow-2xl">
+              <h3 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                Pronto para <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">iniciar seu projeto</span>?
               </h3>
-              <p className="text-gv-gray mb-8 max-w-2xl mx-auto">
+              <p className="text-gray-400 mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
                 Transforme suas ideias em realidade com nosso time especializado em desenvolvimento de software.
               </p>
-              <a
-                href="/contact"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-medium hover:shadow-lg hover:shadow-indigo-500/30 transition-all duration-300"
-              >
-                <span>Solicite um Orçamento</span>
-                <ExternalLink className="w-4 h-4" />
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="/contact"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-medium hover:shadow-lg hover:shadow-indigo-500/30 transition-all duration-300 hover:scale-105"
+                >
+                  <span>Solicite um Orçamento</span>
+                  <ExternalLink className="w-5 h-5" />
+                </a>
+                <a
+                  href="#"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-slate-800/50 text-white rounded-full font-medium hover:bg-slate-700/50 transition-all duration-300 border border-slate-600/30"
+                >
+                  <Eye className="w-5 h-5" />
+                  <span>Ver Mais Projetos</span>
+                </a>
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
