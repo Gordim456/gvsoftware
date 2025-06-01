@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, TikTok } from 'lucide-react';
+import { Instagram, Video } from 'lucide-react';
 
 const SocialIcons = () => {
   // Container animation variants
@@ -56,7 +56,7 @@ const SocialIcons = () => {
         </div>
       </motion.a>
       
-      {/* TikTok Icon */}
+      {/* TikTok Icon (using Video icon) */}
       <motion.a 
         href="https://tiktok.com" 
         target="_blank" 
@@ -79,7 +79,7 @@ const SocialIcons = () => {
         <div className="bg-gradient-to-r from-black via-gray-900 to-black p-3.5 rounded-full overflow-hidden relative shadow-lg hover:shadow-cyan-500/30 transition-all duration-300">
           {/* Shine effect */}
           <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-          <TikTok className="w-6 h-6 text-white relative z-10" strokeWidth={2.2} />
+          <Video className="w-6 h-6 text-white relative z-10" strokeWidth={2.2} />
         </div>
       </motion.a>
     </motion.div>
