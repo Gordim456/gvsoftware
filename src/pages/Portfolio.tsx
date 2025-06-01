@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import SocialIcons from '@/components/SocialIcons';
-import { Briefcase, ExternalLink, Github, Eye } from "lucide-react";
+import { Briefcase, ExternalLink, Eye, Code, Wrench } from "lucide-react";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProjectCarousel from '@/components/ProjectCarousel';
@@ -24,84 +24,85 @@ const Portfolio = () => {
     }
   }, []);
 
-  // Enhanced project data with better organization
+  // Enhanced project data with your management system as the main project
   const projects = useMemo(() => [
     {
       images: [
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80"
+        "/lovable-uploads/61ef491d-1126-436c-be67-fd525f729623.png",
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+      ],
+      title: "Sistema de Gestão Bebidas ON",
+      category: "Enterprise",
+      description: "Sistema completo de gestão empresarial com dashboard interativo, controle de vendas, estoque, pedidos e clientes.",
+      technologies: ["React", "Node.js", "PostgreSQL", "Chart.js", "TypeScript"],
+      link: "https://kzmlikv32qnpkg9ivfjs.lite.vusercontent.net",
+      featured: true,
+      status: "completed"
+    },
+    {
+      images: [
+        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80"
       ],
       title: "E-commerce Moderno",
       category: "E-commerce",
-      description: "Plataforma completa de comércio eletrônico com pagamentos integrados e dashboard administrativo.",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe", "TypeScript"],
+      description: "Plataforma completa de comércio eletrônico com pagamentos integrados - Em desenvolvimento.",
+      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
       link: "#",
-      featured: true
+      featured: false,
+      status: "development"
     },
     {
       images: [
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80"
-      ],
-      title: "Sistema de Gestão ERP",
-      category: "Enterprise",
-      description: "Sistema completo de gestão empresarial com módulos de vendas, estoque e financeiro.",
-      technologies: ["Vue.js", "Python", "PostgreSQL", "Docker", "Redis"],
-      link: "#",
-      featured: true
-    },
-    {
-      images: [
-        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80"
+        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80"
       ],
       title: "App de Produtividade",
       category: "Mobile",
-      description: "Aplicativo móvel para gestão de tarefas com sincronização em tempo real.",
-      technologies: ["React Native", "Firebase", "TypeScript", "Expo"],
+      description: "Aplicativo móvel para gestão de tarefas - Em desenvolvimento.",
+      technologies: ["React Native", "Firebase", "TypeScript"],
       link: "#",
-      featured: false
+      featured: false,
+      status: "development"
     },
     {
       images: [
-        "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80"
+        "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80"
       ],
       title: "Plataforma Educacional",
       category: "EdTech",
-      description: "Sistema de ensino online com videoaulas, exercícios interativos e acompanhamento de progresso.",
-      technologies: ["Next.js", "GraphQL", "AWS", "MongoDB", "WebRTC"],
+      description: "Sistema de ensino online com videoaulas - Em desenvolvimento.",
+      technologies: ["Next.js", "GraphQL", "AWS", "MongoDB"],
       link: "#",
-      featured: true
+      featured: false,
+      status: "development"
     },
     {
       images: [
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80"
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
       ],
       title: "Dashboard Analytics",
       category: "Business Intelligence",
-      description: "Dashboard interativo para visualização de dados com gráficos em tempo real.",
-      technologies: ["Angular", "D3.js", "Node.js", "MySQL", "WebSocket"],
+      description: "Dashboard interativo para visualização de dados - Em desenvolvimento.",
+      technologies: ["Angular", "D3.js", "Node.js", "MySQL"],
       link: "#",
-      featured: false
+      featured: false,
+      status: "development"
     },
     {
       images: [
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
-        "https://images.unsplash.com/photo-1555421689-491a97ff2040?auto=format&fit=crop&w=800&q=80"
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
       ],
       title: "CRM Inteligente",
       category: "CRM",
-      description: "Sistema de gestão de relacionamento com clientes com IA para análise de vendas.",
-      technologies: ["React", "Java Spring", "PostgreSQL", "Redis", "TensorFlow"],
+      description: "Sistema de gestão de relacionamento com clientes - Em desenvolvimento.",
+      technologies: ["React", "Java Spring", "PostgreSQL", "Redis"],
       link: "#",
-      featured: false
+      featured: false,
+      status: "development"
     }
   ], []);
 
   // Filter categories
-  const categories = useMemo(() => ['all', 'E-commerce', 'Enterprise', 'Mobile', 'EdTech', 'Business Intelligence', 'CRM'], []);
+  const categories = useMemo(() => ['all', 'Enterprise', 'E-commerce', 'Mobile', 'EdTech', 'Business Intelligence', 'CRM'], []);
 
   // Filtered projects
   const filteredProjects = useMemo(() => {
@@ -145,6 +146,55 @@ const Portfolio = () => {
       </motion.div>
     </section>
   ), []);
+
+  // Enhanced ProjectCard component
+  const ProjectCard = ({ project, index }: { project: any, index: number }) => (
+    <motion.div
+      className={`relative group ${project.status === 'development' ? 'opacity-75' : ''}`}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: project.status === 'development' ? 0.75 : 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+    >
+      <div className="bg-slate-900/50 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-indigo-500/20">
+        {project.status === 'development' && (
+          <div className="absolute top-4 right-4 z-10">
+            <div className="bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
+              <Wrench className="w-4 h-4" />
+              Em Desenvolvimento
+            </div>
+          </div>
+        )}
+        
+        <ProjectCarousel
+          images={project.images}
+          title={project.title}
+          category={project.category}
+          description={project.description}
+          technologies={project.technologies}
+          link={project.link}
+        />
+        
+        {project.status === 'completed' && (
+          <div className="mt-4 flex gap-3">
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-indigo-500/30 transition-all duration-300 hover:scale-105"
+            >
+              <ExternalLink className="w-4 h-4" />
+              Ver Projeto
+            </a>
+            <button className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-slate-800/50 text-white rounded-xl font-medium hover:bg-slate-700/50 transition-all duration-300 border border-slate-600/30">
+              <Code className="w-4 h-4" />
+              Código
+            </button>
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
 
   return (
     <div className={`bg-slate-950 min-h-screen transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
@@ -192,32 +242,11 @@ const Portfolio = () => {
           </motion.div>
 
           {/* Projects Grid */}
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-              >
-                <ProjectCarousel
-                  images={project.images}
-                  title={project.title}
-                  category={project.category}
-                  description={project.description}
-                  technologies={project.technologies}
-                  link={project.link}
-                />
-              </motion.div>
+              <ProjectCard key={index} project={project} index={index} />
             ))}
-          </motion.div>
+          </div>
           
           {/* Modern CTA Section */}
           <motion.div 
