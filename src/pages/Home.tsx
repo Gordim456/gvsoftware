@@ -5,120 +5,46 @@ import Footer from '../components/Footer';
 import SocialIcons from '@/components/SocialIcons';
 import { memo } from 'react';
 
-// Lazy-load components that aren't immediately visible
+// Lazy-load components
 const Hero = lazy(() => import('../components/Hero'));
 const Services = lazy(() => import('../components/Services'));
 const Testimonials = lazy(() => import('../components/Testimonials'));
 
-// Memoize components to prevent unnecessary re-renders
+// Memoize components
 const MemoizedFooter = memo(Footer);
 const MemoizedNavbar = memo(Navbar);
 const MemoizedSocialIcons = memo(SocialIcons);
 
-// Simple loading component
+// Optimized loading component
 const SectionLoading = () => (
-  <div className="w-full py-20 flex justify-center">
-    <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+  <div className="w-full py-8 flex justify-center">
+    <div className="w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
   </div>
 );
 
-// Background Slides component - optimized with useMemo and requestAnimationFrame
-const BackgroundSlides = memo(() => {
-  const slides = useMemo(() => [
-    {
-      image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
-      alt: 'Desenvolvimento Web'
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7',
-      alt: 'Aplicações Mobile'
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6',
-      alt: 'Design UI/UX'
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1605810230434-7631ac76ec81',
-      alt: 'Soluções Empresariais'
-    }
-  ], []);
-
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  useEffect(() => {
-    let animationFrameId: number;
-    let lastTime = 0;
-    const interval = 5000; // 5 seconds
-    
-    const animate = (timestamp: number) => {
-      if (!lastTime) lastTime = timestamp;
-      const elapsed = timestamp - lastTime;
-      
-      if (elapsed > interval) {
-        setCurrentSlide(prev => (prev + 1) % slides.length);
-        lastTime = timestamp;
-      }
-      
-      animationFrameId = requestAnimationFrame(animate);
-    };
-    
-    animationFrameId = requestAnimationFrame(animate);
-    
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [slides.length]);
-
-  return (
-    <div className="fixed inset-0 z-0">
-      {slides.map((slide, index) => (
-        <div 
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-            index === currentSlide ? 'opacity-100' : 'opacity-0'
-          }`}
-          aria-hidden={index !== currentSlide}
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-indigo-900/70 z-10" />
-          <img
-            src={slide.image}
-            alt={slide.alt}
-            className="w-full h-full object-cover"
-            loading={index === 0 ? "eager" : "lazy"}
-            fetchPriority={index === 0 ? "high" : "auto"}
-          />
-        </div>
-      ))}
-    </div>
-  );
-});
+// Simplified background with static gradient
+const StaticBackground = memo(() => (
+  <div className="fixed inset-0 z-0">
+    <div className="absolute inset-0 bg-gradient-to-br from-gv-darker via-indigo-950 to-purple-950" />
+    <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%236366f1" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30" />
+  </div>
+));
 
 const Home = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-
   useEffect(() => {
     document.title = 'Início | GV Software - Desenvolvimento de Software';
     
-    // Use requestIdleCallback for non-critical operations when browser is idle
-    const idleId = "requestIdleCallback" in window ? 
-      window.requestIdleCallback(() => setIsLoaded(true)) : 
-      setTimeout(() => setIsLoaded(true), 10);
-    
-    return () => {
-      if ("requestIdleCallback" in window) {
-        window.cancelIdleCallback(idleId as any);
-      } else {
-        clearTimeout(idleId);
-      }
-    };
+    // Preload critical resources
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
+    link.as = 'style';
+    document.head.appendChild(link);
   }, []);
 
-  // Apply fade-in effect using CSS transitions
-  const contentClasses = `min-h-screen transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`;
-
   return (
-    <div className={contentClasses}>
-      <BackgroundSlides />
+    <div className="min-h-screen">
+      <StaticBackground />
       
       <div className="relative z-10">
         <MemoizedSocialIcons />
