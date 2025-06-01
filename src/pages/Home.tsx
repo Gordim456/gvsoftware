@@ -26,15 +26,23 @@ const FastLoading = () => (
   </div>
 );
 
-// Optimized background with GPU acceleration
+// Modern background with enhanced gradients and effects
 const ModernBackground = memo(() => (
   <div className="fixed inset-0 z-0">
+    {/* Multi-layer gradient background */}
     <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950" />
+    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-indigo-900/20 to-purple-900/30" />
+    
+    {/* Animated gradient orbs */}
+    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-indigo-600/30 to-purple-600/30 rounded-full blur-3xl animate-pulse"></div>
+    <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+    
+    {/* Subtle pattern overlay */}
     <div 
-      className="absolute inset-0 opacity-20"
+      className="absolute inset-0 opacity-10"
       style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%236366f1' fill-opacity='0.08'%3E%3Ccircle cx='20' cy='20' r='1.5'/%3E%3C/g%3E%3C/svg%3E")`,
-        transform: 'translateZ(0)', // GPU acceleration
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236366f1' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        transform: 'translateZ(0)',
         willChange: 'transform'
       }}
     />
