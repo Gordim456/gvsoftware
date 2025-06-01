@@ -5,14 +5,14 @@ import { Instagram } from 'lucide-react';
 import TikTokIcon from './icons/TikTokIcon';
 
 const SocialIcons = () => {
-  // Simplified animation variants for better performance
+  // Otimizadas variantes de animação para melhor performance
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.5,
+        delayChildren: 0.2,
       }
     }
   };
@@ -24,7 +24,7 @@ const SocialIcons = () => {
   
   return (
     <motion.div 
-      className="fixed right-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-50"
+      className="fixed right-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-3 z-50"
       initial="hidden"
       animate="visible"
       variants={containerVariants}

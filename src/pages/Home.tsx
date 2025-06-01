@@ -7,37 +7,37 @@ import CallToAction from '@/components/CallToAction';
 import QuickFAQ from '@/components/QuickFAQ';
 import { memo } from 'react';
 
-// Optimized lazy loading with preloading
+// Lazy loading otimizado com preloading
 const Hero = lazy(() => import('../components/Hero'));
 const Services = lazy(() => import('../components/Services'));
 const Testimonials = lazy(() => import('../components/Testimonials'));
 
-// Memoized components for better performance
+// Componentes memoizados para melhor performance
 const MemoizedFooter = memo(Footer);
 const MemoizedNavbar = memo(Navbar);
 const MemoizedSocialIcons = memo(SocialIcons);
 const MemoizedCallToAction = memo(CallToAction);
 const MemoizedQuickFAQ = memo(QuickFAQ);
 
-// Ultra-fast loading component
+// Loading ultra-rápido
 const FastLoading = () => (
-  <div className="w-full py-6 flex justify-center">
-    <div className="w-4 h-4 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
+  <div className="w-full py-4 flex justify-center">
+    <div className="w-3 h-3 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
   </div>
 );
 
-// Modern background with enhanced gradients and effects
+// Background moderno com efeitos aprimorados
 const ModernBackground = memo(() => (
   <div className="fixed inset-0 z-0">
-    {/* Multi-layer gradient background */}
+    {/* Background gradient multi-camadas */}
     <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950" />
     <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-indigo-900/20 to-purple-900/30" />
     
-    {/* Animated gradient orbs */}
+    {/* Orbs animados com gradiente */}
     <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-indigo-600/30 to-purple-600/30 rounded-full blur-3xl animate-pulse"></div>
     <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
     
-    {/* Subtle pattern overlay */}
+    {/* Pattern overlay sutil */}
     <div 
       className="absolute inset-0 opacity-10"
       style={{
@@ -53,10 +53,10 @@ const Home = () => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    // Immediate setup for faster perceived loading
+    // Setup imediato para carregamento mais rápido
     document.title = 'Início | GV Software - Soluções Digitais Modernas';
     
-    // Preload critical resources
+    // Preload de recursos críticos
     const preloadFont = () => {
       const link = document.createElement('link');
       link.rel = 'preload';
@@ -65,9 +65,9 @@ const Home = () => {
       document.head.appendChild(link);
     };
 
-    // Optimized resource loading
+    // Carregamento otimizado de recursos
     const preloadComponents = () => {
-      // Preload components that will be visible soon
+      // Preload dos componentes que serão visíveis em breve
       import('../components/Hero');
       import('../components/Services');
     };
@@ -75,11 +75,11 @@ const Home = () => {
     preloadFont();
     preloadComponents();
     
-    // Fast ready state
+    // Estado pronto rápido
     setIsReady(true);
   }, []);
 
-  // Memoized meta tags for SEO
+  // Meta tags memoizadas para SEO
   const metaTags = useMemo(() => {
     const meta = document.createElement('meta');
     meta.name = 'description';

@@ -19,7 +19,7 @@ const Contact = () => {
     document.title = 'Contato | GV Software - Fale Conosco';
     setIsLoaded(true);
     
-    // SEO optimization
+    // SEO otimizado
     const meta = document.createElement('meta');
     meta.name = 'description';
     meta.content = 'Entre em contato com a GV Software - Orçamentos gratuitos, resposta em 24h e suporte completo para seu projeto digital.';
@@ -35,7 +35,7 @@ const Contact = () => {
     });
   };
 
-  // Enhanced benefits data
+  // Dados de benefícios aprimorados
   const benefits = [
     { 
       icon: <Clock />, 
@@ -57,19 +57,19 @@ const Contact = () => {
     }
   ];
 
-  // Trust indicators
+  // Indicadores de confiança
   const trustIndicators = [
     { icon: <Star />, text: "98% de satisfação dos clientes" },
     { icon: <CheckCircle />, text: "Mais de 100 projetos entregues" },
     { icon: <Shield />, text: "Dados protegidos e seguros" }
   ];
 
-  // Modern hero section
+  // Seção Hero moderna
   const HeroSection = () => (
     <section className="relative py-24 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950"></div>
       
-      {/* Enhanced animated background elements */}
+      {/* Elementos de background animados aprimorados */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-cyan-600/10 to-blue-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
@@ -98,7 +98,7 @@ const Contact = () => {
             Transformamos suas ideias em soluções digitais inovadoras. Vamos conversar sobre seu próximo projeto.
           </p>
 
-          {/* Trust indicators */}
+          {/* Indicadores de confiança */}
           <motion.div 
             className="flex flex-wrap justify-center gap-6 mb-12"
             initial={{ opacity: 0, y: 20 }}
@@ -114,7 +114,7 @@ const Contact = () => {
           </motion.div>
         </motion.div>
 
-        {/* Enhanced Benefits Cards */}
+        {/* Cards de Benefícios Aprimorados */}
         <motion.div 
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -139,9 +139,9 @@ const Contact = () => {
           ))}
         </motion.div>
 
-        {/* Contact Form and Info Grid */}
+        {/* Grid de Formulário de Contato e Informações */}
         <div className="grid md:grid-cols-12 gap-8 lg:gap-12">
-          {/* Contact Info */}
+          {/* Informações de Contato */}
           <motion.div 
             className="md:col-span-5 space-y-6"
             initial={{ opacity: 0, x: -20 }}
@@ -151,7 +151,7 @@ const Contact = () => {
             <ContactInfo />
           </motion.div>
           
-          {/* Contact Form */}
+          {/* Formulário de Contato */}
           <motion.div 
             className="md:col-span-7"
             initial={{ opacity: 0, x: 20 }}
