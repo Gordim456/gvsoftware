@@ -6,6 +6,12 @@ import { ArrowRight } from "lucide-react";
 
 const sliderItems = [
   {
+    image: "/lovable-uploads/61ef491d-1126-436c-be67-fd525f729623.png",
+    title: "Sistema de Gestão de Bebidas",
+    description: "Sistema completo para controle de estoque e vendas de bebidas.",
+    cta: "Conheça o sistema"
+  },
+  {
     image: "/project-1.jpg",
     title: "Desenvolvimento Web",
     description: "Criamos aplicações web modernas e responsivas.",
