@@ -41,7 +41,7 @@ const Portfolio = () => {
     },
     {
       images: [
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80"
+        "/lovable-uploads/a473a0aa-05ba-45b0-84fd-be4060fb59d9.png"
       ],
       title: "E-commerce Moderno",
       category: "E-commerce",
@@ -53,7 +53,7 @@ const Portfolio = () => {
     },
     {
       images: [
-        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80"
+        "/lovable-uploads/a473a0aa-05ba-45b0-84fd-be4060fb59d9.png"
       ],
       title: "App de Produtividade",
       category: "Mobile",
@@ -65,7 +65,7 @@ const Portfolio = () => {
     },
     {
       images: [
-        "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80"
+        "/lovable-uploads/a473a0aa-05ba-45b0-84fd-be4060fb59d9.png"
       ],
       title: "Plataforma Educacional",
       category: "EdTech",
@@ -77,7 +77,7 @@ const Portfolio = () => {
     },
     {
       images: [
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+        "/lovable-uploads/a473a0aa-05ba-45b0-84fd-be4060fb59d9.png"
       ],
       title: "Dashboard Analytics",
       category: "Business Intelligence",
@@ -89,7 +89,7 @@ const Portfolio = () => {
     },
     {
       images: [
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
+        "/lovable-uploads/a473a0aa-05ba-45b0-84fd-be4060fb59d9.png"
       ],
       title: "CRM Inteligente",
       category: "CRM",
@@ -144,6 +144,8 @@ const Portfolio = () => {
           Projetos que transformam ideias em soluções digitais de impacto
         </p>
       </motion.div>
+      
+      <SocialIcons />
     </section>
   ), []);
 
@@ -175,7 +177,7 @@ const Portfolio = () => {
           link={project.link}
         />
         
-        {project.status === 'completed' && (
+        {project.status === 'completed' && project.title !== "Sistema de Gestão Bebidas ON" && (
           <div className="mt-4 flex gap-3">
             <a
               href={project.link}
@@ -198,7 +200,6 @@ const Portfolio = () => {
 
   return (
     <div className={`bg-slate-950 min-h-screen transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-      <SocialIcons />
       <Navbar />
 
       <HeroSection />
