@@ -12,19 +12,19 @@ const sliderItems = [
     cta: "Conheça o sistema"
   },
   {
-    image: "/project-1.jpg",
+    image: "/lovable-uploads/325a1643-74a7-40ea-9d10-617fbb277bf1.png",
     title: "Desenvolvimento Web",
     description: "Criamos aplicações web modernas e responsivas.",
     cta: "Saiba mais"
   },
   {
-    image: "/project-2.jpg", 
+    image: "/lovable-uploads/7b28e4c1-03d5-4727-af13-88426ecce861.png", 
     title: "Aplicações Mobile",
     description: "Desenvolvemos aplicativos nativos para iOS e Android.",
     cta: "Conheça nossos apps"
   },
   {
-    image: "/project-3.jpg",
+    image: "/lovable-uploads/ec120818-eaa6-4fb5-8187-e1914b9d670a.png",
     title: "Design UI/UX", 
     description: "Projetamos interfaces intuitivas e experiências digitais.",
     cta: "Ver portfólio"
