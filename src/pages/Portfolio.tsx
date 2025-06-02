@@ -43,9 +43,9 @@ const Portfolio = () => {
       images: [
         "/lovable-uploads/a473a0aa-05ba-45b0-84fd-be4060fb59d9.png"
       ],
-      title: "E-commerce Moderno",
+      title: "Em Desenvolvimento: A Próxima Grande Inovação!",
       category: "E-commerce",
-      description: "Plataforma completa de comércio eletrônico com pagamentos integrados - Em desenvolvimento.",
+      description: "Seu projeto pode ser o próximo! Estamos em desenvolvimento, não perca as novidades!",
       technologies: ["React", "Node.js", "MongoDB", "Stripe"],
       link: "#",
       featured: false,
@@ -55,9 +55,9 @@ const Portfolio = () => {
       images: [
         "/lovable-uploads/a473a0aa-05ba-45b0-84fd-be4060fb59d9.png"
       ],
-      title: "App de Produtividade",
+      title: "Em Desenvolvimento: A Próxima Grande Inovação!",
       category: "Mobile",
-      description: "Aplicativo móvel para gestão de tarefas - Em desenvolvimento.",
+      description: "Seu projeto pode ser o próximo! Estamos em desenvolvimento, não perca as novidades!",
       technologies: ["React Native", "Firebase", "TypeScript"],
       link: "#",
       featured: false,
@@ -67,9 +67,9 @@ const Portfolio = () => {
       images: [
         "/lovable-uploads/a473a0aa-05ba-45b0-84fd-be4060fb59d9.png"
       ],
-      title: "Plataforma Educacional",
+      title: "Em Desenvolvimento: A Próxima Grande Inovação!",
       category: "EdTech",
-      description: "Sistema de ensino online com videoaulas - Em desenvolvimento.",
+      description: "Seu projeto pode ser o próximo! Estamos em desenvolvimento, não perca as novidades!",
       technologies: ["Next.js", "GraphQL", "AWS", "MongoDB"],
       link: "#",
       featured: false,
@@ -79,9 +79,9 @@ const Portfolio = () => {
       images: [
         "/lovable-uploads/a473a0aa-05ba-45b0-84fd-be4060fb59d9.png"
       ],
-      title: "Dashboard Analytics",
+      title: "Em Desenvolvimento: A Próxima Grande Inovação!",
       category: "Business Intelligence",
-      description: "Dashboard interativo para visualização de dados - Em desenvolvimento.",
+      description: "Seu projeto pode ser o próximo! Estamos em desenvolvimento, não perca as novidades!",
       technologies: ["Angular", "D3.js", "Node.js", "MySQL"],
       link: "#",
       featured: false,
@@ -91,9 +91,9 @@ const Portfolio = () => {
       images: [
         "/lovable-uploads/a473a0aa-05ba-45b0-84fd-be4060fb59d9.png"
       ],
-      title: "CRM Inteligente",
+      title: "Em Desenvolvimento: A Próxima Grande Inovação!",
       category: "CRM",
-      description: "Sistema de gestão de relacionamento com clientes - Em desenvolvimento.",
+      description: "Seu projeto pode ser o próximo! Estamos em desenvolvimento, não perca as novidades!",
       technologies: ["React", "Java Spring", "PostgreSQL", "Redis"],
       link: "#",
       featured: false,
@@ -286,6 +286,7 @@ const Portfolio = () => {
       </section>
 
       <Footer />
+      <SocialIcons />
     </div>
   );
 };
