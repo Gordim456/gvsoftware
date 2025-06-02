@@ -1,6 +1,6 @@
 
 import { useState, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface ProjectCarouselProps {
@@ -88,16 +88,6 @@ const ProjectCarousel = ({
           <span className="text-xs bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full font-medium border border-indigo-500/30">
             {category}
           </span>
-          {link && link !== '#' && (
-            <a
-              href={link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-indigo-400 hover:text-indigo-300 transition-colors"
-            >
-              <ExternalLink className="w-4 h-4" />
-            </a>
-          )}
         </div>
         
         <h3 className="text-lg font-bold text-white group-hover:text-indigo-200 transition-colors">

@@ -1,7 +1,7 @@
+
 import { useEffect, useState, lazy, Suspense, useMemo } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import SocialIcons from '@/components/SocialIcons';
 import CallToAction from '@/components/CallToAction';
 import QuickFAQ from '@/components/QuickFAQ';
 import { memo } from 'react';
@@ -14,7 +14,6 @@ const Testimonials = lazy(() => import('../components/Testimonials'));
 // Componentes memoizados para melhor performance
 const MemoizedFooter = memo(Footer);
 const MemoizedNavbar = memo(Navbar);
-const MemoizedSocialIcons = memo(SocialIcons);
 const MemoizedCallToAction = memo(CallToAction);
 const MemoizedQuickFAQ = memo(QuickFAQ);
 
@@ -100,8 +99,6 @@ const Home = () => {
         <MemoizedNavbar />
         
         <div className="relative">
-          <MemoizedSocialIcons />
-          
           <Suspense fallback={<FastLoading />}>
             <Hero />
           </Suspense>

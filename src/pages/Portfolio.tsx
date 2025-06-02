@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import SocialIcons from '@/components/SocialIcons';
 import { Briefcase, ExternalLink, Eye, Code, Wrench } from "lucide-react";
@@ -144,8 +143,6 @@ const Portfolio = () => {
           Projetos que transformam ideias em soluções digitais de impacto
         </p>
       </motion.div>
-      
-      <SocialIcons />
     </section>
   ), []);
 
@@ -203,6 +200,7 @@ const Portfolio = () => {
       <Navbar />
 
       <HeroSection />
+      <SocialIcons />
 
       <section className="py-20 relative overflow-hidden">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl"></div>
