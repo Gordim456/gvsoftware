@@ -28,6 +28,8 @@ const Portfolio = () => {
   const projects = useMemo(() => [
     {
       images: [
+        "/lovable-uploads/0e95df6b-f6c8-414f-bfc6-db5851eed02a.png",
+        "/lovable-uploads/28644e40-a567-43b8-bd8e-5090b338df1d.png",
         "/lovable-uploads/f9a88f53-3e07-4405-88ba-38a71e63e353.png",
         "/lovable-uploads/61ef491d-1126-436c-be67-fd525f729623.png"
       ],

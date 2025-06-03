@@ -188,14 +188,14 @@ const ChatBot = () => {
             className="bg-gradient-to-br from-purple-600 via-blue-600 to-blue-700 
                      text-white p-4 rounded-full shadow-lg hover:shadow-xl 
                      transition-all duration-300 hover:scale-110
-                     group relative animate-pulse"
+                     group relative animate-bounce"
           >
             <MessageSquare className="w-6 h-6" />
             <span className="absolute -top-12 right-0 bg-white px-4 py-2 rounded-full 
                          text-sm font-medium text-blue-600 shadow-lg opacity-0 
                          group-hover:opacity-100 transition-opacity duration-300 
                          whitespace-nowrap">
-              Chat Rápido <Sparkles className="w-4 h-4 inline-block ml-1" />
+              Em que posso ajudar hoje? <Sparkles className="w-4 h-4 inline-block ml-1" />
             </span>
           </button>
         </div>
@@ -243,47 +243,62 @@ const ChatBot = () => {
                 <form onSubmit={handleFormSubmit} className="space-y-4 bg-white p-6 
                                                            rounded-2xl shadow-sm">
                   <div className="text-center mb-6">
-                    <h4 className="font-bold text-gray-800 text-lg">Atendimento Rápido</h4>
+                    <h4 className="font-bold text-gray-800 text-lg">Vamos conversar!</h4>
                     <p className="text-sm text-gray-500 mt-2">
-                      Apenas 3 campos para um atendimento personalizado:
+                      Preencha os dados abaixo para iniciarmos:
                     </p>
                   </div>
-                  <div className="space-y-3">
-                    <input
-                      type="text"
-                      placeholder="Seu nome"
-                      value={formData.firstName}
-                      onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                      className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl
-                               focus:outline-none focus:ring-2 focus:ring-blue-500/20 
-                               focus:border-blue-500 transition-all"
-                      required
-                    />
-                    <input
-                      type="email"
-                      placeholder="Seu email"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl 
-                               focus:outline-none focus:ring-2 focus:ring-blue-500/20 
-                               focus:border-blue-500 transition-all"
-                      required
-                    />
-                    <select
-                      value={formData.projectType}
-                      onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                      className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl 
-                               focus:outline-none focus:ring-2 focus:ring-blue-500/20 
-                               focus:border-blue-500 transition-all"
-                      required
-                    >
-                      <option value="">Tipo de projeto</option>
-                      <option value="site">Site Institucional</option>
-                      <option value="ecommerce">E-commerce</option>
-                      <option value="app">App Mobile</option>
-                      <option value="sistema">Sistema Web</option>
-                      <option value="outro">Outro</option>
-                    </select>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Seu nome *
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Digite seu nome"
+                        value={formData.firstName}
+                        onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                        className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl
+                                 focus:outline-none focus:ring-2 focus:ring-blue-500/20 
+                                 focus:border-blue-500 transition-all"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Seu email *
+                      </label>
+                      <input
+                        type="email"
+                        placeholder="Digite seu email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl 
+                                 focus:outline-none focus:ring-2 focus:ring-blue-500/20 
+                                 focus:border-blue-500 transition-all"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Tipo de projeto *
+                      </label>
+                      <select
+                        value={formData.projectType}
+                        onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
+                        className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl 
+                                 focus:outline-none focus:ring-2 focus:ring-blue-500/20 
+                                 focus:border-blue-500 transition-all"
+                        required
+                      >
+                        <option value="">Selecione o tipo de projeto</option>
+                        <option value="site">Site Institucional</option>
+                        <option value="ecommerce">E-commerce</option>
+                        <option value="app">App Mobile</option>
+                        <option value="sistema">Sistema Web</option>
+                        <option value="outro">Outro</option>
+                      </select>
+                    </div>
                   </div>
                   <button
                     type="submit"
@@ -291,8 +306,8 @@ const ChatBot = () => {
                              text-white py-3 rounded-xl hover:shadow-lg transition-all duration-300 
                              font-medium flex items-center justify-center gap-2"
                   >
-                    <span>Iniciar Chat</span>
-                    <Sparkles className="w-4 h-4" />
+                    <span>Iniciar Conversa</span>
+                    <MessageSquare className="w-4 h-4" />
                   </button>
                 </form>
               ) : (

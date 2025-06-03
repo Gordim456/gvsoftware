@@ -77,7 +77,7 @@ export const HeroSlider = () => {
               <p className="text-lg text-gray-200 mb-4 max-w-md">
                 {item.description}
               </p>
-              <Link to="/services">
+              <Link to="/portfolio">
                 <Button className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center gap-2">
                   {item.cta}
                   <ArrowRight className="w-4 h-4" />
