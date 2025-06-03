@@ -4,38 +4,35 @@ import { Code, Smartphone, PenTool, Settings } from 'lucide-react';
 const services = [
   {
     icon: Code,
-    title: "Desenvolvimento Web",
-    description: "Criamos soluções web modernas e responsivas",
+    title: "Sistema de Gestão Bebidas ON",
+    description: "Sistema completo para controle de estoque e vendas",
     image: "/lovable-uploads/61ef491d-1126-436c-be67-fd525f729623.png"
   },
   {
     icon: Smartphone,
     title: "Aplicativos Mobile",
     description: "Desenvolvimento de apps iOS e Android",
-    image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7"
+    image: "/lovable-uploads/9805566a-c46b-4db7-8637-f74f6a89da91.png"
   },
   {
     icon: PenTool,
     title: "Design UI/UX",
     description: "Design de interfaces intuitivas e modernas",
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
+    image: "/lovable-uploads/9805566a-c46b-4db7-8637-f74f6a89da91.png"
   },
   {
     icon: Settings,
     title: "Consultoria Técnica",
     description: "Assessoria especializada em tecnologia",
-    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81"
+    image: "/lovable-uploads/9805566a-c46b-4db7-8637-f74f6a89da91.png"
   }
 ];
 
 const Services = () => {
   return (
-    <section id="services" className="py-16 bg-gv-darker relative">
-      <div className="absolute -top-20 -right-20 w-40 h-40 bg-indigo-600/10 rounded-full blur-2xl"></div>
-      <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-purple-600/10 rounded-full blur-2xl"></div>
-      
+    <section id="services" className="py-12 bg-gv-darker relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Nossos <span className="gradient-text">Serviços</span>
           </h2>
@@ -44,13 +41,13 @@ const Services = () => {
           </p>
         </div>
       
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           {services.map((service, index) => (
             <div
               key={index}
-              className="relative group rounded-xl overflow-hidden transition-transform duration-300 hover:scale-105"
+              className="relative group rounded-xl overflow-hidden transition-transform duration-200 hover:scale-[1.02] will-change-transform"
             >
-              <div className="relative h-[250px] overflow-hidden rounded-xl">
+              <div className="relative h-[220px] overflow-hidden rounded-xl">
                 <img
                   src={service.image}
                   alt={service.title}

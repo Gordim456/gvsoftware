@@ -1,10 +1,10 @@
+
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import SocialIcons from '@/components/SocialIcons';
 import { Briefcase, ExternalLink, Eye, Code, Wrench } from "lucide-react";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProjectCarousel from '@/components/ProjectCarousel';
-import { motion } from 'framer-motion';
 
 const Portfolio = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -12,7 +12,8 @@ const Portfolio = () => {
 
   useEffect(() => {
     document.title = 'Portfólio | GV Software - Nossos Projetos';
-    setIsLoaded(true);
+    const timer = setTimeout(() => setIsLoaded(true), 100);
+    return () => clearTimeout(timer);
     
     // SEO optimization
     const meta = document.createElement('meta');
@@ -27,8 +28,8 @@ const Portfolio = () => {
   const projects = useMemo(() => [
     {
       images: [
-        "/lovable-uploads/61ef491d-1126-436c-be67-fd525f729623.png",
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+        "/lovable-uploads/f9a88f53-3e07-4405-88ba-38a71e63e353.png",
+        "/lovable-uploads/61ef491d-1126-436c-be67-fd525f729623.png"
       ],
       title: "Sistema de Gestão Bebidas ON",
       category: "Enterprise",
@@ -110,7 +111,7 @@ const Portfolio = () => {
 
   // Modern hero section
   const HeroSection = useCallback(() => (
-    <section className="relative h-[60vh] overflow-hidden flex items-center justify-center">
+    <section className="relative h-[50vh] overflow-hidden flex items-center justify-center">
       <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-indigo-900/80 to-purple-900/90 z-10"></div>
       <div 
         className="absolute inset-0 bg-cover bg-center"
@@ -120,42 +121,26 @@ const Portfolio = () => {
         }}
       />
       
-      <motion.div 
-        className="relative z-20 text-center max-w-4xl px-4"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <motion.div
-          className="w-20 h-20 mx-auto bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-8 shadow-2xl"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-        >
-          <Briefcase className="w-10 h-10 text-white" />
-        </motion.div>
+      <div className="relative z-20 text-center max-w-4xl px-4">
+        <div className="w-16 h-16 mx-auto bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-6 shadow-2xl">
+          <Briefcase className="w-8 h-8 text-white" />
+        </div>
         
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent">
           Nosso <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Portfólio</span>
         </h1>
         
-        <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
           Projetos que transformam ideias em soluções digitais de impacto
         </p>
-      </motion.div>
+      </div>
     </section>
   ), []);
 
   // Enhanced ProjectCard component
   const ProjectCard = ({ project, index }: { project: any, index: number }) => (
-    <motion.div
-      className={`relative group ${project.status === 'development' ? 'opacity-75' : ''}`}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: project.status === 'development' ? 0.75 : 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
-    >
-      <div className="bg-slate-900/50 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-indigo-500/20">
+    <div className={`relative group ${project.status === 'development' ? 'opacity-75' : ''}`}>
+      <div className="bg-slate-900/50 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-200 shadow-xl">
         {project.status === 'development' && (
           <div className="absolute top-4 right-4 z-10">
             <div className="bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2">
@@ -180,55 +165,46 @@ const Portfolio = () => {
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-indigo-500/30 transition-all duration-300 hover:scale-105"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-200"
             >
               <ExternalLink className="w-4 h-4" />
               Ver Projeto
             </a>
-            <button className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-slate-800/50 text-white rounded-xl font-medium hover:bg-slate-700/50 transition-all duration-300 border border-slate-600/30">
+            <button className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-slate-800/50 text-white rounded-xl font-medium hover:bg-slate-700/50 transition-all duration-200 border border-slate-600/30">
               <Code className="w-4 h-4" />
               Código
             </button>
           </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 
   return (
-    <div className={`bg-slate-950 min-h-screen transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`bg-slate-950 min-h-screen transition-opacity duration-200 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
       <Navbar />
 
       <HeroSection />
       <SocialIcons />
 
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl"></div>
-
+      <section className="py-16 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Modern Filter Section */}
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
               Projetos <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Recentes</span>
             </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+            <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-8 leading-relaxed">
               Cada projeto é uma história de sucesso que combina design elegante, funcionalidade robusta e experiência excepcional.
             </p>
             
             {/* Category Filter */}
-            <div className="flex flex-wrap justify-center gap-3 mb-12">
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setFilter(category)}
-                  className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                     filter === category
                       ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
                       : 'bg-slate-800/50 text-gray-400 hover:bg-slate-700/50 hover:text-white border border-slate-600/30'
@@ -238,48 +214,42 @@ const Portfolio = () => {
                 </button>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjects.map((project, index) => (
               <ProjectCard key={index} project={project} index={index} />
             ))}
           </div>
           
           {/* Modern CTA Section */}
-          <motion.div 
-            className="mt-20 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 p-12 rounded-3xl border border-slate-700/50 backdrop-blur-sm shadow-2xl">
-              <h3 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+          <div className="mt-16 text-center">
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 p-8 rounded-3xl border border-slate-700/50 backdrop-blur-sm shadow-2xl">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 Pronto para <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">iniciar seu projeto</span>?
               </h3>
-              <p className="text-gray-400 mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
+              <p className="text-gray-400 mb-6 max-w-2xl mx-auto text-lg leading-relaxed">
                 Transforme suas ideias em realidade com nosso time especializado em desenvolvimento de software.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="/contact"
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-medium hover:shadow-lg hover:shadow-indigo-500/30 transition-all duration-300 hover:scale-105"
+                  className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-medium hover:shadow-lg transition-all duration-200"
                 >
                   <span>Solicite um Orçamento</span>
-                  <ExternalLink className="w-5 h-5" />
+                  <ExternalLink className="w-4 h-4" />
                 </a>
                 <a
                   href="#"
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-slate-800/50 text-white rounded-full font-medium hover:bg-slate-700/50 transition-all duration-300 border border-slate-600/30"
+                  className="inline-flex items-center gap-3 px-6 py-3 bg-slate-800/50 text-white rounded-full font-medium hover:bg-slate-700/50 transition-all duration-200 border border-slate-600/30"
                 >
-                  <Eye className="w-5 h-5" />
+                  <Eye className="w-4 h-4" />
                   <span>Ver Mais Projetos</span>
                 </a>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
