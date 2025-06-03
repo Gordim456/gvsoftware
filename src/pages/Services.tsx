@@ -1,17 +1,11 @@
-
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import { Rocket, Code, Brush, CheckCircle, LayoutDashboard, Users, ShieldCheck, TrendingUp } from 'lucide-react';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SocialIcons from '@/components/SocialIcons';
 
 const Services = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
     document.title = 'Serviços | GV Software - Soluções Digitais Completas';
@@ -26,81 +20,30 @@ const Services = () => {
     }
   }, []);
 
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 60 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut'
-      }
-    }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
-
   return (
-    <motion.div
-      className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isVisible ? 1 : 0 }}
-      transition={{ duration: 0.3 }}
-    >
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950">
       <Navbar />
       <SocialIcons />
 
-      {/* Hero Section Moderno */}
       <section className="pt-32 pb-20 relative overflow-hidden">
-        {/* Elementos decorativos */}
-        <div className="absolute top-20 left-10 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-40 right-10 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-20 left-10 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-40 right-10 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <motion.div
-              className="w-20 h-20 mx-auto bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-8 shadow-2xl"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: 'spring', stiffness: 200 }}
-            >
+          <div className="text-center mb-16">
+            <div className="w-20 h-20 mx-auto bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-8 shadow-2xl">
               <Rocket className="w-10 h-10 text-white" />
-            </motion.div>
+            </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent">
               Nossos <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Serviços</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
               Oferecemos soluções completas para impulsionar o seu negócio no mundo digital.
             </p>
-          </motion.div>
+          </div>
 
-          {/* Grid de Serviços */}
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            {/* Desenvolvimento Web */}
-            <motion.div
-              className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300 shadow-2xl hover:shadow-indigo-500/10"
-              variants={fadeInUp}
-              whileHover={{ y: -5, scale: 1.02 }}
-            >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300 shadow-2xl hover:shadow-indigo-500/10">
               <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                 <Code className="w-8 h-8 text-white" />
               </div>
@@ -123,14 +66,9 @@ const Services = () => {
                   Sistemas web sob medida
                 </li>
               </ul>
-            </motion.div>
+            </div>
 
-            {/* UI/UX Design */}
-            <motion.div
-              className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-purple-500/50 transition-all duration-300 shadow-2xl hover:shadow-purple-500/10"
-              variants={fadeInUp}
-              whileHover={{ y: -5, scale: 1.02 }}
-            >
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-purple-500/50 transition-all duration-300 shadow-2xl hover:shadow-purple-500/10">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                 <Brush className="w-8 h-8 text-white" />
               </div>
@@ -153,14 +91,9 @@ const Services = () => {
                   Protótipos interativos
                 </li>
               </ul>
-            </motion.div>
+            </div>
 
-            {/* Aplicações Mobile */}
-            <motion.div
-              className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-pink-500/50 transition-all duration-300 shadow-2xl hover:shadow-pink-500/10"
-              variants={fadeInUp}
-              whileHover={{ y: -5, scale: 1.02 }}
-            >
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-pink-500/50 transition-all duration-300 shadow-2xl hover:shadow-pink-500/10">
               <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                 <LayoutDashboard className="w-8 h-8 text-white" />
               </div>
@@ -183,14 +116,9 @@ const Services = () => {
                   Testes e publicação nas lojas
                 </li>
               </ul>
-            </motion.div>
+            </div>
 
-            {/* Otimização SEO */}
-            <motion.div
-              className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 shadow-2xl hover:shadow-blue-500/10"
-              variants={fadeInUp}
-              whileHover={{ y: -5, scale: 1.02 }}
-            >
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 shadow-2xl hover:shadow-blue-500/10">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                 <TrendingUp className="w-8 h-8 text-white" />
               </div>
@@ -213,14 +141,9 @@ const Services = () => {
                   Relatórios e acompanhamento
                 </li>
               </ul>
-            </motion.div>
+            </div>
 
-            {/* Consultoria em TI */}
-            <motion.div
-              className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-green-500/50 transition-all duration-300 shadow-2xl hover:shadow-green-500/10"
-              variants={fadeInUp}
-              whileHover={{ y: -5, scale: 1.02 }}
-            >
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-green-500/50 transition-all duration-300 shadow-2xl hover:shadow-green-500/10">
               <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                 <ShieldCheck className="w-8 h-8 text-white" />
               </div>
@@ -243,14 +166,9 @@ const Services = () => {
                   Implementação de soluções
                 </li>
               </ul>
-            </motion.div>
+            </div>
 
-            {/* Suporte e Manutenção */}
-            <motion.div
-              className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-yellow-500/50 transition-all duration-300 shadow-2xl hover:shadow-yellow-500/10"
-              variants={fadeInUp}
-              whileHover={{ y: -5, scale: 1.02 }}
-            >
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-yellow-500/50 transition-all duration-300 shadow-2xl hover:shadow-yellow-500/10">
               <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                 <Users className="w-8 h-8 text-white" />
               </div>
@@ -273,12 +191,11 @@ const Services = () => {
                   Atualizações e upgrades
                 </li>
               </ul>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Seção Por que Escolher */}
       <section className="py-20 bg-gradient-to-br from-slate-950 via-purple-950 to-indigo-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -291,15 +208,7 @@ const Services = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Expertise */}
-            <motion.div
-              className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300 shadow-2xl text-center"
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              whileHover={{ y: -5, scale: 1.02 }}
-            >
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300 shadow-2xl text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                 <CheckCircle className="w-8 h-8 text-white" />
               </div>
@@ -307,18 +216,9 @@ const Services = () => {
               <p className="text-gray-300 leading-relaxed">
                 Equipe altamente qualificada e experiente em diversas tecnologias e metodologias.
               </p>
-            </motion.div>
+            </div>
 
-            {/* Inovação */}
-            <motion.div
-              className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-purple-500/50 transition-all duration-300 shadow-2xl text-center"
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-            >
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-purple-500/50 transition-all duration-300 shadow-2xl text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                 <Code className="w-8 h-8 text-white" />
               </div>
@@ -326,18 +226,9 @@ const Services = () => {
               <p className="text-gray-300 leading-relaxed">
                 Buscamos constantemente as últimas tendências e tecnologias para oferecer soluções inovadoras.
               </p>
-            </motion.div>
+            </div>
 
-            {/* Foco no Cliente */}
-            <motion.div
-              className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-pink-500/50 transition-all duration-300 shadow-2xl text-center"
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-            >
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 hover:border-pink-500/50 transition-all duration-300 shadow-2xl text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                 <Users className="w-8 h-8 text-white" />
               </div>
@@ -345,13 +236,13 @@ const Services = () => {
               <p className="text-gray-300 leading-relaxed">
                 Priorizamos a satisfação do cliente, oferecendo atendimento personalizado e soluções sob medida.
               </p>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
       <Footer />
-    </motion.div>
+    </div>
   );
 };
 

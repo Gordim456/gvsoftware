@@ -36,10 +36,9 @@ export const HeroSlider = () => {
   const intervalRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
-    // Slower interval for better performance
     intervalRef.current = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % sliderItems.length);
-    }, 8000);
+    }, 6000);
     
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
@@ -52,34 +51,34 @@ export const HeroSlider = () => {
       clearInterval(intervalRef.current);
       intervalRef.current = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % sliderItems.length);
-      }, 8000);
+      }, 6000);
     }
   };
 
   return (
-    <div className="w-full h-[500px] relative overflow-hidden rounded-xl shadow-lg">
+    <div className="w-full h-[500px] relative overflow-hidden rounded-xl">
       <div className="w-full h-full rounded-xl relative">
         {sliderItems.map((item, index) => (
-          <div key={index} className={`absolute inset-0 transition-opacity duration-1000 ${
+          <div key={index} className={`absolute inset-0 transition-opacity duration-700 ${
             currentIndex === index ? 'opacity-100' : 'opacity-0'
           }`}>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10 rounded-xl" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10 rounded-xl" />
             <img
               src={item.image}
               alt={item.title}
-              className="w-full h-full object-cover rounded-xl"
+              className="w-full h-full object-contain rounded-xl bg-slate-900"
               loading={index === 0 ? "eager" : "lazy"}
             />
             
-            <div className="absolute bottom-8 left-8 right-8 z-20">
-              <h3 className="text-3xl font-bold text-white mb-3">
+            <div className="absolute bottom-6 left-6 right-6 z-20">
+              <h3 className="text-2xl font-bold text-white mb-2">
                 {item.title}
               </h3>
-              <p className="text-lg text-gray-200 mb-6 max-w-md">
+              <p className="text-lg text-gray-200 mb-4 max-w-md">
                 {item.description}
               </p>
               <Link to="/services">
-                <Button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg flex items-center gap-2">
+                <Button className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center gap-2">
                   {item.cta}
                   <ArrowRight className="w-4 h-4" />
                 </Button>
@@ -88,8 +87,7 @@ export const HeroSlider = () => {
           </div>
         ))}
         
-        {/* Simplified navigation */}
-        <div className="absolute bottom-4 right-8 flex space-x-2 z-30">
+        <div className="absolute bottom-2 right-6 flex space-x-2 z-30">
           {sliderItems.map((_, index) => (
             <button
               key={index}
@@ -97,7 +95,7 @@ export const HeroSlider = () => {
               className={`h-2 rounded-full transition-all duration-300 ${
                 currentIndex === index 
                   ? 'bg-white w-6' 
-                  : 'bg-white/50 w-2 hover:bg-white/70'
+                  : 'bg-white/50 w-2'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
