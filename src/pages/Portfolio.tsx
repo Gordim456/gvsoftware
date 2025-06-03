@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import SocialIcons from '@/components/SocialIcons';
-import { Briefcase, ExternalLink, Eye, Code, Wrench } from "lucide-react";
+import { Briefcase, ExternalLink, Eye, Code, Wrench, Calendar, Clock, Upload } from "lucide-react";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProjectCarousel from '@/components/ProjectCarousel';
@@ -32,7 +32,7 @@ const Portfolio = () => {
         "/lovable-uploads/61ef491d-1126-436c-be67-fd525f729623.png"
       ],
       title: "Sistema de Gestão Bebidas ON",
-      category: "Enterprise",
+      category: "Web",
       description: "Sistema completo de gestão empresarial com dashboard interativo, controle de vendas, estoque, pedidos e clientes.",
       technologies: ["React", "Node.js", "PostgreSQL", "Chart.js", "TypeScript"],
       link: "https://kzmlikv32qnpkg9ivfjs.lite.vusercontent.net",
@@ -41,10 +41,10 @@ const Portfolio = () => {
     },
     {
       images: [
-        "/lovable-uploads/a473a0aa-05ba-45b0-84fd-be4060fb59d9.png"
+        "/lovable-uploads/9805566a-c46b-4db7-8637-f74f6a89da91.png"
       ],
       title: "Em Desenvolvimento: A Próxima Grande Inovação!",
-      category: "E-commerce",
+      category: "Web",
       description: "Seu projeto pode ser o próximo! Estamos em desenvolvimento, não perca as novidades!",
       technologies: ["React", "Node.js", "MongoDB", "Stripe"],
       link: "#",
@@ -53,7 +53,7 @@ const Portfolio = () => {
     },
     {
       images: [
-        "/lovable-uploads/a473a0aa-05ba-45b0-84fd-be4060fb59d9.png"
+        "/lovable-uploads/9805566a-c46b-4db7-8637-f74f6a89da91.png"
       ],
       title: "Em Desenvolvimento: A Próxima Grande Inovação!",
       category: "Mobile",
@@ -65,22 +65,22 @@ const Portfolio = () => {
     },
     {
       images: [
-        "/lovable-uploads/a473a0aa-05ba-45b0-84fd-be4060fb59d9.png"
+        "/lovable-uploads/9805566a-c46b-4db7-8637-f74f6a89da91.png"
       ],
       title: "Em Desenvolvimento: A Próxima Grande Inovação!",
-      category: "EdTech",
+      category: "Design",
       description: "Seu projeto pode ser o próximo! Estamos em desenvolvimento, não perca as novidades!",
-      technologies: ["Next.js", "GraphQL", "AWS", "MongoDB"],
+      technologies: ["Figma", "Adobe XD", "Sketch", "Photoshop"],
       link: "#",
       featured: false,
       status: "development"
     },
     {
       images: [
-        "/lovable-uploads/a473a0aa-05ba-45b0-84fd-be4060fb59d9.png"
+        "/lovable-uploads/9805566a-c46b-4db7-8637-f74f6a89da91.png"
       ],
       title: "Em Desenvolvimento: A Próxima Grande Inovação!",
-      category: "Business Intelligence",
+      category: "Web",
       description: "Seu projeto pode ser o próximo! Estamos em desenvolvimento, não perca as novidades!",
       technologies: ["Angular", "D3.js", "Node.js", "MySQL"],
       link: "#",
@@ -89,34 +89,34 @@ const Portfolio = () => {
     },
     {
       images: [
-        "/lovable-uploads/a473a0aa-05ba-45b0-84fd-be4060fb59d9.png"
+        "/lovable-uploads/9805566a-c46b-4db7-8637-f74f6a89da91.png"
       ],
       title: "Em Desenvolvimento: A Próxima Grande Inovação!",
-      category: "CRM",
+      category: "Mobile",
       description: "Seu projeto pode ser o próximo! Estamos em desenvolvimento, não perca as novidades!",
-      technologies: ["React", "Java Spring", "PostgreSQL", "Redis"],
+      technologies: ["Flutter", "Dart", "Firebase", "SQLite"],
       link: "#",
       featured: false,
       status: "development"
     }
   ], []);
 
-  // Filter categories
-  const categories = useMemo(() => ['all', 'Enterprise', 'E-commerce', 'Mobile', 'EdTech', 'Business Intelligence', 'CRM'], []);
+  // Simplified filter categories
+  const categories = useMemo(() => ['all', 'Web', 'Mobile', 'Design'], []);
 
   // Filtered projects
   const filteredProjects = useMemo(() => {
     return filter === 'all' ? projects : projects.filter(project => project.category === filter);
   }, [projects, filter]);
 
-  // Modern hero section
+  // Enhanced hero section with Sistema de Gestão Bebidas ON background
   const HeroSection = useCallback(() => (
     <section className="relative h-[50vh] overflow-hidden flex items-center justify-center">
       <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-indigo-900/80 to-purple-900/90 z-10"></div>
       <div 
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=2000&q=80)',
+          backgroundImage: 'url(/lovable-uploads/f9a88f53-3e07-4405-88ba-38a71e63e353.png)',
           transform: 'translateZ(0)'
         }}
       />
@@ -189,28 +189,31 @@ const Portfolio = () => {
 
       <section className="py-16 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Modern Filter Section */}
+          {/* Enhanced Filter Section with better categories */}
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-              Projetos <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Recentes</span>
+              Projetos por <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Categoria</span>
             </h2>
             <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-8 leading-relaxed">
-              Cada projeto é uma história de sucesso que combina design elegante, funcionalidade robusta e experiência excepcional.
+              Explore nossos projetos organizados por área de especialização
             </p>
             
-            {/* Category Filter */}
+            {/* Enhanced Category Filter */}
             <div className="flex flex-wrap justify-center gap-3 mb-8">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setFilter(category)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 ${
                     filter === category
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                      : 'bg-slate-800/50 text-gray-400 hover:bg-slate-700/50 hover:text-white border border-slate-600/30'
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-105'
+                      : 'bg-slate-800/50 text-gray-400 hover:bg-slate-700/50 hover:text-white border border-slate-600/30 hover:scale-105'
                   }`}
                 >
-                  {category === 'all' ? 'Todos' : category}
+                  {category === 'all' ? 'Todos os Projetos' : 
+                   category === 'Web' ? '💻 Desenvolvimento Web' :
+                   category === 'Mobile' ? '📱 Apps Mobile' :
+                   category === 'Design' ? '🎨 Design UI/UX' : category}
                 </button>
               ))}
             </div>

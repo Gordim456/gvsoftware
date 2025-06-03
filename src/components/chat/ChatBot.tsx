@@ -1,17 +1,18 @@
+
 import { useState } from "react";
-import { MessageSquare, X, Send, Sparkles, Star } from "lucide-react";
+import { MessageSquare, X, Send, Sparkles, Star, Calendar, Clock, Upload, FileText } from "lucide-react";
 
 interface UserInfo {
   firstName: string;
-  lastName: string;
   email: string;
-  reason: string;
+  projectType: string;
 }
 
 interface ChatMessage {
   text: string;
   isBot: boolean;
   timestamp: string;
+  type?: 'text' | 'quick-actions' | 'schedule' | 'file-upload';
 }
 
 interface Conversation {
@@ -20,44 +21,19 @@ interface Conversation {
   id?: number;
 }
 
-const initialBotMessage = `👋 Olá! Sou o assistente virtual da GV Software!
+const quickActions = [
+  { id: 'orcamento', text: '💰 Solicitar Orçamento', response: 'orcamento' },
+  { id: 'portfolio', text: '🚀 Ver Projetos', response: 'portfolio' },
+  { id: 'reuniao', text: '📅 Agendar Reunião', response: 'reuniao' },
+  { id: 'horarios', text: '🕒 Horários de Atendimento', response: 'horarios' },
+  { id: 'tecnologias', text: '⚡ Nossas Tecnologias', response: 'tecnologias' }
+];
 
-🚀 Estamos aqui para revolucionar seu negócio com:
-
-💻 Soluções Digitais:
-• Sites e Aplicativos Premium
-• E-commerce Avançado
-• Sistemas Personalizados
-• Inteligência Artificial
-• Apps Mobile
-• Dashboards Interativos
-
-🎯 Nossos Números:
-• +250 Projetos Entregues
-• +100 Clientes Satisfeitos
-• 98% Taxa de Satisfação
-• 24/7 Suporte Premium
-• 10+ Anos de Experiência
-
-💎 Diferenciais:
-• Tecnologias de Ponta
-• Equipe Especializada
-• Metodologias Ágeis
-• Suporte Dedicado
-• Consultoria Estratégica
-
-🏆 Reconhecimentos:
-• Prêmio Inovação Digital 2023
-• Top 10 Empresas de Software
-• Certificação ISO 9001
-• Parceiro Microsoft & Google
-
-💡 Como posso ajudar você hoje?
-1. Desenvolvimento de Projetos
-2. Consultoria Tecnológica
-3. Orçamentos
-4. Suporte Técnico
-5. Agendamento de Reunião`;
+const workingHours = {
+  'Segunda a Sexta': '9:00 - 18:00',
+  'Sábado': 'Fechado',
+  'Domingo': 'Fechado'
+};
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -65,19 +41,12 @@ const ChatBot = () => {
   const [showForm, setShowForm] = useState(true);
   const [formData, setFormData] = useState<UserInfo>({
     firstName: "",
-    lastName: "",
     email: "",
-    reason: ""
+    projectType: ""
   });
-
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    { 
-      text: "Olá! Como posso ajudar você hoje?", 
-      isBot: true,
-      timestamp: new Date().toISOString()
-    }
-  ]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
   const saveToLocalStorage = (conversation: Conversation) => {
     const conversations = JSON.parse(localStorage.getItem('chatbot-conversations') || '[]');
@@ -107,9 +76,10 @@ const ChatBot = () => {
     setShowForm(false);
     
     const welcomeMessage: ChatMessage = { 
-      text: `Olá ${formData.firstName}! ${initialBotMessage}`, 
+      text: `👋 Olá ${formData.firstName}! Sou o assistente da GV Software.\n\n🚀 Como posso ajudar você hoje?`, 
       isBot: true,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      type: 'quick-actions'
     };
 
     setMessages([welcomeMessage]);
@@ -122,241 +92,69 @@ const ChatBot = () => {
     saveToServer(conversation).catch(() => saveToLocalStorage(conversation));
   };
 
+  const handleQuickAction = (actionResponse: string) => {
+    const responses = {
+      orcamento: `💰 **Orçamento Personalizado**\n\n📋 Para criar um orçamento preciso, precisamos saber:\n• Tipo de projeto (${formData.projectType})\n• Prazo desejado\n• Funcionalidades principais\n• Orçamento estimado\n\n📞 **Próximos passos:**\n1. Envie mais detalhes pelo chat\n2. Agende uma reunião gratuita\n3. Receba proposta em 24h`,
+      
+      portfolio: `🚀 **Nossos Projetos**\n\n🏆 **Destaques:**\n• Sistema de Gestão Bebidas ON\n• Apps Mobile personalizados\n• E-commerce avançado\n• Dashboards interativos\n\n👉 Visite nossa página de portfólio para ver todos os projetos!`,
+      
+      reuniao: `📅 **Agendar Reunião**\n\n⏰ **Horários disponíveis:**\n• Segunda a Sexta: 9h às 18h\n• Duração: 30-60 minutos\n\n📞 **Formatos:**\n• Video chamada (preferido)\n• Presencial\n• Ligação telefônica\n\n✉️ Envie sua preferência de data/hora que entraremos em contato!`,
+      
+      horarios: `🕒 **Horário de Atendimento**\n\n${Object.entries(workingHours).map(([day, time]) => `**${day}:** ${time}`).join('\n')}\n\n📞 **Contato de emergência:** (17) 99785-3416\n✉️ **Email:** contato.gvsoftware@gmail.com\n\n💬 Este chat funciona 24/7 para suas dúvidas!`,
+      
+      tecnologias: `⚡ **Nossas Tecnologias**\n\n💻 **Frontend:**\n• React, Next.js, Vue.js\n• TypeScript, Tailwind CSS\n\n⚙️ **Backend:**\n• Node.js, Python, Java\n• PostgreSQL, MongoDB\n\n📱 **Mobile:**\n• React Native, Flutter\n\n☁️ **Cloud:**\n• AWS, Google Cloud, Azure`
+    };
+
+    const botResponse: ChatMessage = {
+      text: responses[actionResponse as keyof typeof responses] || "Como posso ajudar você?",
+      isBot: true,
+      timestamp: new Date().toISOString()
+    };
+
+    setMessages(prev => [...prev, botResponse]);
+  };
+
   const handleChatSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || !userInfo) return;
+    if (!input.trim() && !uploadedFile || !userInfo) return;
+
+    let messageText = input;
+    if (uploadedFile) {
+      messageText += `\n📎 Arquivo anexado: ${uploadedFile.name}`;
+    }
 
     const userMessage: ChatMessage = {
-      text: input,
+      text: messageText,
       isBot: false,
       timestamp: new Date().toISOString()
     };
 
     setMessages(prev => [...prev, userMessage]);
     setInput("");
+    setUploadedFile(null);
 
     setTimeout(() => {
       let responseText = "";
       const lowercaseInput = input.toLowerCase();
       
       if (lowercaseInput.includes("preço") || lowercaseInput.includes("custo") || lowercaseInput.includes("valor") || lowercaseInput.includes("orçamento")) {
-        responseText = `💼 Excelente! Para fornecer um orçamento preciso e competitivo, precisamos entender melhor seu projeto.
-
-📊 Fatores que consideramos:
-• Escopo do projeto
-• Prazo desejado
-• Funcionalidades necessárias
-• Integrações requeridas
-• Nível de customização
-• Suporte necessário
-
-🤝 Benefícios inclusos:
-• Consultoria inicial gratuita
-• Suporte premium 24/7
-• Garantia de código
-• Treinamento da equipe
-• Manutenção preventiva
-
-📅 Podemos agendar uma reunião para discutir detalhes?
-Escolha o formato:
-1. Video chamada
-2. Presencial
-3. Ligação telefônica`;
+        responseText = `💰 **Orçamento Rápido**\n\nBaseado no seu projeto (${formData.projectType}), nossos preços variam:\n\n📊 **Estimativas:**\n• Landing Page: R$ 2.500 - R$ 5.000\n• Site completo: R$ 8.000 - R$ 15.000\n• Sistema web: R$ 15.000 - R$ 50.000\n• App mobile: R$ 20.000 - R$ 40.000\n\n✨ **Incluso:** Design, desenvolvimento, testes, entrega e 3 meses de suporte.\n\n📞 Quer um orçamento detalhado? Vamos agendar uma conversa!`;
       } 
       else if (lowercaseInput.includes("prazo") || lowercaseInput.includes("tempo")) {
-        responseText = `⏱️ Sobre nossos prazos de desenvolvimento:
-
-📋 Estimativas comuns:
-• Landing Pages: 1-2 semanas
-• Sites institucionais: 2-4 semanas
-• E-commerce: 4-8 semanas
-• Sistemas empresariais: 8-16 semanas
-• Apps Mobile: 8-12 semanas
-
-⚡ Fatores que otimizam o prazo:
-• Documentação clara
-• Feedback rápido
-• Metodologia ágil
-• Sprints semanais
-• Entregas incrementais
-
-🎯 Garantimos:
-• Cumprimento de deadlines
-• Comunicação transparente
-• Updates diários
-• Qualidade premium
-• Testes rigorosos
-
-Quer discutir um cronograma específico para seu projeto?`;
+        responseText = `⏱️ **Prazos de Entrega**\n\n🚀 **Cronograma típico:**\n• Landing Page: 1-2 semanas\n• Site institucional: 3-4 semanas\n• E-commerce: 6-8 semanas\n• Sistema complexo: 8-12 semanas\n• App mobile: 10-16 semanas\n\n⚡ **Entrega rápida disponível** com metodologia ágil e entregas semanais!\n\n📅 Precisa de algo urgente? Fale conosco!`;
       }
-      else if (lowercaseInput.includes("reunião") || lowercaseInput.includes("conversar")) {
-        responseText = `📅 Ótimo! Vamos agendar uma reunião personalizada.
-
-⏰ Horários disponíveis:
-• Segunda a Sexta: 9h às 18h
-• Sábado: 9h às 12h
-
-📌 Formatos:
-1. Video chamada (Zoom/Meet/Teams)
-2. Presencial (Escritório SP)
-3. Ligação telefônica
-
-💡 Na reunião abordaremos:
-• Objetivos do projeto
-• Soluções técnicas
-• Prazos e custos
-• Demonstrações
-• Dúvidas específicas
-
-Por favor, indique:
-1. Data e horário preferidos
-2. Formato desejado
-3. Melhor contato`;
-      }
-      else if (lowercaseInput.includes("tecnologia") || lowercaseInput.includes("tech") || lowercaseInput.includes("stack")) {
-        responseText = `🚀 Nossas Tecnologias de Ponta:
-
-💻 Frontend:
-• React/Next.js
-• Vue.js/Nuxt
-• TypeScript
-• Tailwind CSS
-• Material UI
-
-⚙️ Backend:
-• Node.js
-• Python
-• Java
-• .NET Core
-• GraphQL
-
-📱 Mobile:
-• React Native
-• Flutter
-• iOS/Swift
-• Android/Kotlin
-
-☁️ Cloud:
-• AWS
-• Google Cloud
-• Azure
-• Docker/Kubernetes
-
-🛠️ Extras:
-• CI/CD
-• Microsserviços
-• PWA
-• WebSockets
-• API REST
-
-Quer saber mais sobre alguma tecnologia específica?`;
-      }
-      else if (lowercaseInput.includes("segurança") || lowercaseInput.includes("proteção") || lowercaseInput.includes("dados")) {
-        responseText = `🔒 Segurança é nossa prioridade:
-
-🛡️ Proteção de Dados:
-• Criptografia de ponta a ponta
-• Certificados SSL/TLS
-• Backups automáticos
-• Monitoramento 24/7
-• Firewall avançado
-
-📋 Conformidades:
-• LGPD
-• GDPR
-• ISO 27001
-• PCI DSS
-• SOC 2
-
-🔐 Práticas de Segurança:
-• Autenticação em 2 fatores
-• Logs de auditoria
-• Testes de penetração
-• Atualizações regulares
-• Análise de vulnerabilidades
-
-Quer saber mais sobre nossas práticas de segurança?`;
-      }
-      else if (lowercaseInput.includes("suporte") || lowercaseInput.includes("ajuda") || lowercaseInput.includes("assistência")) {
-        responseText = `🎯 Nosso Suporte Premium:
-
-💪 Disponibilidade:
-• Atendimento 24/7
-• Resposta em até 1h
-• Monitoramento proativo
-• Suporte multilíngue
-• Equipe dedicada
-
-🛠️ Canais de Atendimento:
-• Chat ao vivo
-• E-mail prioritário
-• Telefone direto
-• Video chamada
-• WhatsApp Business
-
-📈 Diferenciais:
-• Base de conhecimento
-• Tutoriais em vídeo
-• Dashboard de status
-• Relatórios mensais
-• Manutenção preventiva
-
-Como podemos ajudar você agora?`;
-      }
-      else if (lowercaseInput.includes("portfolio") || lowercaseInput.includes("projeto") || lowercaseInput.includes("case")) {
-        responseText = `🌟 Conheça nossos projetos de sucesso:
-
-🏆 Cases Recentes:
-• App de Delivery: +2M downloads
-• E-commerce B2B: R$50M/mês
-• Sistema ERP: 500+ empresas
-• App Educacional: 1M+ usuários
-• Fintech: +R$100M processados
-
-💡 Diferenciais:
-• UX/UI premium
-• Performance otimizada
-• Escalabilidade
-• Inovação constante
-• Resultados comprovados
-
-🎯 Setores:
-• Varejo
-• Educação
-• Saúde
-• Finanças
-• Logística
-
-Quer conhecer cases específicos do seu setor?`;
+      else if (lowercaseInput.includes("reunião") || lowercaseInput.includes("conversar") || lowercaseInput.includes("agendar")) {
+        responseText = `📅 **Vamos Conversar!**\n\n🎯 **Na reunião discutiremos:**\n• Seus objetivos\n• Soluções técnicas\n• Cronograma\n• Investimento\n\n📞 **Agende agora:**\n• WhatsApp: (17) 99785-3416\n• Email: contato.gvsoftware@gmail.com\n\n💬 Ou me informe sua preferência de horário que eu organizo tudo!`;
       }
       else {
-        responseText = `Olá ${userInfo.firstName}! 
-
-💫 Agradecemos seu interesse em nossos serviços!
-
-👨‍💼 Um especialista entrará em contato através do email ${userInfo.email} em até 24h úteis.
-
-📱 Enquanto isso, você pode:
-• Explorar nosso portfólio
-• Conhecer casos de sucesso
-• Ver demonstrações
-• Agendar uma reunião
-• Solicitar orçamento
-
-🔍 Temas populares:
-1. Desenvolvimento Web
-2. Apps Mobile
-3. E-commerce
-4. Sistemas Empresariais
-5. Consultoria Tech
-
-Como posso ajudar mais?`;
+        responseText = `Obrigado pela mensagem, ${userInfo.firstName}! 👨‍💻\n\n📞 Nossa equipe entrará em contato em até 2h úteis através do email ${userInfo.email}.\n\n🔥 **Enquanto isso:**\n• Explore nosso portfólio\n• Veja nossos cases de sucesso\n• Agende uma reunião gratuita\n\n💬 Posso ajudar com mais alguma coisa?`;
       }
 
       const botResponse: ChatMessage = {
         text: responseText,
         isBot: true,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        type: 'quick-actions'
       };
 
       setMessages(prev => {
@@ -371,7 +169,14 @@ Como posso ajudar mais?`;
         
         return updatedMessages;
       });
-    }, 1000);
+    }, 800);
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setUploadedFile(file);
+    }
   };
 
   return (
@@ -382,42 +187,43 @@ Como posso ajudar mais?`;
             onClick={() => setIsOpen(true)}
             className="bg-gradient-to-br from-purple-600 via-blue-600 to-blue-700 
                      text-white p-4 rounded-full shadow-lg hover:shadow-xl 
-                     transition-all duration-500 hover:scale-110
-                     group relative animate-bounce"
+                     transition-all duration-300 hover:scale-110
+                     group relative animate-pulse"
           >
-            <MessageSquare className="w-6 h-6 animate-pulse" />
+            <MessageSquare className="w-6 h-6" />
             <span className="absolute -top-12 right-0 bg-white px-4 py-2 rounded-full 
                          text-sm font-medium text-blue-600 shadow-lg opacity-0 
                          group-hover:opacity-100 transition-opacity duration-300 
                          whitespace-nowrap">
-              Precisa de ajuda? <Sparkles className="w-4 h-4 inline-block ml-1" />
+              Chat Rápido <Sparkles className="w-4 h-4 inline-block ml-1" />
             </span>
           </button>
         </div>
       )}
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 
-                     animate-[fadeIn_0.3s_ease-out]">
+        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50">
           <div className="fixed bottom-0 right-0 w-full md:w-[400px] h-full md:h-[600px] 
-                       bg-white shadow-2xl transition-all duration-500 rounded-t-[2rem]
-                       animate-[slideIn_0.5s_ease-out] overflow-hidden">
+                       bg-white shadow-2xl transition-all duration-300 rounded-t-[2rem]
+                       animate-[slideIn_0.3s_ease-out] overflow-hidden">
+            
+            {/* Header */}
             <div className="flex items-center justify-between p-4 bg-gradient-to-br 
                           from-purple-600 via-blue-600 to-blue-700 text-white 
                           rounded-t-[2rem]">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-white/10 rounded-full flex items-center 
-                              justify-center backdrop-blur-sm group">
-                  <MessageSquare className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                              justify-center backdrop-blur-sm">
+                  <MessageSquare className="w-5 h-5" />
                 </div>
                 <div>
                   <h3 className="font-semibold flex items-center gap-2">
-                    Assistente Virtual
-                    <Star className="w-4 h-4 text-yellow-300 animate-pulse" />
+                    Chat GV Software
+                    <Star className="w-4 h-4 text-yellow-300" />
                   </h3>
                   <span className="text-xs text-white/80 flex items-center gap-1">
                     <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                    Online agora
+                    Resposta rápida
                   </span>
                 </div>
               </div>
@@ -430,78 +236,62 @@ Como posso ajudar mais?`;
               </button>
             </div>
 
-            <div className="h-[calc(100%-128px)] overflow-y-auto p-4 space-y-4 
+            {/* Content */}
+            <div className="h-[calc(100%-140px)] overflow-y-auto p-4 space-y-4 
                           bg-gradient-to-b from-blue-50/50 to-white">
               {showForm ? (
                 <form onSubmit={handleFormSubmit} className="space-y-4 bg-white p-6 
-                                                           rounded-2xl shadow-sm animate-fadeIn">
+                                                           rounded-2xl shadow-sm">
                   <div className="text-center mb-6">
-                    <h4 className="font-bold text-gray-800 text-lg">Bem-vindo à GV Software!</h4>
+                    <h4 className="font-bold text-gray-800 text-lg">Atendimento Rápido</h4>
                     <p className="text-sm text-gray-500 mt-2">
-                      Para um atendimento personalizado de alto nível, conte-nos um pouco sobre você:
+                      Apenas 3 campos para um atendimento personalizado:
                     </p>
                   </div>
                   <div className="space-y-3">
-                    <div className="relative">
-                      <input
-                        type="text"
-                        placeholder="Seu nome"
-                        value={formData.firstName}
-                        onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                        className="w-full p-3 pl-10 bg-gray-50 border border-gray-200 rounded-xl
-                                 focus:outline-none focus:ring-2 focus:ring-blue-500/20 
-                                 focus:border-blue-500 transition-all"
-                        required
-                      />
-                      <span className="absolute left-3 top-3.5 text-gray-400">👤</span>
-                    </div>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        placeholder="Seu sobrenome"
-                        value={formData.lastName}
-                        onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                        className="w-full p-3 pl-10 bg-gray-50 border border-gray-200 rounded-xl 
-                                 focus:outline-none focus:ring-2 focus:ring-blue-500/20 
-                                 focus:border-blue-500 transition-all"
-                        required
-                      />
-                      <span className="absolute left-3 top-3.5 text-gray-400">📝</span>
-                    </div>
-                    <div className="relative">
-                      <input
-                        type="email"
-                        placeholder="Seu email profissional"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full p-3 pl-10 bg-gray-50 border border-gray-200 rounded-xl 
-                                 focus:outline-none focus:ring-2 focus:ring-blue-500/20 
-                                 focus:border-blue-500 transition-all"
-                        required
-                      />
-                      <span className="absolute left-3 top-3.5 text-gray-400">📧</span>
-                    </div>
-                    <div className="relative">
-                      <textarea
-                        placeholder="Como podemos ajudar seu negócio?"
-                        value={formData.reason}
-                        onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
-                        className="w-full p-3 pl-10 bg-gray-50 border border-gray-200 rounded-xl 
-                                 focus:outline-none focus:ring-2 focus:ring-blue-500/20 
-                                 focus:border-blue-500 transition-all resize-none h-24"
-                        required
-                      />
-                      <span className="absolute left-3 top-3.5 text-gray-400">💼</span>
-                    </div>
+                    <input
+                      type="text"
+                      placeholder="Seu nome"
+                      value={formData.firstName}
+                      onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                      className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl
+                               focus:outline-none focus:ring-2 focus:ring-blue-500/20 
+                               focus:border-blue-500 transition-all"
+                      required
+                    />
+                    <input
+                      type="email"
+                      placeholder="Seu email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl 
+                               focus:outline-none focus:ring-2 focus:ring-blue-500/20 
+                               focus:border-blue-500 transition-all"
+                      required
+                    />
+                    <select
+                      value={formData.projectType}
+                      onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
+                      className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl 
+                               focus:outline-none focus:ring-2 focus:ring-blue-500/20 
+                               focus:border-blue-500 transition-all"
+                      required
+                    >
+                      <option value="">Tipo de projeto</option>
+                      <option value="site">Site Institucional</option>
+                      <option value="ecommerce">E-commerce</option>
+                      <option value="app">App Mobile</option>
+                      <option value="sistema">Sistema Web</option>
+                      <option value="outro">Outro</option>
+                    </select>
                   </div>
                   <button
                     type="submit"
                     className="w-full bg-gradient-to-r from-purple-600 via-blue-600 to-blue-700 
                              text-white py-3 rounded-xl hover:shadow-lg transition-all duration-300 
-                             transform hover:-translate-y-1 font-medium flex items-center 
-                             justify-center gap-2"
+                             font-medium flex items-center justify-center gap-2"
                   >
-                    <span>Iniciar Atendimento Premium</span>
+                    <span>Iniciar Chat</span>
                     <Sparkles className="w-4 h-4" />
                   </button>
                 </form>
@@ -512,16 +302,31 @@ Como posso ajudar mais?`;
                       key={index}
                       className={`flex ${
                         message.isBot ? "justify-start" : "justify-end"
-                      } animate-fadeIn`}
+                      }`}
                     >
                       <div
-                        className={`max-w-[80%] p-4 rounded-2xl ${
+                        className={`max-w-[85%] p-4 rounded-2xl ${
                           message.isBot
                             ? "bg-gradient-to-br from-blue-50 to-white text-gray-800 shadow-sm border border-blue-100"
                             : "bg-gradient-to-r from-purple-600 via-blue-600 to-blue-700 text-white"
-                        } transform transition-all duration-300 hover:scale-[1.02]`}
+                        }`}
                       >
-                        <p className="whitespace-pre-line">{message.text}</p>
+                        <p className="whitespace-pre-line text-sm leading-relaxed">{message.text}</p>
+                        
+                        {message.type === 'quick-actions' && message.isBot && (
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {quickActions.map((action) => (
+                              <button
+                                key={action.id}
+                                onClick={() => handleQuickAction(action.response)}
+                                className="text-xs px-3 py-1.5 bg-blue-100 text-blue-700 rounded-full 
+                                         hover:bg-blue-200 transition-colors border border-blue-200"
+                              >
+                                {action.text}
+                              </button>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -529,28 +334,53 @@ Como posso ajudar mais?`;
               )}
             </div>
 
+            {/* Input */}
             {!showForm && (
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-100">
-                <form onSubmit={handleChatSubmit} className="flex gap-2">
-                  <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="Digite sua mensagem..."
-                    className="flex-1 p-3 bg-gray-50 border border-gray-200 rounded-xl 
-                             focus:outline-none focus:ring-2 focus:ring-blue-500/20 
-                             focus:border-blue-500 transition-all"
-                  />
-                  <button
-                    type="submit"
-                    className="p-3 bg-gradient-to-r from-purple-600 via-blue-600 to-blue-700 
-                             text-white rounded-xl hover:shadow-lg transition-all duration-300 
-                             disabled:opacity-50 disabled:cursor-not-allowed transform 
-                             hover:scale-105"
-                    disabled={!input.trim()}
-                  >
-                    <Send className="w-5 h-5" />
-                  </button>
+                <form onSubmit={handleChatSubmit} className="space-y-2">
+                  {uploadedFile && (
+                    <div className="flex items-center gap-2 p-2 bg-blue-50 rounded-lg text-sm">
+                      <FileText className="w-4 h-4 text-blue-600" />
+                      <span className="text-blue-700">{uploadedFile.name}</span>
+                      <button
+                        type="button"
+                        onClick={() => setUploadedFile(null)}
+                        className="text-blue-600 hover:text-blue-800 ml-auto"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      placeholder="Digite sua mensagem..."
+                      className="flex-1 p-3 bg-gray-50 border border-gray-200 rounded-xl 
+                               focus:outline-none focus:ring-2 focus:ring-blue-500/20 
+                               focus:border-blue-500 transition-all text-sm"
+                    />
+                    <label className="p-3 bg-gray-100 text-gray-600 rounded-xl hover:bg-gray-200 
+                                   transition-all cursor-pointer">
+                      <Upload className="w-5 h-5" />
+                      <input
+                        type="file"
+                        onChange={handleFileUpload}
+                        className="hidden"
+                        accept=".pdf,.doc,.docx,.txt,.jpg,.png"
+                      />
+                    </label>
+                    <button
+                      type="submit"
+                      className="p-3 bg-gradient-to-r from-purple-600 via-blue-600 to-blue-700 
+                               text-white rounded-xl hover:shadow-lg transition-all duration-300 
+                               disabled:opacity-50"
+                      disabled={!input.trim() && !uploadedFile}
+                    >
+                      <Send className="w-5 h-5" />
+                    </button>
+                  </div>
                 </form>
               </div>
             )}
