@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { MessageSquare, X, Send, Sparkles, Star } from "lucide-react";
+import { MessageSquare, X, Send, Sparkles, Star, User, Mail, Briefcase } from "lucide-react";
 
 interface UserInfo {
   firstName: string;
@@ -220,17 +220,23 @@ const ChatBot = () => {
             <div className="h-[calc(100%-140px)] overflow-y-auto p-4 space-y-4 
                           bg-gradient-to-b from-blue-50/50 to-white">
               {showForm ? (
-                <form onSubmit={handleFormSubmit} className="space-y-4 bg-white p-6 
+                <form onSubmit={handleFormSubmit} className="space-y-6 bg-white p-6 
                                                            rounded-2xl shadow-sm">
                   <div className="text-center mb-6">
-                    <h4 className="font-bold text-gray-800 text-lg">Vamos conversar!</h4>
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-purple-500 to-blue-600 
+                                  rounded-full flex items-center justify-center mb-4 shadow-lg">
+                      <MessageSquare className="w-8 h-8 text-white" />
+                    </div>
+                    <h4 className="font-bold text-gray-800 text-xl">Vamos conversar!</h4>
                     <p className="text-sm text-gray-500 mt-2">
                       Preencha os dados abaixo para iniciarmos:
                     </p>
                   </div>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                  
+                  <div className="space-y-5">
+                    <div className="relative">
+                      <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                        <User className="w-4 h-4 text-purple-600" />
                         Seu nome *
                       </label>
                       <input
@@ -238,14 +244,17 @@ const ChatBot = () => {
                         placeholder="Digite seu nome"
                         value={formData.firstName}
                         onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                        className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl
-                                 focus:outline-none focus:ring-2 focus:ring-blue-500/20 
-                                 focus:border-blue-500 transition-all"
+                        className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl
+                                 focus:outline-none focus:ring-2 focus:ring-purple-500/20 
+                                 focus:border-purple-500 transition-all text-gray-700
+                                 placeholder:text-gray-400"
                         required
                       />
                     </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                    
+                    <div className="relative">
+                      <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                        <Mail className="w-4 h-4 text-blue-600" />
                         Seu email *
                       </label>
                       <input
@@ -253,41 +262,47 @@ const ChatBot = () => {
                         placeholder="Digite seu email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl 
+                        className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl 
                                  focus:outline-none focus:ring-2 focus:ring-blue-500/20 
-                                 focus:border-blue-500 transition-all"
+                                 focus:border-blue-500 transition-all text-gray-700
+                                 placeholder:text-gray-400"
                         required
                       />
                     </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                    
+                    <div className="relative">
+                      <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                        <Briefcase className="w-4 h-4 text-indigo-600" />
                         Tipo de projeto *
                       </label>
                       <select
                         value={formData.projectType}
                         onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                        className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl 
-                                 focus:outline-none focus:ring-2 focus:ring-blue-500/20 
-                                 focus:border-blue-500 transition-all"
+                        className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl 
+                                 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 
+                                 focus:border-indigo-500 transition-all text-gray-700"
                         required
                       >
-                        <option value="">Selecione o tipo de projeto</option>
-                        <option value="site">Site Institucional</option>
-                        <option value="ecommerce">E-commerce</option>
-                        <option value="app">App Mobile</option>
-                        <option value="sistema">Sistema Web</option>
-                        <option value="outro">Outro</option>
+                        <option value="" className="text-gray-400">Selecione o tipo de projeto</option>
+                        <option value="site">🌐 Site Institucional</option>
+                        <option value="ecommerce">🛒 E-commerce</option>
+                        <option value="app">📱 App Mobile</option>
+                        <option value="sistema">⚙️ Sistema Web</option>
+                        <option value="outro">🎯 Outro</option>
                       </select>
                     </div>
                   </div>
+                  
                   <button
                     type="submit"
                     className="w-full bg-gradient-to-r from-purple-600 via-blue-600 to-blue-700 
-                             text-white py-3 rounded-xl hover:shadow-lg transition-all duration-300 
-                             font-medium flex items-center justify-center gap-2"
+                             text-white py-4 rounded-xl hover:shadow-lg transition-all duration-300 
+                             font-medium flex items-center justify-center gap-3 text-lg
+                             hover:scale-[1.02] hover:shadow-purple-500/25"
                   >
+                    <MessageSquare className="w-5 h-5" />
                     <span>Iniciar Conversa</span>
-                    <MessageSquare className="w-4 h-4" />
+                    <Sparkles className="w-5 h-5" />
                   </button>
                 </form>
               ) : (
