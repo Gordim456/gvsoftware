@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { MessageSquare, X, Send, Sparkles, Star, Calendar, Clock, Upload, FileText } from "lucide-react";
+import { MessageSquare, X, Send, Sparkles, Star } from "lucide-react";
 
 interface UserInfo {
   firstName: string;
@@ -12,7 +12,7 @@ interface ChatMessage {
   text: string;
   isBot: boolean;
   timestamp: string;
-  type?: 'text' | 'quick-actions' | 'schedule' | 'file-upload';
+  type?: 'text' | 'quick-actions';
 }
 
 interface Conversation {
@@ -29,12 +29,6 @@ const quickActions = [
   { id: 'tecnologias', text: '⚡ Nossas Tecnologias', response: 'tecnologias' }
 ];
 
-const workingHours = {
-  'Segunda a Sexta': '9:00 - 18:00',
-  'Sábado': 'Fechado',
-  'Domingo': 'Fechado'
-};
-
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
@@ -46,7 +40,6 @@ const ChatBot = () => {
   });
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
   const saveToLocalStorage = (conversation: Conversation) => {
     const conversations = JSON.parse(localStorage.getItem('chatbot-conversations') || '[]');
@@ -100,7 +93,7 @@ const ChatBot = () => {
       
       reuniao: `📅 **Agendar Reunião**\n\n⏰ **Horários disponíveis:**\n• Segunda a Sexta: 9h às 18h\n• Duração: 30-60 minutos\n\n📞 **Formatos:**\n• Video chamada (preferido)\n• Presencial\n• Ligação telefônica\n\n✉️ Envie sua preferência de data/hora que entraremos em contato!`,
       
-      horarios: `🕒 **Horário de Atendimento**\n\n${Object.entries(workingHours).map(([day, time]) => `**${day}:** ${time}`).join('\n')}\n\n📞 **Contato de emergência:** (17) 99785-3416\n✉️ **Email:** contato.gvsoftware@gmail.com\n\n💬 Este chat funciona 24/7 para suas dúvidas!`,
+      horarios: `🕒 **Horário de Atendimento**\n\n**Segunda a Sexta:** 9h às 18h\n**Sábado:** Fechado\n**Domingo:** Fechado\n\n📞 **Contato de emergência:** (17) 99785-3416\n✉️ **Email:** contato.gvsoftware@gmail.com\n\n💬 Este chat funciona 24/7 para suas dúvidas!`,
       
       tecnologias: `⚡ **Nossas Tecnologias**\n\n💻 **Frontend:**\n• React, Next.js, Vue.js\n• TypeScript, Tailwind CSS\n\n⚙️ **Backend:**\n• Node.js, Python, Java\n• PostgreSQL, MongoDB\n\n📱 **Mobile:**\n• React Native, Flutter\n\n☁️ **Cloud:**\n• AWS, Google Cloud, Azure`
     };
@@ -116,22 +109,16 @@ const ChatBot = () => {
 
   const handleChatSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() && !uploadedFile || !userInfo) return;
-
-    let messageText = input;
-    if (uploadedFile) {
-      messageText += `\n📎 Arquivo anexado: ${uploadedFile.name}`;
-    }
+    if (!input.trim() || !userInfo) return;
 
     const userMessage: ChatMessage = {
-      text: messageText,
+      text: input,
       isBot: false,
       timestamp: new Date().toISOString()
     };
 
     setMessages(prev => [...prev, userMessage]);
     setInput("");
-    setUploadedFile(null);
 
     setTimeout(() => {
       let responseText = "";
@@ -170,13 +157,6 @@ const ChatBot = () => {
         return updatedMessages;
       });
     }, 800);
-  };
-
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setUploadedFile(file);
-    }
   };
 
   return (
@@ -352,20 +332,7 @@ const ChatBot = () => {
             {/* Input */}
             {!showForm && (
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-100">
-                <form onSubmit={handleChatSubmit} className="space-y-2">
-                  {uploadedFile && (
-                    <div className="flex items-center gap-2 p-2 bg-blue-50 rounded-lg text-sm">
-                      <FileText className="w-4 h-4 text-blue-600" />
-                      <span className="text-blue-700">{uploadedFile.name}</span>
-                      <button
-                        type="button"
-                        onClick={() => setUploadedFile(null)}
-                        className="text-blue-600 hover:text-blue-800 ml-auto"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    </div>
-                  )}
+                <form onSubmit={handleChatSubmit}>
                   <div className="flex gap-2">
                     <input
                       type="text"
@@ -376,22 +343,12 @@ const ChatBot = () => {
                                focus:outline-none focus:ring-2 focus:ring-blue-500/20 
                                focus:border-blue-500 transition-all text-sm"
                     />
-                    <label className="p-3 bg-gray-100 text-gray-600 rounded-xl hover:bg-gray-200 
-                                   transition-all cursor-pointer">
-                      <Upload className="w-5 h-5" />
-                      <input
-                        type="file"
-                        onChange={handleFileUpload}
-                        className="hidden"
-                        accept=".pdf,.doc,.docx,.txt,.jpg,.png"
-                      />
-                    </label>
                     <button
                       type="submit"
                       className="p-3 bg-gradient-to-r from-purple-600 via-blue-600 to-blue-700 
                                text-white rounded-xl hover:shadow-lg transition-all duration-300 
                                disabled:opacity-50"
-                      disabled={!input.trim() && !uploadedFile}
+                      disabled={!input.trim()}
                     >
                       <Send className="w-5 h-5" />
                     </button>
