@@ -2,6 +2,7 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SocialIcons from '../components/SocialIcons';
 import { memo } from 'react';
 
 const Hero = lazy(() => import('../components/Hero'));
@@ -10,10 +11,11 @@ const Testimonials = lazy(() => import('../components/Testimonials'));
 
 const MemoizedFooter = memo(Footer);
 const MemoizedNavbar = memo(Navbar);
+const MemoizedSocialIcons = memo(SocialIcons);
 
 const LoadingSpinner = () => (
-  <div className="w-full py-4 flex justify-center">
-    <div className="w-4 h-4 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
+  <div className="w-full py-8 flex justify-center">
+    <div className="w-6 h-6 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
   </div>
 );
 
@@ -28,7 +30,7 @@ const Home = () => {
 
   useEffect(() => {
     document.title = 'Início | GV Software - Soluções Digitais Modernas';
-    const timer = setTimeout(() => setIsReady(true), 100);
+    const timer = setTimeout(() => setIsReady(true), 50);
     return () => clearTimeout(timer);
   }, []);
 
@@ -58,6 +60,7 @@ const Home = () => {
         </div>
         
         <MemoizedFooter />
+        <MemoizedSocialIcons />
       </div>
     </div>
   );
