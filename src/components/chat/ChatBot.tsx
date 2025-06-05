@@ -92,6 +92,7 @@ const ChatBot = () => {
 
   const currentField = steps[currentStep]?.field;
   const currentValue = currentField ? formData[currentField] : "";
+  const CurrentIcon = steps[currentStep]?.icon;
 
   return (
     <>
@@ -220,10 +221,10 @@ const ChatBot = () => {
                                           p-4 shadow-lg max-w-[280px] animate-scale-in">
                               <div className="space-y-3">
                                 <div className="relative">
-                                  <steps[currentStep].icon className="absolute left-3 top-3 w-5 h-5 text-white/80" />
+                                  {CurrentIcon && <CurrentIcon className="absolute left-3 top-3 w-5 h-5 text-white/80" />}
                                   <input
-                                    type={steps[currentStep].type}
-                                    placeholder={steps[currentStep].placeholder}
+                                    type={steps[currentStep]?.type}
+                                    placeholder={steps[currentStep]?.placeholder}
                                     value={currentValue}
                                     onChange={(e) => setFormData({
                                       ...formData,
