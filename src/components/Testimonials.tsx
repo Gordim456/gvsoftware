@@ -39,29 +39,13 @@ const TestimonialCard = ({ name, role, company, content, rating }: {
 };
 
 const Testimonials = () => {
-  const testimonials = [
-    {
-      name: "Ana Silva",
-      role: "Gerente de Marketing",
-      company: "TechSmart",
-      content: "A GV Software transformou completamente nossa presença online. O novo site aumentou nossas conversões em 40% e a experiência do usuário é simplesmente incrível!",
-      rating: 5
-    },
-    {
-      name: "Ricardo Mendes",
-      role: "CEO",
-      company: "Innova Solutions",
-      content: "Trabalhamos com a GV no desenvolvimento do nosso aplicativo. A equipe foi extremamente profissional, cumprindo todos os prazos e superando nossas expectativas.",
-      rating: 5
-    },
-    {
-      name: "Carla Ferreira",
-      role: "Diretora de Produtos",
-      company: "Nexus Group",
-      content: "O sistema de gestão desenvolvido pela GV Software revolucionou nossos processos internos, economizando tempo e recursos. Recomendo fortemente!",
-      rating: 4
-    }
-  ];
+  const testimonial = {
+    name: "Renan",
+    role: "Fundador",
+    company: "Bebidas ON",
+    content: "A GV Software desenvolveu nosso aplicativo Bebidas ON com excelência. A solução criada revolucionou nosso negócio de delivery de bebidas, proporcionando uma experiência incrível para nossos clientes e otimizando nossos processos internos. Recomendo totalmente!",
+    rating: 5
+  };
 
   return (
     <section className="py-20 bg-gv-darker relative overflow-hidden">
@@ -86,17 +70,16 @@ const Testimonials = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
+        <div className="flex justify-center">
+          <div className="max-w-md">
             <TestimonialCard
-              key={index}
               name={testimonial.name}
               role={testimonial.role}
               company={testimonial.company}
               content={testimonial.content}
               rating={testimonial.rating}
             />
-          ))}
+          </div>
         </div>
         
         <motion.div 
@@ -108,7 +91,7 @@ const Testimonials = () => {
         >
           <div className="inline-flex items-center gap-2 text-indigo-400 bg-indigo-500/10 px-6 py-3 rounded-full">
             <TrendingUp className="h-5 w-5" />
-            <span className="font-semibold">98% dos nossos clientes recomendam nossos serviços</span>
+            <span className="font-semibold">Aplicativo Bebidas ON - Transformando o delivery de bebidas</span>
           </div>
         </motion.div>
       </div>
