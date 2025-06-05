@@ -95,7 +95,7 @@ const ChatBot = () => {
   const CurrentIcon = steps[currentStep]?.icon;
 
   return (
-    <>
+    <div>
       {!isOpen && (
         <div className="fixed bottom-8 right-8 z-50">
           <button
@@ -305,7 +305,7 @@ const ChatBot = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
