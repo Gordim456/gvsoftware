@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ArrowLeft, Send, User, Shield, MessageSquare, Clock, Mail, Phone, Eye, Trash2, Search, Filter } from "lucide-react";
+import { ArrowLeft, Send, User, Shield, MessageSquare, Clock, Mail, Phone, Eye, Trash2, Search, Filter, Settings } from "lucide-react";
 import { ChatService } from "../services/chatService";
 import { Conversation, ChatMessage } from "../components/chat/ChatBotTypes";
 
@@ -64,9 +64,17 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'waiting'>('all');
   const [isLoading, setIsLoading] = useState(true);
+  const [supportName, setSupportName] = useState("");
+  const [showSupportNameModal, setShowSupportNameModal] = useState(false);
 
+  // Carregar nome do suporte salvo
   useEffect(() => {
-    loadConversations();
+    const savedSupportName = localStorage.getItem('admin-support-name');
+    if (savedSupportName) {
+      setSupportName(savedSupportName);
+    } else {
+      setShowSupportNameModal(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -97,7 +105,12 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
   };
 
   const sendMessage = async () => {
-    if (!newMessage.trim() || !selectedConversation) return;
+    if (!newMessage.trim() || !selectedConversation || !supportName.trim()) {
+      if (!supportName.trim()) {
+        setShowSupportNameModal(true);
+      }
+      return;
+    }
 
     try {
       console.log('Enviando mensagem do admin:', {
@@ -110,7 +123,7 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
         conversation_id: selectedConversation,
         type: 'admin',
         content: newMessage,
-        sender_name: 'Suporte GV'
+        sender_name: supportName
       });
 
       console.log('Mensagem enviada com sucesso:', message);
@@ -126,6 +139,17 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
     } catch (error) {
       console.error('Erro ao enviar mensagem:', error);
     }
+  };
+
+  const saveSupportName = () => {
+    if (supportName.trim()) {
+      localStorage.setItem('admin-support-name', supportName.trim());
+      setShowSupportNameModal(false);
+    }
+  };
+
+  const changeSupportName = () => {
+    setShowSupportNameModal(true);
   };
 
   const updateConversationStatus = async (conversationId: string, status: 'active' | 'closed' | 'waiting') => {
@@ -179,28 +203,81 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white">
+      {/* Modal para nome do suporte */}
+      {showSupportNameModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-gray-800 rounded-2xl p-6 w-full max-w-md border border-gray-700">
+            <h3 className="text-xl font-bold mb-4 text-center">Configure seu nome</h3>
+            <p className="text-gray-300 text-sm mb-4 text-center">
+              Digite seu nome para aparecer nas conversas com os clientes
+            </p>
+            <input
+              type="text"
+              value={supportName}
+              onChange={(e) => setSupportName(e.target.value)}
+              placeholder="Ex: João Silva"
+              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-xl 
+                       focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white 
+                       placeholder-gray-400 mb-4"
+              onKeyPress={(e) => e.key === 'Enter' && saveSupportName()}
+              autoFocus
+            />
+            <button
+              onClick={saveSupportName}
+              disabled={!supportName.trim()}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl 
+                       transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+            >
+              Salvar
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-8xl mx-auto p-6">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
-          <button
-            onClick={onBack}
-            className="p-3 hover:bg-white/10 rounded-xl transition-colors"
-          >
-            <ArrowLeft className="w-6 h-6" />
-          </button>
+        <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl 
-                          flex items-center justify-center shadow-xl">
-              <RobotIcon className="w-8 h-8 text-white" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 
-                           bg-clip-text text-transparent">
-                Painel Admin - GV Assistant
-              </h1>
-              <p className="text-gray-300">Gerenciar conversas e atendimento em tempo real</p>
+            <button
+              onClick={onBack}
+              className="p-3 hover:bg-white/10 rounded-xl transition-colors"
+            >
+              <ArrowLeft className="w-6 h-6" />
+            </button>
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl 
+                            flex items-center justify-center shadow-xl">
+                <RobotIcon className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 
+                             bg-clip-text text-transparent">
+                  Painel Admin - GV Assistant
+                </h1>
+                <p className="text-gray-300">Gerenciar conversas e atendimento em tempo real</p>
+              </div>
             </div>
           </div>
+          
+          {/* Info do suporte atual */}
+          {supportName && (
+            <div className="flex items-center gap-3 bg-gray-800/50 rounded-xl px-4 py-2 border border-gray-700/50">
+              <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                <Shield className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <div className="text-sm text-gray-300">Logado como:</div>
+                <div className="font-semibold text-white">{supportName}</div>
+              </div>
+              <button
+                onClick={changeSupportName}
+                className="text-gray-400 hover:text-white p-1 rounded"
+                title="Alterar nome"
+              >
+                <Settings className="w-4 h-4" />
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 h-[calc(100vh-200px)]">
@@ -405,14 +482,15 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                      placeholder="Digite sua resposta..."
+                      placeholder={supportName ? "Digite sua resposta..." : "Configure seu nome primeiro..."}
+                      disabled={!supportName}
                       className="flex-1 px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-xl 
                                focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white 
-                               placeholder-gray-400 backdrop-blur-sm"
+                               placeholder-gray-400 backdrop-blur-sm disabled:opacity-50"
                     />
                     <button
                       onClick={sendMessage}
-                      disabled={!newMessage.trim()}
+                      disabled={!newMessage.trim() || !supportName}
                       className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 
                                hover:to-purple-700 text-white px-6 py-3 rounded-xl 
                                transition-all disabled:opacity-50 disabled:cursor-not-allowed
