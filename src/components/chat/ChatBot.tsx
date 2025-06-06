@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { MessageSquare, X, Bot, Sparkles } from "lucide-react";
 import { FormData, ChatStep, ChatOption, AUTO_MESSAGES } from "./ChatBotTypes";
@@ -18,7 +19,6 @@ const ChatBot = () => {
   });
   const [showWelcome, setShowWelcome] = useState(true);
   const [conversationId, setConversationId] = useState<string | null>(null);
-  const [autoMessage, setAutoMessage] = useState<string>("");
 
   // Carregar estado salvo quando componente monta
   useEffect(() => {
@@ -52,13 +52,12 @@ const ChatBot = () => {
       const timer = setTimeout(() => {
         setShowWelcome(false);
         setCurrentStep('form');
-      }, 3000);
+      }, 2500);
       return () => clearTimeout(timer);
     }
   }, [isOpen, showWelcome, currentStep]);
 
   const handleFormComplete = async () => {
-    // Criar conversa no Supabase
     try {
       const conversation = await ChatService.createConversation({
         user_name: formData.name,
@@ -70,7 +69,6 @@ const ChatBot = () => {
       if (conversation) {
         setConversationId(conversation.id);
         
-        // Enviar mensagem de boas-vindas automática
         await ChatService.sendMessage({
           conversation_id: conversation.id,
           type: 'bot',
@@ -86,7 +84,6 @@ const ChatBot = () => {
   };
 
   const handleSelectOption = async (option: ChatOption) => {
-    // Enviar mensagem automática baseada na opção escolhida
     if (conversationId && option.auto_message) {
       try {
         await ChatService.sendMessage({
@@ -108,7 +105,6 @@ const ChatBot = () => {
         setCurrentStep('faq');
         break;
       case 'quote':
-        // Não abrir nova guia, usar a mesma página
         if (conversationId) {
           await ChatService.sendMessage({
             conversation_id: conversationId,
@@ -120,7 +116,6 @@ const ChatBot = () => {
         window.location.href = '/contact';
         break;
       case 'services':
-        // Não abrir nova guia, usar a mesma página
         if (conversationId) {
           await ChatService.sendMessage({
             conversation_id: conversationId,
@@ -132,7 +127,6 @@ const ChatBot = () => {
         window.location.href = '/services';
         break;
       case 'meeting':
-        // Atualizar número do WhatsApp
         if (conversationId) {
           await ChatService.sendMessage({
             conversation_id: conversationId,
@@ -158,77 +152,72 @@ const ChatBot = () => {
     setCurrentStep('welcome');
     setShowWelcome(true);
     setConversationId(null);
-    setAutoMessage("");
     localStorage.removeItem('chatbot-data');
   };
 
   const handleClose = () => {
     setIsOpen(false);
-    // Não resetar o chat ao fechar, manter o estado
   };
 
   return (
     <div>
       {!isOpen && (
-        <div className="fixed bottom-8 right-8 z-50">
+        <div className="fixed bottom-6 right-6 z-50">
           <button
             onClick={() => setIsOpen(true)}
-            className="relative bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 
-                     text-white p-4 rounded-full shadow-2xl hover:shadow-purple-500/25 
-                     transition-all duration-500 hover:scale-110 group
-                     animate-pulse hover:animate-none"
+            className="relative bg-gradient-to-r from-indigo-600 to-purple-600 
+                     text-white p-3 rounded-full shadow-xl hover:shadow-indigo-500/25 
+                     transition-all duration-300 hover:scale-110 group
+                     border border-indigo-500/20"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-blue-400 
-                          rounded-full opacity-20 animate-ping"></div>
-            <MessageSquare className="w-6 h-6 relative z-10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-400 to-purple-400 
+                          rounded-full opacity-20 animate-pulse"></div>
+            <MessageSquare className="w-5 h-5 relative z-10" />
             
-            <div className="absolute -top-16 right-0 bg-white px-4 py-3 rounded-2xl 
-                         text-sm font-medium text-gray-700 shadow-xl opacity-0 
+            <div className="absolute -top-12 right-0 bg-gray-900/95 backdrop-blur-sm px-3 py-2 rounded-lg 
+                         text-xs font-medium text-white shadow-xl opacity-0 
                          group-hover:opacity-100 transition-all duration-300 
-                         whitespace-nowrap border border-gray-100">
+                         whitespace-nowrap border border-gray-700">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-purple-500 animate-pulse" />
-                Como posso ajudar hoje?
+                <Sparkles className="w-3 h-3 text-indigo-400" />
+                Precisa de ajuda?
               </div>
-              <div className="absolute bottom-0 right-6 w-0 h-0 border-l-8 border-r-8 border-t-8 
-                            border-l-transparent border-r-transparent border-t-white"></div>
+              <div className="absolute bottom-0 right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 
+                            border-l-transparent border-r-transparent border-t-gray-900/95"></div>
             </div>
           </button>
         </div>
       )}
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50">
-          <div className="fixed bottom-0 right-0 w-full md:w-[450px] h-full md:h-[700px] 
-                       bg-white shadow-2xl transition-all duration-500 rounded-t-3xl
-                       animate-[slideIn_0.5s_ease-out] overflow-hidden flex flex-col">
+        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 md:bg-transparent">
+          <div className="fixed bottom-0 right-0 w-full md:w-[380px] h-full md:h-[580px] 
+                       bg-white shadow-2xl transition-all duration-300 rounded-t-2xl md:rounded-2xl
+                       md:bottom-6 md:right-6 overflow-hidden flex flex-col border border-gray-200">
             
-            {/* Header */}
-            <div className="relative flex items-center justify-between p-6 
-                          bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 
-                          text-white rounded-t-3xl flex-shrink-0">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
-              
-              <div className="flex items-center gap-4 relative z-10">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center 
-                              justify-center backdrop-blur-sm border border-white/30">
-                  <Bot className="w-6 h-6 animate-pulse" />
+            {/* Header Compacto */}
+            <div className="relative flex items-center justify-between p-4 
+                          bg-gradient-to-r from-indigo-600 to-purple-600 
+                          text-white flex-shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center 
+                              justify-center backdrop-blur-sm">
+                  <Bot className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg">GV Assistant ✨</h3>
-                  <div className="flex items-center gap-2 text-sm text-white/90">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    IA + Humano • Suporte Real-time
+                  <h3 className="font-bold text-sm">GV Assistant</h3>
+                  <div className="flex items-center gap-1 text-xs text-white/90">
+                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
+                    Online
                   </div>
                 </div>
               </div>
               
-              <div className="flex items-center gap-2 relative z-10">
-                {/* Botão de reset */}
+              <div className="flex items-center gap-1">
                 <button
                   onClick={resetChat}
                   className="text-white/80 hover:text-white transition-colors
-                           hover:bg-white/10 p-2 rounded-full text-lg"
+                           hover:bg-white/10 p-1.5 rounded-md text-sm"
                   title="Nova conversa"
                 >
                   🔄
@@ -237,9 +226,9 @@ const ChatBot = () => {
                 <button
                   onClick={handleClose}
                   className="text-white/80 hover:text-white transition-colors
-                           hover:bg-white/10 p-2 rounded-full"
+                           hover:bg-white/10 p-1.5 rounded-md"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
             </div>
@@ -247,27 +236,26 @@ const ChatBot = () => {
             {/* Content */}
             <div className="flex-1 overflow-hidden">
               {currentStep === 'welcome' && showWelcome && (
-                <div className="h-full flex items-center justify-center p-8 bg-gradient-to-b from-gray-50 to-white">
-                  <div className="text-center space-y-6 animate-fade-in">
-                    <div className="w-24 h-24 mx-auto bg-gradient-to-br from-purple-500 to-blue-600 
-                                  rounded-full flex items-center justify-center shadow-2xl">
-                      <Sparkles className="w-12 h-12 text-white animate-pulse" />
+                <div className="h-full flex items-center justify-center p-6 bg-gradient-to-b from-gray-50 to-white">
+                  <div className="text-center space-y-4">
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-r from-indigo-500 to-purple-600 
+                                  rounded-2xl flex items-center justify-center shadow-lg">
+                      <Sparkles className="w-8 h-8 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-gray-800 text-3xl mb-3">
-                        Bem-vindo! ✨
+                      <h4 className="font-bold text-gray-800 text-xl mb-2">
+                        Olá! 👋
                       </h4>
-                      <p className="text-gray-600 leading-relaxed text-lg">
-                        Sou o assistente inteligente da GV Software.<br/>
-                        Vou te conectar com nossa equipe de forma<br/>
-                        <span className="font-bold text-purple-600">rápida e personalizada!</span>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        Sou o assistente da GV Software.<br/>
+                        Como posso te ajudar hoje?
                       </p>
                     </div>
-                    <div className="flex items-center justify-center gap-2 text-purple-600">
-                      <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" 
+                    <div className="flex items-center justify-center gap-1">
+                      <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce"></div>
+                      <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce" 
                            style={{animationDelay: '0.2s'}}></div>
-                      <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" 
+                      <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce" 
                            style={{animationDelay: '0.4s'}}></div>
                     </div>
                   </div>
@@ -275,7 +263,7 @@ const ChatBot = () => {
               )}
 
               {currentStep === 'form' && (
-                <div className="h-full overflow-y-auto p-6 bg-gradient-to-b from-gray-50 to-white">
+                <div className="h-full overflow-y-auto">
                   <ChatBotForm 
                     formData={formData}
                     setFormData={setFormData}
@@ -285,7 +273,7 @@ const ChatBot = () => {
               )}
 
               {currentStep === 'options' && (
-                <div className="h-full overflow-y-auto p-6 bg-gradient-to-b from-gray-50 to-white">
+                <div className="h-full overflow-y-auto">
                   <ChatBotOptions 
                     onSelectOption={handleSelectOption}
                     userName={formData.name}
@@ -294,7 +282,7 @@ const ChatBot = () => {
               )}
 
               {currentStep === 'faq' && (
-                <div className="h-full overflow-y-auto p-6 bg-gradient-to-b from-gray-50 to-white">
+                <div className="h-full overflow-y-auto">
                   <ChatBotFAQ 
                     onBack={() => setCurrentStep('options')}
                     userName={formData.name}

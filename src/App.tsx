@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
+import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 
 // Lazy load pages to improve initial load time
 const Home = lazy(() => import("./pages/Home"));
@@ -47,6 +48,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <KeyboardShortcutsProvider />
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
               <Route path="/" element={<Home />} />

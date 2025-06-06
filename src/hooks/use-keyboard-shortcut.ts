@@ -1,11 +1,13 @@
 
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export const useKeyboardShortcut = () => {
-  // This functionality has been moved to KeyboardShortcutsProvider
-  // This hook is kept for compatibility but doesn't implement any functionality
-  // to avoid duplicate keyboard event handlers
+  // Este hook foi movido para KeyboardShortcutsProvider para evitar
+  // handlers duplicados. Mantido apenas para compatibilidade.
+  
+  useEffect(() => {
+    console.log("Hook use-keyboard-shortcut foi mantido apenas para compatibilidade");
+  }, []);
 };
 
 export default useKeyboardShortcut;
