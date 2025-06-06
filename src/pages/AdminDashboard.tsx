@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { ArrowLeft, Send, User, Shield, MessageSquare, Clock, Mail, Phone, Eye, Trash2, Search, Filter, Settings } from "lucide-react";
 import { ChatService } from "../services/chatService";
@@ -77,19 +78,30 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
     }
   }, []);
 
+  // Carregar conversas quando o componente monta
+  useEffect(() => {
+    console.log('AdminDashboard montado, carregando conversas...');
+    loadConversations();
+  }, []);
+
   useEffect(() => {
     if (selectedConversation) {
+      console.log('Conversa selecionada:', selectedConversation);
       loadMessages(selectedConversation);
     }
   }, [selectedConversation]);
 
   const loadConversations = async () => {
     try {
+      console.log('Iniciando carregamento de conversas...');
       setIsLoading(true);
       const data = await ChatService.getConversations();
-      setConversations(data);
+      console.log('Conversas carregadas:', data);
+      console.log('Número de conversas:', data?.length || 0);
+      setConversations(data || []);
     } catch (error) {
       console.error('Erro ao carregar conversas:', error);
+      setConversations([]);
     } finally {
       setIsLoading(false);
     }
@@ -97,10 +109,14 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
 
   const loadMessages = async (conversationId: string) => {
     try {
+      console.log('Carregando mensagens para conversa:', conversationId);
       const data = await ChatService.getMessages(conversationId);
-      setMessages(data);
+      console.log('Mensagens carregadas:', data);
+      console.log('Número de mensagens:', data?.length || 0);
+      setMessages(data || []);
     } catch (error) {
       console.error('Erro ao carregar mensagens:', error);
+      setMessages([]);
     }
   };
 
@@ -190,9 +206,9 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
   };
 
   const filteredConversations = conversations.filter(conv => {
-    const matchesSearch = conv.user_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         conv.user_email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         conv.subject.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = conv.user_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         conv.user_email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         conv.subject?.toLowerCase().includes(searchTerm.toLowerCase());
     
     const matchesFilter = filterStatus === 'all' || conv.status === filterStatus;
     
@@ -291,6 +307,13 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
                   {filteredConversations.length}
                 </span>
               </h2>
+              <button
+                onClick={loadConversations}
+                className="text-indigo-400 hover:text-indigo-300 p-2 rounded-lg hover:bg-gray-700/50 transition-colors"
+                title="Atualizar conversas"
+              >
+                <Settings className="w-4 h-4" />
+              </button>
             </div>
 
             {/* Filtros */}
@@ -335,6 +358,12 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
                 <div className="text-center py-8 text-gray-400">
                   <MessageSquare className="w-12 h-12 mx-auto mb-4 opacity-50" />
                   <p>Nenhuma conversa encontrada</p>
+                  <button
+                    onClick={loadConversations}
+                    className="mt-2 text-indigo-400 hover:text-indigo-300 text-sm underline"
+                  >
+                    Tentar novamente
+                  </button>
                 </div>
               ) : (
                 filteredConversations.map((conversation) => (
@@ -349,7 +378,7 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="font-semibold text-white truncate flex-1">
-                        {conversation.user_name}
+                        {conversation.user_name || 'Nome não informado'}
                       </div>
                       <div className="flex items-center gap-2">
                         <div className={`w-2 h-2 rounded-full ${
@@ -370,16 +399,16 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
                     </div>
                     
                     <div className="text-sm text-gray-300 mb-2 truncate">
-                      📧 {conversation.user_email}
+                      📧 {conversation.user_email || 'Email não informado'}
                     </div>
                     
                     <div className="text-sm text-indigo-300 mb-3 font-medium">
-                      {conversation.subject}
+                      {conversation.subject || 'Assunto não informado'}
                     </div>
                     
                     <div className="flex items-center gap-2 text-xs text-gray-400">
                       <Clock className="w-3 h-3" />
-                      {new Date(conversation.updated_at).toLocaleString('pt-BR')}
+                      {conversation.updated_at ? new Date(conversation.updated_at).toLocaleString('pt-BR') : 'Data não disponível'}
                     </div>
                   </div>
                 ))
@@ -400,26 +429,26 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
                         <User className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <div className="font-bold text-xl text-white">{selectedConv.user_name}</div>
+                        <div className="font-bold text-xl text-white">{selectedConv.user_name || 'Nome não informado'}</div>
                         <div className="flex items-center gap-4 text-sm text-gray-300">
                           <span className="flex items-center gap-1">
                             <Mail className="w-4 h-4" />
-                            {selectedConv.user_email}
+                            {selectedConv.user_email || 'Email não informado'}
                           </span>
                           <span className="flex items-center gap-1">
                             <Phone className="w-4 h-4" />
-                            {selectedConv.user_phone}
+                            {selectedConv.user_phone || 'Telefone não informado'}
                           </span>
                         </div>
                         <div className="text-indigo-400 font-medium mt-1">
-                          Assunto: {selectedConv.subject}
+                          Assunto: {selectedConv.subject || 'Assunto não informado'}
                         </div>
                       </div>
                     </div>
                     
                     <div className="flex items-center gap-2">
                       <select
-                        value={selectedConv.status}
+                        value={selectedConv.status || 'waiting'}
                         onChange={(e) => updateConversationStatus(selectedConv.id, e.target.value as any)}
                         className="bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm"
                       >
@@ -433,45 +462,53 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
 
                 {/* Mensagens */}
                 <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-gray-900/20 to-gray-800/20">
-                  {messages.map((message) => (
-                    <div
-                      key={message.id}
-                      className={`flex ${message.type === 'admin' ? 'justify-end' : 'justify-start'}`}
-                    >
-                      <div className={`flex items-start gap-3 max-w-[80%] ${
-                        message.type === 'admin' ? 'flex-row-reverse' : 'flex-row'
-                      }`}>
-                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-lg ${
-                          message.type === 'admin' 
-                            ? 'bg-gradient-to-r from-indigo-600 to-purple-600' 
-                            : message.type === 'bot'
-                            ? 'bg-gradient-to-r from-purple-600 to-pink-600'
-                            : 'bg-gradient-to-r from-gray-600 to-gray-700'
+                  {messages.length === 0 ? (
+                    <div className="text-center py-8 text-gray-400">
+                      <MessageSquare className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                      <p>Nenhuma mensagem nesta conversa ainda</p>
+                      <p className="text-sm mt-2">Seja o primeiro a responder!</p>
+                    </div>
+                  ) : (
+                    messages.map((message) => (
+                      <div
+                        key={message.id}
+                        className={`flex ${message.type === 'admin' ? 'justify-end' : 'justify-start'}`}
+                      >
+                        <div className={`flex items-start gap-3 max-w-[80%] ${
+                          message.type === 'admin' ? 'flex-row-reverse' : 'flex-row'
                         }`}>
-                          {message.type === 'admin' ? (
-                            <Shield className="w-5 h-5 text-white" />
-                          ) : (
-                            <User className="w-5 h-5 text-white" />
-                          )}
-                        </div>
-                        <div className={`rounded-2xl p-4 shadow-lg ${
-                          message.type === 'admin'
-                            ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
-                            : 'bg-white/10 backdrop-blur-sm text-white border border-gray-600/50'
-                        }`}>
-                          <p className="text-sm leading-relaxed">{message.content}</p>
-                          <div className="flex items-center gap-2 mt-2">
-                            <span className="text-xs opacity-70">
-                              {message.sender_name}
-                            </span>
-                            <span className="text-xs opacity-70">
-                              {new Date(message.timestamp).toLocaleTimeString('pt-BR')}
-                            </span>
+                          <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-lg ${
+                            message.type === 'admin' 
+                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600' 
+                              : message.type === 'bot'
+                              ? 'bg-gradient-to-r from-purple-600 to-pink-600'
+                              : 'bg-gradient-to-r from-gray-600 to-gray-700'
+                          }`}>
+                            {message.type === 'admin' ? (
+                              <Shield className="w-5 h-5 text-white" />
+                            ) : (
+                              <User className="w-5 h-5 text-white" />
+                            )}
+                          </div>
+                          <div className={`rounded-2xl p-4 shadow-lg ${
+                            message.type === 'admin'
+                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
+                              : 'bg-white/10 backdrop-blur-sm text-white border border-gray-600/50'
+                          }`}>
+                            <p className="text-sm leading-relaxed">{message.content}</p>
+                            <div className="flex items-center gap-2 mt-2">
+                              <span className="text-xs opacity-70">
+                                {message.sender_name || 'Usuário'}
+                              </span>
+                              <span className="text-xs opacity-70">
+                                {message.timestamp ? new Date(message.timestamp).toLocaleTimeString('pt-BR') : 'Hora não disponível'}
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  )}
                 </div>
 
                 {/* Input */}
@@ -508,6 +545,11 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
                   <MessageSquare className="w-16 h-16 mx-auto mb-6 opacity-50" />
                   <h3 className="text-xl font-semibold mb-2">Selecione uma conversa</h3>
                   <p>Escolha uma conversa da lista para começar a responder</p>
+                  {conversations.length === 0 && !isLoading && (
+                    <p className="text-sm mt-4 text-gray-500">
+                      Parece que não há conversas ainda. Elas aparecerão aqui quando os clientes entrarem em contato.
+                    </p>
+                  )}
                 </div>
               </div>
             )}
