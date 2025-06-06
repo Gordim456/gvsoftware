@@ -6,7 +6,7 @@ import SocialIcons from '../components/SocialIcons';
 import { motion } from 'framer-motion';
 import { Users, Target, Award, TrendingUp, Code, Globe, Shield, Zap } from 'lucide-react';
 
-const AboutPage: React.FC = () => {
+const About: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -49,8 +49,16 @@ const AboutPage: React.FC = () => {
     }
   ];
 
+  if (!isLoaded) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-gv-darker">
+        <div className="w-8 h-8 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className={`min-h-screen flex flex-col transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       
       <section className="relative py-24 overflow-hidden">
@@ -180,4 +188,4 @@ const AboutPage: React.FC = () => {
   );
 };
 
-export default AboutPage;
+export default About;
