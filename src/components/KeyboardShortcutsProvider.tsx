@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import AdminLogin from './admin/AdminLogin';
-import AdminChatPanel from './admin/AdminChatPanel';
+import AdminDashboard from '../pages/AdminDashboard';
 
 const KeyboardShortcutsProvider = () => {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
@@ -52,7 +52,7 @@ const KeyboardShortcutsProvider = () => {
       )}
       
       {showAdminPanel && (
-        <AdminChatPanel onBack={handleAdminBack} />
+        <AdminDashboard onBack={handleAdminBack} />
       )}
     </>
   );
