@@ -75,16 +75,16 @@ const Hero = () => {
               <div className="mb-4 bg-indigo-600/20 p-3 rounded-md w-fit">
                 <Server className="w-6 h-6 text-indigo-400" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-white">Sistemas Empresariais</h3>
-              <p className="text-gray-400">Desenvolvemos sistemas sob medida para automatizar processos, aumentar a eficiência e impulsionar o crescimento da sua empresa.</p>
+              <h3 className="text-xl font-semibold mb-2 text-white">Aplicações Empresariais</h3>
+              <p className="text-gray-400">Desenvolvemos soluções sob medida para otimizar processos e aumentar a produtividade.</p>
             </div>
             
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
               <div className="mb-4 bg-indigo-600/20 p-3 rounded-md w-fit">
                 <Globe className="w-6 h-6 text-indigo-400" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-white">Consultoria Digital</h3>
-              <p className="text-gray-400">Oferecemos consultoria especializada para transformação digital, otimização de processos e estratégias tecnológicas personalizadas.</p>
+              <h3 className="text-xl font-semibold mb-2 text-white">Presença Digital</h3>
+              <p className="text-gray-400">Estratégias completas para destacar sua marca no ambiente digital com soluções personalizadas.</p>
             </div>
           </div>
         </div>
