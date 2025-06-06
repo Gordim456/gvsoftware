@@ -163,7 +163,7 @@ const ChatBotForm = ({ formData, setFormData, onComplete }: ChatBotFormProps) =>
                 
                 <button
                   onClick={handleNext}
-                  disabled={!currentValue.trim() || emailError}
+                  disabled={!currentValue.trim() || !!emailError}
                   className="w-full bg-white/25 hover:bg-white/35 text-white py-4 rounded-xl 
                            transition-all duration-300 flex items-center justify-center gap-3
                            disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm
