@@ -2,21 +2,23 @@
 import { ArrowRight, Code, Server, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link as RouterLink } from 'react-router-dom';
-import { BackgroundGradient } from './BackgroundGradient';
 import { HeroSlider } from './HeroSlider';
 
 const Hero = () => {
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      <BackgroundGradient>
-        <div className="w-full px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+    <section id="hero" className="relative w-full min-h-screen bg-gv-darker overflow-x-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 opacity-80"></div>
+      
+      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pt-20 pb-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center min-h-[80vh]">
             <div className="space-y-6 text-center md:text-left">
               <div className="inline-block bg-indigo-600/20 px-4 py-1 rounded-full mb-4 border border-indigo-500/30">
                 <span className="text-indigo-300 text-sm font-medium">Inovação & Tecnologia</span>
               </div>
               
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
                 Transformando ideias em <span className="gradient-text font-extrabold">realidade digital</span>
               </h1>
               
@@ -24,7 +26,7 @@ const Hero = () => {
                 Soluções digitais inovadoras e personalizadas para o seu negócio.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
                 <RouterLink to="/contact">
                   <Button className="w-full sm:w-auto px-6 py-4 bg-gv-primary hover:bg-indigo-600 text-white rounded-xl font-medium text-lg flex items-center justify-center gap-3 transition-colors">
                     Fale Conosco <ArrowRight className="w-5 h-5" />
@@ -38,7 +40,7 @@ const Hero = () => {
                 </RouterLink>
               </div>
               
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-4">
                 <div className="text-center">
                   <h4 className="text-2xl sm:text-3xl font-bold text-green-400">+1</h4>
                   <p className="text-gv-gray text-xs sm:text-sm">Projetos Finalizados</p>
@@ -68,7 +70,7 @@ const Hero = () => {
               <div className="mb-4 bg-gv-primary bg-opacity-10 p-3 rounded-md w-fit">
                 <Code className="w-6 h-6 text-gv-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Desenvolvimento Web</h3>
+              <h3 className="text-xl font-semibold mb-2 text-white">Desenvolvimento Web</h3>
               <p className="text-gv-gray">Criamos sites e aplicações web modernas utilizando as melhores tecnologias do mercado.</p>
             </div>
             
@@ -76,7 +78,7 @@ const Hero = () => {
               <div className="mb-4 bg-gv-primary bg-opacity-10 p-3 rounded-md w-fit">
                 <Server className="w-6 h-6 text-gv-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Aplicações Empresariais</h3>
+              <h3 className="text-xl font-semibold mb-2 text-white">Aplicações Empresariais</h3>
               <p className="text-gv-gray">Desenvolvemos soluções sob medida para otimizar processos e aumentar a produtividade.</p>
             </div>
             
@@ -84,12 +86,12 @@ const Hero = () => {
               <div className="mb-4 bg-gv-primary bg-opacity-10 p-3 rounded-md w-fit">
                 <Globe className="w-6 h-6 text-gv-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Presença Digital</h3>
+              <h3 className="text-xl font-semibold mb-2 text-white">Presença Digital</h3>
               <p className="text-gv-gray">Estratégias completas para destacar sua marca no ambiente digital com soluções personalizadas.</p>
             </div>
           </div>
         </div>
-      </BackgroundGradient>
+      </div>
     </section>
   );
 };
