@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -13,7 +12,6 @@ const About = () => {
     document.title = 'Sobre | GV Software - Nossa História e Missão';
     setIsLoaded(true);
     
-    // SEO otimizado
     const meta = document.createElement('meta');
     meta.name = 'description';
     meta.content = 'Conheça a GV Software - Empresa especializada em desenvolvimento de software com mais de 5 anos de experiência criando soluções digitais inovadoras.';
@@ -22,7 +20,6 @@ const About = () => {
     }
   }, []);
 
-  // Stats atualizados
   const stats = [
     { icon: <Code />, label: 'Projetos Finalizados', value: '1', description: 'Soluções desenvolvidas' },
     { icon: <Users />, label: 'Clientes Satisfeitos', value: '1', description: 'Empresas atendidas' },
@@ -30,7 +27,6 @@ const About = () => {
     { icon: <TrendingUp />, label: 'Taxa de Sucesso', value: '100%', description: 'Projetos bem-sucedidos' }
   ];
 
-  // Features modernas
   const features = [
     {
       icon: <Globe />,
@@ -52,12 +48,10 @@ const About = () => {
     }
   ];
 
-  // Hero Section moderno
   const HeroSection = () => (
     <section className="relative py-24 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950"></div>
       
-      {/* Elementos de background animados */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-cyan-600/10 to-blue-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
@@ -87,7 +81,6 @@ const About = () => {
           </p>
         </motion.div>
 
-        {/* Grid de Stats */}
         <motion.div 
           className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -115,7 +108,6 @@ const About = () => {
           ))}
         </motion.div>
 
-        {/* Missão e Visão */}
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           <motion.div 
             className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 shadow-2xl"
@@ -152,7 +144,6 @@ const About = () => {
           </motion.div>
         </div>
 
-        {/* Grid de Features */}
         <motion.div 
           className="grid grid-cols-1 md:grid-cols-3 gap-8"
           initial={{ opacity: 0, y: 20 }}

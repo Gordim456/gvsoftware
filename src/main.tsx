@@ -1,9 +1,9 @@
 
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
-import { analytics } from './utils/analytics'
-import { cacheService } from './utils/cacheService'
+import { createRoot } from 'react-dom/client';
+import App from './App.tsx';
+import './index.css';
+import { analytics } from './utils/analytics';
+import { cacheService } from './utils/cacheService';
 
 // Initialize services before rendering
 const initializeApp = async () => {

@@ -1,16 +1,11 @@
 
+import React from 'react';
 import { ArrowRight, Code, Server, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link as RouterLink } from 'react-router-dom';
 import OptimizedHeroImage from './OptimizedHeroImage';
 
 const Hero = () => {
-  console.log('Hero component rendering');
-  console.log('Icons loaded:', { Code, Server, Globe });
-  console.log('Code icon:', Code);
-  console.log('Server icon:', Server);
-  console.log('Globe icon:', Globe);
-  
   return (
     <section className="w-full min-h-screen bg-gv-darker pt-20 pb-12">
       <div className="w-full px-4 sm:px-6 lg:px-8">
@@ -71,11 +66,7 @@ const Hero = () => {
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
               <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit flex items-center justify-center">
-                {Code ? (
-                  <Code className="w-8 h-8 text-white" />
-                ) : (
-                  <div className="w-8 h-8 bg-white rounded"></div>
-                )}
+                <Code className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-white">Desenvolvimento Web</h3>
               <p className="text-gray-400">Criamos sites e aplicações web modernas, responsivas e otimizadas utilizando as tecnologias mais avançadas do mercado.</p>
@@ -83,11 +74,7 @@ const Hero = () => {
             
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
               <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit flex items-center justify-center">
-                {Server ? (
-                  <Server className="w-8 h-8 text-white" />
-                ) : (
-                  <div className="w-8 h-8 bg-white rounded"></div>
-                )}
+                <Server className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-white">Aplicações Empresariais</h3>
               <p className="text-gray-400">Desenvolvemos soluções sob medida para otimizar processos e aumentar a produtividade.</p>
@@ -95,11 +82,7 @@ const Hero = () => {
             
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
               <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit flex items-center justify-center">
-                {Globe ? (
-                  <Globe className="w-8 h-8 text-white" />
-                ) : (
-                  <div className="w-8 h-8 bg-white rounded"></div>
-                )}
+                <Globe className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-white">Presença Digital</h3>
               <p className="text-gray-400">Estratégias completas para destacar sua marca no ambiente digital com soluções personalizadas.</p>
