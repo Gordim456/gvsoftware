@@ -2,7 +2,6 @@
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
@@ -43,26 +42,24 @@ const App: React.FC = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <BrowserRouter>
-          <TooltipProvider delayDuration={300} skipDelayDuration={500}>
-            <ScrollToTop />
-            <Toaster />
-            <Sonner />
-            <Suspense fallback={<LoadingFallback />}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/portfolio" element={<Portfolio />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/privacy" element={<Privacy />} />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-              <ChatBot />
-            </Suspense>
-          </TooltipProvider>
+          <ScrollToTop />
+          <Toaster />
+          <Sonner />
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <ChatBot />
+          </Suspense>
         </BrowserRouter>
       </ThemeProvider>
     </QueryClientProvider>
