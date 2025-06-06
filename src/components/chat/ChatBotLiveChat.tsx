@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -18,12 +17,14 @@ interface ChatBotLiveChatProps {
   conversationId: string;
   userName: string;
   onClose: () => void;
+  onBack?: () => void;
 }
 
 const ChatBotLiveChat: React.FC<ChatBotLiveChatProps> = ({ 
   conversationId, 
   userName, 
-  onClose 
+  onClose,
+  onBack 
 }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
