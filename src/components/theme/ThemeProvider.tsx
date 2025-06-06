@@ -24,7 +24,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     
     const root = window.document.documentElement;
     
-    // Fix the theme logic - it was inverted
+    // Apply theme classes correctly
     if (theme === 'dark') {
       root.classList.remove('light');
       root.classList.add('dark');
