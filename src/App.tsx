@@ -42,10 +42,10 @@ const App: React.FC = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <BrowserRouter>
-          <ScrollToTop />
           <Toaster />
           <Sonner />
           <Suspense fallback={<LoadingFallback />}>
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
