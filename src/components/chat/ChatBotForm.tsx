@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { User, Mail, Phone, MessageCircle, ArrowRight, CheckCircle } from "lucide-react";
+import { User, Mail, Phone, MessageCircle, ArrowRight, CheckCircle, Sparkles } from "lucide-react";
 import { FormData } from "./ChatBotTypes";
 
 interface ChatBotFormProps {
@@ -12,39 +12,57 @@ interface ChatBotFormProps {
 const ChatBotForm = ({ formData, setFormData, onComplete }: ChatBotFormProps) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
+  const [emailError, setEmailError] = useState("");
 
   const steps = [
     {
-      question: "Olá! 👋 Qual é o seu nome?",
+      question: "Olá! 👋 Que prazer ter você aqui! Como posso te chamar?",
       field: "name" as keyof FormData,
-      placeholder: "Digite seu nome completo",
+      placeholder: "Digite seu nome...",
       icon: User,
       type: "text"
     },
     {
-      question: "Perfeito! Qual é o seu email?",
+      question: "Incrível! 🌟 Qual é o seu melhor email para contato?",
       field: "email" as keyof FormData,
-      placeholder: "seu@email.com",
+      placeholder: "seuemail@exemplo.com",
       icon: Mail,
       type: "email"
     },
     {
-      question: "Ótimo! Qual é o seu telefone?",
+      question: "Perfeito! 📱 E o seu WhatsApp para conversarmos melhor?",
       field: "phone" as keyof FormData,
-      placeholder: "(11) 99999-9999",
+      placeholder: "(17) 99999-9999",
       icon: Phone,
       type: "tel"
     },
     {
-      question: "Por último, sobre o que você gostaria de falar?",
+      question: "Quase lá! 🚀 Sobre o que você gostaria de conversar hoje?",
       field: "subject" as keyof FormData,
-      placeholder: "Desenvolvimento de site, app, sistema...",
+      placeholder: "Site, app, sistema, e-commerce...",
       icon: MessageCircle,
       type: "text"
     }
   ];
 
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleNext = () => {
+    const currentField = steps[currentStep]?.field;
+    const currentValue = currentField ? formData[currentField] : "";
+
+    // Validação específica para email
+    if (currentField === 'email') {
+      if (!validateEmail(currentValue)) {
+        setEmailError("Por favor, insira um email válido (exemplo: nome@email.com)");
+        return;
+      }
+      setEmailError("");
+    }
+
     if (currentStep < steps.length - 1) {
       setIsTyping(true);
       setTimeout(() => {
@@ -63,32 +81,41 @@ const ChatBotForm = ({ formData, setFormData, onComplete }: ChatBotFormProps) =>
   return (
     <div className="space-y-6">
       {/* Progress Bar */}
-      <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+      <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden shadow-inner">
         <div 
-          className="bg-gradient-to-r from-purple-500 to-blue-600 h-2 rounded-full 
-                   transition-all duration-500 ease-out"
+          className="bg-gradient-to-r from-purple-500 via-pink-500 to-blue-600 h-3 rounded-full 
+                   transition-all duration-700 ease-out relative overflow-hidden"
           style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
-        />
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent animate-pulse"></div>
+        </div>
+      </div>
+
+      {/* Step indicator */}
+      <div className="text-center">
+        <span className="text-sm font-medium text-gray-500">
+          Etapa {currentStep + 1} de {steps.length}
+        </span>
       </div>
 
       {/* Chat Messages */}
       <div className="space-y-4">
         {/* Bot Message */}
         <div className="flex items-start gap-3">
-          <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-600 
-                        rounded-full flex items-center justify-center flex-shrink-0">
-            <CheckCircle className="w-4 h-4 text-white" />
+          <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-600 
+                        rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+            <Sparkles className="w-5 h-5 text-white" />
           </div>
-          <div className="bg-white rounded-2xl rounded-tl-md p-4 shadow-lg border border-gray-100 
-                        max-w-[280px] animate-scale-in">
+          <div className="bg-white rounded-2xl rounded-tl-md p-5 shadow-lg border border-gray-100 
+                        max-w-[300px] animate-scale-in">
             {isTyping ? (
               <div className="flex gap-1">
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                <div className="w-3 h-3 bg-purple-400 rounded-full animate-bounce"></div>
+                <div className="w-3 h-3 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                <div className="w-3 h-3 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
               </div>
             ) : (
-              <p className="text-gray-800 font-medium">
+              <p className="text-gray-800 font-medium leading-relaxed">
                 {steps[currentStep]?.question}
               </p>
             )}
@@ -98,57 +125,67 @@ const ChatBotForm = ({ formData, setFormData, onComplete }: ChatBotFormProps) =>
         {/* User Input */}
         {!isTyping && (
           <div className="flex items-end gap-3 justify-end">
-            <div className="bg-gradient-to-br from-purple-500 to-blue-600 rounded-2xl rounded-br-md 
-                          p-4 shadow-lg max-w-[280px] animate-scale-in">
-              <div className="space-y-3">
+            <div className="bg-gradient-to-br from-purple-500 via-pink-500 to-blue-600 rounded-2xl rounded-br-md 
+                          p-5 shadow-xl max-w-[300px] animate-scale-in">
+              <div className="space-y-4">
                 <div className="relative">
-                  {CurrentIcon && <CurrentIcon className="absolute left-3 top-3 w-5 h-5 text-white/80" />}
+                  {CurrentIcon && <CurrentIcon className="absolute left-4 top-4 w-5 h-5 text-white/80" />}
                   <input
                     type={steps[currentStep]?.type}
                     placeholder={steps[currentStep]?.placeholder}
                     value={currentValue}
-                    onChange={(e) => setFormData({
-                      ...formData,
-                      [currentField]: e.target.value
-                    })}
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+                        [currentField]: e.target.value
+                      });
+                      if (emailError) setEmailError("");
+                    }}
                     onKeyPress={(e) => {
                       if (e.key === 'Enter' && currentValue.trim()) {
                         handleNext();
                       }
                     }}
-                    className="w-full pl-12 pr-4 py-3 bg-white/20 border border-white/30 
+                    className="w-full pl-14 pr-4 py-4 bg-white/20 border-2 border-white/30 
                              rounded-xl text-white placeholder-white/70 backdrop-blur-sm
                              focus:outline-none focus:ring-2 focus:ring-white/50 
-                             focus:border-white/50 transition-all"
+                             focus:border-white/50 transition-all font-medium"
                     required
                     autoFocus
                   />
                 </div>
                 
+                {emailError && (
+                  <div className="text-red-200 text-sm bg-red-500/20 px-3 py-2 rounded-lg border border-red-300/30">
+                    {emailError}
+                  </div>
+                )}
+                
                 <button
                   onClick={handleNext}
-                  disabled={!currentValue.trim()}
-                  className="w-full bg-white/20 hover:bg-white/30 text-white py-3 rounded-xl 
-                           transition-all duration-300 flex items-center justify-center gap-2
+                  disabled={!currentValue.trim() || emailError}
+                  className="w-full bg-white/25 hover:bg-white/35 text-white py-4 rounded-xl 
+                           transition-all duration-300 flex items-center justify-center gap-3
                            disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm
-                           border border-white/30 hover:border-white/50"
+                           border-2 border-white/30 hover:border-white/50 font-semibold
+                           hover:shadow-lg hover:scale-105"
                 >
                   {currentStep === steps.length - 1 ? (
                     <>
                       <CheckCircle className="w-5 h-5" />
-                      Continuar
+                      Vamos conversar! 🎉
                     </>
                   ) : (
                     <>
-                      Próximo
+                      Próximo passo
                       <ArrowRight className="w-5 h-5" />
                     </>
                   )}
                 </button>
               </div>
             </div>
-            <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-              <User className="w-4 h-4 text-gray-600" />
+            <div className="w-10 h-10 bg-gradient-to-br from-gray-300 to-gray-400 rounded-full flex items-center justify-center shadow-lg">
+              <User className="w-5 h-5 text-gray-600" />
             </div>
           </div>
         )}

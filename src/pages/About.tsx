@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -22,12 +21,12 @@ const About = () => {
     }
   }, []);
 
-  // Stats modernos
+  // Stats atualizados
   const stats = [
-    { icon: <Code />, label: 'Projetos Entregues', value: '100+', description: 'Soluções desenvolvidas' },
-    { icon: <Users />, label: 'Clientes Satisfeitos', value: '50+', description: 'Empresas atendidas' },
-    { icon: <Award />, label: 'Anos de Experiência', value: '5+', description: 'No mercado digital' },
-    { icon: <TrendingUp />, label: 'Taxa de Sucesso', value: '98%', description: 'Projetos bem-sucedidos' }
+    { icon: <Code />, label: 'Projetos Finalizados', value: '1', description: 'Soluções desenvolvidas' },
+    { icon: <Users />, label: 'Clientes Satisfeitos', value: '1', description: 'Empresas atendidas' },
+    { icon: <Award />, label: 'Experiência', value: 'Primeiro Ano', description: 'No mercado digital' },
+    { icon: <TrendingUp />, label: 'Taxa de Sucesso', value: '100%', description: 'Projetos bem-sucedidos' }
   ];
 
   // Features modernas

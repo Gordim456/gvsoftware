@@ -18,6 +18,31 @@ const ChatBot = () => {
   });
   const [showWelcome, setShowWelcome] = useState(true);
 
+  // Carregar estado salvo quando componente monta
+  useEffect(() => {
+    const savedData = localStorage.getItem('chatbot-data');
+    if (savedData) {
+      try {
+        const parsed = JSON.parse(savedData);
+        setFormData(parsed.formData || formData);
+        setCurrentStep(parsed.currentStep || 'welcome');
+        setShowWelcome(parsed.currentStep === 'welcome');
+      } catch (error) {
+        console.log('Erro ao carregar dados salvos do chatbot');
+      }
+    }
+  }, []);
+
+  // Salvar estado sempre que houver mudanças
+  useEffect(() => {
+    const dataToSave = {
+      formData,
+      currentStep,
+      timestamp: Date.now()
+    };
+    localStorage.setItem('chatbot-data', JSON.stringify(dataToSave));
+  }, [formData, currentStep]);
+
   useEffect(() => {
     if (isOpen && showWelcome && currentStep === 'welcome') {
       const timer = setTimeout(() => {
@@ -29,7 +54,6 @@ const ChatBot = () => {
   }, [isOpen, showWelcome, currentStep]);
 
   const handleFormComplete = () => {
-    localStorage.setItem('chatbot-contact', JSON.stringify(formData));
     setCurrentStep('options');
   };
 
@@ -42,16 +66,16 @@ const ChatBot = () => {
         setCurrentStep('faq');
         break;
       case 'quote':
-        // Para orçamento, podemos redirecionar para o formulário de contato
-        window.open('/contact', '_blank');
+        // Não abrir nova guia, usar a mesma página
+        window.location.href = '/contact';
         break;
       case 'services':
-        // Para serviços, podemos redirecionar para a página de serviços
-        window.open('/services', '_blank');
+        // Não abrir nova guia, usar a mesma página
+        window.location.href = '/services';
         break;
       case 'meeting':
-        // Para reunião, podemos abrir um link do Calendly ou similar
-        alert('Em breve! Por enquanto, entre em contato pelo WhatsApp: (11) 99999-9999');
+        // Atualizar número do WhatsApp
+        alert('Em breve! Por enquanto, entre em contato pelo WhatsApp: (17) 99785-3416');
         break;
     }
   };
@@ -60,15 +84,12 @@ const ChatBot = () => {
     setFormData({ name: "", email: "", phone: "", subject: "" });
     setCurrentStep('welcome');
     setShowWelcome(true);
+    localStorage.removeItem('chatbot-data');
   };
 
   const handleClose = () => {
     setIsOpen(false);
-    setTimeout(() => {
-      if (currentStep !== 'welcome') {
-        resetChat();
-      }
-    }, 300);
+    // Não resetar o chat ao fechar, manter o estado
   };
 
   return (
@@ -127,13 +148,25 @@ const ChatBot = () => {
                 </div>
               </div>
               
-              <button
-                onClick={handleClose}
-                className="text-white/80 hover:text-white transition-colors relative z-10
-                         hover:bg-white/10 p-2 rounded-full"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <div className="flex items-center gap-2 relative z-10">
+                {/* Botão de reset */}
+                <button
+                  onClick={resetChat}
+                  className="text-white/80 hover:text-white transition-colors
+                           hover:bg-white/10 p-2 rounded-full text-sm"
+                  title="Reiniciar conversa"
+                >
+                  🔄
+                </button>
+                
+                <button
+                  onClick={handleClose}
+                  className="text-white/80 hover:text-white transition-colors
+                           hover:bg-white/10 p-2 rounded-full"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             {/* Content */}
