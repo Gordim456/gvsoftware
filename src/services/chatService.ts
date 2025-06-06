@@ -1,11 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 import { ChatMessage, Conversation } from '../components/chat/ChatBotTypes';
 
-// Configuração do Supabase será automática via integração Lovable
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL || '',
-  import.meta.env.VITE_SUPABASE_ANON_KEY || ''
-);
+// Configuração do Supabase com suas credenciais
+const supabaseUrl = 'https://mjawenqlewhvpixelutg.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1qYXdlbnFsZXdodnBpeGVsdXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkwOTI5NzQsImV4cCI6MjA2NDY2ODk3NH0.a5YOtXGw7aPbyEdvAuksfaBzqtlmlF0gJm9owDYE79M';
+
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export class ChatService {
   // Criar nova conversa
