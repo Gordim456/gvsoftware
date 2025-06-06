@@ -163,50 +163,63 @@ const ChatBot = () => {
     <div>
       {!isOpen && (
         <div className="fixed bottom-6 right-6 z-50">
-          {/* Mensagem de ajuda */}
-          <div className="absolute -top-16 right-0 bg-gradient-to-r from-indigo-600 to-purple-600 
-                       px-4 py-3 rounded-2xl text-white shadow-xl transform transition-all 
-                       duration-300 hover:scale-105 border border-white/20 backdrop-blur-sm
-                       animate-pulse">
+          {/* Mensagem de ajuda que acompanha o botão */}
+          <div className="absolute -top-14 -left-32 bg-white shadow-2xl border border-gray-200
+                       px-4 py-3 rounded-2xl text-gray-800 transform transition-all 
+                       duration-300 hover:scale-105 backdrop-blur-sm animate-slow-bounce">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 animate-pulse" />
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
               <span className="font-medium text-sm">Em que posso ajudar hoje?</span>
             </div>
-            <div className="absolute bottom-0 right-8 w-0 h-0 border-l-[8px] border-r-[8px] border-t-[8px] 
-                          border-l-transparent border-r-transparent border-t-indigo-600"></div>
+            <div className="absolute bottom-0 right-6 w-0 h-0 border-l-[8px] border-r-[8px] border-t-[8px] 
+                          border-l-transparent border-r-transparent border-t-white"></div>
           </div>
 
-          {/* Botão do Chatbot com animações */}
+          {/* Botão do Chatbot moderno */}
           <div className="relative">
-            {/* Anéis de pulso */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 animate-ping opacity-75"></div>
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-pink-600 animate-ping opacity-50" style={{animationDelay: '1s'}}></div>
+            {/* Anéis de pulso suaves */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 
+                          animate-ping opacity-20"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-pink-600 
+                          animate-ping opacity-15" style={{animationDelay: '1s'}}></div>
             
-            {/* Botão principal */}
+            {/* Botão principal moderno */}
             <button
               onClick={() => setIsOpen(true)}
-              className="relative bg-gradient-to-r from-indigo-600 to-purple-600 
-                       text-white p-3 rounded-full shadow-2xl hover:shadow-indigo-500/50 
-                       transition-all duration-300 hover:scale-110 group
-                       border-2 border-white/20 animate-bounce"
-              style={{ width: '60px', height: '60px' }}
+              className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 
+                       text-white p-3 rounded-full shadow-2xl hover:shadow-indigo-500/25 
+                       transition-all duration-500 hover:scale-110 group
+                       border-2 border-white/30 animate-slow-bounce hover:animate-none
+                       backdrop-blur-sm"
+              style={{ width: '56px', height: '56px' }}
             >
-              <Zap className="w-6 h-6 relative z-10 mx-auto animate-pulse" />
+              {/* Gradiente interno */}
+              <div className="absolute inset-1 bg-gradient-to-br from-white/20 to-transparent 
+                            rounded-full opacity-50"></div>
+              
+              {/* Ícone principal */}
+              <MessageCircle className="w-6 h-6 relative z-10 mx-auto group-hover:scale-110 
+                                     transition-transform duration-300" />
+              
+              {/* Efeito de brilho */}
+              <div className="absolute top-2 left-2 w-3 h-3 bg-white/40 rounded-full blur-sm 
+                            group-hover:w-4 group-hover:h-4 transition-all duration-300"></div>
             </button>
 
-            {/* Indicador online */}
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white shadow-lg animate-pulse">
-              <div className="w-1.5 h-1.5 bg-white rounded-full mx-auto mt-0.5"></div>
+            {/* Indicador online moderno */}
+            <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-green-400 to-emerald-500 
+                          rounded-full border-2 border-white shadow-lg animate-pulse">
+              <div className="w-1 h-1 bg-white rounded-full mx-auto mt-1"></div>
             </div>
           </div>
         </div>
       )}
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 md:bg-transparent animate-fadeIn">
-          <div className="fixed bottom-0 right-0 w-full md:w-[380px] h-full md:h-[580px] 
+        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 md:bg-transparent animate-fadeIn">
+          <div className="fixed bottom-0 right-0 w-full md:w-[360px] h-full md:h-[520px] 
                        bg-white shadow-2xl transition-all duration-500 rounded-t-3xl md:rounded-3xl
-                       md:bottom-6 md:right-6 overflow-hidden flex flex-col border-2 border-indigo-200
+                       md:bottom-6 md:right-6 overflow-hidden flex flex-col border border-gray-200
                        animate-slideIn transform">
             
             {/* Header Moderno */}
@@ -215,7 +228,7 @@ const ChatBot = () => {
                           text-white flex-shrink-0">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-white/20 rounded-xl flex items-center 
-                              justify-center backdrop-blur-sm animate-pulse">
+                              justify-center backdrop-blur-sm">
                   <Bot className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -253,7 +266,7 @@ const ChatBot = () => {
                 <div className="h-full flex items-center justify-center p-6 animate-form">
                   <div className="text-center space-y-4">
                     <div className="w-16 h-16 mx-auto bg-gradient-to-r from-indigo-500 to-purple-600 
-                                  rounded-3xl flex items-center justify-center shadow-2xl animate-bounce">
+                                  rounded-3xl flex items-center justify-center shadow-2xl animate-float">
                       <Sparkles className="w-8 h-8 text-white" />
                     </div>
                     <div className="space-y-2">
@@ -262,7 +275,7 @@ const ChatBot = () => {
                       </h4>
                       <p className="text-gray-600 text-sm leading-relaxed animate-fadeIn" style={{animationDelay: '0.2s'}}>
                         Sou o assistente inteligente da<br/>
-                        <span className="font-bold text-gradient-purple">GV Software</span><br/>
+                        <span className="font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">GV Software</span><br/>
                         Como posso te ajudar hoje?
                       </p>
                     </div>
