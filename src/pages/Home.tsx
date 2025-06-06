@@ -39,31 +39,37 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden">
       <OptimizedBackground />
       
-      <div className="relative z-10 w-full">
+      <div className="relative z-10 w-full max-w-full overflow-x-hidden">
         <MemoizedNavbar />
         
-        <div className="relative w-full overflow-x-hidden">
+        <main className="relative w-full max-w-full overflow-x-hidden">
           <Suspense fallback={<LoadingSpinner />}>
-            <div className="w-full px-4 sm:px-6 lg:px-8">
-              <Hero />
-            </div>
+            <section className="w-full max-w-full">
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full overflow-x-hidden">
+                <Hero />
+              </div>
+            </section>
           </Suspense>
           
           <Suspense fallback={<LoadingSpinner />}>
-            <div className="w-full px-4 sm:px-6 lg:px-8">
-              <Services />
-            </div>
+            <section className="w-full max-w-full">
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full overflow-x-hidden">
+                <Services />
+              </div>
+            </section>
           </Suspense>
           
           <Suspense fallback={<LoadingSpinner />}>
-            <div className="w-full px-4 sm:px-6 lg:px-8">
-              <Testimonials />
-            </div>
+            <section className="w-full max-w-full">
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-full overflow-x-hidden">
+                <Testimonials />
+              </div>
+            </section>
           </Suspense>
-        </div>
+        </main>
         
         <MemoizedFooter />
         <MemoizedSocialIcons />

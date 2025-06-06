@@ -83,46 +83,53 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
-    /* Remove zoom on mobile to prevent layout issues */
-    @media screen and (max-width: 768px) {
-      zoom: 1;
-    }
-    @media screen and (min-width: 769px) {
-      zoom: 1.1;
-    }
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
   }
 
   body {
-    /* Prevent horizontal overflow */
     overflow-x: hidden;
     width: 100%;
-    min-width: 100%;
     max-width: 100vw;
-    /* Remove zoom on mobile */
-    @media screen and (max-width: 768px) {
-      zoom: 1;
-    }
-    @media screen and (min-width: 769px) {
-      zoom: 1.05;
-    }
+    margin: 0;
+    padding: 0;
   }
 
   /* Prevent any element from causing horizontal overflow */
-  * {
+  *, *::before, *::after {
     box-sizing: border-box;
     max-width: 100%;
   }
 
-  /* Fix for mobile viewport */
+  /* Specific mobile optimizations */
   @media screen and (max-width: 768px) {
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+    }
+    
+    #root {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+    }
+    
     .container {
       padding-left: 1rem;
       padding-right: 1rem;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      max-width: 100%;
     }
     
     /* Ensure all grid and flex containers don't overflow */
     .grid, .flex {
       min-width: 0;
+      width: 100%;
+      max-width: 100%;
     }
   }
 }
@@ -136,9 +143,9 @@
     @apply bg-gv-dark text-foreground font-sans;
   }
 
-  /* Mobile-specific fixes */
+  /* Mobile-specific max-width fixes */
   @media screen and (max-width: 768px) {
-    .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl {
+    .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl, .max-w-3xl, .max-w-2xl {
       @apply max-w-full;
     }
   }
@@ -166,10 +173,10 @@
   }
   
   .section-subtitle {
-    @apply text-gv-gray text-lg max-w-2xl mx-auto;
+    @apply text-gv-gray text-lg;
     /* Mobile responsive text */
     @media screen and (max-width: 768px) {
-      @apply text-base max-w-full;
+      @apply text-base;
     }
   }
 
@@ -269,8 +276,29 @@
     .mobile-safe {
       padding-left: 1rem !important;
       padding-right: 1rem !important;
-      max-width: 100vw !important;
+      max-width: 100% !important;
+      width: 100% !important;
       overflow-x: hidden !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+    
+    /* Prevent horizontal overflow on all elements */
+    * {
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+    }
+    
+    /* Fix common layout issues */
+    .container, [class*="max-w"] {
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+    
+    /* Center content without horizontal scroll */
+    .mx-auto {
+      margin-left: auto !important;
+      margin-right: auto !important;
     }
   }
 }
@@ -337,20 +365,27 @@
 @media screen and (max-width: 768px) {
   .container, .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl, .max-w-3xl, .max-w-2xl {
     max-width: 100% !important;
+    width: 100% !important;
     padding-left: 1rem !important;
     padding-right: 1rem !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
   
   /* Fix grid layouts on mobile */
   .grid {
     grid-template-columns: 1fr !important;
     gap: 1rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
   
   /* Ensure flex containers don't overflow */
   .flex {
     flex-wrap: wrap;
     min-width: 0;
+    width: 100% !important;
+    max-width: 100% !important;
   }
   
   /* Fix text sizes for mobile */
