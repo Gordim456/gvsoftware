@@ -66,24 +66,24 @@ const Hero = () => {
 
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <div className="mb-4 bg-indigo-600/20 p-3 rounded-md w-fit">
-                <Code className="w-6 h-6 text-indigo-400" />
+              <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit">
+                <Code className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-white">Desenvolvimento Web</h3>
               <p className="text-gray-400">Criamos sites e aplicações web modernas, responsivas e otimizadas utilizando as tecnologias mais avançadas do mercado.</p>
             </div>
             
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <div className="mb-4 bg-indigo-600/20 p-3 rounded-md w-fit">
-                <Server className="w-6 h-6 text-indigo-400" />
+              <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit">
+                <Server className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-white">Aplicações Empresariais</h3>
               <p className="text-gray-400">Desenvolvemos soluções sob medida para otimizar processos e aumentar a produtividade.</p>
             </div>
             
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <div className="mb-4 bg-indigo-600/20 p-3 rounded-md w-fit">
-                <Globe className="w-6 h-6 text-indigo-400" />
+              <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit">
+                <Globe className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-white">Presença Digital</h3>
               <p className="text-gray-400">Estratégias completas para destacar sua marca no ambiente digital com soluções personalizadas.</p>
