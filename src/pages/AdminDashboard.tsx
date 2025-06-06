@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { ArrowLeft, Send, User, Shield, MessageSquare, Clock, Mail, Phone, Eye, Trash2, Search, Filter } from "lucide-react";
 import { ChatService } from "../services/chatService";
@@ -78,7 +79,7 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
 
   const updateConversationStatus = async (conversationId: string, status: 'active' | 'closed' | 'waiting') => {
     try {
-      // Implementar atualização de status no backend se necessário
+      await ChatService.updateConversationStatus(conversationId, status);
       setConversations(prev => 
         prev.map(conv => 
           conv.id === conversationId 
@@ -95,14 +96,21 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
     if (!confirm('Tem certeza que deseja excluir esta conversa?')) return;
     
     try {
-      // Implementar exclusão no backend se necessário
+      // Deletar do Supabase
+      await ChatService.deleteConversation(conversationId);
+      
+      // Atualizar estado local
       setConversations(prev => prev.filter(conv => conv.id !== conversationId));
+      
       if (selectedConversation === conversationId) {
         setSelectedConversation(null);
         setMessages([]);
       }
+      
+      console.log('Conversa excluída com sucesso');
     } catch (error) {
       console.error('Erro ao excluir conversa:', error);
+      alert('Erro ao excluir conversa. Tente novamente.');
     }
   };
 

@@ -1,3 +1,4 @@
+
 import { createClient } from '@supabase/supabase-js';
 import { ChatMessage, Conversation } from '../components/chat/ChatBotTypes';
 
@@ -174,6 +175,38 @@ export class ChatService {
       console.error('Erro ao atualizar status:', error);
     }
   }
+
+  // Deletar conversa
+  static async deleteConversation(conversationId: string): Promise<void> {
+    try {
+      // Primeiro, deletar todas as mensagens da conversa
+      const { error: messagesError } = await supabase
+        .from('messages')
+        .delete()
+        .eq('conversation_id', conversationId);
+
+      if (messagesError) {
+        console.error('Erro ao deletar mensagens:', messagesError);
+        throw messagesError;
+      }
+
+      // Depois, deletar a conversa
+      const { error: conversationError } = await supabase
+        .from('conversations')
+        .delete()
+        .eq('id', conversationId);
+
+      if (conversationError) {
+        console.error('Erro ao deletar conversa:', conversationError);
+        throw conversationError;
+      }
+
+      console.log('Conversa deletada com sucesso do Supabase');
+    } catch (error) {
+      console.error('Erro ao deletar conversa:', error);
+      throw error;
+    }
+  }
 }
 
 // Esquemas SQL para criar as tabelas no Supabase:
@@ -216,8 +249,10 @@ ALTER TABLE messages ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Allow read conversations" ON conversations FOR SELECT USING (true);
 CREATE POLICY "Allow insert conversations" ON conversations FOR INSERT WITH CHECK (true);
 CREATE POLICY "Allow update conversations" ON conversations FOR UPDATE USING (true);
+CREATE POLICY "Allow delete conversations" ON conversations FOR DELETE USING (true);
 
 CREATE POLICY "Allow read messages" ON messages FOR SELECT USING (true);
 CREATE POLICY "Allow insert messages" ON messages FOR INSERT WITH CHECK (true);
 CREATE POLICY "Allow update messages" ON messages FOR UPDATE USING (true);
+CREATE POLICY "Allow delete messages" ON messages FOR DELETE USING (true);
 */
