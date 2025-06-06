@@ -3,58 +3,21 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GV Software</title>
     <meta name="description" content="GV Software - Desenvolvimento de Software" />
-    <meta name="author" content="GV Software" />
-    <meta name="keywords" content="desenvolvimento, software, web, mobile, apps, sistemas" />
-
-    <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#6366f1" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="GV Software" />
-    <meta name="msapplication-TileColor" content="#6366f1" />
-    <meta name="msapplication-tap-highlight" content="no" />
-
-    <!-- Manifest -->
-    <link rel="manifest" href="/manifest.json" />
     
-    <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" href="/lovable-uploads/f9a88f53-3e07-4405-88ba-38a71e63e353.png" />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="GV Software" />
-    <meta property="og:description" content="GV Software - Desenvolvimento de Software" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-    
-    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Security Headers -->
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="X-Frame-Options" content="DENY" />
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
-    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-    
     <style>
-      /* Mobile optimization */
       body {
         margin: 0;
         padding: 0;
         background-color: #0f172a;
         font-family: 'Inter', sans-serif;
+        color: white;
       }
       
       #root {
@@ -62,13 +25,9 @@
         padding: 0;
         width: 100%;
         min-height: 100vh;
-        background-color: #0f172a;
       }
       
-      /* Performance optimizations */
       * {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
         box-sizing: border-box;
       }
     </style>
@@ -76,9 +35,6 @@
 
   <body>
     <div id="root"></div>
-    
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
