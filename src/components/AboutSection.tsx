@@ -8,7 +8,7 @@ import AboutHeader from './about/AboutHeader';
 import AboutFeatures from './about/AboutFeatures';
 import AboutImage from './about/AboutImage';
 
-const About: React.FC = () => {
+const AboutSection: React.FC = () => {
   return (
     <section id="about" className="py-20 bg-gv-darker relative overflow-hidden">
       <div className="absolute -top-40 -right-40 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl"></div>
@@ -33,7 +33,6 @@ const About: React.FC = () => {
               entregando soluções personalizadas que impulsionam o crescimento e a inovação.
             </p>
             
-            {/* Estatísticas como na imagem 2 */}
             <div className="flex gap-6 mt-6">
               <div>
                 <h4 className="text-3xl font-bold text-green-400">+1</h4>
@@ -74,4 +73,4 @@ const About: React.FC = () => {
   );
 };
 
-export default About;
+export default AboutSection;
