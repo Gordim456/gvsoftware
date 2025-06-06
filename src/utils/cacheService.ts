@@ -21,6 +21,7 @@ interface CacheDB extends DBSchema {
       timestamp: number;
       encrypted: boolean;
     };
+    indexes: { 'conversationId': string };
   };
   analytics: {
     key: string;
@@ -161,7 +162,7 @@ class CacheService {
     if (!this.db) return;
 
     try {
-      const stores: (keyof CacheDB)[] = ['conversations', 'messages', 'analytics'];
+      const stores = ['conversations', 'messages', 'analytics'] as const;
       
       for (const storeName of stores) {
         const tx = this.db.transaction(storeName, 'readwrite');
