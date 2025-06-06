@@ -1,59 +1,16 @@
-
 import { useState, useEffect } from "react";
 import { ArrowLeft, Send, User, Shield, MessageSquare, Clock, Mail, Phone, Eye, Trash2, Search, Filter } from "lucide-react";
 import { ChatService } from "../services/chatService";
 import { Conversation, ChatMessage } from "../components/chat/ChatBotTypes";
 
-// Componente do ícone de robô 3D moderno (mesmo do ChatBot)
+// Componente do ícone de robô 3D moderno usando a imagem fornecida
 const RobotIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   <div className={`${className} relative flex items-center justify-center`}>
-    <svg viewBox="0 0 100 100" className="w-full h-full">
-      {/* Antena */}
-      <circle cx="50" cy="15" r="3" fill="#ffffff" opacity="0.9" />
-      <line x1="50" y1="18" x2="50" y2="30" stroke="#ffffff" strokeWidth="2" opacity="0.8" />
-      
-      {/* Cabeça principal com gradiente */}
-      <defs>
-        <linearGradient id="robotGradientAdmin" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#8b5cf6" />
-          <stop offset="50%" stopColor="#a855f7" />
-          <stop offset="100%" stopColor="#3b82f6" />
-        </linearGradient>
-        <linearGradient id="robotFaceAdmin" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#1e1b4b" />
-          <stop offset="100%" stopColor="#312e81" />
-        </linearGradient>
-      </defs>
-      
-      {/* Cabeça externa */}
-      <rect x="25" y="30" width="50" height="35" rx="8" fill="url(#robotGradientAdmin)" />
-      
-      {/* Face interna */}
-      <rect x="30" y="35" width="40" height="25" rx="5" fill="url(#robotFaceAdmin)" />
-      
-      {/* Olhos */}
-      <circle cx="40" cy="45" r="4" fill="#ffffff" />
-      <circle cx="60" cy="45" r="4" fill="#ffffff" />
-      <circle cx="40" cy="45" r="2" fill="#3b82f6" className="animate-pulse" />
-      <circle cx="60" cy="45" r="2" fill="#3b82f6" className="animate-pulse" />
-      
-      {/* Boca */}
-      <rect x="45" y="52" width="10" height="3" rx="1.5" fill="#ffffff" opacity="0.8" />
-      
-      {/* Corpo */}
-      <rect x="35" y="65" width="30" height="25" rx="6" fill="url(#robotGradientAdmin)" opacity="0.9" />
-      
-      {/* Detalhes do corpo */}
-      <circle cx="45" cy="75" r="2" fill="#ffffff" opacity="0.7" />
-      <circle cx="55" cy="75" r="2" fill="#ffffff" opacity="0.7" />
-      
-      {/* Braços */}
-      <circle cx="20" cy="70" r="6" fill="url(#robotGradientAdmin)" opacity="0.8" />
-      <circle cx="80" cy="70" r="6" fill="url(#robotGradientAdmin)" opacity="0.8" />
-      
-      {/* Brilho 3D */}
-      <ellipse cx="45" cy="35" rx="8" ry="4" fill="#ffffff" opacity="0.3" />
-    </svg>
+    <img 
+      src="/lovable-uploads/c00ade0d-72c2-42c8-814b-90dc1432a8bb.png" 
+      alt="GV Robot" 
+      className="w-full h-full object-contain"
+    />
   </div>
 );
 
