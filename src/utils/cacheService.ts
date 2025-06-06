@@ -161,11 +161,11 @@ class CacheService {
     if (!this.db) return;
 
     try {
-      const stores = ['conversations', 'messages', 'analytics'];
+      const stores: (keyof CacheDB)[] = ['conversations', 'messages', 'analytics'];
       
       for (const storeName of stores) {
-        const tx = this.db.transaction(storeName as any, 'readwrite');
-        const store = tx.objectStore(storeName as any);
+        const tx = this.db.transaction(storeName, 'readwrite');
+        const store = tx.objectStore(storeName);
         const all = await store.getAll();
         
         for (const item of all) {
