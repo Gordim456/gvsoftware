@@ -5,6 +5,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import OptimizedHeroImage from './OptimizedHeroImage';
 
 const Hero = () => {
+  console.log('Hero component rendering with icons:', { Code, Server, Globe });
+  
   return (
     <section className="w-full min-h-screen bg-gv-darker pt-20 pb-12">
       <div className="w-full px-4 sm:px-6 lg:px-8">
