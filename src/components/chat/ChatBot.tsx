@@ -216,18 +216,18 @@ const ChatBot = () => {
       {!isOpen && (
         <div className="fixed bottom-6 right-6 z-50">
           {/* Mensagem de ajuda sincronizada com o ícone */}
-          <div className="absolute -top-12 -left-32 bg-white shadow-2xl border border-gray-200
-                       px-4 py-3 rounded-2xl text-gray-800 transform transition-all 
+          <div className="absolute -top-12 -left-28 bg-white shadow-2xl border border-gray-200
+                       px-3 py-2 rounded-2xl text-gray-800 transform transition-all 
                        duration-300 hover:scale-105 backdrop-blur-sm animate-gentle-bounce">
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
               <span className="font-medium text-xs text-gray-700">Em que posso ajudar hoje? 🤖</span>
             </div>
-            <div className="absolute bottom-0 right-6 w-0 h-0 border-l-[8px] border-r-[8px] border-t-[8px] 
+            <div className="absolute bottom-0 right-5 w-0 h-0 border-l-[8px] border-r-[8px] border-t-[8px] 
                           border-l-transparent border-r-transparent border-t-white"></div>
           </div>
 
-          {/* Botão do Chatbot moderno */}
+          {/* Botão do Chatbot moderno - AUMENTADO */}
           <div className="relative">
             {/* Anéis de pulso suaves */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 
@@ -235,27 +235,27 @@ const ChatBot = () => {
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-pink-600 
                           animate-ping opacity-15" style={{animationDelay: '1s'}}></div>
             
-            {/* Botão principal moderno */}
+            {/* Botão principal moderno - AUMENTADO de 48px para 56px */}
             <button
               onClick={() => setIsOpen(true)}
               className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 
-                       text-white p-2 rounded-full shadow-2xl hover:shadow-indigo-500/25 
+                       text-white p-3 rounded-full shadow-2xl hover:shadow-indigo-500/25 
                        transition-all duration-500 hover:scale-110 group
                        border-2 border-white/30 animate-gentle-bounce hover:animate-none
                        backdrop-blur-sm"
-              style={{ width: '48px', height: '48px' }}
+              style={{ width: '56px', height: '56px' }}
             >
               {/* Gradiente interno */}
               <div className="absolute inset-1 bg-gradient-to-br from-white/20 to-transparent 
                             rounded-full opacity-50"></div>
               
               {/* Ícone do robô 3D */}
-              <RobotIcon className="w-6 h-6 relative z-10 mx-auto group-hover:scale-110 
+              <RobotIcon className="w-7 h-7 relative z-10 mx-auto group-hover:scale-110 
                                   transition-transform duration-300" />
               
               {/* Efeito de brilho */}
-              <div className="absolute top-1.5 left-1.5 w-2.5 h-2.5 bg-white/40 rounded-full blur-sm 
-                            group-hover:w-3 group-hover:h-3 transition-all duration-300"></div>
+              <div className="absolute top-2 left-2 w-3 h-3 bg-white/40 rounded-full blur-sm 
+                            group-hover:w-3.5 group-hover:h-3.5 transition-all duration-300"></div>
             </button>
 
             {/* Indicador online moderno */}

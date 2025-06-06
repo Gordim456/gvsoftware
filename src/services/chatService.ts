@@ -1,258 +1,198 @@
 
-import { createClient } from '@supabase/supabase-js';
-import { ChatMessage, Conversation } from '../components/chat/ChatBotTypes';
+import { supabase } from './supabaseClient';
 
-// Configuração do Supabase com suas credenciais
-const supabaseUrl = 'https://mjawenqlewhvpixelutg.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1qYXdlbnFsZXdodnBpeGVsdXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkwOTI5NzQsImV4cCI6MjA2NDY2ODk3NH0.a5YOtXGw7aPbyEdvAuksfaBzqtlmlF0gJm9owDYE79M';
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-export class ChatService {
-  // Criar nova conversa
-  static async createConversation(userData: {
-    user_name: string;
-    user_email: string;
-    user_phone: string;
-    subject: string;
-  }): Promise<Conversation | null> {
-    try {
-      const { data, error } = await supabase
-        .from('conversations')
-        .insert([{
-          ...userData,
-          status: 'active',
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        }])
-        .select()
-        .single();
-
-      if (error) {
-        console.error('Erro ao criar conversa:', error);
-        return null;
-      }
-
-      return data;
-    } catch (error) {
-      console.error('Erro no serviço de chat:', error);
-      return null;
-    }
-  }
-
-  // Enviar mensagem
-  static async sendMessage(message: {
-    conversation_id: string;
-    type: 'user' | 'admin' | 'bot';
-    content: string;
-    sender_name?: string;
-  }): Promise<ChatMessage | null> {
-    try {
-      const { data, error } = await supabase
-        .from('messages')
-        .insert([{
-          ...message,
-          timestamp: new Date().toISOString(),
-          is_read: false
-        }])
-        .select()
-        .single();
-
-      if (error) {
-        console.error('Erro ao enviar mensagem:', error);
-        return null;
-      }
-
-      // Atualizar última mensagem da conversa
-      await supabase
-        .from('conversations')
-        .update({
-          last_message: message.content,
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', message.conversation_id);
-
-      return data;
-    } catch (error) {
-      console.error('Erro ao enviar mensagem:', error);
-      return null;
-    }
-  }
-
-  // Buscar mensagens da conversa
-  static async getMessages(conversationId: string): Promise<ChatMessage[]> {
-    try {
-      const { data, error } = await supabase
-        .from('messages')
-        .select('*')
-        .eq('conversation_id', conversationId)
-        .order('timestamp', { ascending: true });
-
-      if (error) {
-        console.error('Erro ao buscar mensagens:', error);
-        return [];
-      }
-
-      return data || [];
-    } catch (error) {
-      console.error('Erro ao buscar mensagens:', error);
-      return [];
-    }
-  }
-
-  // Subscrever a mensagens em tempo real
-  static subscribeToMessages(
-    conversationId: string, 
-    callback: (message: ChatMessage) => void
-  ) {
-    return supabase
-      .channel('messages')
-      .on(
-        'postgres_changes',
-        {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'messages',
-          filter: `conversation_id=eq.${conversationId}`
-        },
-        (payload) => {
-          callback(payload.new as ChatMessage);
-        }
-      )
-      .subscribe();
-  }
-
-  // Marcar mensagens como lidas
-  static async markAsRead(conversationId: string, userType: 'user' | 'admin'): Promise<void> {
-    try {
-      await supabase
-        .from('messages')
-        .update({ is_read: true })
-        .eq('conversation_id', conversationId)
-        .neq('type', userType);
-    } catch (error) {
-      console.error('Erro ao marcar como lidas:', error);
-    }
-  }
-
-  // Buscar conversas para painel admin
-  static async getConversations(): Promise<Conversation[]> {
-    try {
-      const { data, error } = await supabase
-        .from('conversations')
-        .select(`
-          *,
-          messages(count)
-        `)
-        .order('updated_at', { ascending: false });
-
-      if (error) {
-        console.error('Erro ao buscar conversas:', error);
-        return [];
-      }
-
-      return data || [];
-    } catch (error) {
-      console.error('Erro ao buscar conversas:', error);
-      return [];
-    }
-  }
-
-  // Atualizar status da conversa
-  static async updateConversationStatus(
-    conversationId: string, 
-    status: 'active' | 'closed' | 'waiting'
-  ): Promise<void> {
-    try {
-      await supabase
-        .from('conversations')
-        .update({ 
-          status,
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', conversationId);
-    } catch (error) {
-      console.error('Erro ao atualizar status:', error);
-    }
-  }
-
-  // Deletar conversa
-  static async deleteConversation(conversationId: string): Promise<void> {
-    try {
-      // Primeiro, deletar todas as mensagens da conversa
-      const { error: messagesError } = await supabase
-        .from('messages')
-        .delete()
-        .eq('conversation_id', conversationId);
-
-      if (messagesError) {
-        console.error('Erro ao deletar mensagens:', messagesError);
-        throw messagesError;
-      }
-
-      // Depois, deletar a conversa
-      const { error: conversationError } = await supabase
-        .from('conversations')
-        .delete()
-        .eq('id', conversationId);
-
-      if (conversationError) {
-        console.error('Erro ao deletar conversa:', conversationError);
-        throw conversationError;
-      }
-
-      console.log('Conversa deletada com sucesso do Supabase');
-    } catch (error) {
-      console.error('Erro ao deletar conversa:', error);
-      throw error;
-    }
-  }
+export interface CreateConversationData {
+  user_name: string;
+  user_email: string;
+  user_phone: string;
+  subject: string;
 }
 
-// Esquemas SQL para criar as tabelas no Supabase:
-/*
--- Tabela de conversas
-CREATE TABLE conversations (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_name VARCHAR(255) NOT NULL,
-  user_email VARCHAR(255) NOT NULL,
-  user_phone VARCHAR(20),
-  subject TEXT,
-  status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'closed', 'waiting')),
-  last_message TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
+export interface SendMessageData {
+  conversation_id: string;
+  type: 'user' | 'bot' | 'admin';
+  content: string;
+  sender_name: string;
+}
 
--- Tabela de mensagens
-CREATE TABLE messages (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  conversation_id UUID REFERENCES conversations(id) ON DELETE CASCADE,
-  type VARCHAR(10) NOT NULL CHECK (type IN ('user', 'admin', 'bot')),
-  content TEXT NOT NULL,
-  sender_name VARCHAR(255),
-  is_read BOOLEAN DEFAULT FALSE,
-  timestamp TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
+export const ChatService = {
+  async createConversation(data: CreateConversationData) {
+    console.log('Criando conversa:', data);
+    
+    const { data: conversation, error } = await supabase
+      .from('conversations')
+      .insert([{
+        user_name: data.user_name,
+        user_email: data.user_email,
+        user_phone: data.user_phone,
+        subject: data.subject,
+        status: 'active',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }])
+      .select()
+      .single();
 
--- Índices para performance
-CREATE INDEX idx_conversations_status ON conversations(status);
-CREATE INDEX idx_conversations_updated_at ON conversations(updated_at);
-CREATE INDEX idx_messages_conversation_id ON messages(conversation_id);
-CREATE INDEX idx_messages_timestamp ON messages(timestamp);
+    if (error) {
+      console.error('Erro ao criar conversa:', error);
+      throw error;
+    }
 
--- RLS (Row Level Security) - Configurar conforme necessário
-ALTER TABLE conversations ENABLE ROW LEVEL SECURITY;
-ALTER TABLE messages ENABLE ROW LEVEL SECURITY;
+    console.log('Conversa criada:', conversation);
+    return conversation;
+  },
 
--- Políticas básicas (ajustar conforme sua necessidade de segurança)
-CREATE POLICY "Allow read conversations" ON conversations FOR SELECT USING (true);
-CREATE POLICY "Allow insert conversations" ON conversations FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow update conversations" ON conversations FOR UPDATE USING (true);
-CREATE POLICY "Allow delete conversations" ON conversations FOR DELETE USING (true);
+  async sendMessage(data: SendMessageData) {
+    console.log('Enviando mensagem:', data);
+    
+    const messageData = {
+      conversation_id: data.conversation_id,
+      type: data.type,
+      content: data.content,
+      sender_name: data.sender_name,
+      timestamp: new Date().toISOString(),
+      is_read: false
+    };
 
-CREATE POLICY "Allow read messages" ON messages FOR SELECT USING (true);
-CREATE POLICY "Allow insert messages" ON messages FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow update messages" ON messages FOR UPDATE USING (true);
-CREATE POLICY "Allow delete messages" ON messages FOR DELETE USING (true);
-*/
+    // Inserir mensagem
+    const { data: message, error: messageError } = await supabase
+      .from('messages')
+      .insert([messageData])
+      .select()
+      .single();
+
+    if (messageError) {
+      console.error('Erro ao enviar mensagem:', messageError);
+      throw messageError;
+    }
+
+    // Atualizar conversa com última mensagem
+    const { error: updateError } = await supabase
+      .from('conversations')
+      .update({
+        last_message: data.content,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', data.conversation_id);
+
+    if (updateError) {
+      console.error('Erro ao atualizar conversa:', updateError);
+    }
+
+    console.log('Mensagem enviada com sucesso:', message);
+    return message;
+  },
+
+  async getConversations() {
+    console.log('Buscando conversas...');
+    
+    const { data, error } = await supabase
+      .from('conversations')
+      .select(`
+        *,
+        messages(count)
+      `)
+      .order('updated_at', { ascending: false });
+
+    if (error) {
+      console.error('Erro ao buscar conversas:', error);
+      throw error;
+    }
+
+    console.log('Conversas encontradas:', data?.length || 0);
+    return data || [];
+  },
+
+  async getMessages(conversationId: string) {
+    console.log('Buscando mensagens para conversa:', conversationId);
+    
+    const { data, error } = await supabase
+      .from('messages')
+      .select('*')
+      .eq('conversation_id', conversationId)
+      .order('timestamp', { ascending: true });
+
+    if (error) {
+      console.error('Erro ao buscar mensagens:', error);
+      throw error;
+    }
+
+    console.log('Mensagens encontradas:', data?.length || 0);
+    return data || [];
+  },
+
+  async updateConversationStatus(conversationId: string, status: 'active' | 'closed' | 'waiting') {
+    console.log('Atualizando status da conversa:', { conversationId, status });
+    
+    const { error } = await supabase
+      .from('conversations')
+      .update({ 
+        status,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', conversationId);
+
+    if (error) {
+      console.error('Erro ao atualizar status:', error);
+      throw error;
+    }
+
+    console.log('Status atualizado com sucesso');
+  },
+
+  async deleteConversation(conversationId: string) {
+    console.log('Excluindo conversa:', conversationId);
+    
+    // Primeiro deletar todas as mensagens
+    const { error: messagesError } = await supabase
+      .from('messages')
+      .delete()
+      .eq('conversation_id', conversationId);
+
+    if (messagesError) {
+      console.error('Erro ao deletar mensagens:', messagesError);
+      throw messagesError;
+    }
+
+    // Depois deletar a conversa
+    const { error: conversationError } = await supabase
+      .from('conversations')
+      .delete()
+      .eq('id', conversationId);
+
+    if (conversationError) {
+      console.error('Erro ao deletar conversa:', conversationError);
+      throw conversationError;
+    }
+
+    console.log('Conversa excluída com sucesso');
+  },
+
+  // Função para polling de mensagens (atualização em tempo real simples)
+  async pollForNewMessages(conversationId: string, lastMessageTimestamp?: string) {
+    console.log('Verificando novas mensagens para:', conversationId);
+    
+    let query = supabase
+      .from('messages')
+      .select('*')
+      .eq('conversation_id', conversationId)
+      .order('timestamp', { ascending: true });
+
+    if (lastMessageTimestamp) {
+      query = query.gt('timestamp', lastMessageTimestamp);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      console.error('Erro ao verificar novas mensagens:', error);
+      return [];
+    }
+
+    if (data && data.length > 0) {
+      console.log('Novas mensagens encontradas:', data.length);
+    }
+
+    return data || [];
+  }
+};
