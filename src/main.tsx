@@ -37,7 +37,11 @@ if (rootElement) {
   
   // Initialize services and render
   initializeApp().then(() => {
-    root.render(<App />);
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
   });
 } else {
   console.error('Root element not found');
