@@ -12,19 +12,25 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem('theme') as Theme) || 'dark'
-  );
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem('theme') as Theme) || 'dark';
+    }
+    return 'dark';
+  });
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const root = window.document.documentElement;
     
+    // Fix the theme logic - it was inverted
     if (theme === 'dark') {
-      root.classList.remove('dark');
-      root.classList.add('light');
-    } else {
       root.classList.remove('light');
       root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+      root.classList.add('light');
     }
     
     localStorage.setItem('theme', theme);
