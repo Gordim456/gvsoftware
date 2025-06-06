@@ -7,11 +7,8 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
-import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
-import PreloadManager from "./components/PreloadManager";
 import { analytics } from "./utils/analytics";
 import { cacheService } from "./utils/cacheService";
-import { useVirtualKeyboard } from "./hooks/useVirtualKeyboard";
 
 // Lazy load pages to improve initial load time
 const Home = lazy(() => import("./pages/Home"));
@@ -41,7 +38,7 @@ const queryClient = new QueryClient({
 // Loading fallback component
 const LoadingFallback = () => (
   <div className="flex items-center justify-center h-screen bg-gv-darker">
-    <div className="animate-pulse text-indigo-500 text-xl">Carregando...</div>
+    <div className="w-8 h-8 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
   </div>
 );
 
@@ -56,29 +53,14 @@ const AnalyticsTracker = () => {
   return null;
 };
 
-// Component for PWA and keyboard optimization
-const PWAManager = () => {
-  const { isKeyboardOpen } = useVirtualKeyboard();
-
+// Component for app initialization
+const AppInitializer = () => {
   useEffect(() => {
-    // Register service worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then((registration) => {
-            console.log('SW registered: ', registration);
-          })
-          .catch((registrationError) => {
-            console.log('SW registration failed: ', registrationError);
-          });
-      });
-    }
-
-    // Initialize cache service
-    cacheService.init();
-
     // Initialize analytics
     analytics.init();
+    
+    // Initialize cache service
+    cacheService.init();
 
     // Clean expired cache periodically
     const cleanupInterval = setInterval(() => {
@@ -89,15 +71,6 @@ const PWAManager = () => {
       clearInterval(cleanupInterval);
     };
   }, []);
-
-  useEffect(() => {
-    // Add CSS class for keyboard state
-    if (isKeyboardOpen) {
-      document.documentElement.classList.add('keyboard-open');
-    } else {
-      document.documentElement.classList.remove('keyboard-open');
-    }
-  }, [isKeyboardOpen]);
 
   return null;
 };
@@ -111,9 +84,7 @@ const App = () => (
         <BrowserRouter>
           <ScrollToTop />
           <AnalyticsTracker />
-          <PWAManager />
-          <KeyboardShortcutsProvider />
-          <PreloadManager />
+          <AppInitializer />
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
               <Route path="/" element={<Home />} />

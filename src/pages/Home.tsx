@@ -3,15 +3,10 @@ import { useEffect, useState, lazy, Suspense } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SocialIcons from '../components/SocialIcons';
-import { memo } from 'react';
 
 const Hero = lazy(() => import('../components/Hero'));
 const Services = lazy(() => import('../components/Services'));
 const Testimonials = lazy(() => import('../components/Testimonials'));
-
-const MemoizedFooter = memo(Footer);
-const MemoizedNavbar = memo(Navbar);
-const MemoizedSocialIcons = memo(SocialIcons);
 
 const LoadingSpinner = () => (
   <div className="w-full py-8 flex justify-center items-center min-h-[200px]">
@@ -20,15 +15,14 @@ const LoadingSpinner = () => (
 );
 
 const Home = () => {
-  const [isReady, setIsReady] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     document.title = 'Início | GV Software - Soluções Digitais Modernas';
-    const timer = setTimeout(() => setIsReady(true), 100);
-    return () => clearTimeout(timer);
+    setMounted(true);
   }, []);
 
-  if (!isReady) {
+  if (!mounted) {
     return (
       <div className="min-h-screen bg-gv-darker flex items-center justify-center">
         <LoadingSpinner />
@@ -38,7 +32,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen w-full bg-gv-darker">
-      <MemoizedNavbar />
+      <Navbar />
       
       <main className="w-full">
         <Suspense fallback={<LoadingSpinner />}>
@@ -54,8 +48,8 @@ const Home = () => {
         </Suspense>
       </main>
       
-      <MemoizedFooter />
-      <MemoizedSocialIcons />
+      <Footer />
+      <SocialIcons />
     </div>
   );
 };
