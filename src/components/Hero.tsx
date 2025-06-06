@@ -5,7 +5,11 @@ import { Link as RouterLink } from 'react-router-dom';
 import OptimizedHeroImage from './OptimizedHeroImage';
 
 const Hero = () => {
-  console.log('Hero component rendering with icons:', { Code, Server, Globe });
+  console.log('Hero component rendering');
+  console.log('Icons loaded:', { Code, Server, Globe });
+  console.log('Code icon:', Code);
+  console.log('Server icon:', Server);
+  console.log('Globe icon:', Globe);
   
   return (
     <section className="w-full min-h-screen bg-gv-darker pt-20 pb-12">
@@ -66,24 +70,36 @@ const Hero = () => {
 
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit">
-                <Code className="w-8 h-8 text-white" />
+              <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit flex items-center justify-center">
+                {Code ? (
+                  <Code className="w-8 h-8 text-white" />
+                ) : (
+                  <div className="w-8 h-8 bg-white rounded"></div>
+                )}
               </div>
               <h3 className="text-xl font-semibold mb-2 text-white">Desenvolvimento Web</h3>
               <p className="text-gray-400">Criamos sites e aplicações web modernas, responsivas e otimizadas utilizando as tecnologias mais avançadas do mercado.</p>
             </div>
             
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit">
-                <Server className="w-8 h-8 text-white" />
+              <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit flex items-center justify-center">
+                {Server ? (
+                  <Server className="w-8 h-8 text-white" />
+                ) : (
+                  <div className="w-8 h-8 bg-white rounded"></div>
+                )}
               </div>
               <h3 className="text-xl font-semibold mb-2 text-white">Aplicações Empresariais</h3>
               <p className="text-gray-400">Desenvolvemos soluções sob medida para otimizar processos e aumentar a produtividade.</p>
             </div>
             
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit">
-                <Globe className="w-8 h-8 text-white" />
+              <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit flex items-center justify-center">
+                {Globe ? (
+                  <Globe className="w-8 h-8 text-white" />
+                ) : (
+                  <div className="w-8 h-8 bg-white rounded"></div>
+                )}
               </div>
               <h3 className="text-xl font-semibold mb-2 text-white">Presença Digital</h3>
               <p className="text-gray-400">Estratégias completas para destacar sua marca no ambiente digital com soluções personalizadas.</p>
