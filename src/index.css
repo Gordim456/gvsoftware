@@ -83,11 +83,47 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
-    zoom: 1.1; /* Aumenta o zoom geral do site */
+    /* Remove zoom on mobile to prevent layout issues */
+    @media screen and (max-width: 768px) {
+      zoom: 1;
+    }
+    @media screen and (min-width: 769px) {
+      zoom: 1.1;
+    }
   }
 
   body {
-    zoom: 1.05; /* Zoom adicional no body */
+    /* Prevent horizontal overflow */
+    overflow-x: hidden;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100vw;
+    /* Remove zoom on mobile */
+    @media screen and (max-width: 768px) {
+      zoom: 1;
+    }
+    @media screen and (min-width: 769px) {
+      zoom: 1.05;
+    }
+  }
+
+  /* Prevent any element from causing horizontal overflow */
+  * {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  /* Fix for mobile viewport */
+  @media screen and (max-width: 768px) {
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    /* Ensure all grid and flex containers don't overflow */
+    .grid, .flex {
+      min-width: 0;
+    }
   }
 }
 
@@ -98,6 +134,13 @@
 
   body {
     @apply bg-gv-dark text-foreground font-sans;
+  }
+
+  /* Mobile-specific fixes */
+  @media screen and (max-width: 768px) {
+    .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl {
+      @apply max-w-full;
+    }
   }
 }
 
@@ -116,10 +159,18 @@
   
   .section-title {
     @apply text-4xl font-bold mb-4;
+    /* Mobile responsive text */
+    @media screen and (max-width: 768px) {
+      @apply text-2xl;
+    }
   }
   
   .section-subtitle {
     @apply text-gv-gray text-lg max-w-2xl mx-auto;
+    /* Mobile responsive text */
+    @media screen and (max-width: 768px) {
+      @apply text-base max-w-full;
+    }
   }
 
   .animate-fadeIn {
@@ -212,6 +263,16 @@
     from { transform: translateY(100%); }
     to { transform: translateY(0); }
   }
+
+  /* Mobile-specific utilities */
+  @media screen and (max-width: 768px) {
+    .mobile-safe {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+    }
+  }
 }
 
 .gradient-text {
@@ -241,4 +302,60 @@
   -webkit-backdrop-filter: blur(16px);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile keyboard optimization */
+.keyboard-open {
+  height: 100vh !important;
+  overflow: hidden;
+}
+
+.keyboard-open body {
+  position: fixed;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* PWA specific styles */
+@media (display-mode: standalone) {
+  body {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+  }
+}
+
+/* Performance optimizations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mobile-specific container fixes */
+@media screen and (max-width: 768px) {
+  .container, .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl, .max-w-3xl, .max-w-2xl {
+    max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Fix grid layouts on mobile */
+  .grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  
+  /* Ensure flex containers don't overflow */
+  .flex {
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+  
+  /* Fix text sizes for mobile */
+  .text-6xl { @apply text-3xl; }
+  .text-5xl { @apply text-2xl; }
+  .text-4xl { @apply text-xl; }
+  .text-3xl { @apply text-lg; }
 }

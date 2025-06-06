@@ -39,23 +39,29 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen w-full overflow-x-hidden">
       <OptimizedBackground />
       
-      <div className="relative z-10">
+      <div className="relative z-10 w-full">
         <MemoizedNavbar />
         
-        <div className="relative">
+        <div className="relative w-full overflow-x-hidden">
           <Suspense fallback={<LoadingSpinner />}>
-            <Hero />
+            <div className="w-full px-4 sm:px-6 lg:px-8">
+              <Hero />
+            </div>
           </Suspense>
           
           <Suspense fallback={<LoadingSpinner />}>
-            <Services />
+            <div className="w-full px-4 sm:px-6 lg:px-8">
+              <Services />
+            </div>
           </Suspense>
           
           <Suspense fallback={<LoadingSpinner />}>
-            <Testimonials />
+            <div className="w-full px-4 sm:px-6 lg:px-8">
+              <Testimonials />
+            </div>
           </Suspense>
         </div>
         
