@@ -45,14 +45,18 @@ const KeyboardShortcutsProvider = () => {
   return (
     <>
       {showAdminLogin && (
-        <AdminLogin 
-          onLogin={handleAdminLogin}
-          onCancel={handleAdminCancel}
-        />
+        <div className="fixed inset-0 z-[9999]">
+          <AdminLogin 
+            onLogin={handleAdminLogin}
+            onCancel={handleAdminCancel}
+          />
+        </div>
       )}
       
       {showAdminPanel && (
-        <AdminDashboard onBack={handleAdminBack} />
+        <div className="fixed inset-0 z-[9999] bg-white">
+          <AdminDashboard onBack={handleAdminBack} />
+        </div>
       )}
     </>
   );

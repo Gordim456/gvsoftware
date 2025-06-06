@@ -74,45 +74,45 @@ const ChatBotForm = ({ formData, setFormData, onComplete }: ChatBotFormProps) =>
   const progress = ((currentStep + 1) / steps.length) * 100;
 
   return (
-    <div className="p-6 space-y-8 animate-form">
+    <div className="p-5 space-y-6 animate-form">
       {/* Progress com animação */}
-      <div className="space-y-3">
-        <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden shadow-inner">
+      <div className="space-y-2">
+        <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden shadow-inner">
           <div 
-            className="bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 h-3 rounded-full 
+            className="bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 h-2 rounded-full 
                      transition-all duration-700 ease-out shadow-lg animate-glow"
             style={{ width: `${progress}%` }}
           ></div>
         </div>
-        <div className="flex justify-between text-sm text-gray-600 font-medium">
+        <div className="flex justify-between text-xs text-gray-600 font-medium">
           <span>Etapa {currentStep + 1} de {steps.length}</span>
           <span className="text-indigo-600 font-bold">{Math.round(progress)}%</span>
         </div>
       </div>
 
       {/* Bot Message com animação */}
-      <div className="flex items-start gap-4 animate-fadeIn">
-        <div className="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 
-                      rounded-full flex items-center justify-center flex-shrink-0 animate-pulse-ring">
-          <Sparkles className="w-5 h-5 text-white" />
+      <div className="flex items-start gap-3 animate-fadeIn">
+        <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-600 
+                      rounded-full flex items-center justify-center flex-shrink-0 animate-pulse">
+          <Sparkles className="w-4 h-4 text-white" />
         </div>
-        <div className="bg-gradient-to-r from-gray-100 to-gray-50 rounded-3xl rounded-tl-lg p-5 max-w-[280px] 
+        <div className="bg-gradient-to-r from-gray-100 to-gray-50 rounded-3xl rounded-tl-lg p-4 max-w-[250px] 
                       shadow-lg border border-gray-200">
-          <p className="text-gray-800 font-semibold text-base">
+          <p className="text-gray-800 font-semibold text-sm">
             {steps[currentStep]?.question}
           </p>
         </div>
       </div>
 
       {/* User Input com animações */}
-      <div className="flex items-end gap-4 justify-end animate-slideIn">
+      <div className="flex items-end gap-3 justify-end animate-slideIn">
         <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 rounded-3xl rounded-br-lg 
-                      p-6 max-w-[320px] shadow-2xl transform hover:scale-[1.02] transition-all duration-300">
-          <div className="space-y-5">
+                      p-5 max-w-[280px] shadow-2xl transform hover:scale-[1.02] transition-all duration-300">
+          <div className="space-y-4">
             <div className="relative group">
               {CurrentIcon && (
-                <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
-                  <CurrentIcon className="w-5 h-5 text-white/90 group-focus-within:text-white transition-colors" />
+                <div className="absolute left-3 top-1/2 transform -translate-y-1/2 z-10">
+                  <CurrentIcon className="w-4 h-4 text-white/90 group-focus-within:text-white transition-colors" />
                 </div>
               )}
               <input
@@ -131,10 +131,10 @@ const ChatBotForm = ({ formData, setFormData, onComplete }: ChatBotFormProps) =>
                     handleNext();
                   }
                 }}
-                className="w-full pl-12 pr-4 py-4 bg-white/20 border-2 border-white/40 
+                className="w-full pl-10 pr-3 py-3 bg-white/20 border-2 border-white/40 
                          rounded-2xl text-white placeholder-white/80 backdrop-blur-sm
                          focus:outline-none focus:ring-4 focus:ring-white/30 
-                         focus:border-white/70 transition-all text-base font-medium
+                         focus:border-white/70 transition-all text-sm font-medium
                          hover:bg-white/25 focus:scale-[1.02]"
                 required
                 autoFocus
@@ -142,7 +142,7 @@ const ChatBotForm = ({ formData, setFormData, onComplete }: ChatBotFormProps) =>
             </div>
             
             {emailError && (
-              <div className="text-red-100 text-sm bg-red-500/40 px-4 py-3 rounded-xl border border-red-400/50 
+              <div className="text-red-100 text-xs bg-red-500/40 px-3 py-2 rounded-xl border border-red-400/50 
                             backdrop-blur-sm animate-fadeIn">
                 ⚠️ {emailError}
               </div>
@@ -151,29 +151,29 @@ const ChatBotForm = ({ formData, setFormData, onComplete }: ChatBotFormProps) =>
             <button
               onClick={handleNext}
               disabled={!currentValue.trim() || !!emailError}
-              className="w-full bg-white/25 hover:bg-white/35 text-white py-4 rounded-2xl 
-                       transition-all duration-300 flex items-center justify-center gap-3
+              className="w-full bg-white/25 hover:bg-white/35 text-white py-3 rounded-2xl 
+                       transition-all duration-300 flex items-center justify-center gap-2
                        disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm
-                       border-2 border-white/50 hover:border-white/70 font-bold text-base
+                       border-2 border-white/50 hover:border-white/70 font-bold text-sm
                        hover:scale-[1.02] active:scale-[0.98] group shadow-lg"
             >
               {currentStep === steps.length - 1 ? (
                 <>
-                  <CheckCircle className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                  <CheckCircle className="w-4 h-4 group-hover:rotate-12 transition-transform" />
                   Vamos começar!
                 </>
               ) : (
                 <>
                   Próximo
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </>
               )}
             </button>
           </div>
         </div>
-        <div className="w-10 h-10 bg-gradient-to-r from-gray-300 to-gray-400 rounded-full 
+        <div className="w-8 h-8 bg-gradient-to-r from-gray-300 to-gray-400 rounded-full 
                       flex items-center justify-center shadow-lg">
-          <User className="w-5 h-5 text-gray-700" />
+          <User className="w-4 h-4 text-gray-700" />
         </div>
       </div>
     </div>
