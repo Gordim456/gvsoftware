@@ -6,6 +6,10 @@ import Footer from '../components/Footer';
 import ProjectCarousel from '@/components/ProjectCarousel';
 
 const Portfolio = () => {
+  console.log('Portfolio component starting to render');
+  console.log('React available:', !!React);
+  console.log('useState available:', !!useState);
+  
   const [isLoaded, setIsLoaded] = useState(false);
   const [filter, setFilter] = useState('all');
 
