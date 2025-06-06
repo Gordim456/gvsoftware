@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-// Simplified tooltip components that don't rely on Radix UI context
+// Simplified tooltip components that don't rely on Radix UI
 const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
