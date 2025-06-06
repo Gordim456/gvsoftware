@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import { ArrowLeft, Send, User, Clock, CheckCircle } from "lucide-react";
 import { ChatMessage } from "./ChatBotTypes";
@@ -6,9 +5,10 @@ import { ChatMessage } from "./ChatBotTypes";
 interface ChatBotLiveChatProps {
   onBack: () => void;
   userName: string;
+  conversationId?: string | null;
 }
 
-const ChatBotLiveChat = ({ onBack, userName }: ChatBotLiveChatProps) => {
+const ChatBotLiveChat = ({ onBack, userName, conversationId }: ChatBotLiveChatProps) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [isConnecting, setIsConnecting] = useState(true);
@@ -26,6 +26,7 @@ const ChatBotLiveChat = ({ onBack, userName }: ChatBotLiveChatProps) => {
       
       const welcomeMessage: ChatMessage = {
         id: Date.now().toString(),
+        conversation_id: conversationId || undefined,
         type: 'bot',
         content: isBusinessHours 
           ? `Olá ${userName}! Você está conectado com nossa equipe. Como posso ajudar?`
@@ -37,7 +38,7 @@ const ChatBotLiveChat = ({ onBack, userName }: ChatBotLiveChatProps) => {
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [userName]);
+  }, [userName, conversationId]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -48,6 +49,7 @@ const ChatBotLiveChat = ({ onBack, userName }: ChatBotLiveChatProps) => {
 
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
+      conversation_id: conversationId || undefined,
       type: 'user',
       content: newMessage,
       timestamp: new Date()
@@ -60,6 +62,7 @@ const ChatBotLiveChat = ({ onBack, userName }: ChatBotLiveChatProps) => {
     setTimeout(() => {
       const botResponse: ChatMessage = {
         id: (Date.now() + 1).toString(),
+        conversation_id: conversationId || undefined,
         type: 'bot',
         content: isOnline 
           ? "Recebemos sua mensagem! Um de nossos especialistas responderá em instantes."

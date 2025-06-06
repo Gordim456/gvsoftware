@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { MessageSquare, X, Bot, Sparkles } from "lucide-react";
 import { FormData, ChatStep, ChatOption, AUTO_MESSAGES } from "./ChatBotTypes";

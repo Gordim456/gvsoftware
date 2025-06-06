@@ -8,7 +8,7 @@ export interface FormData {
 
 export interface ChatMessage {
   id: string;
-  conversation_id: string;
+  conversation_id?: string;
   type: 'bot' | 'user' | 'admin';
   content: string;
   timestamp: Date;
