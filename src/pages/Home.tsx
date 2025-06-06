@@ -37,33 +37,25 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen w-full bg-gv-darker overflow-x-hidden">
-      <div className="relative w-full">
-        <MemoizedNavbar />
+    <div className="min-h-screen w-full bg-gv-darker">
+      <MemoizedNavbar />
+      
+      <main className="w-full">
+        <Suspense fallback={<LoadingSpinner />}>
+          <Hero />
+        </Suspense>
         
-        <main className="relative w-full">
-          <Suspense fallback={<LoadingSpinner />}>
-            <div className="w-full">
-              <Hero />
-            </div>
-          </Suspense>
-          
-          <Suspense fallback={<LoadingSpinner />}>
-            <div className="w-full">
-              <Services />
-            </div>
-          </Suspense>
-          
-          <Suspense fallback={<LoadingSpinner />}>
-            <div className="w-full">
-              <Testimonials />
-            </div>
-          </Suspense>
-        </main>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Services />
+        </Suspense>
         
-        <MemoizedFooter />
-        <MemoizedSocialIcons />
-      </div>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Testimonials />
+        </Suspense>
+      </main>
+      
+      <MemoizedFooter />
+      <MemoizedSocialIcons />
     </div>
   );
 };

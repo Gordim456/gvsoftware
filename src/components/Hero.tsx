@@ -6,9 +6,9 @@ import { HeroSlider } from './HeroSlider';
 
 const Hero = () => {
   return (
-    <section id="hero" className="relative w-full min-h-screen bg-gv-darker overflow-x-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 opacity-80"></div>
+    <section id="hero" className="relative w-full min-h-screen bg-gv-darker">
+      {/* Simplified background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 opacity-80 z-0"></div>
       
       <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pt-20 pb-12">
         <div className="max-w-7xl mx-auto">
