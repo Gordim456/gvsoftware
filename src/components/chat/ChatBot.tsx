@@ -1,12 +1,65 @@
 
 import { useState, useEffect } from "react";
-import { MessageCircle, X, Bot, Sparkles, Zap } from "lucide-react";
+import { MessageCircle, X, Sparkles, Zap } from "lucide-react";
 import { FormData, ChatStep, ChatOption, AUTO_MESSAGES } from "./ChatBotTypes";
 import ChatBotForm from "./ChatBotForm";
 import ChatBotOptions from "./ChatBotOptions";
 import ChatBotFAQ from "./ChatBotFAQ";
 import ChatBotLiveChat from "./ChatBotLiveChat";
 import { ChatService } from "../../services/chatService";
+
+// Componente do ícone de robô 3D moderno
+const RobotIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
+  <div className={`${className} relative flex items-center justify-center`}>
+    <svg viewBox="0 0 100 100" className="w-full h-full">
+      {/* Antena */}
+      <circle cx="50" cy="15" r="3" fill="#ffffff" opacity="0.9" />
+      <line x1="50" y1="18" x2="50" y2="30" stroke="#ffffff" strokeWidth="2" opacity="0.8" />
+      
+      {/* Cabeça principal com gradiente */}
+      <defs>
+        <linearGradient id="robotGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#8b5cf6" />
+          <stop offset="50%" stopColor="#a855f7" />
+          <stop offset="100%" stopColor="#3b82f6" />
+        </linearGradient>
+        <linearGradient id="robotFace" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#1e1b4b" />
+          <stop offset="100%" stopColor="#312e81" />
+        </linearGradient>
+      </defs>
+      
+      {/* Cabeça externa */}
+      <rect x="25" y="30" width="50" height="35" rx="8" fill="url(#robotGradient)" />
+      
+      {/* Face interna */}
+      <rect x="30" y="35" width="40" height="25" rx="5" fill="url(#robotFace)" />
+      
+      {/* Olhos */}
+      <circle cx="40" cy="45" r="4" fill="#ffffff" />
+      <circle cx="60" cy="45" r="4" fill="#ffffff" />
+      <circle cx="40" cy="45" r="2" fill="#3b82f6" className="animate-pulse" />
+      <circle cx="60" cy="45" r="2" fill="#3b82f6" className="animate-pulse" />
+      
+      {/* Boca */}
+      <rect x="45" y="52" width="10" height="3" rx="1.5" fill="#ffffff" opacity="0.8" />
+      
+      {/* Corpo */}
+      <rect x="35" y="65" width="30" height="25" rx="6" fill="url(#robotGradient)" opacity="0.9" />
+      
+      {/* Detalhes do corpo */}
+      <circle cx="45" cy="75" r="2" fill="#ffffff" opacity="0.7" />
+      <circle cx="55" cy="75" r="2" fill="#ffffff" opacity="0.7" />
+      
+      {/* Braços */}
+      <circle cx="20" cy="70" r="6" fill="url(#robotGradient)" opacity="0.8" />
+      <circle cx="80" cy="70" r="6" fill="url(#robotGradient)" opacity="0.8" />
+      
+      {/* Brilho 3D */}
+      <ellipse cx="45" cy="35" rx="8" ry="4" fill="#ffffff" opacity="0.3" />
+    </svg>
+  </div>
+);
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -164,14 +217,14 @@ const ChatBot = () => {
       {!isOpen && (
         <div className="fixed bottom-6 right-6 z-50">
           {/* Mensagem de ajuda que acompanha o botão */}
-          <div className="absolute -top-14 -left-32 bg-white shadow-2xl border border-gray-200
-                       px-4 py-3 rounded-2xl text-gray-800 transform transition-all 
-                       duration-300 hover:scale-105 backdrop-blur-sm animate-slow-bounce">
-            <div className="flex items-center gap-2">
+          <div className="absolute -top-16 -left-36 bg-white shadow-2xl border border-gray-200
+                       px-5 py-4 rounded-2xl text-gray-800 transform transition-all 
+                       duration-300 hover:scale-105 backdrop-blur-sm animate-gentle-float">
+            <div className="flex items-center gap-3">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="font-medium text-sm">Em que posso ajudar hoje?</span>
+              <span className="font-semibold text-sm text-gray-700">Em que posso ajudar hoje? 🤖</span>
             </div>
-            <div className="absolute bottom-0 right-6 w-0 h-0 border-l-[8px] border-r-[8px] border-t-[8px] 
+            <div className="absolute bottom-0 right-8 w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] 
                           border-l-transparent border-r-transparent border-t-white"></div>
           </div>
 
@@ -189,21 +242,21 @@ const ChatBot = () => {
               className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 
                        text-white p-3 rounded-full shadow-2xl hover:shadow-indigo-500/25 
                        transition-all duration-500 hover:scale-110 group
-                       border-2 border-white/30 animate-slow-bounce hover:animate-none
+                       border-2 border-white/30 animate-gentle-bounce hover:animate-none
                        backdrop-blur-sm"
-              style={{ width: '56px', height: '56px' }}
+              style={{ width: '64px', height: '64px' }}
             >
               {/* Gradiente interno */}
               <div className="absolute inset-1 bg-gradient-to-br from-white/20 to-transparent 
                             rounded-full opacity-50"></div>
               
-              {/* Ícone principal */}
-              <MessageCircle className="w-6 h-6 relative z-10 mx-auto group-hover:scale-110 
-                                     transition-transform duration-300" />
+              {/* Ícone do robô 3D */}
+              <RobotIcon className="w-8 h-8 relative z-10 mx-auto group-hover:scale-110 
+                                  transition-transform duration-300" />
               
               {/* Efeito de brilho */}
-              <div className="absolute top-2 left-2 w-3 h-3 bg-white/40 rounded-full blur-sm 
-                            group-hover:w-4 group-hover:h-4 transition-all duration-300"></div>
+              <div className="absolute top-2 left-2 w-4 h-4 bg-white/40 rounded-full blur-sm 
+                            group-hover:w-5 group-hover:h-5 transition-all duration-300"></div>
             </button>
 
             {/* Indicador online moderno */}
@@ -217,7 +270,7 @@ const ChatBot = () => {
 
       {isOpen && (
         <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 md:bg-transparent animate-fadeIn">
-          <div className="fixed bottom-0 right-0 w-full md:w-[360px] h-full md:h-[520px] 
+          <div className="fixed bottom-0 right-0 w-full md:w-[380px] h-full md:h-[580px] 
                        bg-white shadow-2xl transition-all duration-500 rounded-t-3xl md:rounded-3xl
                        md:bottom-6 md:right-6 overflow-hidden flex flex-col border border-gray-200
                        animate-slideIn transform">
@@ -227,9 +280,9 @@ const ChatBot = () => {
                           bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700
                           text-white flex-shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-white/20 rounded-xl flex items-center 
+                <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center 
                               justify-center backdrop-blur-sm">
-                  <Bot className="w-5 h-5 text-white" />
+                  <RobotIcon className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h3 className="font-bold text-base">GV Assistant</h3>
@@ -267,7 +320,7 @@ const ChatBot = () => {
                   <div className="text-center space-y-4">
                     <div className="w-16 h-16 mx-auto bg-gradient-to-r from-indigo-500 to-purple-600 
                                   rounded-3xl flex items-center justify-center shadow-2xl animate-float">
-                      <Sparkles className="w-8 h-8 text-white" />
+                      <RobotIcon className="w-8 h-8 text-white" />
                     </div>
                     <div className="space-y-2">
                       <h4 className="font-bold text-gray-800 text-xl animate-fadeIn">
