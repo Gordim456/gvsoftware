@@ -12,8 +12,6 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  console.log('ThemeProvider rendering, React:', !!React, 'useState:', !!useState);
-  
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
       return (localStorage.getItem('theme') as Theme) || 'dark';
@@ -26,7 +24,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     
     const root = window.document.documentElement;
     
-    // Apply theme classes correctly
     if (theme === 'dark') {
       root.classList.remove('light');
       root.classList.add('dark');
