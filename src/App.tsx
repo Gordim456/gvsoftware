@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
+import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
@@ -37,6 +38,20 @@ const LoadingFallback = () => (
   </div>
 );
 
+// Componente para isolar o ChatBot e evitar que erros nele quebrem toda a aplicação
+const SafeChatBot = () => {
+  try {
+    return (
+      <Suspense fallback={null}>
+        <ChatBot />
+      </Suspense>
+    );
+  } catch (error) {
+    console.error('Erro no ChatBot:', error);
+    return null;
+  }
+};
+
 const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
@@ -44,6 +59,7 @@ const App: React.FC = () => {
         <BrowserRouter>
           <Toaster />
           <Sonner />
+          <KeyboardShortcutsProvider />
           <Suspense fallback={<LoadingFallback />}>
             <ScrollToTop />
             <Routes>
@@ -58,7 +74,7 @@ const App: React.FC = () => {
               <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
-            <ChatBot />
+            <SafeChatBot />
           </Suspense>
         </BrowserRouter>
       </ThemeProvider>
