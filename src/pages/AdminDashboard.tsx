@@ -1,8 +1,9 @@
 
-import { useState, useEffect } from "react";
-import { ArrowLeft, Send, User, Shield, MessageSquare, Clock, Mail, Phone, Eye, Trash2, Search, Filter, Settings } from "lucide-react";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { ArrowLeft, Send, User, Shield, MessageSquare, Clock, Mail, Phone, Trash2, Search, Settings } from "lucide-react";
 import { ChatService } from "../services/chatService";
 import { Conversation, ChatMessage } from "../components/chat/ChatBotTypes";
+import { ScrollArea } from "../components/ui/scroll-area";
 
 // Componente do ícone de robô 3D moderno - MESMO DO CHATBOT
 const RobotIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
@@ -57,6 +58,23 @@ const RobotIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   </div>
 );
 
+// Hook personalizado para debounce
+const useDebounce = (value: string, delay: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
+
 const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selectedConversation, setSelectedConversation] = useState<string | null>(null);
@@ -67,6 +85,9 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [supportName, setSupportName] = useState("");
   const [showSupportNameModal, setShowSupportNameModal] = useState(false);
+
+  // Debounce search para melhor performance
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   // Carregar nome do suporte salvo
   useEffect(() => {
@@ -91,7 +112,7 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
     }
   }, [selectedConversation]);
 
-  const loadConversations = async () => {
+  const loadConversations = useCallback(async () => {
     try {
       console.log('Iniciando carregamento de conversas...');
       setIsLoading(true);
@@ -105,9 +126,9 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const loadMessages = async (conversationId: string) => {
+  const loadMessages = useCallback(async (conversationId: string) => {
     try {
       console.log('Carregando mensagens para conversa:', conversationId);
       const data = await ChatService.getMessages(conversationId);
@@ -118,9 +139,9 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
       console.error('Erro ao carregar mensagens:', error);
       setMessages([]);
     }
-  };
+  }, []);
 
-  const sendMessage = async () => {
+  const sendMessage = useCallback(async () => {
     if (!newMessage.trim() || !selectedConversation || !supportName.trim()) {
       if (!supportName.trim()) {
         setShowSupportNameModal(true);
@@ -155,20 +176,20 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
     } catch (error) {
       console.error('Erro ao enviar mensagem:', error);
     }
-  };
+  }, [newMessage, selectedConversation, supportName]);
 
-  const saveSupportName = () => {
+  const saveSupportName = useCallback(() => {
     if (supportName.trim()) {
       localStorage.setItem('admin-support-name', supportName.trim());
       setShowSupportNameModal(false);
     }
-  };
+  }, [supportName]);
 
-  const changeSupportName = () => {
+  const changeSupportName = useCallback(() => {
     setShowSupportNameModal(true);
-  };
+  }, []);
 
-  const updateConversationStatus = async (conversationId: string, status: 'active' | 'closed' | 'waiting') => {
+  const updateConversationStatus = useCallback(async (conversationId: string, status: 'active' | 'closed' | 'waiting') => {
     try {
       await ChatService.updateConversationStatus(conversationId, status);
       setConversations(prev => 
@@ -181,9 +202,9 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
     } catch (error) {
       console.error('Erro ao atualizar status:', error);
     }
-  };
+  }, []);
 
-  const deleteConversation = async (conversationId: string) => {
+  const deleteConversation = useCallback(async (conversationId: string) => {
     if (!confirm('Tem certeza que deseja excluir esta conversa?')) return;
     
     try {
@@ -203,19 +224,25 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
       console.error('Erro ao excluir conversa:', error);
       alert('Erro ao excluir conversa. Tente novamente.');
     }
-  };
+  }, [selectedConversation]);
 
-  const filteredConversations = conversations.filter(conv => {
-    const matchesSearch = conv.user_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         conv.user_email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         conv.subject?.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesFilter = filterStatus === 'all' || conv.status === filterStatus;
-    
-    return matchesSearch && matchesFilter;
-  });
+  // Memoizar conversas filtradas para evitar re-renderização desnecessária
+  const filteredConversations = useMemo(() => {
+    return conversations.filter(conv => {
+      const matchesSearch = conv.user_name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+                           conv.user_email?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+                           conv.subject?.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
+      
+      const matchesFilter = filterStatus === 'all' || conv.status === filterStatus;
+      
+      return matchesSearch && matchesFilter;
+    });
+  }, [conversations, debouncedSearchTerm, filterStatus]);
 
-  const selectedConv = conversations.find(c => c.id === selectedConversation);
+  const selectedConv = useMemo(() => 
+    conversations.find(c => c.id === selectedConversation), 
+    [conversations, selectedConversation]
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white">
@@ -347,76 +374,78 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
               </div>
             </div>
 
-            {/* Lista */}
-            <div className="space-y-3 overflow-y-auto max-h-[500px] pr-2">
-              {isLoading ? (
-                <div className="text-center py-8 text-gray-400">
-                  <div className="animate-spin w-6 h-6 border-2 border-indigo-400 border-t-transparent rounded-full mx-auto mb-2"></div>
-                  Carregando...
-                </div>
-              ) : filteredConversations.length === 0 ? (
-                <div className="text-center py-8 text-gray-400">
-                  <MessageSquare className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                  <p>Nenhuma conversa encontrada</p>
-                  <button
-                    onClick={loadConversations}
-                    className="mt-2 text-indigo-400 hover:text-indigo-300 text-sm underline"
-                  >
-                    Tentar novamente
-                  </button>
-                </div>
-              ) : (
-                filteredConversations.map((conversation) => (
-                  <div
-                    key={conversation.id}
-                    className={`p-4 rounded-xl cursor-pointer transition-all duration-200 group ${
-                      selectedConversation === conversation.id
-                        ? 'bg-indigo-600/20 border-2 border-indigo-500'
-                        : 'bg-gray-700/30 hover:bg-gray-600/50 border-2 border-transparent'
-                    }`}
-                    onClick={() => setSelectedConversation(conversation.id)}
-                  >
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="font-semibold text-white truncate flex-1">
-                        {conversation.user_name || 'Nome não informado'}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className={`w-2 h-2 rounded-full ${
-                          conversation.status === 'active' ? 'bg-green-400' :
-                          conversation.status === 'waiting' ? 'bg-yellow-400' : 'bg-gray-400'
-                        }`}></div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            deleteConversation(conversation.id);
-                          }}
-                          className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-300 
-                                   transition-all p-1 rounded"
-                        >
-                          <Trash2 className="w-3 h-3" />
-                        </button>
-                      </div>
-                    </div>
-                    
-                    <div className="text-sm text-gray-300 mb-2 truncate">
-                      📧 {conversation.user_email || 'Email não informado'}
-                    </div>
-                    
-                    <div className="text-sm text-indigo-300 mb-3 font-medium">
-                      {conversation.subject || 'Assunto não informado'}
-                    </div>
-                    
-                    <div className="flex items-center gap-2 text-xs text-gray-400">
-                      <Clock className="w-3 h-3" />
-                      {conversation.updated_at ? new Date(conversation.updated_at).toLocaleString('pt-BR') : 'Data não disponível'}
-                    </div>
+            {/* Lista com ScrollArea otimizada */}
+            <ScrollArea className="h-[500px]">
+              <div className="space-y-3 pr-2">
+                {isLoading ? (
+                  <div className="text-center py-8 text-gray-400">
+                    <div className="animate-spin w-6 h-6 border-2 border-indigo-400 border-t-transparent rounded-full mx-auto mb-2"></div>
+                    Carregando...
                   </div>
-                ))
-              )}
-            </div>
+                ) : filteredConversations.length === 0 ? (
+                  <div className="text-center py-8 text-gray-400">
+                    <MessageSquare className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                    <p>Nenhuma conversa encontrada</p>
+                    <button
+                      onClick={loadConversations}
+                      className="mt-2 text-indigo-400 hover:text-indigo-300 text-sm underline"
+                    >
+                      Tentar novamente
+                    </button>
+                  </div>
+                ) : (
+                  filteredConversations.map((conversation) => (
+                    <div
+                      key={conversation.id}
+                      className={`p-4 rounded-xl cursor-pointer transition-all duration-200 group ${
+                        selectedConversation === conversation.id
+                          ? 'bg-indigo-600/20 border-2 border-indigo-500'
+                          : 'bg-gray-700/30 hover:bg-gray-600/50 border-2 border-transparent'
+                      }`}
+                      onClick={() => setSelectedConversation(conversation.id)}
+                    >
+                      <div className="flex items-start justify-between mb-2">
+                        <div className="font-semibold text-white truncate flex-1">
+                          {conversation.user_name || 'Nome não informado'}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className={`w-2 h-2 rounded-full ${
+                            conversation.status === 'active' ? 'bg-green-400' :
+                            conversation.status === 'waiting' ? 'bg-yellow-400' : 'bg-gray-400'
+                          }`}></div>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deleteConversation(conversation.id);
+                            }}
+                            className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-300 
+                                     transition-all p-1 rounded"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        </div>
+                      </div>
+                      
+                      <div className="text-sm text-gray-300 mb-2 truncate">
+                        📧 {conversation.user_email || 'Email não informado'}
+                      </div>
+                      
+                      <div className="text-sm text-indigo-300 mb-3 font-medium">
+                        {conversation.subject || 'Assunto não informado'}
+                      </div>
+                      
+                      <div className="flex items-center gap-2 text-xs text-gray-400">
+                        <Clock className="w-3 h-3" />
+                        {conversation.updated_at ? new Date(conversation.updated_at).toLocaleString('pt-BR') : 'Data não disponível'}
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </ScrollArea>
           </div>
 
-          {/* Chat */}
+          {/* Chat com ScrollArea otimizada */}
           <div className="xl:col-span-3 bg-gray-800/50 backdrop-blur-lg rounded-2xl flex flex-col border border-gray-700/50">
             {selectedConversation && selectedConv ? (
               <>
@@ -460,56 +489,58 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
                   </div>
                 </div>
 
-                {/* Mensagens */}
-                <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-gray-900/20 to-gray-800/20">
-                  {messages.length === 0 ? (
-                    <div className="text-center py-8 text-gray-400">
-                      <MessageSquare className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                      <p>Nenhuma mensagem nesta conversa ainda</p>
-                      <p className="text-sm mt-2">Seja o primeiro a responder!</p>
-                    </div>
-                  ) : (
-                    messages.map((message) => (
-                      <div
-                        key={message.id}
-                        className={`flex ${message.type === 'admin' ? 'justify-end' : 'justify-start'}`}
-                      >
-                        <div className={`flex items-start gap-3 max-w-[80%] ${
-                          message.type === 'admin' ? 'flex-row-reverse' : 'flex-row'
-                        }`}>
-                          <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-lg ${
-                            message.type === 'admin' 
-                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600' 
-                              : message.type === 'bot'
-                              ? 'bg-gradient-to-r from-purple-600 to-pink-600'
-                              : 'bg-gradient-to-r from-gray-600 to-gray-700'
+                {/* Mensagens com ScrollArea */}
+                <ScrollArea className="flex-1 bg-gradient-to-b from-gray-900/20 to-gray-800/20">
+                  <div className="p-6 space-y-4">
+                    {messages.length === 0 ? (
+                      <div className="text-center py-8 text-gray-400">
+                        <MessageSquare className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                        <p>Nenhuma mensagem nesta conversa ainda</p>
+                        <p className="text-sm mt-2">Seja o primeiro a responder!</p>
+                      </div>
+                    ) : (
+                      messages.map((message) => (
+                        <div
+                          key={message.id}
+                          className={`flex ${message.type === 'admin' ? 'justify-end' : 'justify-start'}`}
+                        >
+                          <div className={`flex items-start gap-3 max-w-[80%] ${
+                            message.type === 'admin' ? 'flex-row-reverse' : 'flex-row'
                           }`}>
-                            {message.type === 'admin' ? (
-                              <Shield className="w-5 h-5 text-white" />
-                            ) : (
-                              <User className="w-5 h-5 text-white" />
-                            )}
-                          </div>
-                          <div className={`rounded-2xl p-4 shadow-lg ${
-                            message.type === 'admin'
-                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
-                              : 'bg-white/10 backdrop-blur-sm text-white border border-gray-600/50'
-                          }`}>
-                            <p className="text-sm leading-relaxed">{message.content}</p>
-                            <div className="flex items-center gap-2 mt-2">
-                              <span className="text-xs opacity-70">
-                                {message.sender_name || 'Usuário'}
-                              </span>
-                              <span className="text-xs opacity-70">
-                                {message.timestamp ? new Date(message.timestamp).toLocaleTimeString('pt-BR') : 'Hora não disponível'}
-                              </span>
+                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-lg ${
+                              message.type === 'admin' 
+                                ? 'bg-gradient-to-r from-indigo-600 to-purple-600' 
+                                : message.type === 'bot'
+                                ? 'bg-gradient-to-r from-purple-600 to-pink-600'
+                                : 'bg-gradient-to-r from-gray-600 to-gray-700'
+                            }`}>
+                              {message.type === 'admin' ? (
+                                <Shield className="w-5 h-5 text-white" />
+                              ) : (
+                                <User className="w-5 h-5 text-white" />
+                              )}
+                            </div>
+                            <div className={`rounded-2xl p-4 shadow-lg ${
+                              message.type === 'admin'
+                                ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
+                                : 'bg-white/10 backdrop-blur-sm text-white border border-gray-600/50'
+                            }`}>
+                              <p className="text-sm leading-relaxed">{message.content}</p>
+                              <div className="flex items-center gap-2 mt-2">
+                                <span className="text-xs opacity-70">
+                                  {message.sender_name || 'Usuário'}
+                                </span>
+                                <span className="text-xs opacity-70">
+                                  {message.timestamp ? new Date(message.timestamp).toLocaleTimeString('pt-BR') : 'Hora não disponível'}
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    ))
-                  )}
-                </div>
+                      ))
+                    )}
+                  </div>
+                </ScrollArea>
 
                 {/* Input */}
                 <div className="p-6 border-t border-gray-700/50 bg-gradient-to-r from-gray-800/50 to-gray-700/50">
