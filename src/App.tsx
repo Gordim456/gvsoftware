@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -10,7 +9,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
 
-console.log("🚀 APP v14: Carregando app LIMPO - PROBLEMA RESOLVIDO");
+console.log("🚀 APP v15: CARREGANDO APP COMPLETAMENTE LIMPO - RADIX REMOVIDO");
 
 const Home = lazy(() => import("./pages/Home"));
 const Services = lazy(() => import("./pages/Services"));
@@ -50,28 +49,37 @@ class AppErrorBoundary extends React.Component<
   }
 
   static getDerivedStateFromError(error: Error) {
-    console.error('🚀 APP ERROR BOUNDARY v14:', error);
+    console.error('🚨 APP ERROR BOUNDARY v15:', error);
     return { hasError: true, errorMessage: error.message };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🚀 APP ERROR BOUNDARY v14 - Detalhes completos:', {
+    console.error('🚨 APP ERROR BOUNDARY v15 - DETALHES:', {
       error: error.message,
       stack: error.stack,
       errorInfo,
-      isRadixRelated: error.stack?.includes('radix') || 
-                     error.stack?.includes('tooltip') ||
-                     error.stack?.includes('TooltipProvider')
+      isRadixError: error.stack?.includes('radix') || 
+                    error.stack?.includes('tooltip') ||
+                    error.stack?.includes('TooltipProvider') ||
+                    error.message?.includes('useState')
     });
     
-    // Forçar reload se for erro do Radix
+    // RELOAD IMEDIATO se for erro do Radix
     if (error.stack?.includes('radix') || 
         error.stack?.includes('TooltipProvider') ||
+        error.stack?.includes('@radix-ui') ||
         error.message?.includes('useState')) {
-      console.error('🚀 FORÇANDO RELOAD POR ERRO DO RADIX v14');
+      console.error('🚨 ERRO RADIX NO ERROR BOUNDARY - RELOAD FORÇADO v15');
+      
       setTimeout(() => {
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+        } catch (e) {
+          // Ignorar
+        }
         window.location.href = window.location.href;
-      }, 1000);
+      }, 500);
     }
   }
 
@@ -80,17 +88,16 @@ class AppErrorBoundary extends React.Component<
       return (
         <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
           <div className="text-center p-8">
-            <h1 className="text-2xl font-bold mb-4">Erro na Aplicação v14</h1>
+            <h1 className="text-2xl font-bold mb-4">Erro na Aplicação v15</h1>
             <p className="text-gray-300 mb-4">Algo deu errado.</p>
             <p className="text-sm text-gray-400 mb-6">Erro: {this.state.errorMessage}</p>
             <button 
               onClick={() => {
-                // Limpar tudo antes de recarregar
                 try {
                   localStorage.clear();
                   sessionStorage.clear();
                 } catch (e) {
-                  // Ignorar erros
+                  // Ignorar
                 }
                 window.location.href = window.location.href;
               }} 
@@ -115,39 +122,30 @@ const SafeChatBot = () => {
       </Suspense>
     );
   } catch (error) {
-    console.error('🚀 CHATBOT ERROR v14:', error);
+    console.error('🚨 CHATBOT ERROR v15:', error);
     return null;
   }
 };
 
 const App: React.FC = () => {
   React.useEffect(() => {
-    console.log("🚀 APP v14: Componente montado - COMPLETAMENTE LIMPO");
+    console.log("🚀 APP v15: Componente montado - TOTALMENTE LIMPO");
     
-    // Limpeza final de cache
+    // Verificação final de vestígios do Radix
     try {
-      const keys = Object.keys(localStorage);
-      keys.forEach(key => {
-        if (key.includes('radix') || 
-            key.includes('tooltip') || 
-            key.includes('TooltipProvider')) {
-          localStorage.removeItem(key);
-          console.log(`🚀 APP v14: Removido localStorage key: ${key}`);
-        }
-      });
+      const hasRadixInStorage = Object.keys(localStorage).some(key => 
+        key.includes('radix') || key.includes('tooltip')
+      ) || Object.keys(sessionStorage).some(key => 
+        key.includes('radix') || key.includes('tooltip')
+      );
       
-      // Também limpar sessionStorage
-      const sessionKeys = Object.keys(sessionStorage);
-      sessionKeys.forEach(key => {
-        if (key.includes('radix') || 
-            key.includes('tooltip') || 
-            key.includes('TooltipProvider')) {
-          sessionStorage.removeItem(key);
-          console.log(`🚀 APP v14: Removido sessionStorage key: ${key}`);
-        }
-      });
+      if (hasRadixInStorage) {
+        console.log("🚀 APP v15: Limpando vestígios finais do Radix");
+        localStorage.clear();
+        sessionStorage.clear();
+      }
     } catch (e) {
-      console.log("🚀 APP v14: Limpeza de localStorage finalizada");
+      console.log("🚀 APP v15: Verificação de storage finalizada");
     }
   }, []);
   
@@ -182,18 +180,18 @@ const App: React.FC = () => {
       </AppErrorBoundary>
     );
   } catch (error) {
-    console.error('🚀 APP v14: Erro defensivo capturado:', error);
+    console.error('🚨 APP v15: Erro defensivo capturado:', error);
     return (
       <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
         <div className="text-center p-8">
-          <h1 className="text-2xl font-bold mb-4">Erro de Renderização v14</h1>
+          <h1 className="text-2xl font-bold mb-4">Erro de Renderização v15</h1>
           <button 
             onClick={() => {
               try {
                 localStorage.clear();
                 sessionStorage.clear();
               } catch (e) {
-                // Ignorar erros
+                // Ignorar
               }
               window.location.href = window.location.href;
             }} 

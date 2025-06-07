@@ -1,6 +1,8 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react"
 
+console.log("🚀 THEME PROVIDER v15: CARREGANDO - ZERO RADIX");
+
 type Theme = "dark" | "light" | "system"
 
 type ThemeProviderProps = {
@@ -61,7 +63,7 @@ export function ThemeProvider({
     },
   }
 
-  console.log("🚀 THEME PROVIDER v14: Renderizando SEM dependências do Radix");
+  console.log("🚀 THEME PROVIDER v15: Renderizando LIMPO - SEM RADIX");
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
