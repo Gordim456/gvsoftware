@@ -10,7 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
 
-console.log("🚀 APP: Loading application");
+console.log("🚀 APP: Loading ULTRA CLEAN application - ZERO RADIX");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -57,8 +57,10 @@ const SafeChatBot = () => {
   }
 };
 
-// Main App component - NO TOOLTIP PROVIDER
+// Main App component - ABSOLUTELY NO RADIX COMPONENTS
 const App: React.FC = () => {
+  console.log("🚀 APP: Rendering app with ZERO Radix components");
+  
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
