@@ -4,8 +4,6 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
-console.log("🔥 MAIN FINAL REBUILD: ZERO dependencies, clean React setup");
-
 // Error boundary para toda a aplicação
 class GlobalErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -21,7 +19,7 @@ class GlobalErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🔥 MAIN FINAL REBUILD: Error boundary capturou erro:', error, errorInfo);
+    console.error('🚨 MAIN: Error boundary capturou erro:', error, errorInfo);
   }
 
   render() {
@@ -45,12 +43,10 @@ class GlobalErrorBoundary extends React.Component<
   }
 }
 
-// Inicializar aplicação com setup limpo
+// Inicializar aplicação
 const rootElement = document.getElementById("root");
 if (rootElement) {
   const root = createRoot(rootElement);
-  
-  console.log("🔥 MAIN FINAL REBUILD: Inicializando app React completamente limpo");
   
   root.render(
     <React.StrictMode>
@@ -60,5 +56,5 @@ if (rootElement) {
     </React.StrictMode>
   );
 } else {
-  console.error('🔥 MAIN FINAL REBUILD: Elemento root não encontrado');
+  console.error('🚨 MAIN: Elemento root não encontrado');
 }
