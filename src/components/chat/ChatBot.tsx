@@ -2,12 +2,21 @@
 import React, { useState } from "react";
 import { MessageCircle, X } from "lucide-react";
 
+console.log("🔥 CHATBOT: Starting component with proper React import");
+
 const ChatBot: React.FC = () => {
+  console.log("🔥 CHATBOT: Component rendering, about to call useState");
+  
   const [isOpen, setIsOpen] = useState(false);
+  
+  console.log("🔥 CHATBOT: useState called successfully, isOpen:", isOpen);
 
   const toggleChat = () => {
+    console.log("🔥 CHATBOT: toggleChat called, current isOpen:", isOpen);
     setIsOpen(!isOpen);
   };
+
+  console.log("🔥 CHATBOT: Rendering ChatBot component");
 
   return (
     <>
@@ -77,5 +86,7 @@ const ChatBot: React.FC = () => {
     </>
   );
 };
+
+console.log("🔥 CHATBOT: Component defined, exporting");
 
 export default ChatBot;
