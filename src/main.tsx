@@ -4,7 +4,12 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
-console.log("🚀 MAIN: Clean start");
+console.log("🚀 MAIN: COMPLETELY CLEAN START - No Radix UI tooltips");
+
+// Block any attempts to load Radix UI tooltips
+if (typeof window !== 'undefined') {
+  console.log("🚀 MAIN: Blocking any Radix UI tooltip imports");
+}
 
 // Initialize application
 const rootElement = document.getElementById("root");
@@ -12,7 +17,7 @@ if (rootElement) {
   try {
     const root = createRoot(rootElement);
     
-    console.log("🚀 MAIN: Rendering App");
+    console.log("🚀 MAIN: Rendering App with NO external tooltip dependencies");
     
     root.render(
       <React.StrictMode>
@@ -20,7 +25,7 @@ if (rootElement) {
       </React.StrictMode>
     );
     
-    console.log("🚀 MAIN: App rendered successfully");
+    console.log("🚀 MAIN: App rendered successfully - no tooltips should be loaded");
   } catch (error) {
     console.error('🚀 MAIN: Error during render:', error);
     

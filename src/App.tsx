@@ -13,7 +13,7 @@ import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-console.log("🔥 APP: Clean version - monitoring for any tooltip issues");
+console.log("🔥 APP: RADIX-FREE VERSION - No tooltip dependencies at all");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -47,14 +47,14 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering clean version - checking for tooltip contamination");
+  console.log("🔥 APP: Rendering RADIX-FREE version - checking for any external tooltip contamination");
   
-  // Log any global errors related to tooltips
+  // Monitor for any tooltip-related errors
   React.useEffect(() => {
     const handleError = (event: ErrorEvent) => {
-      if (event.message.includes('tooltip') || event.message.includes('useState')) {
-        console.error("🔥 APP: Tooltip-related error detected:", event.message);
-        console.error("🔥 APP: Error stack:", event.error?.stack);
+      if (event.message.includes('tooltip') || event.message.includes('@radix-ui')) {
+        console.error("🔥 APP: RADIX CONTAMINATION DETECTED:", event.message);
+        console.error("🔥 APP: Stack:", event.error?.stack);
       }
     };
     

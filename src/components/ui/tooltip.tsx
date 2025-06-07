@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: Complete standalone implementation - no external deps");
+console.log("🔥 TOOLTIP: Complete standalone implementation - NO Radix UI");
 
-// Completely standalone tooltip implementation
+// Completely standalone tooltip implementation - NO external dependencies
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -50,20 +50,21 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Simple passthrough components for API compatibility - NO external dependencies
+// ABSOLUTELY NO HOOKS OR STATE - Pure passthrough components
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Pure passthrough - no hooks, no state");
-  return <>{children}</>;
+  console.log("🔥 TOOLTIP PROVIDER: ZERO dependencies - pure passthrough");
+  // NO useState, NO useEffect, NO hooks at all
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Pure passthrough");
-  return <>{children}</>;
+  console.log("🔥 TOOLTIP TRIGGER: Pure passthrough - no hooks");
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode; className?: string }> = ({ children }) => {
-  console.log("🔥 TOOLTIP CONTENT: Pure passthrough");
-  return <>{children}</>;
+  console.log("🔥 TOOLTIP CONTENT: Pure passthrough - no hooks");
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
