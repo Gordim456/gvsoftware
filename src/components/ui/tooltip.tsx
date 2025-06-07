@@ -2,9 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP FINAL REBUILD: 100% Standalone - NO external dependencies");
-
-// Simple standalone tooltip with zero external dependencies
+// Tooltip completamente standalone - SEM Radix UI
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -50,19 +48,16 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Empty stub components for compatibility - NO HOOKS, NO RADIX
-const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
-  console.log("🔥 TOOLTIP PROVIDER FINAL: Simple div wrapper - no hooks, no state");
-  return <>{children}</>;
+// Componentes stub para compatibilidade - SEM hooks, SEM Radix
+const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return <div>{children}</div>;
 };
 
-const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => {
-  console.log("🔥 TOOLTIP TRIGGER FINAL: Simple passthrough - no hooks");
-  return <>{children}</>;
+const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
+  return <div>{children}</div>;
 };
 
-const TooltipContent = () => {
-  console.log("🔥 TOOLTIP CONTENT FINAL: Returning null - no rendering");
+const TooltipContent: React.FC<{ children?: React.ReactNode }> = () => {
   return null;
 };
 
