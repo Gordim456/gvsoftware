@@ -1,8 +1,9 @@
 
+
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: Componente 100% customizado sem Radix - STANDALONE - VERSÃO LIMPA");
+console.log("🔥 TOOLTIP FINAL ELIMINATION: 100% Custom Implementation - ABSOLUTE ZERO RADIX");
 
 // Tooltip completamente standalone - SEM Radix UI
 interface TooltipProps {
@@ -19,6 +20,8 @@ const Tooltip: React.FC<TooltipProps> = ({
   className 
 }) => {
   const [isVisible, setIsVisible] = React.useState(false);
+
+  console.log("🔥 TOOLTIP FINAL ELIMINATION: Rendering 100% custom tooltip");
 
   const positionClasses = {
     top: "bottom-full left-1/2 transform -translate-x-1/2 mb-2",
@@ -52,12 +55,12 @@ const Tooltip: React.FC<TooltipProps> = ({
 
 // Componentes de compatibilidade - COMPLETAMENTE VAZIOS para evitar erros
 const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Wrapper limpo - SEM useState - VERSÃO LIMPA");
+  console.log("🔥 TOOLTIP PROVIDER FINAL ELIMINATION: Empty wrapper - ZERO RADIX DEPENDENCIES");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Passthrough limpo - VERSÃO LIMPA");
+  console.log("🔥 TOOLTIP TRIGGER FINAL ELIMINATION: Simple passthrough - ZERO RADIX DEPENDENCIES");
   return <>{children}</>;
 };
 
@@ -67,11 +70,12 @@ const TooltipContent: React.FC<{
   side?: "top" | "bottom" | "left" | "right";
   sideOffset?: number;
 }> = () => {
-  console.log("🔥 TOOLTIP CONTENT: Stub vazio - VERSÃO LIMPA");
+  console.log("🔥 TOOLTIP CONTENT FINAL ELIMINATION: Empty stub - ZERO RADIX DEPENDENCIES");
   return null;
 };
 
-console.log("🔥 TOOLTIP: Exportando componentes limpos - SEM RADIX");
+console.log("🔥 TOOLTIP EXPORTS FINAL ELIMINATION: Exporting 100% custom components with ABSOLUTE ZERO dependencies");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
 export default Tooltip;
+
