@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: COMPLETELY ISOLATED IMPLEMENTATION - Zero dependencies");
+console.log("🔥 TOOLTIP: FINAL CLEAN IMPLEMENTATION - Absolutely zero Radix dependencies");
 
-// Pure React tooltip implementation - NO external dependencies
+// Completely isolated React tooltip implementation
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -50,20 +50,21 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Pure pass-through components for API compatibility - NO state, NO hooks
-const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
-  console.log("🔥 TOOLTIP PROVIDER: PURE PASSTHROUGH - zero external dependencies");
-  return <>{children}</>;
+// Completely static components - NO React hooks at all
+const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  console.log("🔥 TOOLTIP PROVIDER: STATIC COMPONENT - No hooks, no state, no Radix");
+  // Just return children directly - no context, no state, no hooks
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
-const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => {
-  console.log("🔥 TOOLTIP TRIGGER: PURE PASSTHROUGH - no state");
-  return <>{children}</>;
+const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
+  console.log("🔥 TOOLTIP TRIGGER: STATIC COMPONENT - No hooks");
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
-const TooltipContent = ({ children }: { children: React.ReactNode; className?: string }) => {
-  console.log("🔥 TOOLTIP CONTENT: PURE PASSTHROUGH - no logic");
-  return <>{children}</>;
+const TooltipContent: React.FC<{ children: React.ReactNode; className?: string }> = ({ children }) => {
+  console.log("🔥 TOOLTIP CONTENT: STATIC COMPONENT - No hooks");
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };

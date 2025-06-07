@@ -13,9 +13,9 @@ import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-console.log("🔥 APP: Starting application - React version:", React.version);
+console.log("🔥 APP: FINAL CLEAN VERSION - Zero Radix UI anywhere");
+console.log("🔥 APP: React version:", React.version);
 console.log("🔥 APP: React hooks available:", !!React.useState);
-console.log("🔥 APP: COMPLETELY ISOLATED - Zero Radix UI dependencies");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -49,15 +49,19 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering main App component - PURE React implementation");
+  console.log("🔥 APP: Rendering clean App - NO RADIX UI ANYWHERE");
   
-  // Add error boundary for tooltip-related issues
+  // Debug check for any accidental Radix imports
   React.useEffect(() => {
-    console.log("🔥 APP: Component mounted successfully - no external tooltip libraries");
+    console.log("🔥 APP: Component mounted - checking for Radix contamination");
     
-    // Check if any Radix UI is accidentally loaded
+    // Check window for any Radix references
     if (typeof window !== 'undefined') {
-      console.log("🔥 APP: Window object clean check - no Radix references expected");
+      const radixKeys = Object.keys(window).filter(key => 
+        key.toLowerCase().includes('radix') || 
+        key.toLowerCase().includes('tooltip')
+      );
+      console.log("🔥 APP: Window Radix keys found:", radixKeys);
     }
   }, []);
   

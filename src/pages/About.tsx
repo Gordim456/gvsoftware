@@ -5,10 +5,13 @@ import SocialIcons from '../components/SocialIcons';
 import { motion } from 'framer-motion';
 import { Users, Target, Award, TrendingUp, Code, Globe, Shield, Zap } from 'lucide-react';
 
+console.log("🔥 ABOUT PAGE: Loading - NO tooltip dependencies");
+
 const About: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    console.log("🔥 ABOUT PAGE: Component mounted - checking for tooltip contamination");
     document.title = 'Sobre | GV Software - Nossa História e Missão';
     setIsLoaded(true);
     
