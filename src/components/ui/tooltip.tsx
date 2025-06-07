@@ -2,9 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP NUCLEAR OPTION: 100% Standalone Implementation - ZERO external deps");
-
-// Completely standalone tooltip implementation - NO external dependencies
+// COMPLETELY STANDALONE TOOLTIP - NO RADIX UI
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -12,6 +10,7 @@ interface TooltipProps {
   className?: string;
 }
 
+// Main standalone tooltip component
 const Tooltip: React.FC<TooltipProps> = ({ 
   children, 
   content, 
@@ -19,8 +18,6 @@ const Tooltip: React.FC<TooltipProps> = ({
   className 
 }) => {
   const [isVisible, setIsVisible] = React.useState(false);
-
-  console.log("🔥 TOOLTIP NUCLEAR OPTION: Rendering standalone tooltip");
 
   const positionClasses = {
     top: "bottom-full left-1/2 transform -translate-x-1/2 mb-2",
@@ -52,23 +49,18 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Dummy components that do nothing - NO hooks, NO state, NO external deps
-const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP NUCLEAR OPTION: TooltipProvider passthrough");
-  return <>{children}</>;
+// DUMMY COMPONENTS - NO HOOKS, NO STATE, NO RADIX UI
+const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
+  return React.createElement(React.Fragment, null, children);
 };
 
-const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP NUCLEAR OPTION: TooltipTrigger passthrough");
-  return <>{children}</>;
+const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => {
+  return React.createElement(React.Fragment, null, children);
 };
 
-const TooltipContent: React.FC<{ children: React.ReactNode; className?: string }> = ({ children }) => {
-  console.log("🔥 TOOLTIP NUCLEAR OPTION: TooltipContent passthrough");
-  return <>{children}</>;
+const TooltipContent = ({ children }: { children: React.ReactNode; className?: string }) => {
+  return React.createElement(React.Fragment, null, children);
 };
-
-console.log("🔥 TOOLTIP NUCLEAR OPTION: Exporting standalone components - ABSOLUTELY NO RADIX");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
 export default Tooltip;
