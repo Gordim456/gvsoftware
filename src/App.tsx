@@ -53,7 +53,9 @@ const SafeChatBot = () => {
 };
 
 const App: React.FC = () => {
-  console.log("APP COMPONENT: Rendering with ZERO Radix UI tooltip dependencies - 100% CLEAN");
+  React.useEffect(() => {
+    console.log("🔥 APP: Component mounted - ZERO RADIX TOOLTIP DEPENDENCIES");
+  }, []);
   
   return (
     <QueryClientProvider client={queryClient}>

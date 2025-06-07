@@ -6,12 +6,12 @@ import './index.css';
 import { analytics } from './utils/analytics';
 import { cacheService } from './utils/cacheService';
 
-console.log("MAIN.TSX: App start - ABSOLUTELY ZERO RADIX TOOLTIP DEPENDENCIES ANYWHERE");
+console.log("🔥 MAIN: Starting application - ABSOLUTELY ZERO RADIX TOOLTIP DEPENDENCIES");
 
 // Initialize services before rendering
 const initializeApp = async () => {
   try {
-    console.log("Initializing services - NO TOOLTIP DEPENDENCIES");
+    console.log("🔥 MAIN: Initializing services - NO TOOLTIP DEPENDENCIES ANYWHERE");
     
     // Initialize analytics
     analytics.init();
@@ -20,7 +20,7 @@ const initializeApp = async () => {
     await cacheService.init();
     
     // Log app initialization
-    console.log('GV Software App initialized successfully - COMPLETELY CLEAN');
+    console.log('🔥 GV Software: App initialized successfully - COMPLETELY CLEAN');
     
     // Track app start
     analytics.trackEvent('app_start', {
@@ -41,7 +41,7 @@ if (rootElement) {
   
   // Initialize services and render
   initializeApp().then(() => {
-    console.log("About to render App - ZERO RADIX TOOLTIP ANYWHERE IN CODEBASE");
+    console.log("🔥 MAIN: About to render App - ZERO RADIX TOOLTIP ANYWHERE");
     root.render(
       <React.StrictMode>
         <App />
@@ -54,8 +54,8 @@ if (rootElement) {
 
 // Handle unhandled errors
 window.addEventListener('error', (event) => {
-  console.error('Global error:', event.error);
-  console.error('Error details:', {
+  console.error('🔥 Global error:', event.error);
+  console.error('🔥 Error details:', {
     message: event.error?.message,
     filename: event.filename,
     lineno: event.lineno,
@@ -72,7 +72,7 @@ window.addEventListener('error', (event) => {
 
 // Handle unhandled promise rejections
 window.addEventListener('unhandledrejection', (event) => {
-  console.error('Unhandled promise rejection:', event.reason);
+  console.error('🔥 Unhandled promise rejection:', event.reason);
   analytics.trackEvent('unhandled_rejection', {
     reason: event.reason?.toString() || 'Unknown rejection'
   });
