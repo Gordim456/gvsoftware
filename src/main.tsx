@@ -6,9 +6,9 @@ import './index.css';
 import { analytics } from './utils/analytics';
 import { cacheService } from './utils/cacheService';
 
-console.log("🔥 MAIN: Starting application - COMPLETELY RADIX TOOLTIP FREE");
+console.log("🔥 MAIN: Starting PURE React application - COMPLETELY RADIX TOOLTIP FREE");
 console.log("🔥 MAIN: React version:", React.version);
-console.log("🔥 MAIN: React object:", React);
+console.log("🔥 MAIN: React hooks available:", !!React.useState);
 
 // Initialize services before rendering
 const initializeApp = async () => {
@@ -43,7 +43,7 @@ if (rootElement) {
   
   // Initialize services and render
   initializeApp().then(() => {
-    console.log("🔥 MAIN: About to render App - ABSOLUTELY NO RADIX TOOLTIP REFERENCES");
+    console.log("🔥 MAIN: About to render PURE App - NO RADIX TOOLTIP REFERENCES");
     root.render(
       <React.StrictMode>
         <App />
