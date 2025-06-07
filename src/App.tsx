@@ -13,7 +13,7 @@ import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-console.log("🔥 APP: VERSÃO COMPLETAMENTE NOVA - ZERO CONTAMINAÇÃO TOOLTIP");
+console.log("🔥 APP FINAL REBUILD: ZERO Radix dependencies, clean structure");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -45,9 +45,9 @@ const LoadingFallback = () => (
   </div>
 );
 
-// Main App component - COMPLETAMENTE LIMPO
+// Main App component - COMPLETELY CLEAN
 const App: React.FC = () => {
-  console.log("🔥 APP: Renderizando app completamente limpo - zero contaminação tooltip");
+  console.log("🔥 APP FINAL REBUILD: Rendering completely clean app - ZERO Radix tooltip contamination");
   
   return (
     <ErrorBoundary>

@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: NOVA IMPLEMENTAÇÃO COMPLETAMENTE LIMPA - ZERO RADIX");
+console.log("🔥 TOOLTIP FINAL REBUILD: 100% Standalone - NO external dependencies");
 
-// Tooltip standalone simples
+// Simple standalone tooltip with zero external dependencies
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -50,19 +50,19 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes vazios para compatibilidade - SEM HOOKS
-const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Passthrough simples - sem estado");
-  return <div>{children}</div>;
+// Empty stub components for compatibility - NO HOOKS, NO RADIX
+const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
+  console.log("🔥 TOOLTIP PROVIDER FINAL: Simple div wrapper - no hooks, no state");
+  return <>{children}</>;
 };
 
-const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Passthrough simples - sem estado");
-  return <div>{children}</div>;
+const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => {
+  console.log("🔥 TOOLTIP TRIGGER FINAL: Simple passthrough - no hooks");
+  return <>{children}</>;
 };
 
-const TooltipContent: React.FC<{ children: React.ReactNode; className?: string; side?: string; sideOffset?: number }> = () => {
-  console.log("🔥 TOOLTIP CONTENT: Retornando null - sem renderização");
+const TooltipContent = () => {
+  console.log("🔥 TOOLTIP CONTENT FINAL: Returning null - no rendering");
   return null;
 };
 
