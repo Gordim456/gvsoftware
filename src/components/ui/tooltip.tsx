@@ -2,13 +2,33 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-// Simple custom tooltip implementation - completely independent
+// Completely custom tooltip implementation - no external dependencies
+interface TooltipContextType {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+
+const TooltipContext = React.createContext<TooltipContextType | null>(null);
+
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <div className="tooltip-provider-root">{children}</div>;
+  return <div className="gv-tooltip-provider">{children}</div>;
 };
 
 const Tooltip: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <div className="relative inline-block group">{children}</div>;
+  const [open, setOpen] = React.useState(false);
+  
+  const value = React.useMemo(() => ({
+    open,
+    setOpen
+  }), [open]);
+
+  return (
+    <TooltipContext.Provider value={value}>
+      <div className="relative inline-block">
+        {children}
+      </div>
+    </TooltipContext.Provider>
+  );
 };
 
 const TooltipTrigger = React.forwardRef<
@@ -18,8 +38,24 @@ const TooltipTrigger = React.forwardRef<
     asChild?: boolean;
   }
 >(({ children, className, asChild = false, ...props }, ref) => {
+  const context = React.useContext(TooltipContext);
+  
+  const handleMouseEnter = () => {
+    context?.setOpen(true);
+  };
+  
+  const handleMouseLeave = () => {
+    context?.setOpen(false);
+  };
+
   return (
-    <div ref={ref} className={cn("cursor-pointer", className)} {...props}>
+    <div 
+      ref={ref} 
+      className={cn("cursor-pointer", className)} 
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      {...props}
+    >
       {children}
     </div>
   );
@@ -33,13 +69,18 @@ const TooltipContent = React.forwardRef<
     children: React.ReactNode;
   }
 >(({ className, children, sideOffset = 4, ...props }, ref) => {
+  const context = React.useContext(TooltipContext);
+  
+  if (!context?.open) {
+    return null;
+  }
+
   return (
     <div
       ref={ref}
       className={cn(
         "absolute z-50 overflow-hidden rounded-md bg-gray-900 px-3 py-1.5 text-sm text-white shadow-md",
-        "opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200",
-        "bottom-full left-1/2 transform -translate-x-1/2 mb-2",
+        "bottom-full left-1/2 transform -translate-x-1/2 transition-all duration-200",
         className
       )}
       style={{ marginBottom: sideOffset }}
