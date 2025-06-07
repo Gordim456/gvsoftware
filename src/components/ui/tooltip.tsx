@@ -8,7 +8,7 @@ const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 const Tooltip = ({ children }: { children: React.ReactNode }) => {
-  return <div className="relative inline-block">{children}</div>;
+  return <div className="relative inline-block group">{children}</div>;
 };
 
 const TooltipTrigger = React.forwardRef<
@@ -19,9 +19,8 @@ const TooltipTrigger = React.forwardRef<
   }
 >(({ children, className, asChild = false, ...props }, ref) => {
   if (asChild && React.isValidElement(children)) {
-    return React.cloneElement(children, {
-      ref,
-      className: cn(className, children.props.className),
+    return React.cloneElement(children as React.ReactElement<any>, {
+      className: cn(className, (children as any).props?.className),
       ...props,
     });
   }
