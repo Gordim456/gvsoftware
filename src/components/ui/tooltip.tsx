@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: Componente 100% customizado sem Radix - STANDALONE");
+console.log("🔥 TOOLTIP: Componente 100% customizado sem Radix - STANDALONE - VERSÃO LIMPA");
 
 // Tooltip completamente standalone - SEM Radix UI
 interface TooltipProps {
@@ -50,14 +50,14 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes de compatibilidade - VAZIOS para evitar erros
+// Componentes de compatibilidade - COMPLETAMENTE VAZIOS para evitar erros
 const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Wrapper limpo - SEM useState");
+  console.log("🔥 TOOLTIP PROVIDER: Wrapper limpo - SEM useState - VERSÃO LIMPA");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Passthrough limpo");
+  console.log("🔥 TOOLTIP TRIGGER: Passthrough limpo - VERSÃO LIMPA");
   return <>{children}</>;
 };
 
@@ -67,9 +67,11 @@ const TooltipContent: React.FC<{
   side?: "top" | "bottom" | "left" | "right";
   sideOffset?: number;
 }> = () => {
-  console.log("🔥 TOOLTIP CONTENT: Stub vazio");
+  console.log("🔥 TOOLTIP CONTENT: Stub vazio - VERSÃO LIMPA");
   return null;
 };
+
+console.log("🔥 TOOLTIP: Exportando componentes limpos - SEM RADIX");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
 export default Tooltip;
