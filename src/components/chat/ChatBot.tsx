@@ -8,8 +8,6 @@ import ChatBotFAQ from "./ChatBotFAQ";
 import ChatBotLiveChat from "./ChatBotLiveChat";
 import { ChatService } from "../../services/chatService";
 
-console.log("🚀 CHATBOT: Starting with clean React imports");
-
 // Componente do ícone de robô 3D moderno
 const RobotIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   <div className={`${className} relative flex items-center justify-center`}>
@@ -52,8 +50,6 @@ const RobotIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
 );
 
 const ChatBot: React.FC = () => {
-  console.log("🚀 CHATBOT: Component rendering - React hooks initialized");
-  
   const [isOpen, setIsOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState<ChatStep>('welcome');
   const [formData, setFormData] = useState<FormData>({
@@ -64,8 +60,6 @@ const ChatBot: React.FC = () => {
   });
   const [showWelcome, setShowWelcome] = useState(true);
   const [conversationId, setConversationId] = useState<string | null>(null);
-
-  console.log("🚀 CHATBOT: State initialized successfully");
 
   // Carregar estado salvo quando componente monta
   useEffect(() => {
@@ -79,7 +73,7 @@ const ChatBot: React.FC = () => {
         setShowWelcome(parsed.currentStep === 'welcome');
       }
     } catch (error) {
-      console.log('🚀 CHATBOT: Erro ao carregar dados salvos');
+      console.log('Erro ao carregar dados salvos');
     }
   }, []);
 
@@ -94,7 +88,7 @@ const ChatBot: React.FC = () => {
       };
       localStorage.setItem('chatbot-data', JSON.stringify(dataToSave));
     } catch (error) {
-      console.log('🚀 CHATBOT: Erro ao salvar dados');
+      console.log('Erro ao salvar dados');
     }
   }, [formData, currentStep, conversationId]);
 
@@ -128,7 +122,7 @@ const ChatBot: React.FC = () => {
         });
       }
     } catch (error) {
-      console.error('🚀 CHATBOT: Erro ao criar conversa:', error);
+      console.error('Erro ao criar conversa:', error);
     }
 
     setCurrentStep('options');
@@ -144,7 +138,7 @@ const ChatBot: React.FC = () => {
           sender_name: 'GV Assistant'
         });
       } catch (error) {
-        console.error('🚀 CHATBOT: Erro ao enviar mensagem automática:', error);
+        console.error('Erro ao enviar mensagem automática:', error);
       }
     }
 
@@ -209,8 +203,6 @@ const ChatBot: React.FC = () => {
   const handleClose = () => {
     setIsOpen(false);
   };
-
-  console.log("🚀 CHATBOT: Rendering UI elements");
 
   return (
     <div>
