@@ -13,7 +13,21 @@ import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-console.log("🔥 APP: CLEAN VERSION - Absolutely no Radix UI anywhere");
+console.log("🔥 APP: ULTRA CLEAN VERSION - Zero Radix UI dependencies");
+
+// Debug check for any Radix contamination
+if (typeof window !== 'undefined') {
+  console.log("🔥 APP: Checking for Radix contamination in window object");
+  const radixRefs = Object.keys(window).filter(key => 
+    key.toLowerCase().includes('radix') || 
+    key.toLowerCase().includes('tooltip')
+  );
+  if (radixRefs.length > 0) {
+    console.error("🔥 APP: Found Radix references:", radixRefs);
+  } else {
+    console.log("🔥 APP: No Radix references found in window");
+  }
+}
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -47,7 +61,7 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering completely clean App");
+  console.log("🔥 APP: Rendering ultra-clean App with zero Radix dependencies");
   
   return (
     <ErrorBoundary>
