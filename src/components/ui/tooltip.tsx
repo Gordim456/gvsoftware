@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🚀 TOOLTIP v11: ULTRA CLEAN - ABSOLUTELY NO RADIX ANYWHERE");
+console.log("🚀 TOOLTIP v13: COMPLETELY CUSTOM - NO RADIX AT ALL");
 
-// Completely custom tooltip interface
+// Pure custom tooltip interface - zero external dependencies
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -13,7 +13,7 @@ interface TooltipProps {
   delayDuration?: number;
 }
 
-// 100% custom tooltip implementation - ZERO external dependencies
+// 100% custom tooltip implementation
 const Tooltip: React.FC<TooltipProps> = ({ 
   children, 
   content, 
@@ -24,7 +24,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [isVisible, setIsVisible] = React.useState(false);
   const timeoutRef = React.useRef<NodeJS.Timeout>();
 
-  console.log("🚀 TOOLTIP v11: Custom tooltip rendering - COMPLETELY RADIX-FREE");
+  console.log("🚀 TOOLTIP v13: Rendering pure custom tooltip");
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
@@ -89,22 +89,22 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Dummy components for compatibility - do absolutely nothing
+// Empty dummy components for compatibility - DO ABSOLUTELY NOTHING
 const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
-  console.log("🚀 TOOLTIP PROVIDER v11: Dummy provider - NO RADIX ANYWHERE");
-  return <>{children}</>;
+  console.log("🚀 TOOLTIP PROVIDER v13: Dummy provider - just returns children");
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🚀 TOOLTIP TRIGGER v11: Dummy trigger - NO RADIX ANYWHERE");
-  return <>{children}</>;
+  console.log("🚀 TOOLTIP TRIGGER v13: Dummy trigger - just returns children");
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode; side?: string; className?: string }> = ({ children }) => {
-  console.log("🚀 TOOLTIP CONTENT v11: Dummy content - NO RADIX ANYWHERE");
-  return <>{children}</>;
+  console.log("🚀 TOOLTIP CONTENT v13: Dummy content - just returns children");
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
-console.log("🚀 TOOLTIP EXPORTS v11: Exporting COMPLETELY CUSTOM components - ZERO RADIX UI DEPENDENCIES");
+console.log("🚀 TOOLTIP EXPORTS v13: Exporting PURE CUSTOM components - ZERO RADIX");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
