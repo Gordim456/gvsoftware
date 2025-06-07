@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { Menu, X, Code } from 'lucide-react';
@@ -6,15 +5,15 @@ import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [scrolled, setScrolled] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   
-  const toggleMenu = React.useCallback(() => {
+  const toggleMenu = useCallback(() => {
     setIsOpen(!isOpen);
   }, [isOpen]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
         setScrolled(true);
@@ -29,7 +28,7 @@ const Navbar: React.FC = () => {
     };
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsOpen(false);
   }, [location]);
 
