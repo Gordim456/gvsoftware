@@ -10,8 +10,9 @@ import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
 import TestComponent from "./components/TestComponent";
+import ChatBot from "./components/chat/ChatBot";
 
-console.log("🔥 APP: Loading without ChatBot temporarily");
+console.log("🔥 APP: Loading with ChatBot");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -45,7 +46,7 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering app without ChatBot");
+  console.log("🔥 APP: Rendering app with ChatBot");
   
   return (
     <QueryClientProvider client={queryClient}>
@@ -69,6 +70,7 @@ const App: React.FC = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
             <TestComponent />
+            <ChatBot />
           </Suspense>
         </BrowserRouter>
       </ThemeProvider>
