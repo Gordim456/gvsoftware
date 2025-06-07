@@ -1,4 +1,5 @@
 
+
 import * as React from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -27,6 +28,12 @@ const ChatBot: React.FC<ChatBotProps> = ({ className = '' }) => {
   console.log("🔥 CHATBOT: useState available:", typeof React.useState);
   console.log("🔥 CHATBOT: React.useState available:", typeof React.useState);
   
+  // Ensure React is available before using hooks
+  if (!React || !React.useState) {
+    console.error("🔥 CHATBOT: React or React.useState is not available!");
+    return null;
+  }
+  
   const [chatState, setChatState] = React.useState<ChatState>('closed');
   const [conversationId, setConversationId] = React.useState<string>('');
   const [formData, setFormData] = React.useState<FormData>({
@@ -45,11 +52,11 @@ const ChatBot: React.FC<ChatBotProps> = ({ className = '' }) => {
     }
   }, [chatState, conversationId]);
 
-  const openChat = () => {
+  const openChat = React.useCallback(() => {
     setChatState('options');
-  };
+  }, []);
 
-  const closeChat = () => {
+  const closeChat = React.useCallback(() => {
     setChatState('closed');
     // Reset form data when closing
     setFormData({
@@ -58,9 +65,9 @@ const ChatBot: React.FC<ChatBotProps> = ({ className = '' }) => {
       phone: '',
       subject: ''
     });
-  };
+  }, []);
 
-  const handleOptionSelect = (option: any) => {
+  const handleOptionSelect = React.useCallback((option: any) => {
     console.log("🔥 CHATBOT: Option selected:", option);
     
     switch (option.type) {
@@ -82,23 +89,23 @@ const ChatBot: React.FC<ChatBotProps> = ({ className = '' }) => {
       default:
         setChatState('form');
     }
-  };
+  }, []);
 
-  const handleFormComplete = () => {
+  const handleFormComplete = React.useCallback(() => {
     console.log("🔥 CHATBOT: Form completed with data:", formData);
     setChatState('live_chat');
-  };
+  }, [formData]);
 
-  const handleBackToOptions = () => {
+  const handleBackToOptions = React.useCallback(() => {
     setChatState('options');
-  };
+  }, []);
 
   // Loading fallback component
-  const LoadingFallback = () => (
+  const LoadingFallback = React.useCallback(() => (
     <div className="flex items-center justify-center p-4">
       <div className="w-6 h-6 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
     </div>
-  );
+  ), []);
 
   // Floating button when closed
   if (chatState === 'closed') {
@@ -234,3 +241,4 @@ const ChatBot: React.FC<ChatBotProps> = ({ className = '' }) => {
 };
 
 export default ChatBot;
+
