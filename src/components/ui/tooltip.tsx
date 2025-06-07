@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-// Completely custom tooltip implementation - no external dependencies
+// Completely custom tooltip implementation
 interface TooltipContextType {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -11,7 +11,7 @@ interface TooltipContextType {
 const TooltipContext = React.createContext<TooltipContextType | null>(null);
 
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <div className="gv-tooltip-provider">{children}</div>;
+  return <div className="custom-tooltip-provider">{children}</div>;
 };
 
 const Tooltip: React.FC<{ children: React.ReactNode }> = ({ children }) => {
