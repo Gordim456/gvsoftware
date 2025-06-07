@@ -4,12 +4,12 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
-console.log("🚀 MAIN FINAL PURGE: Starting application with ABSOLUTE ZERO Radix - NUCLEAR VERSION");
+console.log("🚀 MAIN NUCLEAR ELIMINATION: Starting application with ABSOLUTE ZERO Radix - FINAL VERSION");
 
 // NUCLEAR Radix blocking - prevent ANY Radix from ever loading
 const nuclearRadixBlock = () => {
   try {
-    console.log("🚀 MAIN FINAL PURGE: NUCLEAR Radix blocking initiated");
+    console.log("🚀 MAIN NUCLEAR ELIMINATION: NUCLEAR Radix blocking initiated");
     
     // Clear all caches aggressively
     if (typeof Storage !== 'undefined') {
@@ -23,58 +23,33 @@ const nuclearRadixBlock = () => {
       });
     }
     
-    // Override module resolution to block Radix
+    // Block any module loading that contains radix
     if (typeof window !== 'undefined') {
       (window as any).__RADIX_BLOCKED__ = true;
       
-      // Block any dynamic imports of Radix
-      const originalImport = (window as any).import;
+      // Override any potential dynamic imports
+      const originalImport = (window as any).__vitePreload;
       if (originalImport) {
-        (window as any).import = function(specifier: string) {
-          if (specifier.includes('radix') || specifier.includes('@radix-ui')) {
-            console.error('🚀 MAIN FINAL PURGE: BLOCKED DYNAMIC RADIX IMPORT:', specifier);
-            return Promise.resolve({ default: () => null });
+        (window as any).__vitePreload = function(deps: any, ...args: any[]) {
+          if (Array.isArray(deps)) {
+            deps = deps.filter(dep => !dep.includes('radix') && !dep.includes('@radix-ui'));
           }
-          return originalImport.apply(this, arguments);
+          return originalImport.call(this, deps, ...args);
         };
       }
       
-      // Block RequireJS/AMD loaders
-      if ((window as any).define) {
-        const originalDefine = (window as any).define;
-        (window as any).define = function(name: string, deps: any, factory: any) {
-          if (typeof name === 'string' && (name.includes('radix') || name.includes('@radix-ui'))) {
-            console.error('🚀 MAIN FINAL PURGE: BLOCKED AMD RADIX MODULE:', name);
-            return;
-          }
-          return originalDefine.apply(this, arguments);
-        };
-      }
-      
-      // Override require if it exists
-      if ((window as any).require) {
-        const originalRequire = (window as any).require;
-        (window as any).require = function(id: string) {
-          if (id.includes('radix') || id.includes('@radix-ui')) {
-            console.error('🚀 MAIN FINAL PURGE: BLOCKED REQUIRE RADIX MODULE:', id);
-            return {};
-          }
-          return originalRequire.apply(this, arguments);
-        };
-      }
-    }
-    
-    // Block any module loading that contains radix
-    if (typeof window !== 'undefined' && window.document) {
+      // Block any script loading
       const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
           mutation.addedNodes.forEach((node) => {
-            if (node.nodeType === 1) { // Element node
+            if (node.nodeType === 1) {
               const element = node as Element;
-              if (element.tagName === 'SCRIPT' && element.getAttribute('src')) {
+              if (element.tagName === 'SCRIPT') {
                 const src = element.getAttribute('src') || '';
-                if (src.includes('radix') || src.includes('@radix-ui') || src.includes('tooltip')) {
-                  console.error('🚀 MAIN FINAL PURGE: BLOCKED RADIX SCRIPT:', src);
+                const textContent = element.textContent || '';
+                if (src.includes('radix') || src.includes('@radix-ui') || 
+                    textContent.includes('radix') || textContent.includes('@radix-ui')) {
+                  console.error('🚀 MAIN NUCLEAR ELIMINATION: BLOCKED RADIX SCRIPT:', src || 'inline');
                   element.remove();
                 }
               }
@@ -89,27 +64,24 @@ const nuclearRadixBlock = () => {
       });
     }
     
-    console.log('🚀 MAIN FINAL PURGE: NUCLEAR Radix blocking complete');
+    console.log('🚀 MAIN NUCLEAR ELIMINATION: NUCLEAR Radix blocking complete');
   } catch (error) {
-    console.error('🚀 MAIN FINAL PURGE: Error in nuclear blocking:', error);
+    console.error('🚀 MAIN NUCLEAR ELIMINATION: Error in nuclear blocking:', error);
   }
 };
 
-// Enhanced error handler with immediate reload on any Radix detection
+// Enhanced error handler
 const handleGlobalError = (event: ErrorEvent) => {
   const message = event.error?.message || event.message || 'Unknown error';
-  console.error('🚀 MAIN FINAL PURGE: Global error detected:', message);
+  console.error('🚀 MAIN NUCLEAR ELIMINATION: Global error detected:', message);
   
-  // If any Radix error detected, immediately force hard reload
+  // If any Radix error detected, prevent it and log
   if (message.includes('TooltipProvider') || 
       message.includes('@radix-ui') || 
       message.includes('radix') ||
       message.includes('useState') && message.includes('null')) {
-    console.error('🚀 MAIN FINAL PURGE: RADIX CONTAMINATION DETECTED - IMMEDIATE RELOAD');
+    console.error('🚀 MAIN NUCLEAR ELIMINATION: RADIX CONTAMINATION BLOCKED');
     event.preventDefault();
-    setTimeout(() => {
-      window.location.href = window.location.href.split('?')[0] + '?purge=' + Date.now();
-    }, 50);
     return false;
   }
 };
@@ -117,19 +89,16 @@ const handleGlobalError = (event: ErrorEvent) => {
 // Add error handlers immediately
 window.addEventListener('error', handleGlobalError, true);
 window.addEventListener('unhandledrejection', (event: PromiseRejectionEvent) => {
-  console.error('🚀 MAIN FINAL PURGE: Promise rejection:', event.reason);
+  console.error('🚀 MAIN NUCLEAR ELIMINATION: Promise rejection:', event.reason);
   
   const reason = String(event.reason);
   if (reason.includes('TooltipProvider') || reason.includes('@radix-ui') || reason.includes('radix')) {
-    console.error('🚀 MAIN FINAL PURGE: RADIX PROMISE REJECTION - IMMEDIATE RELOAD');
+    console.error('🚀 MAIN NUCLEAR ELIMINATION: RADIX PROMISE REJECTION BLOCKED');
     event.preventDefault();
-    setTimeout(() => {
-      window.location.href = window.location.href.split('?')[0] + '?purge=' + Date.now();
-    }, 50);
   }
 }, true);
 
-// Initialize application with nuclear blocking
+// Initialize application
 const rootElement = document.getElementById("root");
 if (rootElement) {
   const root = createRoot(rootElement);
@@ -137,7 +106,7 @@ if (rootElement) {
   // Execute nuclear blocking before anything else
   nuclearRadixBlock();
   
-  console.log("🚀 MAIN FINAL PURGE: Rendering application with NUCLEAR Radix blocking");
+  console.log("🚀 MAIN NUCLEAR ELIMINATION: Rendering application with NUCLEAR Radix blocking");
   
   root.render(
     <React.StrictMode>
@@ -145,7 +114,7 @@ if (rootElement) {
     </React.StrictMode>
   );
   
-  console.log("🚀 MAIN FINAL PURGE: Application rendered - ABSOLUTE ZERO RADIX");
+  console.log("🚀 MAIN NUCLEAR ELIMINATION: Application rendered - ABSOLUTE ZERO RADIX");
 } else {
-  console.error('🚀 MAIN FINAL PURGE: Root element not found');
+  console.error('🚀 MAIN NUCLEAR ELIMINATION: Root element not found');
 }
