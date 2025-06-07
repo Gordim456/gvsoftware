@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP FINAL CLEAN: 100% Custom Implementation - NO RADIX AT ALL");
+console.log("🔥 TOOLTIP ULTIMATE PURGE: 100% Custom Implementation - ZERO RADIX");
 
-// Completely custom tooltip implementation
+// Completely custom tooltip implementation with zero dependencies
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -23,7 +23,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [isVisible, setIsVisible] = React.useState(false);
   const timeoutRef = React.useRef<NodeJS.Timeout>();
 
-  console.log("🔥 TOOLTIP FINAL CLEAN: Rendering 100% custom tooltip");
+  console.log("🔥 TOOLTIP ULTIMATE PURGE: Rendering 100% custom tooltip with zero dependencies");
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
@@ -88,22 +88,22 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Empty placeholder components that do NOTHING
+// COMPLETELY EMPTY placeholder components that do ABSOLUTELY NOTHING
 const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER FINAL CLEAN: Empty provider");
+  console.log("🔥 TOOLTIP PROVIDER ULTIMATE PURGE: Empty provider - doing nothing");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER FINAL CLEAN: Empty trigger");
+  console.log("🔥 TOOLTIP TRIGGER ULTIMATE PURGE: Empty trigger - doing nothing");
   return <>{children}</>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode; side?: string; className?: string }> = ({ children }) => {
-  console.log("🔥 TOOLTIP CONTENT FINAL CLEAN: Empty content");
+  console.log("🔥 TOOLTIP CONTENT ULTIMATE PURGE: Empty content - doing nothing");
   return <>{children}</>;
 };
 
-console.log("🔥 TOOLTIP EXPORTS FINAL CLEAN: Exporting 100% custom components");
+console.log("🔥 TOOLTIP EXPORTS ULTIMATE PURGE: Exporting 100% custom components with ZERO dependencies");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };

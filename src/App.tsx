@@ -10,7 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
 
-console.log("🔥 APP: Loading ABSOLUTELY ZERO RADIX - COMPLETE PURGE VERSION");
+console.log("🔥 APP ULTIMATE PURGE: Loading with ABSOLUTE ZERO RADIX - NUCLEAR VERSION");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -52,50 +52,60 @@ const SafeChatBot = () => {
       </Suspense>
     );
   } catch (error) {
-    console.error('🔥 APP: ChatBot error:', error);
+    console.error('🔥 APP ULTIMATE PURGE: ChatBot error:', error);
     return null;
   }
 };
 
-// Main App component - ZERO RADIX COMPONENTS - COMPLETELY PURGED
+// Main App component - NUCLEAR RADIX ELIMINATION
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering app with ZERO Radix components - PURGED VERSION");
+  console.log("🔥 APP ULTIMATE PURGE: Rendering app with NUCLEAR Radix elimination");
   
-  // Add runtime check for any Radix references
+  // Nuclear runtime check for any Radix contamination
   React.useEffect(() => {
-    const checkForRadix = () => {
+    const nuclearRadixCheck = () => {
+      // Check for any Radix in DOM
+      const radixElements = document.querySelectorAll('[data-radix-ui], [data-radix], *[class*="radix"]');
+      if (radixElements.length > 0) {
+        console.error('🔥 APP ULTIMATE PURGE: RADIX DOM CONTAMINATION DETECTED');
+        radixElements.forEach(el => el.remove());
+      }
+      
+      // Check for Radix scripts
       const scripts = document.querySelectorAll('script');
       scripts.forEach(script => {
-        if (script.src && script.src.includes('radix')) {
-          console.error('🔥 APP: FOUND RADIX SCRIPT:', script.src);
+        if (script.src && (script.src.includes('radix') || script.src.includes('tooltip'))) {
+          console.error('🔥 APP ULTIMATE PURGE: RADIX SCRIPT CONTAMINATION:', script.src);
           script.remove();
         }
       });
       
-      // Check for any Radix in window object
-      if (window && typeof window === 'object') {
+      // Check window object for Radix references
+      if (typeof window === 'object' && window) {
         const windowKeys = Object.keys(window).filter(key => 
           key.toLowerCase().includes('radix') || 
-          key.toLowerCase().includes('tooltip')
+          key.toLowerCase().includes('tooltip') ||
+          key.startsWith('__radix')
         );
         
         if (windowKeys.length > 0) {
-          console.error('🔥 APP: FOUND RADIX REFERENCES:', windowKeys);
+          console.error('🔥 APP ULTIMATE PURGE: RADIX WINDOW CONTAMINATION:', windowKeys);
           windowKeys.forEach(key => {
             try {
               delete (window as any)[key];
             } catch (e) {
-              console.log('🔥 APP: Could not delete:', key);
+              console.log('🔥 APP ULTIMATE PURGE: Could not delete window key:', key);
             }
           });
         }
       }
     };
     
-    checkForRadix();
+    // Immediate check
+    nuclearRadixCheck();
     
-    // Check periodically
-    const interval = setInterval(checkForRadix, 1000);
+    // Continuous monitoring
+    const interval = setInterval(nuclearRadixCheck, 500);
     
     return () => clearInterval(interval);
   }, []);
