@@ -43,8 +43,10 @@ const LoadingFallback = () => (
   </div>
 );
 
-// Main App component - COMPLETAMENTE LIMPO
+// Main App component - ZERO RADIX DEPENDENCIES
 const App: React.FC = () => {
+  console.log("🔥 APP: Renderizando sem nenhuma dependência Radix");
+  
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
