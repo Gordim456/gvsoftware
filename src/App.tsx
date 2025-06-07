@@ -13,6 +13,8 @@ import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 import ErrorBoundary from "./components/ErrorBoundary";
 
+console.log("🔥 APP: Carregando aplicação completamente nova - ZERO Radix");
+
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
 const Services = lazy(() => import("./pages/Services"));

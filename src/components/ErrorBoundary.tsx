@@ -1,6 +1,8 @@
 
 import React from 'react';
 
+console.log("🔥 ERROR BOUNDARY: Novo componente criado do zero");
+
 interface ErrorBoundaryState {
   hasError: boolean;
   error?: Error;

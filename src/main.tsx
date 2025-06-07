@@ -4,6 +4,8 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
+console.log("🔥 MAIN: Inicializando aplicação completamente nova");
+
 // Error boundary para toda a aplicação
 class GlobalErrorBoundary extends React.Component<
   { children: React.ReactNode },
