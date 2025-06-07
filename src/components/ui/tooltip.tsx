@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: FINAL CLEAN VERSION - Absolutely no external dependencies");
+console.log("🔥 TOOLTIP: ULTRA CLEAN VERSION - Zero external dependencies, completely standalone");
 
-// Simple, standalone tooltip component
+// Completely standalone tooltip implementation - NO RADIX UI
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -50,20 +50,22 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Static wrapper components - NO HOOKS, NO STATE, NO RADIX
-const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
-  console.log("🔥 FINAL TOOLTIP PROVIDER: Pure passthrough component - no external deps");
+// These are PURE passthrough components - no hooks, no state, no external dependencies
+const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  console.log("🔥 TOOLTIP PROVIDER: Pure React fragment - absolutely no external dependencies");
   return <>{children}</>;
 };
 
-const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => {
-  console.log("🔥 FINAL TOOLTIP TRIGGER: Pure passthrough component");
+const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
+  console.log("🔥 TOOLTIP TRIGGER: Pure React fragment");
   return <>{children}</>;
 };
 
-const TooltipContent = ({ children }: { children: React.ReactNode; className?: string }) => {
-  console.log("🔥 FINAL TOOLTIP CONTENT: Pure passthrough component");
+const TooltipContent: React.FC<{ children: React.ReactNode; className?: string }> = ({ children }) => {
+  console.log("🔥 TOOLTIP CONTENT: Pure React fragment");
   return <>{children}</>;
 };
 
+// Export everything
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
+export default Tooltip;

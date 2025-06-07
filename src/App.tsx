@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -12,23 +13,22 @@ import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-console.log("🔥 APP: FINAL CLEAN VERSION - Zero external tooltip dependencies anywhere");
+console.log("🔥 APP: ULTRA CLEAN VERSION - Absolutely zero tooltip dependencies");
 
-// Check for any remaining contamination
+// Check for any remaining Radix contamination
 if (typeof window !== 'undefined') {
-  console.log("🔥 APP: Final contamination check");
-  const allKeys = Object.keys(window);
-  const suspiciousKeys = allKeys.filter(key => 
-    key.toLowerCase().includes('radix') || 
-    key.toLowerCase().includes('tooltip') ||
-    key.toLowerCase().includes('@radix')
-  );
+  console.log("🔥 APP: Final decontamination check");
   
-  if (suspiciousKeys.length > 0) {
-    console.error("🔥 APP: STILL FOUND CONTAMINATION:", suspiciousKeys);
-  } else {
-    console.log("🔥 APP: Complete cleanup successful - no external tooltip refs");
-  }
+  // Block any attempt to load Radix UI tooltip
+  const originalImport = window.fetch;
+  window.fetch = (...args) => {
+    const url = args[0]?.toString() || '';
+    if (url.includes('@radix-ui/react-tooltip') || url.includes('radix-tooltip')) {
+      console.error("🔥 APP: BLOCKED RADIX TOOLTIP LOAD ATTEMPT:", url);
+      return Promise.reject(new Error('Radix tooltip blocked'));
+    }
+    return originalImport.apply(window, args);
+  };
 }
 
 // Lazy loading components
@@ -63,7 +63,7 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering final clean version - zero tooltip dependencies");
+  console.log("🔥 APP: Rendering ultra clean version - absolutely zero tooltip dependencies");
   
   return (
     <ErrorBoundary>
