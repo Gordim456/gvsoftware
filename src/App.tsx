@@ -15,6 +15,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 
 console.log("🔥 APP: Starting application - React version:", React.version);
 console.log("🔥 APP: React hooks available:", !!React.useState);
+console.log("🔥 APP: NO TOOLTIP PROVIDER WRAPPER - Pure React only");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -48,7 +49,7 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering main App component - no tooltip provider");
+  console.log("🔥 APP: Rendering main App component - ZERO external tooltip dependencies");
   
   return (
     <ErrorBoundary>
