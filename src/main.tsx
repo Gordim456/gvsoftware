@@ -6,14 +6,22 @@ import './index.css';
 import { analytics } from './utils/analytics';
 import { cacheService } from './utils/cacheService';
 
-console.log("🔥 MAIN: Starting COMPLETELY RADIX-FREE React application v5");
+// Extend Window interface to include custom properties
+declare global {
+  interface Window {
+    __radix_tooltip_cache?: any;
+    __radix_cache?: any;
+  }
+}
+
+console.log("🔥 MAIN: Starting COMPLETELY RADIX-FREE React application v6");
 console.log("🔥 MAIN: React version:", React.version);
 console.log("🔥 MAIN: React object:", React);
 
 // Force clear any cached modules that might reference Radix
 if (typeof window !== 'undefined') {
-  console.log("🔥 MAIN: Clearing any cached Radix references v5");
-  // @ts-ignore - intentionally clearing potential cache
+  console.log("🔥 MAIN: Clearing any cached Radix references v6");
+  // Clear potential cache with proper typing
   delete window.__radix_tooltip_cache;
   delete window.__radix_cache;
 }
@@ -27,7 +35,7 @@ if (!React || !React.useState) {
 // Initialize services before rendering
 const initializeApp = async () => {
   try {
-    console.log("🔥 MAIN: Initializing services - COMPLETELY TOOLTIP-FREE v5");
+    console.log("🔥 MAIN: Initializing services - COMPLETELY TOOLTIP-FREE v6");
     
     // Initialize analytics
     analytics.init();
@@ -35,7 +43,7 @@ const initializeApp = async () => {
     // Initialize cache service
     await cacheService.init();
     
-    console.log('🔥 GV Software: App initialized successfully - COMPLETELY CLEAN v5');
+    console.log('🔥 GV Software: App initialized successfully - COMPLETELY CLEAN v6');
     
     // Track app start
     analytics.trackEvent('app_start', {
@@ -51,7 +59,7 @@ const initializeApp = async () => {
 
 // Enhanced error handling with React context check
 const handleGlobalError = (event: ErrorEvent) => {
-  console.error('🔥 GLOBAL ERROR v5:', {
+  console.error('🔥 GLOBAL ERROR v6:', {
     message: event.error?.message || event.message,
     filename: event.filename,
     lineno: event.lineno,
@@ -74,7 +82,7 @@ const handleGlobalError = (event: ErrorEvent) => {
 };
 
 const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
-  console.error('🔥 UNHANDLED REJECTION v5:', {
+  console.error('🔥 UNHANDLED REJECTION v6:', {
     reason: event.reason,
     type: 'unhandled_rejection',
     react_context: !!React,
@@ -95,12 +103,12 @@ const rootElement = document.getElementById("root");
 if (rootElement) {
   const root = createRoot(rootElement);
   
-  console.log("🔥 MAIN: Creating root and initializing v5");
+  console.log("🔥 MAIN: Creating root and initializing v6");
   console.log("🔥 MAIN: React context check:", !!React, !!React?.useState);
   
   // Initialize services and render
   initializeApp().then(() => {
-    console.log("🔥 MAIN: About to render CLEAN App - ABSOLUTELY NO RADIX TOOLTIP v5");
+    console.log("🔥 MAIN: About to render CLEAN App - ABSOLUTELY NO RADIX TOOLTIP v6");
     
     try {
       // Final React check before rendering
@@ -113,23 +121,23 @@ if (rootElement) {
           <App />
         </React.StrictMode>
       );
-      console.log("🔥 MAIN: App rendered successfully v5");
+      console.log("🔥 MAIN: App rendered successfully v6");
     } catch (error) {
-      console.error("🔥 MAIN: Error rendering app v5:", error);
+      console.error("🔥 MAIN: Error rendering app v6:", error);
       
       // Fallback render without StrictMode
       try {
         root.render(<App />);
-        console.log("🔥 MAIN: App rendered with fallback method v5");
+        console.log("🔥 MAIN: App rendered with fallback method v6");
       } catch (fallbackError) {
-        console.error("🔥 MAIN: Fallback render failed v5:", fallbackError);
+        console.error("🔥 MAIN: Fallback render failed v6:", fallbackError);
         rootElement.innerHTML = '<div style="padding: 20px; color: red; font-family: monospace;">❌ Application failed to load. Please refresh the page.</div>';
       }
     }
   }).catch((error) => {
-    console.error("🔥 MAIN: Error during initialization v5:", error);
+    console.error("🔥 MAIN: Error during initialization v6:", error);
     rootElement.innerHTML = '<div style="padding: 20px; color: red; font-family: monospace;">❌ Application initialization failed. Please refresh the page.</div>';
   });
 } else {
-  console.error('🔥 MAIN: Root element not found v5');
+  console.error('🔥 MAIN: Root element not found v6');
 }
