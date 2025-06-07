@@ -10,12 +10,12 @@ console.log("🚀 MAIN: ULTRA CLEAN START - Zero tooltip dependencies, aggressiv
 if (typeof window !== 'undefined') {
   console.log("🚀 MAIN: Implementing aggressive Radix blocking");
   
-  // Block module resolution for Radix tooltip
+  // Block module resolution for Radix tooltip with proper typing
   const originalResolve = Promise.resolve;
-  Promise.resolve = function(value) {
+  (Promise as any).resolve = function<T>(value?: T | PromiseLike<T>): Promise<Awaited<T>> {
     if (typeof value === 'string' && (value.includes('@radix-ui/react-tooltip') || value.includes('radix-tooltip'))) {
       console.error("🚀 MAIN: BLOCKED RADIX TOOLTIP PROMISE:", value);
-      return originalResolve.call(this, null);
+      return originalResolve.call(this, null as any);
     }
     return originalResolve.call(this, value);
   };
