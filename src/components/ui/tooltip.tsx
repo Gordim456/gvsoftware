@@ -2,7 +2,22 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: Custom implementation - completely standalone");
+console.log("🔥 TOOLTIP: Final custom implementation - completely standalone");
+
+// Block any attempts to import Radix UI tooltip
+if (typeof window !== 'undefined') {
+  // Override any module resolution attempts
+  const originalImport = (window as any).__vitePreload;
+  if (originalImport) {
+    (window as any).__vitePreload = (deps: any, cb: any) => {
+      const filteredDeps = deps.filter((dep: string) => 
+        !dep.includes('@radix-ui/react-tooltip') && 
+        !dep.includes('radix-tooltip')
+      );
+      return originalImport(filteredDeps, cb);
+    };
+  }
+}
 
 // Completely standalone tooltip implementation
 interface TooltipProps {
@@ -50,8 +65,9 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Pure passthrough components for API compatibility
+// These components are pure passthroughs for API compatibility
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  console.log("🔥 TOOLTIP PROVIDER: Using custom passthrough - no external dependencies");
   return <>{children}</>;
 };
 
