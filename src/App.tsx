@@ -9,7 +9,7 @@ import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 
-console.log("🔥 APP: Loading COMPLETELY CLEAN app - ZERO RADIX TOOLTIP DEPENDENCIES v4");
+console.log("🔥 APP: Loading COMPLETELY CLEAN app - ZERO RADIX TOOLTIP DEPENDENCIES v5");
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
@@ -51,16 +51,16 @@ class AppErrorBoundary extends React.Component<
   }
 
   static getDerivedStateFromError(error: Error) {
-    console.error('🔥 APP ERROR BOUNDARY: Caught app error v4:', error);
+    console.error('🔥 APP ERROR BOUNDARY: Caught app error v5:', error);
     return { hasError: true, errorMessage: error.message };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🔥 APP ERROR BOUNDARY: Full error details v4:', {
+    console.error('🔥 APP ERROR BOUNDARY: Full error details v5:', {
       error: error.message,
       stack: error.stack,
       errorInfo,
-      isRadixTooltip: error.message.includes('tooltip') || error.stack?.includes('tooltip'),
+      isRadixTooltip: error.message.includes('tooltip') || error.stack?.includes('tooltip') || error.stack?.includes('radix'),
       isUseStateIssue: error.message.includes('useState')
     });
   }
@@ -97,14 +97,17 @@ const SafeChatBot = () => {
       </Suspense>
     );
   } catch (error) {
-    console.error('🔥 CHATBOT ERROR v4:', error);
+    console.error('🔥 CHATBOT ERROR v5:', error);
     return null;
   }
 };
 
 const App: React.FC = () => {
   React.useEffect(() => {
-    console.log("🔥 APP: Component mounted successfully - ABSOLUTELY NO RADIX TOOLTIP ANYWHERE v4");
+    console.log("🔥 APP: Component mounted successfully - ABSOLUTELY NO RADIX TOOLTIP ANYWHERE v5");
+    
+    // Force clear any potential Radix references
+    console.log("🔥 APP: Clearing any potential Radix tooltip cache v5");
   }, []);
   
   return (

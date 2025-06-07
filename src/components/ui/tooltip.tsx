@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: Loading 100% CUSTOM tooltip - ZERO RADIX UI ANYWHERE v3");
+console.log("🔥 TOOLTIP: Loading 100% CUSTOM tooltip - ZERO RADIX UI ANYWHERE v5");
 
 // Simple custom tooltip interface
 interface TooltipProps {
@@ -22,7 +22,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [isVisible, setIsVisible] = React.useState(false);
 
   React.useEffect(() => {
-    console.log("✅ TOOLTIP: Custom tooltip mounted - COMPLETELY RADIX-FREE v3");
+    console.log("✅ TOOLTIP: Custom tooltip mounted - COMPLETELY RADIX-FREE v5");
   }, []);
 
   const positionClasses = {
@@ -54,41 +54,22 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Compatibility components for existing code - these do NOTHING with Radix
+// Compatibility components - these do NOTHING with Radix and just pass through children
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Custom provider - NO RADIX DEPENDENCIES v3");
-  
-  // Error boundary for tooltip provider
-  try {
-    return <>{children}</>;
-  } catch (error) {
-    console.error("🔥 TOOLTIP PROVIDER ERROR:", error);
-    return <>{children}</>;
-  }
+  console.log("🔥 TOOLTIP PROVIDER: Custom provider - NO RADIX DEPENDENCIES v5");
+  return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Custom trigger - NO RADIX DEPENDENCIES v3");
-  
-  try {
-    return <>{children}</>;
-  } catch (error) {
-    console.error("🔥 TOOLTIP TRIGGER ERROR:", error);
-    return <>{children}</>;
-  }
+  console.log("🔥 TOOLTIP TRIGGER: Custom trigger - NO RADIX DEPENDENCIES v5");
+  return <>{children}</>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP CONTENT: Custom content - NO RADIX DEPENDENCIES v3");
-  
-  try {
-    return <>{children}</>;
-  } catch (error) {
-    console.error("🔥 TOOLTIP CONTENT ERROR:", error);
-    return <>{children}</>;
-  }
+  console.log("🔥 TOOLTIP CONTENT: Custom content - NO RADIX DEPENDENCIES v5");
+  return <>{children}</>;
 };
 
-console.log("🔥 TOOLTIP EXPORTS: Exporting CUSTOM components - ZERO RADIX UI v3");
+console.log("🔥 TOOLTIP EXPORTS: Exporting CUSTOM components - ZERO RADIX UI v5");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
