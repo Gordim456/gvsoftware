@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-// Tooltip completamente standalone - SEM Radix UI
+// Completely standalone tooltip implementation
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -48,7 +48,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes de compatibilidade - COMPLETAMENTE VAZIOS
+// Empty compatibility components - these do nothing but prevent import errors
 const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
   return <>{children}</>;
 };
