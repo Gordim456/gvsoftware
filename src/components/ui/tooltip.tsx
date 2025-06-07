@@ -2,9 +2,8 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("Custom tooltip component loaded - completely independent implementation");
+console.log("Tooltip component - 100% custom implementation, zero external dependencies");
 
-// Implementação 100% customizada sem qualquer dependência externa
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -19,15 +18,6 @@ const Tooltip: React.FC<TooltipProps> = ({
   className 
 }) => {
   const [isVisible, setIsVisible] = React.useState(false);
-  const [isMounted, setIsMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return <>{children}</>;
-  }
 
   const positionClasses = {
     top: "bottom-full left-1/2 transform -translate-x-1/2 mb-2",
@@ -58,18 +48,18 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes de compatibilidade - totalmente independentes
+// Componentes de compatibilidade sem usar hooks problemáticos
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("Independent TooltipProvider - no external dependencies");
-  return <>{children}</>;
+  console.log("TooltipProvider - simple wrapper, no hooks, no dependencies");
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  return <>{children}</>;
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <>{children}</>;
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };

@@ -6,7 +6,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { type ThemeProviderProps } from "next-themes/dist/types"
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  console.log("ThemeProvider rendering - no tooltip dependencies");
+  console.log("ThemeProvider rendering - completely clean, no tooltip dependencies");
   return (
     <NextThemesProvider {...props}>
       {children}
