@@ -2,17 +2,17 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: Completely isolated custom implementation");
+console.log("🔥 TOOLTIP: NUCLEAR ELIMINATION - Zero Radix dependency");
 
-// Completely custom tooltip that has no relation to Radix UI
-interface CustomTooltipProps {
+// COMPLETELY ISOLATED tooltip implementation - NO external dependencies
+interface PureTooltipProps {
   children: React.ReactNode;
   content: string;
   side?: "top" | "bottom" | "left" | "right";
   className?: string;
 }
 
-const CustomTooltip: React.FC<CustomTooltipProps> = ({ 
+const PureTooltip: React.FC<PureTooltipProps> = ({ 
   children, 
   content, 
   side = "top", 
@@ -50,23 +50,23 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
   );
 };
 
-// Export only our custom implementation
-const Tooltip = CustomTooltip;
+// NUCLEAR SAFE exports - no hooks, no dependencies
+const Tooltip = PureTooltip;
 
-// Simple passthrough components that don't use any hooks
 const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Simple passthrough - no hooks");
-  return children as React.ReactElement;
+  console.log("🔥 TOOLTIP PROVIDER: NUCLEAR SAFE - no hooks, no Radix");
+  // Just return children directly - no wrapping, no hooks, no nothing
+  return <>{children}</>;
 };
 
 const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Simple passthrough - no hooks");
-  return children as React.ReactElement;
+  console.log("🔥 TOOLTIP TRIGGER: NUCLEAR SAFE - no hooks, no Radix");
+  return <>{children}</>;
 };
 
 const TooltipContent = ({ children }: { children: React.ReactNode; className?: string }) => {
-  console.log("🔥 TOOLTIP CONTENT: Simple passthrough - no hooks");
-  return children as React.ReactElement;
+  console.log("🔥 TOOLTIP CONTENT: NUCLEAR SAFE - no hooks, no Radix");
+  return <>{children}</>;
 };
 
-export { Tooltip, CustomTooltip, TooltipProvider, TooltipTrigger, TooltipContent };
+export { Tooltip, PureTooltip, TooltipProvider, TooltipTrigger, TooltipContent };
