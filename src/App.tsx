@@ -11,9 +11,9 @@ import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
 import ChatBot from "./components/chat/ChatBot";
 
-console.log("🔥 APP: Loading with direct ChatBot import");
+console.log("🔥 APP: Loading with simplified ChatBot");
 
-// Lazy loading components (ChatBot agora é importado diretamente)
+// Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
 const Services = lazy(() => import("./pages/Services"));
 const Portfolio = lazy(() => import("./pages/Portfolio"));
@@ -45,7 +45,7 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering app with direct ChatBot");
+  console.log("🔥 APP: Rendering app with simplified ChatBot");
   
   return (
     <QueryClientProvider client={queryClient}>
