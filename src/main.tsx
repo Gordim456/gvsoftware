@@ -6,7 +6,7 @@ import './index.css';
 import { analytics } from './utils/analytics';
 import { cacheService } from './utils/cacheService';
 
-console.log("Starting main.tsx - initializing app without any Radix UI dependencies");
+console.log("Starting main.tsx - completely free of any Radix UI tooltip dependencies");
 
 // Initialize services before rendering
 const initializeApp = async () => {
@@ -18,7 +18,7 @@ const initializeApp = async () => {
     await cacheService.init();
     
     // Log app initialization
-    console.log('GV Software App initialized successfully');
+    console.log('GV Software App initialized successfully - no tooltip dependencies');
     
     // Track app start
     analytics.trackEvent('app_start', {
@@ -39,7 +39,7 @@ if (rootElement) {
   
   // Initialize services and render
   initializeApp().then(() => {
-    console.log("About to render App component - no Radix UI tooltips");
+    console.log("About to render App component - zero tooltip dependencies");
     root.render(
       <React.StrictMode>
         <App />
