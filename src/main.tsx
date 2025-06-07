@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
@@ -6,7 +5,7 @@ import './index.css';
 import { analytics } from './utils/analytics';
 import { cacheService } from './utils/cacheService';
 
-console.log("Starting main.tsx - completely free of any Radix UI tooltip dependencies");
+console.log("MAIN.TSX: Starting application - ZERO RADIX UI TOOLTIP DEPENDENCIES");
 
 // Initialize services before rendering
 const initializeApp = async () => {

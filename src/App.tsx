@@ -53,7 +53,7 @@ const SafeChatBot = () => {
 };
 
 const App: React.FC = () => {
-  console.log("App rendering - ZERO RADIX UI TOOLTIP DEPENDENCIES - COMPLETELY CLEAN");
+  console.log("APP.TSX: Rendering - COMPLETELY FREE OF RADIX UI TOOLTIP");
   
   return (
     <QueryClientProvider client={queryClient}>
