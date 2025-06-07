@@ -12,7 +12,7 @@ import SimpleChatBot from "./components/chat/SimpleChatBot";
 
 console.log("🔥 APP: Aplicação completamente limpa sem Radix");
 
-// Lazy loading
+// Lazy loading - removendo About antigo
 const Home = lazy(() => import("./pages/Home"));
 const Services = lazy(() => import("./pages/Services"));
 const Portfolio = lazy(() => import("./pages/Portfolio"));
@@ -43,7 +43,7 @@ const LoadingFallback = () => (
 );
 
 const App: React.FC = () => {
-  console.log("🔥 APP: Renderizando completamente limpo sem Radix");
+  console.log("🔥 APP: Renderizando completamente limpo sem Radix - usando CleanAbout");
   
   return (
     <QueryClientProvider client={queryClient}>
