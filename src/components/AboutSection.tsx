@@ -35,16 +35,16 @@ const AboutSection: React.FC = () => {
             
             <div className="flex gap-6 mt-6">
               <div>
-                <h4 className="text-3xl font-bold text-green-400">+1</h4>
+                <h4 className="text-3xl font-bold text-green-400">+3</h4>
                 <p className="text-gv-gray text-sm">Projetos Finalizados</p>
               </div>
               <div>
-                <h4 className="text-3xl font-bold text-green-400">+1</h4>
+                <h4 className="text-3xl font-bold text-green-400">+3</h4>
                 <p className="text-gv-gray text-sm">Clientes Satisfeitos</p>
               </div>
               <div>
                 <h4 className="text-3xl font-bold text-green-400">Primeiro Ano</h4>
-                <p className="text-gv-gray text-sm">Anos de Experiência</p>
+                <p className="text-gv-gray text-sm">De Experiência</p>
               </div>
               <div>
                 <h4 className="text-3xl font-bold text-green-400">100%</h4>

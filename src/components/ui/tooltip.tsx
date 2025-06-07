@@ -2,9 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("Loading completely custom tooltip implementation - no Radix UI");
-
-// Completely custom tooltip implementation
+// Implementação de tooltip 100% customizada - sem dependências externas
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -49,9 +47,8 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// No-op components for compatibility - completely custom, no external dependencies
+// Componentes para compatibilidade - implementação 100% customizada
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("Custom TooltipProvider - completely independent implementation");
   return <>{children}</>;
 };
 

@@ -40,20 +40,20 @@ const Hero = () => {
               
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-4">
                 <div className="text-center">
-                  <h4 className="text-2xl sm:text-3xl font-bold text-green-400">10+</h4>
-                  <p className="text-gray-400 text-xs sm:text-sm">Projetos Entregues</p>
+                  <h4 className="text-2xl sm:text-3xl font-bold text-green-400">+3</h4>
+                  <p className="text-gray-400 text-xs sm:text-sm">Projetos Finalizados</p>
                 </div>
                 <div className="text-center">
-                  <h4 className="text-2xl sm:text-3xl font-bold text-green-400">5+</h4>
+                  <h4 className="text-2xl sm:text-3xl font-bold text-green-400">+3</h4>
                   <p className="text-gray-400 text-xs sm:text-sm">Clientes Satisfeitos</p>
                 </div>
                 <div className="text-center">
-                  <h4 className="text-xl sm:text-2xl md:text-3xl font-bold text-green-400">2024</h4>
-                  <p className="text-gray-400 text-xs sm:text-sm">Ano de Fundação</p>
+                  <h4 className="text-xl sm:text-2xl md:text-3xl font-bold text-green-400">Primeiro Ano</h4>
+                  <p className="text-gray-400 text-xs sm:text-sm">De Experiência</p>
                 </div>
                 <div className="text-center">
                   <h4 className="text-2xl sm:text-3xl font-bold text-green-400">100%</h4>
-                  <p className="text-gray-400 text-xs sm:text-sm">Dedicação</p>
+                  <p className="text-gray-400 text-xs sm:text-sm">Taxa de Sucesso</p>
                 </div>
               </div>
             </div>
