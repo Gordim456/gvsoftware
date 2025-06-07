@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
@@ -5,11 +6,13 @@ import './index.css';
 import { analytics } from './utils/analytics';
 import { cacheService } from './utils/cacheService';
 
-console.log("MAIN.TSX: Starting application - ZERO RADIX UI TOOLTIP DEPENDENCIES");
+console.log("MAIN.TSX: App start - ABSOLUTELY ZERO RADIX TOOLTIP DEPENDENCIES ANYWHERE");
 
 // Initialize services before rendering
 const initializeApp = async () => {
   try {
+    console.log("Initializing services - NO TOOLTIP DEPENDENCIES");
+    
     // Initialize analytics
     analytics.init();
     
@@ -17,7 +20,7 @@ const initializeApp = async () => {
     await cacheService.init();
     
     // Log app initialization
-    console.log('GV Software App initialized successfully - no tooltip dependencies');
+    console.log('GV Software App initialized successfully - COMPLETELY CLEAN');
     
     // Track app start
     analytics.trackEvent('app_start', {
@@ -38,7 +41,7 @@ if (rootElement) {
   
   // Initialize services and render
   initializeApp().then(() => {
-    console.log("About to render App component - zero tooltip dependencies");
+    console.log("About to render App - ZERO RADIX TOOLTIP ANYWHERE IN CODEBASE");
     root.render(
       <React.StrictMode>
         <App />

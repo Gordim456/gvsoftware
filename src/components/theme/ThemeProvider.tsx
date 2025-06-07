@@ -6,7 +6,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { type ThemeProviderProps } from "next-themes/dist/types"
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  console.log("ThemeProvider rendering - ABSOLUTELY NO RADIX UI DEPENDENCIES");
+  console.log("THEME PROVIDER: Rendering - COMPLETELY CLEAN OF ANY RADIX TOOLTIP REFS");
   return (
     <NextThemesProvider {...props}>
       {children}

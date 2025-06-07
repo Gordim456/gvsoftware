@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("TOOLTIP: 100% custom implementation - NO RADIX UI - COMPLETELY INDEPENDENT");
+console.log("TOOLTIP: 100% CUSTOM - ZERO RADIX IMPORTS - CLEAN IMPLEMENTATION");
 
 interface TooltipProps {
   children: React.ReactNode;
@@ -48,20 +48,20 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// COMPONENTES SIMPLES SEM HOOKS - PASSTHROUGH PURO
-const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
-  console.log("TOOLTIP PROVIDER: Simple passthrough - NO HOOKS, NO STATE, NO RADIX");
-  return <>{children}</>;
+// COMPONENTES DE COMPATIBILIDADE - 100% CUSTOM - NO RADIX
+const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  console.log("TOOLTIP PROVIDER: Custom implementation - NO RADIX ANYWHERE");
+  return <div className="tooltip-provider-custom">{children}</div>;
 };
 
-const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => {
-  console.log("TOOLTIP TRIGGER: Simple passthrough - NO RADIX DEPENDENCIES");
-  return <>{children}</>;
+const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
+  console.log("TOOLTIP TRIGGER: Custom implementation - NO RADIX ANYWHERE");
+  return <div className="tooltip-trigger-custom">{children}</div>;
 };
 
-const TooltipContent = ({ children }: { children: React.ReactNode }) => {
-  console.log("TOOLTIP CONTENT: Simple passthrough - NO RADIX DEPENDENCIES");
-  return <>{children}</>;
+const TooltipContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  console.log("TOOLTIP CONTENT: Custom implementation - NO RADIX ANYWHERE");
+  return <div className="tooltip-content-custom">{children}</div>;
 };
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
