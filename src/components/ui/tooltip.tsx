@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: FINAL CLEAN IMPLEMENTATION - Absolutely zero Radix dependencies");
+console.log("🔥 TOOLTIP: CUSTOM IMPLEMENTATION - Zero external dependencies");
 
-// Completely isolated React tooltip implementation
+// Simple tooltip component
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -50,21 +50,20 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Completely static components - NO React hooks at all
+// Static wrapper components for compatibility
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: STATIC COMPONENT - No hooks, no state, no Radix");
-  // Just return children directly - no context, no state, no hooks
-  return <React.Fragment>{children}</React.Fragment>;
+  console.log("🔥 TOOLTIP PROVIDER: Simple wrapper - no state, no hooks");
+  return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: STATIC COMPONENT - No hooks");
-  return <React.Fragment>{children}</React.Fragment>;
+  console.log("🔥 TOOLTIP TRIGGER: Simple wrapper");
+  return <>{children}</>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode; className?: string }> = ({ children }) => {
-  console.log("🔥 TOOLTIP CONTENT: STATIC COMPONENT - No hooks");
-  return <React.Fragment>{children}</React.Fragment>;
+  console.log("🔥 TOOLTIP CONTENT: Simple wrapper");
+  return <>{children}</>;
 };
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };

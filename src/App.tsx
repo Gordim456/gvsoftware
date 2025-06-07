@@ -13,9 +13,7 @@ import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-console.log("🔥 APP: FINAL CLEAN VERSION - Zero Radix UI anywhere");
-console.log("🔥 APP: React version:", React.version);
-console.log("🔥 APP: React hooks available:", !!React.useState);
+console.log("🔥 APP: CLEAN VERSION - Absolutely no Radix UI anywhere");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -49,21 +47,7 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering clean App - NO RADIX UI ANYWHERE");
-  
-  // Debug check for any accidental Radix imports
-  React.useEffect(() => {
-    console.log("🔥 APP: Component mounted - checking for Radix contamination");
-    
-    // Check window for any Radix references
-    if (typeof window !== 'undefined') {
-      const radixKeys = Object.keys(window).filter(key => 
-        key.toLowerCase().includes('radix') || 
-        key.toLowerCase().includes('tooltip')
-      );
-      console.log("🔥 APP: Window Radix keys found:", radixKeys);
-    }
-  }, []);
+  console.log("🔥 APP: Rendering completely clean App");
   
   return (
     <ErrorBoundary>
