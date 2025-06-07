@@ -1,239 +1,151 @@
 
-import { useState, useEffect, useMemo } from 'react';
-import { motion } from 'framer-motion';
-import { HelpCircle, Plus, Minus, Search } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { Input } from '@/components/ui/input';
-import SocialIcons from '@/components/SocialIcons';
+import { motion } from 'framer-motion';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
-interface FAQItem {
-  question: string;
-  answer: string;
-  category: string;
-}
-
-const FAQ = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [isVisible, setIsVisible] = useState(false);
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+const FAQ: React.FC = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    document.title = 'FAQ | GV Software';
-    // Immediate visibility for better performance
-    setIsVisible(true);
+    document.title = 'FAQ | GV Software - Perguntas Frequentes';
   }, []);
 
-  // Memoized FAQ items
-  const faqItems: FAQItem[] = useMemo(() => [
+  const faqs = [
     {
-      question: "Quanto tempo leva para desenvolver um site?",
-      answer: "O prazo varia de acordo com a complexidade do projeto. Websites simples podem levar de 2 a 4 semanas, enquanto projetos mais complexos podem levar de 2 a 6 meses. Durante nossa consulta inicial, podemos fornecer uma estimativa mais precisa com base nas suas necessidades específicas.",
-      category: "desenvolvimento"
+      question: 'Quanto tempo leva para desenvolver um projeto?',
+      answer: 'O tempo varia dependendo da complexidade do projeto. Um site simples pode levar 2-4 semanas, enquanto aplicações mais complexas podem levar 2-6 meses. Fornecemos um cronograma detalhado após a análise inicial.'
     },
     {
-      question: "Como funciona o processo de desenvolvimento?",
-      answer: "Nosso processo inclui análise de requisitos, planejamento, design, desenvolvimento, testes e lançamento. Mantemos comunicação constante com o cliente durante todas as etapas para garantir que o produto final atenda exatamente às suas expectativas.",
-      category: "desenvolvimento"
+      question: 'Qual é o processo de desenvolvimento?',
+      answer: 'Nosso processo inclui: 1) Análise e planejamento, 2) Design e prototipagem, 3) Desenvolvimento, 4) Testes, 5) Deploy e 6) Suporte pós-lançamento. Mantemos comunicação constante durante todas as fases.'
     },
     {
-      question: "Qual é o investimento para um projeto?",
-      answer: "O custo varia de acordo com as necessidades específicas do projeto. Trabalhamos com orçamentos personalizados após entender completamente os requisitos do cliente. Oferecemos opções flexíveis para atender a diferentes faixas de orçamento sem comprometer a qualidade.",
-      category: "comercial"
+      question: 'Vocês oferecem suporte após a entrega?',
+      answer: 'Sim! Oferecemos suporte técnico e manutenção após a entrega. Incluímos 3 meses de suporte gratuito e oferecemos planos de manutenção contínua conforme necessário.'
     },
     {
-      question: "Oferecem suporte após o lançamento?",
-      answer: "Sim, oferecemos pacotes de manutenção e suporte contínuo para garantir que sua solução digital permaneça atualizada e funcionando perfeitamente. Nossos planos de suporte incluem atualizações de segurança, correções de bugs e pequenas melhorias.",
-      category: "suporte"
+      question: 'Como funciona o orçamento?',
+      answer: 'Fazemos uma análise detalhada do seu projeto e fornecemos um orçamento fixo sem surpresas. O pagamento pode ser dividido em etapas conforme o progresso do desenvolvimento.'
     },
     {
-      question: "O que é design responsivo?",
-      answer: "Design responsivo é uma abordagem que faz com que seu site ou aplicativo se adapte automaticamente a diferentes tamanhos de tela e dispositivos. Isso garante que seus usuários tenham uma experiência ótima, independentemente de estarem usando um celular, tablet ou desktop.",
-      category: "design"
+      question: 'Quais tecnologias vocês utilizam?',
+      answer: 'Trabalhamos com tecnologias modernas como React, Next.js, Node.js, TypeScript, Python, React Native, Flutter e muito mais. Escolhemos a stack mais adequada para cada projeto.'
     },
     {
-      question: "Vocês desenvolvem aplicativos para iOS e Android?",
-      answer: "Sim, desenvolvemos aplicativos nativos para iOS e Android, bem como soluções híbridas que funcionam em ambas as plataformas. A escolha da abordagem dependerá das suas necessidades específicas, orçamento e prazos.",
-      category: "desenvolvimento"
+      question: 'Vocês desenvolvem aplicativos mobile?',
+      answer: 'Sim! Desenvolvemos aplicativos nativos e híbridos para iOS e Android usando React Native, Flutter e outras tecnologias modernas.'
     },
     {
-      question: "Como é feito o pagamento dos projetos?",
-      answer: "Normalmente dividimos os pagamentos em parcelas associadas a marcos do projeto. Isso inclui um pagamento inicial, pagamentos intermediários quando fases-chave são concluídas, e um pagamento final na entrega. Aceitamos diversas formas de pagamento e podemos adaptar o plano às suas necessidades.",
-      category: "comercial"
+      question: 'Como garantem a qualidade do código?',
+      answer: 'Seguimos as melhores práticas de desenvolvimento, fazemos code review, testes automatizados e utilizamos ferramentas de qualidade de código para garantir um produto robusto e escalável.'
     },
     {
-      question: "Posso solicitar alterações após o início do projeto?",
-      answer: "Sim, entendemos que projetos podem evoluir. Pequenas alterações geralmente são acomodadas sem custo adicional. Mudanças significativas no escopo podem exigir ajustes no orçamento e cronograma, que serão discutidos antes de qualquer implementação.",
-      category: "desenvolvimento"
+      question: 'Posso fazer alterações durante o desenvolvimento?',
+      answer: 'Sim, mas recomendamos definir bem os requisitos inicialmente. Pequenas alterações podem ser acomodadas, mas mudanças significativas podem impactar prazo e orçamento.'
     }
-  ], []);
-
-  // Memoized categories
-  const categories = useMemo(() => ['all', 'desenvolvimento', 'design', 'comercial', 'suporte'], []);
-
-  // Memoized filtered FAQs for better performance
-  const filteredFAQs = useMemo(() => {
-    return faqItems.filter(item => {
-      const matchesSearch = item.question.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                            item.answer.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
-      return matchesSearch && matchesCategory;
-    });
-  }, [faqItems, searchTerm, selectedCategory]);
+  ];
 
   const toggleFAQ = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
-  };
-
-  // Optimized motion variants with reduced animation complexity
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05 // Reduced stagger time
-      }
-    }
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 10 }, // Reduced movement
-    show: { opacity: 1, y: 0 }
+    setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <motion.div 
-      className="min-h-screen bg-gv-darker"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isVisible ? 1 : 0 }}
-      transition={{ duration: 0.3 }} // Shorter transition
-    >
+    <div className="min-h-screen bg-slate-950 text-white">
       <Navbar />
-      <SocialIcons />
-
-      <section className="pt-32 pb-20 relative overflow-hidden">
-        {/* Simplified decorative elements */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5"></div>
-        <div className="absolute bottom-40 right-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5"></div>
+      
+      {/* Hero Section */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: -10 }} // Reduced movement
+            className="text-center"
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }} // Shorter transition
+            transition={{ duration: 0.6 }}
           >
-            <motion.div
-              className="w-16 h-16 mx-auto bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6"
-              initial={{ scale: 0.9 }} // Less dramatic scale
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 200, damping: 20 }} // Gentler spring
-            >
-              <HelpCircle className="w-8 h-8 text-indigo-400" />
-            </motion.div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Perguntas <span className="gradient-text">Frequentes</span></h2>
-            <p className="text-gv-gray max-w-2xl mx-auto text-lg">
-              Encontre respostas para as perguntas mais comuns sobre nossos serviços e processos.
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent">
+              Perguntas <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Frequentes</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Encontre respostas para as dúvidas mais comuns sobre nossos serviços.
             </p>
-          </motion.div>
-
-          <div className="mb-12 flex flex-col md:flex-row gap-4">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <Input
-                type="text"
-                placeholder="Pesquisar perguntas..."
-                className="pl-10 bg-gv-dark border-gray-700"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-full text-sm capitalize ${
-                    selectedCategory === category
-                      ? 'bg-indigo-600 text-white'
-                      : 'bg-gv-dark text-gv-gray hover:bg-indigo-600/20'
-                  } transition-colors`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <motion.div
-            className="space-y-4"
-            variants={container}
-            initial="hidden"
-            animate="show"
-          >
-            {filteredFAQs.length > 0 ? (
-              filteredFAQs.map((faq, index) => (
-                <motion.div
-                  key={index}
-                  variants={item}
-                  className="bg-gv-dark border border-gray-800 rounded-xl overflow-hidden"
-                  style={{ willChange: 'auto' }} // Let browser optimize
-                >
-                  <button
-                    className="w-full px-6 py-4 text-left flex justify-between items-center"
-                    onClick={() => toggleFAQ(index)}
-                  >
-                    <h3 className="font-medium text-lg pr-4">{faq.question}</h3>
-                    <div className="bg-indigo-500/20 p-2 rounded-full">
-                      {expandedIndex === index ? (
-                        <Minus className="w-5 h-5 text-indigo-400" />
-                      ) : (
-                        <Plus className="w-5 h-5 text-indigo-400" />
-                      )}
-                    </div>
-                  </button>
-                  <div 
-                    className={`px-6 transition-all ease-in-out ${
-                      expandedIndex === index ? 'py-4 border-t border-gray-800 max-h-[500px]' : 'max-h-0 overflow-hidden'
-                    }`}
-                    style={{ transitionProperty: 'max-height, padding', transitionDuration: '300ms' }}
-                  >
-                    <p className="text-gv-gray">{faq.answer}</p>
-                  </div>
-                </motion.div>
-              ))
-            ) : (
-              <motion.div 
-                variants={item}
-                className="text-center py-12 bg-gv-dark border border-gray-800 rounded-xl"
-              >
-                <p className="text-gv-gray text-lg">
-                  Nenhuma pergunta encontrada para sua pesquisa. Tente outros termos ou entre em contato conosco.
-                </p>
-              </motion.div>
-            )}
-          </motion.div>
-
-          <motion.div 
-            className="mt-16 text-center"
-            initial={{ opacity: 0, y: 10 }} // Reduced movement
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.4 }} // Shorter transition with small delay
-          >
-            <p className="text-gv-gray mb-4">Ainda tem dúvidas?</p>
-            <a 
-              href="/contact" 
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg transition-all duration-300"
-            >
-              Entre em contato conosco
-            </a>
           </motion.div>
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-16 bg-slate-950">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="space-y-4">
+              {faqs.map((faq, index) => (
+                <motion.div 
+                  key={index}
+                  className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 overflow-hidden"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <button
+                    onClick={() => toggleFAQ(index)}
+                    className="w-full p-6 text-left flex items-center justify-between hover:bg-slate-800/30 transition-colors"
+                  >
+                    <h3 className="text-lg font-semibold text-white pr-4">{faq.question}</h3>
+                    {openIndex === index ? (
+                      <ChevronUp className="w-5 h-5 text-indigo-400 flex-shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-indigo-400 flex-shrink-0" />
+                    )}
+                  </button>
+                  
+                  {openIndex === index && (
+                    <motion.div 
+                      className="px-6 pb-6"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
+                    </motion.div>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Contact CTA */}
+            <motion.div 
+              className="mt-16 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.8 }}
+            >
+              <div className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 backdrop-blur-sm p-8 rounded-3xl border border-indigo-700/50">
+                <h3 className="text-2xl font-bold mb-4">Não encontrou sua resposta?</h3>
+                <p className="text-gray-300 mb-6">
+                  Entre em contato conosco e teremos prazer em esclarecer suas dúvidas.
+                </p>
+                <a 
+                  href="/contact"
+                  className="inline-block bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40"
+                >
+                  Fale Conosco
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
-    </motion.div>
+    </div>
   );
 };
 

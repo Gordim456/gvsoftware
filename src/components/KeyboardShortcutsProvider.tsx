@@ -1,83 +1,50 @@
-
-import { useEffect, useState } from 'react';
-import AdminLogin from './admin/AdminLogin';
-import AdminDashboard from '../pages/AdminDashboard';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const KeyboardShortcutsProvider = () => {
-  const [showAdminLogin, setShowAdminLogin] = useState(false);
-  const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      console.log('Tecla pressionada:', { 
-        key: event.key, 
-        ctrlKey: event.ctrlKey, 
-        shiftKey: event.shiftKey 
-      });
-
-      // CTRL + SHIFT + A para abrir painel admin
-      if (event.ctrlKey && event.shiftKey && event.key === 'A') {
+      // Ctrl/Cmd + K para busca (placeholder)
+      if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
         event.preventDefault();
-        console.log('Abrindo painel admin...');
-        setShowAdminLogin(true);
+        // Implementar busca no futuro
       }
 
-      // ESC para fechar painéis
-      if (event.key === 'Escape') {
-        console.log('Fechando painéis...');
-        setShowAdminLogin(false);
-        setShowAdminPanel(false);
+      // Alt + H para Home
+      if (event.altKey && event.key === 'h') {
+        event.preventDefault();
+        navigate('/');
+      }
+
+      // Alt + A para About
+      if (event.altKey && event.key === 'a') {
+        event.preventDefault();
+        navigate('/about');
+      }
+
+      // Alt + S para Services
+      if (event.altKey && event.key === 's') {
+        event.preventDefault();
+        navigate('/services');
+      }
+
+      // Alt + C para Contact
+      if (event.altKey && event.key === 'c') {
+        event.preventDefault();
+        navigate('/contact');
       }
     };
 
-    console.log('KeyboardShortcutsProvider montado - atalhos configurados');
-    window.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      console.log('KeyboardShortcutsProvider desmontado');
-      window.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [navigate]);
 
-  const handleAdminLogin = () => {
-    console.log('Login admin realizado com sucesso');
-    setShowAdminLogin(false);
-    setShowAdminPanel(true);
-  };
-
-  const handleAdminCancel = () => {
-    console.log('Login admin cancelado');
-    setShowAdminLogin(false);
-  };
-
-  const handleAdminBack = () => {
-    console.log('Saindo do painel admin');
-    setShowAdminPanel(false);
-  };
-
-  console.log('KeyboardShortcutsProvider renderizando:', { 
-    showAdminLogin, 
-    showAdminPanel 
-  });
-
-  return (
-    <>
-      {showAdminLogin && (
-        <div className="fixed inset-0 z-[9999]">
-          <AdminLogin 
-            onLogin={handleAdminLogin}
-            onCancel={handleAdminCancel}
-          />
-        </div>
-      )}
-      
-      {showAdminPanel && (
-        <div className="fixed inset-0 z-[9999] bg-white">
-          <AdminDashboard onBack={handleAdminBack} />
-        </div>
-      )}
-    </>
-  );
+  return null;
 };
 
 export default KeyboardShortcutsProvider;

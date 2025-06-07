@@ -1,5 +1,4 @@
 
-
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -7,14 +6,10 @@ import { lazy, Suspense } from "react";
 import CleanThemeProvider from "./components/theme/CleanThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
-import CleanAbout from "./pages/CleanAbout";
-import TestComponent from "./components/TestComponent";
-import SimpleChatBot from "./components/chat/SimpleChatBot";
 
-console.log("🔥 APP FINAL ELIMINATION: Application completely clean without Radix - ZERO TOOLTIP PROVIDER");
-
-// Lazy loading - removendo About antigo
+// Lazy loading das páginas
 const Home = lazy(() => import("./pages/Home"));
+const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
 const Portfolio = lazy(() => import("./pages/Portfolio"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -24,7 +19,7 @@ const FAQ = lazy(() => import("./pages/FAQ"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
-// Query client com configuração limpa
+// Query client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -36,7 +31,7 @@ const queryClient = new QueryClient({
   },
 });
 
-// Loading simples sem dependencies externas
+// Loading component
 const LoadingFallback = () => (
   <div className="flex items-center justify-center h-screen bg-slate-950">
     <div className="w-8 h-8 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
@@ -44,8 +39,6 @@ const LoadingFallback = () => (
 );
 
 const App: React.FC = () => {
-  console.log("🔥 APP FINAL ELIMINATION: Rendering COMPLETELY CLEAN - ZERO RADIX - ZERO TOOLTIP PROVIDER");
-  
   return (
     <QueryClientProvider client={queryClient}>
       <CleanThemeProvider>
@@ -55,7 +48,7 @@ const App: React.FC = () => {
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/about" element={<CleanAbout />} />
+              <Route path="/about" element={<About />} />
               <Route path="/services" element={<Services />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/contact" element={<Contact />} />
@@ -65,8 +58,6 @@ const App: React.FC = () => {
               <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
-            <TestComponent />
-            <SimpleChatBot />
           </Suspense>
         </BrowserRouter>
       </CleanThemeProvider>
@@ -75,4 +66,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
