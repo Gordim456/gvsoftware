@@ -1,5 +1,4 @@
 
-
 import * as React from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -25,13 +24,18 @@ interface FormData {
 
 const ChatBot: React.FC<ChatBotProps> = ({ className = '' }) => {
   console.log("🔥 CHATBOT: Component rendering with React:", React);
-  console.log("🔥 CHATBOT: useState available:", typeof React.useState);
-  console.log("🔥 CHATBOT: React.useState available:", typeof React.useState);
+  console.log("🔥 CHATBOT: useState available:", typeof React?.useState);
   
-  // Ensure React is available before using hooks
-  if (!React || !React.useState) {
+  // Early return if React is not available - BEFORE any hook calls
+  if (!React || typeof React.useState !== 'function') {
     console.error("🔥 CHATBOT: React or React.useState is not available!");
-    return null;
+    return (
+      <div className={`fixed bottom-6 right-6 z-50 ${className}`}>
+        <div className="bg-red-500 text-white p-4 rounded-lg">
+          Loading...
+        </div>
+      </div>
+    );
   }
   
   const [chatState, setChatState] = React.useState<ChatState>('closed');
@@ -241,4 +245,3 @@ const ChatBot: React.FC<ChatBotProps> = ({ className = '' }) => {
 };
 
 export default ChatBot;
-
