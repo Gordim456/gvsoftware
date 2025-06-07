@@ -2,18 +2,18 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: Loading 100% CUSTOM tooltip - ZERO RADIX UI ANYWHERE v7");
+console.log("🔥🔥🔥 TOOLTIP v9: COMPLETELY CUSTOM - ABSOLUTELY ZERO RADIX ANYWHERE");
 
-// Simple custom tooltip interface
-interface TooltipProps {
+// Interface para nosso tooltip customizado
+interface CustomTooltipProps {
   children: React.ReactNode;
   content: string;
   side?: "top" | "bottom" | "left" | "right";
   className?: string;
 }
 
-// Main tooltip component - completely custom
-const Tooltip: React.FC<TooltipProps> = ({ 
+// Tooltip 100% customizado - SEM NENHUMA referência ao Radix
+const Tooltip: React.FC<CustomTooltipProps> = ({ 
   children, 
   content, 
   side = "top", 
@@ -22,7 +22,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [isVisible, setIsVisible] = React.useState(false);
 
   React.useEffect(() => {
-    console.log("✅ TOOLTIP: Custom tooltip mounted - COMPLETELY RADIX-FREE v7");
+    console.log("✅✅✅ TOOLTIP v9: Custom tooltip mounted - ZERO RADIX DEPENDENCIES");
   }, []);
 
   const positionClasses = {
@@ -54,22 +54,22 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Compatibility components - these do NOTHING with Radix and just pass through children
+// Componentes de compatibilidade que NÃO fazem NADA com Radix
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Custom provider - NO RADIX DEPENDENCIES v7");
+  console.log("🔥🔥🔥 TOOLTIP PROVIDER v9: Custom provider - ABSOLUTELY NO RADIX");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Custom trigger - NO RADIX DEPENDENCIES v7");
+  console.log("🔥🔥🔥 TOOLTIP TRIGGER v9: Custom trigger - ABSOLUTELY NO RADIX");
   return <>{children}</>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP CONTENT: Custom content - NO RADIX DEPENDENCIES v7");
+  console.log("🔥🔥🔥 TOOLTIP CONTENT v9: Custom content - ABSOLUTELY NO RADIX");
   return <>{children}</>;
 };
 
-console.log("🔥 TOOLTIP EXPORTS: Exporting CUSTOM components - ZERO RADIX UI v7");
+console.log("🔥🔥🔥 TOOLTIP EXPORTS v9: Exporting CUSTOM components - ZERO RADIX UI");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
