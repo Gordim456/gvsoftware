@@ -2,6 +2,8 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
+console.log("🔥 TOOLTIP NUCLEAR OPTION: 100% Standalone Implementation - ZERO external deps");
+
 // Completely standalone tooltip implementation - NO external dependencies
 interface TooltipProps {
   children: React.ReactNode;
@@ -17,6 +19,8 @@ const Tooltip: React.FC<TooltipProps> = ({
   className 
 }) => {
   const [isVisible, setIsVisible] = React.useState(false);
+
+  console.log("🔥 TOOLTIP NUCLEAR OPTION: Rendering standalone tooltip");
 
   const positionClasses = {
     top: "bottom-full left-1/2 transform -translate-x-1/2 mb-2",
@@ -48,18 +52,23 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Simple passthrough components with NO hooks or external dependencies
+// Dummy components that do nothing - NO hooks, NO state, NO external deps
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  console.log("🔥 TOOLTIP NUCLEAR OPTION: TooltipProvider passthrough");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
+  console.log("🔥 TOOLTIP NUCLEAR OPTION: TooltipTrigger passthrough");
   return <>{children}</>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode; className?: string }> = ({ children }) => {
+  console.log("🔥 TOOLTIP NUCLEAR OPTION: TooltipContent passthrough");
   return <>{children}</>;
 };
+
+console.log("🔥 TOOLTIP NUCLEAR OPTION: Exporting standalone components - ABSOLUTELY NO RADIX");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
 export default Tooltip;

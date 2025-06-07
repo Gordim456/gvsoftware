@@ -13,6 +13,8 @@ import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 import ErrorBoundary from "./components/ErrorBoundary";
 
+console.log("🔥 APP: NUCLEAR CLEAN VERSION - NO TOOLTIP PROVIDER");
+
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
 const Services = lazy(() => import("./pages/Services"));
@@ -43,8 +45,10 @@ const LoadingFallback = () => (
   </div>
 );
 
-// Main App component
+// Main App component - COMPLETELY CLEAN OF TOOLTIP PROVIDER
 const App: React.FC = () => {
+  console.log("🔥 APP: Rendering clean app - NO RADIX TOOLTIP PROVIDER");
+  
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
