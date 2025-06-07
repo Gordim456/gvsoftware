@@ -9,7 +9,7 @@ import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 
-console.log("🔥 APP: Loading COMPLETELY CLEAN app - ZERO RADIX TOOLTIP DEPENDENCIES");
+console.log("🔥 APP: Loading COMPLETELY CLEAN app - ZERO RADIX TOOLTIP DEPENDENCIES v4");
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
@@ -43,32 +43,41 @@ const LoadingFallback = () => (
 // Error boundary for the entire app
 class AppErrorBoundary extends React.Component<
   { children: React.ReactNode },
-  { hasError: boolean }
+  { hasError: boolean; errorMessage: string }
 > {
   constructor(props: { children: React.ReactNode }) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, errorMessage: '' };
   }
 
-  static getDerivedStateFromError() {
-    return { hasError: true };
+  static getDerivedStateFromError(error: Error) {
+    console.error('🔥 APP ERROR BOUNDARY: Caught app error v4:', error);
+    return { hasError: true, errorMessage: error.message };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🔥 APP ERROR BOUNDARY: Caught app error:', error, errorInfo);
+    console.error('🔥 APP ERROR BOUNDARY: Full error details v4:', {
+      error: error.message,
+      stack: error.stack,
+      errorInfo,
+      isRadixTooltip: error.message.includes('tooltip') || error.stack?.includes('tooltip'),
+      isUseStateIssue: error.message.includes('useState')
+    });
   }
 
   render() {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4">Something went wrong</h1>
+          <div className="text-center p-8">
+            <h1 className="text-2xl font-bold mb-4">Application Error</h1>
+            <p className="text-gray-300 mb-4">Something went wrong while loading the application.</p>
+            <p className="text-sm text-gray-400 mb-6">Error: {this.state.errorMessage}</p>
             <button 
               onClick={() => window.location.reload()} 
-              className="px-4 py-2 bg-indigo-600 rounded hover:bg-indigo-700"
+              className="px-6 py-3 bg-indigo-600 rounded hover:bg-indigo-700 transition-colors"
             >
-              Reload Page
+              Reload Application
             </button>
           </div>
         </div>
@@ -79,7 +88,7 @@ class AppErrorBoundary extends React.Component<
   }
 }
 
-// Safe ChatBot component
+// Safe ChatBot component with error boundary
 const SafeChatBot = () => {
   try {
     return (
@@ -88,14 +97,14 @@ const SafeChatBot = () => {
       </Suspense>
     );
   } catch (error) {
-    console.error('🔥 CHATBOT ERROR:', error);
+    console.error('🔥 CHATBOT ERROR v4:', error);
     return null;
   }
 };
 
 const App: React.FC = () => {
   React.useEffect(() => {
-    console.log("🔥 APP: Component mounted successfully - ABSOLUTELY NO RADIX TOOLTIP ANYWHERE");
+    console.log("🔥 APP: Component mounted successfully - ABSOLUTELY NO RADIX TOOLTIP ANYWHERE v4");
   }, []);
   
   return (
