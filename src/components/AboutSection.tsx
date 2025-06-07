@@ -8,6 +8,8 @@ import AboutHeader from './about/AboutHeader';
 import AboutFeatures from './about/AboutFeatures';
 import AboutImage from './about/AboutImage';
 
+console.log("🔥 ABOUT SECTION: Loading clean version");
+
 const AboutSection: React.FC = () => {
   return (
     <section id="about" className="py-20 bg-gv-darker relative overflow-hidden">

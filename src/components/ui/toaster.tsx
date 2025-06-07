@@ -10,6 +10,8 @@ import {
   ToastViewport,
 } from "@/components/ui/toast"
 
+console.log("🔥 TOASTER: Loading clean version");
+
 export function Toaster() {
   const { toasts } = useToast()
 

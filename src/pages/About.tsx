@@ -8,10 +8,13 @@ import AboutStats from '../components/about/AboutStats';
 import AboutMissionVision from '../components/about/AboutMissionVision';
 import AboutFeatureGrid from '../components/about/AboutFeatureGrid';
 
+console.log("🔥 ABOUT PAGE: Loading without any Radix dependencies");
+
 const About: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    console.log("🔥 ABOUT PAGE: useEffect running");
     document.title = 'Sobre | GV Software - Nossa História e Missão';
     setIsLoaded(true);
     
@@ -23,6 +26,8 @@ const About: React.FC = () => {
       document.head.appendChild(meta);
     }
   }, []);
+
+  console.log("🔥 ABOUT PAGE: Rendering, isLoaded:", isLoaded);
 
   if (!isLoaded) {
     return (

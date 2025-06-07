@@ -10,6 +10,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { submitContactForm, ContactFormData } from '@/services/contactService';
 import { CheckCircle, AlertCircle, SendHorizontal } from 'lucide-react';
 
+console.log("🔥 CONTACT FORM: Loading clean version without Radix dependencies");
+
 const formSchema = z.object({
   name: z.string().min(2, { message: "O nome deve ter pelo menos 2 caracteres." }),
   lastName: z.string().min(2, { message: "O sobrenome deve ter pelo menos 2 caracteres." }),
@@ -39,6 +41,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSuccess }) => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log("🔥 CONTACT FORM: Submitting form");
     setIsSubmitting(true);
     try {
       const formData: ContactFormData = {
@@ -57,7 +60,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSuccess }) => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     } catch (error) {
-      console.error("Erro ao enviar formulário:", error);
+      console.error("🔥 CONTACT FORM: Erro ao enviar formulário:", error);
     } finally {
       setIsSubmitting(false);
     }
