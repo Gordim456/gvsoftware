@@ -1,7 +1,8 @@
 
-import React, { createContext, useContext, useEffect, useState } from "react"
+import * as React from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 
-console.log("🔥 THEME PROVIDER FINAL: CARREGANDO TOTALMENTE LIMPO");
+console.log("🔥 THEME PROVIDER: Custom implementation - NO RADIX");
 
 type Theme = "dark" | "light" | "system"
 
@@ -28,52 +29,42 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 export function ThemeProvider({
   children,
   defaultTheme = "system",
-  storageKey = "gv-software-theme",
+  storageKey = "vite-ui-theme",
   attribute = "class",
   enableSystem = true,
   ...props
 }: ThemeProviderProps) {
-  console.log("🔥 THEME PROVIDER FINAL: Inicializando provider customizado");
+  console.log("🔥 THEME PROVIDER: Rendering theme provider - CLEAN");
   
-  const [theme, setTheme] = useState<Theme>(() => {
-    try {
-      return (localStorage.getItem(storageKey) as Theme) || defaultTheme;
-    } catch {
-      return defaultTheme;
-    }
-  });
+  const [theme, setTheme] = useState<Theme>(
+    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+  )
 
   useEffect(() => {
-    try {
-      const root = window.document.documentElement;
-      root.classList.remove("light", "dark");
+    const root = window.document.documentElement
 
-      if (theme === "system" && enableSystem) {
-        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-        root.classList.add(systemTheme);
-        return;
-      }
+    root.classList.remove("light", "dark")
 
-      root.classList.add(theme);
-    } catch (error) {
-      console.error("🔥 THEME PROVIDER FINAL: Erro ao aplicar tema:", error);
+    if (theme === "system" && enableSystem) {
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "dark"
+        : "light"
+
+      root.classList.add(systemTheme)
+      return
     }
-  }, [theme, enableSystem]);
+
+    root.classList.add(theme)
+  }, [theme, enableSystem])
 
   const value = {
     theme,
     setTheme: (theme: Theme) => {
-      try {
-        localStorage.setItem(storageKey, theme);
-        setTheme(theme);
-      } catch (error) {
-        console.error("🔥 THEME PROVIDER FINAL: Erro ao salvar tema:", error);
-        setTheme(theme);
-      }
+      localStorage.setItem(storageKey, theme)
+      setTheme(theme)
     },
-  };
-
-  console.log("🔥 THEME PROVIDER FINAL: Renderizando provider limpo");
+  }
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
@@ -83,12 +74,10 @@ export function ThemeProvider({
 }
 
 export const useTheme = () => {
-  const context = useContext(ThemeProviderContext);
+  const context = useContext(ThemeProviderContext)
 
-  if (context === undefined) {
-    console.error("🔥 THEME PROVIDER FINAL: useTheme usado fora do ThemeProvider");
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
+  if (context === undefined)
+    throw new Error("useTheme must be used within a ThemeProvider")
 
-  return context;
+  return context
 }

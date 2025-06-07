@@ -10,7 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
 
-console.log("🚀 APP: Loading ULTRA CLEAN application - ZERO RADIX");
+console.log("🔥 APP: Loading ULTRA CLEAN application - ABSOLUTELY ZERO RADIX");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -52,14 +52,14 @@ const SafeChatBot = () => {
       </Suspense>
     );
   } catch (error) {
-    console.error('🚀 APP: ChatBot error:', error);
+    console.error('🔥 APP: ChatBot error:', error);
     return null;
   }
 };
 
 // Main App component - ABSOLUTELY NO RADIX COMPONENTS
 const App: React.FC = () => {
-  console.log("🚀 APP: Rendering app with ZERO Radix components");
+  console.log("🔥 APP: Rendering app with ABSOLUTELY ZERO Radix components");
   
   return (
     <QueryClientProvider client={queryClient}>
