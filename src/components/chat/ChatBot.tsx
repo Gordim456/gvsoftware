@@ -1,8 +1,8 @@
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { MessageCircle, X } from "lucide-react";
 
-const ChatBot = () => {
+const ChatBot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleChat = () => {
