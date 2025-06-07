@@ -6,15 +6,7 @@ import './index.css';
 import { analytics } from './utils/analytics';
 import { cacheService } from './utils/cacheService';
 
-console.log("Starting main.tsx - checking for any Radix UI tooltip imports");
-
-// Check if there are any Radix UI tooltip imports that might be causing issues
-try {
-  // This will help us identify if there are any lingering Radix UI imports
-  console.log("React version:", React.version);
-} catch (error) {
-  console.error("Error in main.tsx:", error);
-}
+console.log("Starting main.tsx - initializing app without any Radix UI dependencies");
 
 // Initialize services before rendering
 const initializeApp = async () => {
@@ -47,7 +39,7 @@ if (rootElement) {
   
   // Initialize services and render
   initializeApp().then(() => {
-    console.log("About to render App component");
+    console.log("About to render App component - no Radix UI tooltips");
     root.render(
       <React.StrictMode>
         <App />
