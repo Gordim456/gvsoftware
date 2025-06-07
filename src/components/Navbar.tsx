@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { Menu, X, Code } from 'lucide-react';
@@ -11,6 +10,12 @@ console.log("🔥 NAVBAR: useState available:", typeof React.useState);
 
 const Navbar: React.FC = () => {
   console.log("🔥 NAVBAR: Component rendering, React:", React);
+  
+  // Ensure React is available before using hooks
+  if (!React || !React.useState) {
+    console.error("🔥 NAVBAR: React or React.useState is not available!");
+    return null;
+  }
   
   const [isOpen, setIsOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
