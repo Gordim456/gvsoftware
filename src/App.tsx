@@ -10,7 +10,7 @@ import CleanAbout from "./pages/CleanAbout";
 import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 
-console.log("🔥 APP: Aplicação limpa carregando");
+console.log("🔥 APP: Aplicação completamente limpa sem Radix");
 
 // Lazy loading
 const Home = lazy(() => import("./pages/Home"));
@@ -23,7 +23,7 @@ const FAQ = lazy(() => import("./pages/FAQ"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
-// Query client
+// Query client com configuração limpa
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -35,7 +35,7 @@ const queryClient = new QueryClient({
   },
 });
 
-// Loading
+// Loading simples sem dependencies externas
 const LoadingFallback = () => (
   <div className="flex items-center justify-center h-screen bg-slate-950">
     <div className="w-8 h-8 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
@@ -43,7 +43,7 @@ const LoadingFallback = () => (
 );
 
 const App: React.FC = () => {
-  console.log("🔥 APP: Renderizando limpo");
+  console.log("🔥 APP: Renderizando completamente limpo sem Radix");
   
   return (
     <QueryClientProvider client={queryClient}>

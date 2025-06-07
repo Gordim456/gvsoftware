@@ -2,6 +2,8 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
+console.log("🔥 TOOLTIP: Criado completamente do zero sem Radix");
+
 // Tooltip completamente standalone - SEM Radix UI
 interface TooltipProps {
   children: React.ReactNode;
@@ -50,14 +52,17 @@ const Tooltip: React.FC<TooltipProps> = ({
 
 // Componentes stub para compatibilidade - SEM hooks, SEM Radix
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  console.log("🔥 TOOLTIP PROVIDER: Stub simples sem Radix");
   return <div>{children}</div>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
+  console.log("🔥 TOOLTIP TRIGGER: Stub simples sem Radix");
   return <div>{children}</div>;
 };
 
 const TooltipContent: React.FC<{ children?: React.ReactNode }> = () => {
+  console.log("🔥 TOOLTIP CONTENT: Stub simples sem Radix");
   return null;
 };
 
