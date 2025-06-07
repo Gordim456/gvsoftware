@@ -1,16 +1,16 @@
 
-import * as React from "react";
+import React, { useState, useCallback, Fragment } from "react";
 import { MessageCircle, X } from "lucide-react";
 
-const ChatBot: React.FC = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
+const ChatBot = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleToggle = React.useCallback(() => {
+  const handleToggle = useCallback(() => {
     setIsOpen(prev => !prev);
   }, []);
 
   return (
-    <React.Fragment>
+    <Fragment>
       {!isOpen && (
         <div className="fixed bottom-6 right-6 z-50">
           <button
@@ -59,7 +59,7 @@ const ChatBot: React.FC = () => {
           </div>
         </div>
       )}
-    </React.Fragment>
+    </Fragment>
   );
 };
 
