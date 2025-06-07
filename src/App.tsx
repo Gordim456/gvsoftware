@@ -8,8 +8,9 @@ import { lazy, Suspense } from "react";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
+import { TooltipErrorBoundary } from "@/components/ui/tooltip";
 
-console.log("🔥 APP: Loading main app component - ZERO RADIX TOOLTIP DEPENDENCIES");
+console.log("🔥 APP: Loading main app - COMPLETELY CLEAN OF RADIX TOOLTIP");
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
@@ -40,7 +41,46 @@ const LoadingFallback = () => (
   </div>
 );
 
-// Componente para isolar o ChatBot e evitar que erros nele quebrem toda a aplicação
+// Error boundary for the entire app
+class AppErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('🔥 APP ERROR BOUNDARY: Caught app error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-4">Something went wrong</h1>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="px-4 py-2 bg-indigo-600 rounded hover:bg-indigo-700"
+            >
+              Reload Page
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+// Safe ChatBot component
 const SafeChatBot = () => {
   try {
     return (
@@ -49,42 +89,46 @@ const SafeChatBot = () => {
       </Suspense>
     );
   } catch (error) {
-    console.error('Erro no ChatBot:', error);
+    console.error('🔥 CHATBOT ERROR:', error);
     return null;
   }
 };
 
 const App: React.FC = () => {
   React.useEffect(() => {
-    console.log("🔥 APP: Component mounted successfully - ABSOLUTELY NO RADIX TOOLTIP ANYWHERE");
+    console.log("🔥 APP: Component mounted successfully - ZERO RADIX TOOLTIP REFERENCES");
   }, []);
   
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-        <BrowserRouter>
-          <Toaster />
-          <Sonner />
-          <KeyboardShortcutsProvider />
-          <Suspense fallback={<LoadingFallback />}>
-            <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <SafeChatBot />
-          </Suspense>
-        </BrowserRouter>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <AppErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <TooltipErrorBoundary>
+            <BrowserRouter>
+              <Toaster />
+              <Sonner />
+              <KeyboardShortcutsProvider />
+              <Suspense fallback={<LoadingFallback />}>
+                <ScrollToTop />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/portfolio" element={<Portfolio />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/faq" element={<FAQ />} />
+                  <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+                <SafeChatBot />
+              </Suspense>
+            </BrowserRouter>
+          </TooltipErrorBoundary>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </AppErrorBoundary>
   );
 };
 

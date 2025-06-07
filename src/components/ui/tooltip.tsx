@@ -2,8 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: Loading 100% PURE custom implementation - ZERO RADIX ANYWHERE");
+console.log("🔥 TOOLTIP: Loading COMPLETELY CUSTOM tooltip implementation - ZERO RADIX DEPENDENCIES");
 
+// Simple custom tooltip interface
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -11,6 +12,7 @@ interface TooltipProps {
   className?: string;
 }
 
+// Main tooltip component - 100% custom
 const Tooltip: React.FC<TooltipProps> = ({ 
   children, 
   content, 
@@ -21,8 +23,8 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
+    console.log("✅ TOOLTIP: Custom tooltip mounted successfully - NO RADIX ANYWHERE");
     setIsMounted(true);
-    console.log("✅ TOOLTIP: Pure custom tooltip mounted - ABSOLUTELY NO RADIX");
   }, []);
 
   const positionClasses = {
@@ -40,11 +42,11 @@ const Tooltip: React.FC<TooltipProps> = ({
     <div 
       className="relative inline-block"
       onMouseEnter={() => {
-        console.log("🔥 TOOLTIP: Showing pure custom tooltip");
+        console.log("🔥 TOOLTIP: Showing custom tooltip");
         setIsVisible(true);
       }}
       onMouseLeave={() => {
-        console.log("🔥 TOOLTIP: Hiding pure custom tooltip");
+        console.log("🔥 TOOLTIP: Hiding custom tooltip");
         setIsVisible(false);
       }}
     >
@@ -64,10 +66,10 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// PURE COMPATIBILITY COMPONENTS - 100% CUSTOM, ZERO RADIX
+// Compatibility components that do nothing but pass through children
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   React.useEffect(() => {
-    console.log("🔥 TOOLTIP PROVIDER: Pure custom provider - ZERO RADIX ANYWHERE");
+    console.log("🔥 TOOLTIP PROVIDER: Custom provider initialized - COMPLETELY RADIX-FREE");
   }, []);
   
   return <>{children}</>;
@@ -75,7 +77,7 @@ const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) 
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
   React.useEffect(() => {
-    console.log("🔥 TOOLTIP TRIGGER: Pure custom trigger - ZERO RADIX ANYWHERE");
+    console.log("🔥 TOOLTIP TRIGGER: Custom trigger initialized - COMPLETELY RADIX-FREE");
   }, []);
   
   return <>{children}</>;
@@ -83,12 +85,39 @@ const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }>
 
 const TooltipContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   React.useEffect(() => {
-    console.log("🔥 TOOLTIP CONTENT: Pure custom content - ZERO RADIX ANYWHERE");
+    console.log("🔥 TOOLTIP CONTENT: Custom content initialized - COMPLETELY RADIX-FREE");
   }, []);
   
   return <>{children}</>;
 };
 
-console.log("🔥 TOOLTIP EXPORTS: Exporting 100% pure custom components - ABSOLUTELY NO RADIX");
+// Error boundary for tooltip components
+class TooltipErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
 
-export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('🔥 TOOLTIP ERROR BOUNDARY: Caught tooltip error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.children;
+    }
+
+    return this.props.children;
+  }
+}
+
+console.log("🔥 TOOLTIP EXPORTS: Exporting 100% custom tooltip components - ABSOLUTELY NO RADIX");
+
+export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent, TooltipErrorBoundary };
