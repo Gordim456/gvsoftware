@@ -8,7 +8,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
 
-console.log("🔥 APP: Carregando sem NENHUMA dependência do Radix UI");
+console.log("🔥 APP: Carregando COMPLETAMENTE LIMPO - SEM Radix UI");
 
 // Lazy loading das outras páginas (mantendo About como importação direta)
 const Home = lazy(() => import("./pages/Home"));
@@ -41,7 +41,7 @@ const LoadingFallback = () => (
 );
 
 const App: React.FC = () => {
-  console.log("🔥 APP: Renderizando completamente limpo - SEM Radix UI");
+  console.log("🔥 APP: Renderizando COMPLETAMENTE LIMPO - ZERO Radix UI");
   
   return (
     <QueryClientProvider client={queryClient}>

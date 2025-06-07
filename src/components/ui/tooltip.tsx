@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 CLEAN TOOLTIP: Carregando implementação 100% limpa sem dependências");
+console.log("🔥 TOOLTIP STANDALONE: Implementação 100% independente - SEM Radix UI");
 
 // Implementação standalone completa do tooltip
 interface TooltipProps {
@@ -50,15 +50,15 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes vazios para compatibilidade - NUNCA serão usados
+// Componentes de compatibilidade - NUNCA usados, apenas para não quebrar imports
 const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
-  console.log("🔥 EMPTY PROVIDER: Fallback - não deveria ser usado");
-  return <>{children}</>;
+  console.log("🔥 TOOLTIP PROVIDER: Componente vazio - não deveria ser usado");
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 EMPTY TRIGGER: Fallback - não deveria ser usado");
-  return <>{children}</>;
+  console.log("🔥 TOOLTIP TRIGGER: Componente vazio - não deveria ser usado");
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 const TooltipContent: React.FC<{ 
@@ -66,9 +66,9 @@ const TooltipContent: React.FC<{
   className?: string;
   side?: "top" | "bottom" | "left" | "right";
   sideOffset?: number;
-}> = () => {
-  console.log("🔥 EMPTY CONTENT: Fallback - não deveria ser usado");
-  return null;
+}> = ({ children }) => {
+  console.log("🔥 TOOLTIP CONTENT: Componente vazio - não deveria ser usado");
+  return <React.Fragment>{children}</React.Fragment>;
 };
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };

@@ -5,7 +5,7 @@ import App from './App.tsx';
 import './index.css';
 import ErrorBoundary from './components/ErrorBoundary';
 
-console.log("🔥 MAIN: Inicializando app LIMPO - SEM Radix UI");
+console.log("🔥 MAIN: Inicializando app COMPLETAMENTE LIMPO - ZERO Radix UI");
 
 // Error handling melhorado
 window.addEventListener('error', (event) => {
@@ -19,11 +19,11 @@ window.addEventListener('error', (event) => {
   });
   
   if (event.error?.message?.includes('Cannot read properties of null')) {
-    console.error('🔥 ERRO useState DETECTADO - deveria estar eliminado agora');
+    console.error('🔥 ERRO useState DETECTADO - Radix UI ainda presente');
   }
   
   if (event.error?.message?.includes('TooltipProvider')) {
-    console.error('🔥 ERRO TOOLTIP PROVIDER - deveria estar eliminado');
+    console.error('🔥 ERRO TOOLTIP PROVIDER - Radix UI ainda presente');
   }
 });
 
@@ -33,7 +33,7 @@ window.addEventListener('unhandledrejection', (event) => {
 
 const rootElement = document.getElementById("root");
 if (rootElement) {
-  console.log("🔥 MAIN: Elemento root encontrado, iniciando React app");
+  console.log("🔥 MAIN: Elemento root encontrado, iniciando React app LIMPO");
   const root = createRoot(rootElement);
   root.render(
     <React.StrictMode>

@@ -9,19 +9,13 @@ import {
   ToastViewport,
 } from "@/components/ui/toast"
 
-console.log("🔥 TOASTER: Carregando versão limpa SEM Radix");
-
-// Implementação standalone do ToastProvider
-const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOAST PROVIDER: Usando implementação limpa");
-  return <>{children}</>;
-};
+console.log("🔥 TOASTER STANDALONE: Implementação 100% independente - SEM Radix UI");
 
 export function Toaster() {
   const { toasts } = useToast()
 
   return (
-    <ToastProvider>
+    <React.Fragment>
       {toasts.map(function ({ id, title, description, action, ...props }) {
         return (
           <Toast key={id} {...props}>
@@ -37,6 +31,6 @@ export function Toaster() {
         )
       })}
       <ToastViewport />
-    </ToastProvider>
+    </React.Fragment>
   )
 }
