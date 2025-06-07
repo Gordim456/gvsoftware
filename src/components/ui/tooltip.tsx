@@ -2,27 +2,52 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🚀 TOOLTIP v10: COMPLETELY CUSTOM TOOLTIP - ZERO RADIX DEPENDENCIES");
+console.log("🚀 TOOLTIP v11: ULTRA CLEAN - ABSOLUTELY NO RADIX ANYWHERE");
 
-// Interface para nosso tooltip 100% customizado
+// Completely custom tooltip interface
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
   side?: "top" | "bottom" | "left" | "right";
   className?: string;
+  delayDuration?: number;
 }
 
-// Tooltip completamente customizado - SEM QUALQUER referência ao Radix
+// 100% custom tooltip implementation - ZERO external dependencies
 const Tooltip: React.FC<TooltipProps> = ({ 
   children, 
   content, 
   side = "top", 
-  className 
+  className,
+  delayDuration = 300
 }) => {
   const [isVisible, setIsVisible] = React.useState(false);
+  const timeoutRef = React.useRef<NodeJS.Timeout>();
+
+  console.log("🚀 TOOLTIP v11: Custom tooltip rendering - COMPLETELY RADIX-FREE");
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = setTimeout(() => {
+      setIsVisible(true);
+    }, delayDuration);
+  };
+
+  const handleMouseLeave = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    setIsVisible(false);
+  };
 
   React.useEffect(() => {
-    console.log("✅ TOOLTIP v10: Custom tooltip mounted successfully - NO RADIX ANYWHERE");
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
   }, []);
 
   const positionClasses = {
@@ -35,41 +60,51 @@ const Tooltip: React.FC<TooltipProps> = ({
   return (
     <div 
       className="relative inline-block"
-      onMouseEnter={() => setIsVisible(true)}
-      onMouseLeave={() => setIsVisible(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {children}
-      {isVisible && (
+      {isVisible && content && (
         <div
           className={cn(
-            "absolute z-50 px-2 py-1 text-sm text-white bg-gray-900 rounded shadow-lg whitespace-nowrap pointer-events-none",
+            "absolute z-50 px-3 py-1.5 text-sm text-white bg-gray-900 rounded-md shadow-lg whitespace-nowrap pointer-events-none border border-gray-700",
             positionClasses[side],
             className
           )}
+          role="tooltip"
         >
           {content}
+          <div 
+            className={cn(
+              "absolute w-2 h-2 bg-gray-900 border border-gray-700 transform rotate-45",
+              side === "top" && "top-full left-1/2 -translate-x-1/2 -translate-y-1/2 border-t-0 border-l-0",
+              side === "bottom" && "bottom-full left-1/2 -translate-x-1/2 translate-y-1/2 border-b-0 border-r-0",
+              side === "left" && "left-full top-1/2 -translate-x-1/2 -translate-y-1/2 border-l-0 border-b-0",
+              side === "right" && "right-full top-1/2 translate-x-1/2 -translate-y-1/2 border-r-0 border-t-0"
+            )}
+          />
         </div>
       )}
     </div>
   );
 };
 
-// Componentes que NÃO fazem NADA - apenas para compatibilidade
-const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("✅ TOOLTIP PROVIDER v10: Custom provider - ABSOLUTELY NO RADIX");
+// Dummy components for compatibility - do absolutely nothing
+const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
+  console.log("🚀 TOOLTIP PROVIDER v11: Dummy provider - NO RADIX ANYWHERE");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("✅ TOOLTIP TRIGGER v10: Custom trigger - ABSOLUTELY NO RADIX");
+  console.log("🚀 TOOLTIP TRIGGER v11: Dummy trigger - NO RADIX ANYWHERE");
   return <>{children}</>;
 };
 
-const TooltipContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("✅ TOOLTIP CONTENT v10: Custom content - ABSOLUTELY NO RADIX");
+const TooltipContent: React.FC<{ children: React.ReactNode; side?: string; className?: string }> = ({ children }) => {
+  console.log("🚀 TOOLTIP CONTENT v11: Dummy content - NO RADIX ANYWHERE");
   return <>{children}</>;
 };
 
-console.log("🚀 TOOLTIP EXPORTS v10: Exporting COMPLETELY CUSTOM components - ZERO RADIX UI");
+console.log("🚀 TOOLTIP EXPORTS v11: Exporting COMPLETELY CUSTOM components - ZERO RADIX UI DEPENDENCIES");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };

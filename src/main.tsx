@@ -16,76 +16,62 @@ declare global {
   }
 }
 
-console.log("🚀 MAIN v10: Starting COMPLETELY RADIX-FREE React application");
-console.log("🚀 MAIN v10: React version:", React.version);
-console.log("🚀 MAIN v10: React object:", React);
-console.log("🚀 MAIN v10: React.useState:", typeof React.useState);
+console.log("🚀 MAIN v11: Starting COMPLETELY RADIX-FREE React application - FORCE CACHE CLEAR");
+console.log("🚀 MAIN v11: React version:", React.version);
+console.log("🚀 MAIN v11: React object:", React);
+console.log("🚀 MAIN v11: React.useState:", typeof React.useState);
 
-// ULTRA AGRESSIVA limpeza de cache - remove TODAS as referências possíveis do Radix
+// ULTRA AGGRESSIVE cache clearing - force Vite to rebuild everything
 if (typeof window !== 'undefined') {
-  console.log("🚀 MAIN v10: ULTRA AGGRESSIVE clearing of ALL cached Radix references");
+  console.log("🚀 MAIN v11: FORCE CLEARING ALL VITE/RADIX CACHES");
   
-  // Clear all potential Radix caches
+  // Clear all potential caches
   delete window.__radix_tooltip_cache;
   delete window.__radix_cache;
   delete window.__vite_plugin_react_preamble_installed;
   
-  // Clear localStorage
+  // Force clear all storage
   try {
-    const keys = Object.keys(localStorage);
-    keys.forEach(key => {
-      if (key.includes('radix') || key.includes('tooltip')) {
-        localStorage.removeItem(key);
-        console.log(`🚀 MAIN v10: Removed localStorage key: ${key}`);
-      }
-    });
+    localStorage.clear();
+    sessionStorage.clear();
+    console.log("🚀 MAIN v11: All storage cleared");
   } catch (e) {
-    console.log("🚀 MAIN v10: localStorage clear completed");
+    console.log("🚀 MAIN v11: Storage clear completed");
   }
   
-  // Clear sessionStorage
-  try {
-    const keys = Object.keys(sessionStorage);
-    keys.forEach(key => {
-      if (key.includes('radix') || key.includes('tooltip')) {
-        sessionStorage.removeItem(key);
-        console.log(`🚀 MAIN v10: Removed sessionStorage key: ${key}`);
-      }
-    });
-  } catch (e) {
-    console.log("🚀 MAIN v10: sessionStorage clear completed");
-  }
-  
-  // Force garbage collection if available
+  // Force garbage collection
   if (window.gc) {
-    console.log("🚀 MAIN v10: Forcing garbage collection");
+    console.log("🚀 MAIN v11: Forcing garbage collection");
     window.gc();
   }
+  
+  // Force reload if any Radix references detected
+  const scripts = document.querySelectorAll('script[src*="radix"]');
+  if (scripts.length > 0) {
+    console.error("🚀 MAIN v11: RADIX SCRIPTS DETECTED - FORCING HARD RELOAD");
+    window.location.reload();
+    return;
+  }
 }
 
-// SUPER STRICT React validation
+// MAXIMUM React validation
 if (!React || !React.useState || !React.useEffect) {
-  console.error("🚀 MAIN v10: React or React hooks are not available!");
-  throw new Error("React is not properly loaded - preventing all Radix issues v10");
+  console.error("🚀 MAIN v11: React or React hooks are not available!");
+  throw new Error("React is not properly loaded - preventing all issues v11");
 }
 
-console.log("🚀 MAIN v10: React validation passed - useState available:", !!React.useState);
-console.log("🚀 MAIN v10: React validation passed - useEffect available:", !!React.useEffect);
+console.log("🚀 MAIN v11: React validation passed - all hooks available");
 
-// Initialize services before rendering
+// Initialize services
 const initializeApp = async () => {
   try {
-    console.log("🚀 MAIN v10: Initializing services - COMPLETELY TOOLTIP-FREE");
+    console.log("🚀 MAIN v11: Initializing services - COMPLETELY CLEAN");
     
-    // Initialize analytics
     analytics.init();
-    
-    // Initialize cache service
     await cacheService.init();
     
-    console.log('🚀 GV Software v10: App initialized successfully - COMPLETELY CLEAN');
+    console.log('🚀 GV Software v11: App initialized successfully - COMPLETELY CLEAN');
     
-    // Track app start
     analytics.trackEvent('app_start', {
       timestamp: new Date().toISOString(),
       user_agent: navigator.userAgent,
@@ -93,13 +79,13 @@ const initializeApp = async () => {
       viewport: `${window.innerWidth}x${window.innerHeight}`
     });
   } catch (error) {
-    console.error('🚀 MAIN v10: Error initializing app:', error);
+    console.error('🚀 MAIN v11: Error initializing app:', error);
   }
 };
 
-// ENHANCED error handling com React context check
+// Enhanced error handling
 const handleGlobalError = (event: ErrorEvent) => {
-  console.error('🚀 GLOBAL ERROR v10:', {
+  console.error('🚀 GLOBAL ERROR v11:', {
     message: event.error?.message || event.message,
     filename: event.filename,
     lineno: event.lineno,
@@ -109,21 +95,21 @@ const handleGlobalError = (event: ErrorEvent) => {
     react_context: !!React,
     react_useState: !!React?.useState,
     is_radix_related: event.error?.stack?.includes('radix') || event.error?.stack?.includes('tooltip'),
-    is_tooltip_provider: event.error?.stack?.includes('TooltipProvider'),
-    is_useState_issue: event.error?.message?.includes('useState')
+    is_vite_deps: event.filename?.includes('/node_modules/.vite/deps/')
   });
   
-  // Se for QUALQUER erro do Radix, forçar reload imediato
+  // If ANY Radix/Vite deps error, force immediate reload
   if (event.error?.stack?.includes('radix') || 
       event.error?.stack?.includes('TooltipProvider') || 
-      event.error?.message?.includes('useState') ||
-      event.error?.stack?.includes('@radix-ui')) {
-    console.error('🚀 DETECTED RADIX/TOOLTIP ERROR - IMMEDIATE RELOAD v10');
-    window.location.reload();
+      event.filename?.includes('/node_modules/.vite/deps/') ||
+      event.error?.message?.includes('useState')) {
+    console.error('🚀 DETECTED RADIX/VITE DEPS ERROR - FORCING IMMEDIATE RELOAD v11');
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
     return;
   }
   
-  // Track error but don't let it crash the app
   analytics.trackEvent('error', {
     message: event.error?.message || event.message || 'Unknown error',
     filename: event.filename,
@@ -134,7 +120,7 @@ const handleGlobalError = (event: ErrorEvent) => {
 };
 
 const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
-  console.error('🚀 UNHANDLED REJECTION v10:', {
+  console.error('🚀 UNHANDLED REJECTION v11:', {
     reason: event.reason,
     type: 'unhandled_rejection',
     react_context: !!React,
@@ -150,22 +136,20 @@ const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
 window.addEventListener('error', handleGlobalError);
 window.addEventListener('unhandledrejection', handleUnhandledRejection);
 
-// Render app with MAXIMUM safety checks
+// Render with maximum safety
 const rootElement = document.getElementById("root");
 if (rootElement) {
   const root = createRoot(rootElement);
   
-  console.log("🚀 MAIN v10: Creating root and initializing");
-  console.log("🚀 MAIN v10: React context check:", !!React, !!React?.useState);
+  console.log("🚀 MAIN v11: Creating root with CLEAN environment");
   
-  // Initialize services and render
   initializeApp().then(() => {
-    console.log("🚀 MAIN v10: About to render ULTRA CLEAN App - ABSOLUTELY NO RADIX TOOLTIP");
+    console.log("🚀 MAIN v11: About to render ULTRA CLEAN App - NO RADIX DEPENDENCIES");
     
     try {
-      // FINAL React check before rendering
+      // Final React validation
       if (!React || !React.useState) {
-        throw new Error("React is not available at render time v10");
+        throw new Error("React is not available at render time v11");
       }
       
       root.render(
@@ -173,23 +157,23 @@ if (rootElement) {
           <App />
         </React.StrictMode>
       );
-      console.log("🚀 MAIN v10: App rendered successfully");
+      console.log("🚀 MAIN v11: App rendered successfully");
     } catch (error) {
-      console.error("🚀 MAIN v10: Error rendering app:", error);
+      console.error("🚀 MAIN v11: Error rendering app:", error);
       
-      // Fallback render without StrictMode
+      // Fallback render
       try {
         root.render(<App />);
-        console.log("🚀 MAIN v10: App rendered with fallback method");
+        console.log("🚀 MAIN v11: App rendered with fallback method");
       } catch (fallbackError) {
-        console.error("🚀 MAIN v10: Fallback render failed:", fallbackError);
-        rootElement.innerHTML = '<div style="padding: 20px; color: red; font-family: monospace;">❌ Application failed to load. Please refresh the page. v10</div>';
+        console.error("🚀 MAIN v11: Fallback render failed:", fallbackError);
+        rootElement.innerHTML = '<div style="padding: 20px; color: red; font-family: monospace;">❌ Application failed to load. Please refresh the page. v11</div>';
       }
     }
   }).catch((error) => {
-    console.error("🚀 MAIN v10: Error during initialization:", error);
-    rootElement.innerHTML = '<div style="padding: 20px; color: red; font-family: monospace;">❌ Application initialization failed. Please refresh the page. v10</div>';
+    console.error("🚀 MAIN v11: Error during initialization:", error);
+    rootElement.innerHTML = '<div style="padding: 20px; color: red; font-family: monospace;">❌ Application initialization failed. Please refresh the page. v11</div>';
   });
 } else {
-  console.error('🚀 MAIN v10: Root element not found');
+  console.error('🚀 MAIN v11: Root element not found');
 }

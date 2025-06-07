@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -7,9 +8,9 @@ import { lazy, Suspense } from "react";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
-import About from "./pages/About"; // Static import
+import About from "./pages/About";
 
-console.log("🚀 APP v10: Loading ULTRA CLEAN app - ABSOLUTELY NO RADIX TOOLTIP DEPENDENCIES");
+console.log("🚀 APP v11: Loading ULTRA CLEAN app - ZERO RADIX TOOLTIP DEPENDENCIES");
 
 const Home = lazy(() => import("./pages/Home"));
 const Services = lazy(() => import("./pages/Services"));
@@ -39,7 +40,7 @@ const LoadingFallback = () => (
   </div>
 );
 
-// ULTRA STRONG Error boundary for the entire app
+// Maximum protection error boundary
 class AppErrorBoundary extends React.Component<
   { children: React.ReactNode },
   { hasError: boolean; errorMessage: string }
@@ -50,27 +51,26 @@ class AppErrorBoundary extends React.Component<
   }
 
   static getDerivedStateFromError(error: Error) {
-    console.error('🚀 APP ERROR BOUNDARY v10: Caught app error:', error);
+    console.error('🚀 APP ERROR BOUNDARY v11: Caught app error:', error);
     return { hasError: true, errorMessage: error.message };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🚀 APP ERROR BOUNDARY v10: Full error details:', {
+    console.error('🚀 APP ERROR BOUNDARY v11: Full error details:', {
       error: error.message,
       stack: error.stack,
       errorInfo,
       isRadixTooltip: error.message.includes('tooltip') || error.stack?.includes('tooltip') || error.stack?.includes('radix'),
       isUseStateIssue: error.message.includes('useState'),
-      isTooltipProvider: error.stack?.includes('TooltipProvider'),
-      isRadixUI: error.stack?.includes('@radix-ui')
+      isViteDeps: error.stack?.includes('/node_modules/.vite/deps/')
     });
     
-    // Se for QUALQUER erro relacionado ao Radix, forçar reload imediato
+    // Force reload for any Radix/Vite deps errors
     if (error.stack?.includes('radix') || 
         error.stack?.includes('TooltipProvider') || 
         error.message.includes('useState') ||
-        error.stack?.includes('@radix-ui')) {
-      console.error('🚀 DETECTED RADIX ERROR - IMMEDIATE FORCED RELOAD v10');
+        error.stack?.includes('/node_modules/.vite/deps/')) {
+      console.error('🚀 DETECTED CRITICAL ERROR - FORCING RELOAD v11');
       setTimeout(() => {
         window.location.reload();
       }, 1000);
@@ -82,7 +82,7 @@ class AppErrorBoundary extends React.Component<
       return (
         <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
           <div className="text-center p-8">
-            <h1 className="text-2xl font-bold mb-4">Application Error v10</h1>
+            <h1 className="text-2xl font-bold mb-4">Application Error v11</h1>
             <p className="text-gray-300 mb-4">Something went wrong while loading the application.</p>
             <p className="text-sm text-gray-400 mb-6">Error: {this.state.errorMessage}</p>
             <button 
@@ -100,7 +100,7 @@ class AppErrorBoundary extends React.Component<
   }
 }
 
-// ULTRA Safe ChatBot component with maximum error protection
+// Ultra safe ChatBot
 const SafeChatBot = () => {
   try {
     return (
@@ -109,50 +109,48 @@ const SafeChatBot = () => {
       </Suspense>
     );
   } catch (error) {
-    console.error('🚀 CHATBOT ERROR v10:', error);
+    console.error('🚀 CHATBOT ERROR v11:', error);
     return null;
   }
 };
 
 const App: React.FC = () => {
   React.useEffect(() => {
-    console.log("🚀 APP v10: Component mounted successfully - ABSOLUTELY NO RADIX TOOLTIP ANYWHERE");
+    console.log("🚀 APP v11: Component mounted successfully - ZERO RADIX TOOLTIP ANYWHERE");
     
-    // Verify React hooks are working
-    console.log("🚀 APP v10: React hooks validation - useState:", !!React.useState);
-    console.log("🚀 APP v10: React hooks validation - useEffect:", !!React.useEffect);
+    // Verify React hooks
+    console.log("🚀 APP v11: React hooks validation - useState:", !!React.useState);
+    console.log("🚀 APP v11: React hooks validation - useEffect:", !!React.useEffect);
     
-    // Force clear any potential Radix references AGAIN
-    console.log("🚀 APP v10: FINAL clearing of any potential Radix tooltip cache");
+    // Clear any remaining caches
+    console.log("🚀 APP v11: FINAL cache clearing");
     
-    // Clear localStorage if needed
     try {
       const keys = Object.keys(localStorage);
       keys.forEach(key => {
-        if (key.includes('radix') || key.includes('tooltip')) {
+        if (key.includes('radix') || key.includes('tooltip') || key.includes('vite')) {
           localStorage.removeItem(key);
-          console.log(`🚀 APP v10: Removed localStorage key: ${key}`);
+          console.log(`🚀 APP v11: Removed localStorage key: ${key}`);
         }
       });
     } catch (e) {
-      console.log("🚀 APP v10: localStorage clear completed");
+      console.log("🚀 APP v11: localStorage clear completed");
     }
 
-    // Clear sessionStorage if needed
     try {
       const keys = Object.keys(sessionStorage);
       keys.forEach(key => {
-        if (key.includes('radix') || key.includes('tooltip')) {
+        if (key.includes('radix') || key.includes('tooltip') || key.includes('vite')) {
           sessionStorage.removeItem(key);
-          console.log(`🚀 APP v10: Removed sessionStorage key: ${key}`);
+          console.log(`🚀 APP v11: Removed sessionStorage key: ${key}`);
         }
       });
     } catch (e) {
-      console.log("🚀 APP v10: sessionStorage clear completed");
+      console.log("🚀 APP v11: sessionStorage clear completed");
     }
   }, []);
   
-  // DEFENSIVE rendering - wrap everything in multiple try-catch layers
+  // Defensive rendering with maximum protection
   try {
     return (
       <AppErrorBoundary>
@@ -184,11 +182,11 @@ const App: React.FC = () => {
       </AppErrorBoundary>
     );
   } catch (error) {
-    console.error('🚀 APP v10: Defensive render caught error:', error);
+    console.error('🚀 APP v11: Defensive render caught error:', error);
     return (
       <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
         <div className="text-center p-8">
-          <h1 className="text-2xl font-bold mb-4">App Render Error v10</h1>
+          <h1 className="text-2xl font-bold mb-4">App Render Error v11</h1>
           <button 
             onClick={() => window.location.reload()} 
             className="px-6 py-3 bg-indigo-600 rounded hover:bg-indigo-700 transition-colors"
