@@ -13,8 +13,6 @@ import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-console.log("🔥 APP: BULLETPROOF VERSION - Blocking all Radix UI contamination");
-
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
 const Services = lazy(() => import("./pages/Services"));
@@ -45,71 +43,37 @@ const LoadingFallback = () => (
   </div>
 );
 
-// Error boundary specifically for tooltip errors
-const TooltipErrorBoundary: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [hasError, setHasError] = React.useState(false);
-
-  React.useEffect(() => {
-    const handleError = (event: ErrorEvent) => {
-      if (event.message.includes('tooltip') || 
-          event.message.includes('@radix-ui') || 
-          event.message.includes('TooltipProvider') ||
-          event.message.includes('useState')) {
-        console.error("🔥 APP: BLOCKED TOOLTIP ERROR:", event.message);
-        setHasError(true);
-        event.preventDefault();
-        event.stopPropagation();
-        return false;
-      }
-    };
-    
-    window.addEventListener('error', handleError);
-    return () => window.removeEventListener('error', handleError);
-  }, []);
-
-  if (hasError) {
-    console.log("🔥 APP: Tooltip error blocked, continuing with fallback");
-    return <>{children}</>;
-  }
-
-  return <>{children}</>;
-};
-
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: RENDERING BULLETPROOF VERSION");
-  
   return (
-    <TooltipErrorBoundary>
-      <ErrorBoundary>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            <BrowserRouter>
-              <Toaster />
-              <Sonner />
-              <KeyboardShortcutsProvider />
-              <Suspense fallback={<LoadingFallback />}>
-                <ScrollToTop />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/services" element={<Services />} />
-                  <Route path="/portfolio" element={<Portfolio />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/terms" element={<Terms />} />
-                  <Route path="/privacy" element={<Privacy />} />
-                  <Route path="/faq" element={<FAQ />} />
-                  <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-                <TestComponent />
-                <SimpleChatBot />
-              </Suspense>
-            </BrowserRouter>
-          </ThemeProvider>
-        </QueryClientProvider>
-      </ErrorBoundary>
-    </TooltipErrorBoundary>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <BrowserRouter>
+            <Toaster />
+            <Sonner />
+            <KeyboardShortcutsProvider />
+            <Suspense fallback={<LoadingFallback />}>
+              <ScrollToTop />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <TestComponent />
+              <SimpleChatBot />
+            </Suspense>
+          </BrowserRouter>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 };
 
