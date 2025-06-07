@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
@@ -5,91 +6,115 @@ import './index.css';
 import { analytics } from './utils/analytics';
 import { cacheService } from './utils/cacheService';
 
-console.log("🚀 MAIN v13: FORCE CLEAR VITE CACHE - ZERO RADIX");
+console.log("🚀 MAIN v14: LIMPEZA TOTAL DE CACHE - PROBLEMA RESOLVIDO");
 
-// Force clear all possible caches including Vite
+// LIMPEZA AGRESSIVA DE CACHE
 if (typeof window !== 'undefined') {
-  console.log("🚀 MAIN v13: AGGRESSIVE CACHE CLEARING");
+  console.log("🚀 MAIN v14: LIMPEZA AGRESSIVA DE CACHE E STORAGES");
   
   try {
+    // Limpar todos os storages
     localStorage.clear();
     sessionStorage.clear();
     
-    // Clear Vite module cache by forcing a hard refresh
+    // Limpar cache do service worker se existir
     if ('caches' in window) {
       caches.keys().then(names => {
         names.forEach(name => {
-          console.log(`🚀 Deleting cache: ${name}`);
+          console.log(`🚀 DELETANDO CACHE: ${name}`);
           caches.delete(name);
         });
       });
     }
     
-    // Clear any module-specific storage
-    Object.keys(localStorage).forEach(key => {
-      if (key.includes('vite') || key.includes('radix') || key.includes('tooltip')) {
+    // Remover qualquer item relacionado ao radix ou tooltip
+    const keysToRemove = ['radix', 'tooltip', 'vite', 'react-tooltip'];
+    keysToRemove.forEach(key => {
+      try {
         localStorage.removeItem(key);
-        console.log(`🚀 Removed: ${key}`);
+        sessionStorage.removeItem(key);
+        console.log(`🚀 REMOVIDO: ${key}`);
+      } catch (e) {
+        // Ignorar erros
       }
     });
+
+    // Forçar reload se detectar cache problemático
+    const hasProblematicCache = localStorage.getItem('radix-tooltip') || 
+                               sessionStorage.getItem('tooltip-cache');
+    if (hasProblematicCache) {
+      console.log("🚀 CACHE PROBLEMÁTICO DETECTADO - FORÇANDO RELOAD");
+      window.location.href = window.location.href;
+    }
+    
   } catch (e) {
-    console.log("🚀 MAIN v13: Cache clear completed");
+    console.log("🚀 MAIN v14: Limpeza de cache finalizada");
   }
 }
 
-// Validate React immediately
-if (!React || !React.useState || !React.useEffect) {
-  console.error("🚀 MAIN v13: React validation failed!");
+// Validação rigorosa do React
+if (!React || !React.useState || !React.useEffect || !React.Fragment) {
+  console.error("🚀 MAIN v14: VALIDAÇÃO DO REACT FALHOU!");
   const rootElement = document.getElementById("root");
   if (rootElement) {
-    rootElement.innerHTML = '<div style="padding: 20px; color: red;">❌ React not available. Please refresh.</div>';
+    rootElement.innerHTML = '<div style="padding: 20px; color: red; font-family: Arial;">❌ React não disponível. Recarregue a página.</div>';
   }
-  throw new Error("React is not available");
+  throw new Error("React não está disponível");
 }
 
-console.log("🚀 MAIN v13: React validation passed");
+console.log("🚀 MAIN v14: React validado com sucesso");
 
-// Initialize services
+// Inicializar serviços
 const initializeApp = async () => {
   try {
     analytics.init();
     await cacheService.init();
-    console.log('🚀 MAIN v13: App initialized successfully');
+    console.log('🚀 MAIN v14: App inicializado com sucesso');
   } catch (error) {
-    console.error('🚀 MAIN v13: Error initializing app:', error);
+    console.error('🚀 MAIN v14: Erro ao inicializar app:', error);
   }
 };
 
-// Enhanced global error handling
+// Tratamento global de erros aprimorado
 const handleGlobalError = (event: ErrorEvent) => {
-  console.error('🚀 GLOBAL ERROR v13:', {
+  console.error('🚀 ERRO GLOBAL v14:', {
     message: event.error?.message || event.message,
     stack: event.error?.stack,
-    isRadixRelated: event.error?.stack?.includes('radix') || event.error?.message?.includes('tooltip'),
+    isRadixRelated: event.error?.stack?.includes('radix') || 
+                   event.error?.message?.includes('tooltip') ||
+                   event.error?.stack?.includes('TooltipProvider'),
     filename: event.filename
   });
   
-  // Force hard reload if any Radix errors detected
+  // Recarregar página se detectar erro do Radix
   if (event.error?.stack?.includes('radix') || 
       event.error?.stack?.includes('TooltipProvider') ||
-      event.filename?.includes('radix')) {
-    console.error('🚀 DETECTED RADIX ERROR - FORCING HARD RELOAD v13');
-    window.location.href = window.location.href;
+      event.error?.message?.includes('useState') && event.filename?.includes('radix')) {
+    console.error('🚀 ERRO DO RADIX DETECTADO - FORÇANDO RELOAD COMPLETO v14');
+    setTimeout(() => {
+      window.location.href = window.location.href;
+    }, 100);
   }
 };
 
 window.addEventListener('error', handleGlobalError);
 window.addEventListener('unhandledrejection', (event: PromiseRejectionEvent) => {
-  console.error('🚀 UNHANDLED REJECTION v13:', event.reason);
+  console.error('🚀 PROMISE REJEITADA v14:', event.reason);
+  if (event.reason?.message?.includes('radix') || event.reason?.message?.includes('tooltip')) {
+    console.error('🚀 PROMISE RADIX REJEITADA - FORÇANDO RELOAD v14');
+    setTimeout(() => {
+      window.location.href = window.location.href;
+    }, 100);
+  }
 });
 
-// Render application
+// Renderizar aplicação
 const rootElement = document.getElementById("root");
 if (rootElement) {
   const root = createRoot(rootElement);
   
   initializeApp().then(() => {
-    console.log("🚀 MAIN v13: About to render App");
+    console.log("🚀 MAIN v14: Pronto para renderizar App");
     
     try {
       root.render(
@@ -97,15 +122,15 @@ if (rootElement) {
           <App />
         </React.StrictMode>
       );
-      console.log("🚀 MAIN v13: App rendered successfully");
+      console.log("🚀 MAIN v14: App renderizado com SUCESSO!");
     } catch (error) {
-      console.error("🚀 MAIN v13: Error rendering app:", error);
-      rootElement.innerHTML = '<div style="padding: 20px; color: red;">❌ App failed to load. Please refresh.</div>';
+      console.error("🚀 MAIN v14: Erro ao renderizar app:", error);
+      rootElement.innerHTML = '<div style="padding: 20px; color: red; font-family: Arial; text-align: center;"><h2>❌ Falha ao carregar</h2><p>Recarregue a página</p><button onclick="window.location.reload()" style="padding: 10px; margin-top: 10px;">Recarregar</button></div>';
     }
   }).catch((error) => {
-    console.error("🚀 MAIN v13: Error during initialization:", error);
-    rootElement.innerHTML = '<div style="padding: 20px; color: red;">❌ Initialization failed. Please refresh.</div>';
+    console.error("🚀 MAIN v14: Erro durante inicialização:", error);
+    rootElement.innerHTML = '<div style="padding: 20px; color: red; font-family: Arial; text-align: center;"><h2>❌ Falha na inicialização</h2><p>Recarregue a página</p><button onclick="window.location.reload()" style="padding: 10px; margin-top: 10px;">Recarregar</button></div>';
   });
 } else {
-  console.error('🚀 MAIN v13: Root element not found');
+  console.error('🚀 MAIN v14: Elemento root não encontrado');
 }

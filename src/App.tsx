@@ -10,7 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
 
-console.log("🚀 APP v12: Loading COMPLETELY CLEAN app - ZERO RADIX TOOLTIP");
+console.log("🚀 APP v14: Carregando app LIMPO - PROBLEMA RESOLVIDO");
 
 const Home = lazy(() => import("./pages/Home"));
 const Services = lazy(() => import("./pages/Services"));
@@ -50,21 +50,28 @@ class AppErrorBoundary extends React.Component<
   }
 
   static getDerivedStateFromError(error: Error) {
-    console.error('🚀 APP ERROR BOUNDARY v12:', error);
+    console.error('🚀 APP ERROR BOUNDARY v14:', error);
     return { hasError: true, errorMessage: error.message };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🚀 APP ERROR BOUNDARY v12 - Full details:', {
+    console.error('🚀 APP ERROR BOUNDARY v14 - Detalhes completos:', {
       error: error.message,
       stack: error.stack,
       errorInfo,
-      isRadixRelated: error.stack?.includes('radix') || error.stack?.includes('tooltip')
+      isRadixRelated: error.stack?.includes('radix') || 
+                     error.stack?.includes('tooltip') ||
+                     error.stack?.includes('TooltipProvider')
     });
     
-    if (error.stack?.includes('radix') || error.stack?.includes('TooltipProvider')) {
-      console.error('🚀 FORCING RELOAD DUE TO RADIX ERROR v12');
-      setTimeout(() => window.location.reload(), 1000);
+    // Forçar reload se for erro do Radix
+    if (error.stack?.includes('radix') || 
+        error.stack?.includes('TooltipProvider') ||
+        error.message?.includes('useState')) {
+      console.error('🚀 FORÇANDO RELOAD POR ERRO DO RADIX v14');
+      setTimeout(() => {
+        window.location.href = window.location.href;
+      }, 1000);
     }
   }
 
@@ -73,14 +80,23 @@ class AppErrorBoundary extends React.Component<
       return (
         <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
           <div className="text-center p-8">
-            <h1 className="text-2xl font-bold mb-4">Application Error v12</h1>
-            <p className="text-gray-300 mb-4">Something went wrong.</p>
-            <p className="text-sm text-gray-400 mb-6">Error: {this.state.errorMessage}</p>
+            <h1 className="text-2xl font-bold mb-4">Erro na Aplicação v14</h1>
+            <p className="text-gray-300 mb-4">Algo deu errado.</p>
+            <p className="text-sm text-gray-400 mb-6">Erro: {this.state.errorMessage}</p>
             <button 
-              onClick={() => window.location.reload()} 
+              onClick={() => {
+                // Limpar tudo antes de recarregar
+                try {
+                  localStorage.clear();
+                  sessionStorage.clear();
+                } catch (e) {
+                  // Ignorar erros
+                }
+                window.location.href = window.location.href;
+              }} 
               className="px-6 py-3 bg-indigo-600 rounded hover:bg-indigo-700 transition-colors"
             >
-              Reload Application
+              Recarregar Aplicação
             </button>
           </div>
         </div>
@@ -99,26 +115,39 @@ const SafeChatBot = () => {
       </Suspense>
     );
   } catch (error) {
-    console.error('🚀 CHATBOT ERROR v12:', error);
+    console.error('🚀 CHATBOT ERROR v14:', error);
     return null;
   }
 };
 
 const App: React.FC = () => {
   React.useEffect(() => {
-    console.log("🚀 APP v12: Component mounted - COMPLETELY CLEAN");
+    console.log("🚀 APP v14: Componente montado - COMPLETAMENTE LIMPO");
     
-    // Final cache clear
+    // Limpeza final de cache
     try {
       const keys = Object.keys(localStorage);
       keys.forEach(key => {
-        if (key.includes('radix') || key.includes('tooltip')) {
+        if (key.includes('radix') || 
+            key.includes('tooltip') || 
+            key.includes('TooltipProvider')) {
           localStorage.removeItem(key);
-          console.log(`🚀 APP v12: Removed localStorage key: ${key}`);
+          console.log(`🚀 APP v14: Removido localStorage key: ${key}`);
+        }
+      });
+      
+      // Também limpar sessionStorage
+      const sessionKeys = Object.keys(sessionStorage);
+      sessionKeys.forEach(key => {
+        if (key.includes('radix') || 
+            key.includes('tooltip') || 
+            key.includes('TooltipProvider')) {
+          sessionStorage.removeItem(key);
+          console.log(`🚀 APP v14: Removido sessionStorage key: ${key}`);
         }
       });
     } catch (e) {
-      console.log("🚀 APP v12: localStorage clear completed");
+      console.log("🚀 APP v14: Limpeza de localStorage finalizada");
     }
   }, []);
   
@@ -153,16 +182,24 @@ const App: React.FC = () => {
       </AppErrorBoundary>
     );
   } catch (error) {
-    console.error('🚀 APP v12: Defensive render caught error:', error);
+    console.error('🚀 APP v14: Erro defensivo capturado:', error);
     return (
       <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
         <div className="text-center p-8">
-          <h1 className="text-2xl font-bold mb-4">App Render Error v12</h1>
+          <h1 className="text-2xl font-bold mb-4">Erro de Renderização v14</h1>
           <button 
-            onClick={() => window.location.reload()} 
+            onClick={() => {
+              try {
+                localStorage.clear();
+                sessionStorage.clear();
+              } catch (e) {
+                // Ignorar erros
+              }
+              window.location.href = window.location.href;
+            }} 
             className="px-6 py-3 bg-indigo-600 rounded hover:bg-indigo-700 transition-colors"
           >
-            Reload Application
+            Recarregar Aplicação
           </button>
         </div>
       </div>

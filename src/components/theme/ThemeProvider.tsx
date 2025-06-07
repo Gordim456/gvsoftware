@@ -61,7 +61,7 @@ export function ThemeProvider({
     },
   }
 
-  console.log("🚀 THEME PROVIDER v12: Rendering WITHOUT any Radix dependencies");
+  console.log("🚀 THEME PROVIDER v14: Renderizando SEM dependências do Radix");
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>

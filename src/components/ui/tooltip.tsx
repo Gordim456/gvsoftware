@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🚀 TOOLTIP v13: COMPLETELY CUSTOM - NO RADIX AT ALL");
+console.log("🚀 TOOLTIP v14: COMPLETAMENTE REESCRITO - ZERO RADIX");
 
-// Pure custom tooltip interface - zero external dependencies
+// Interface do tooltip customizado - sem dependências externas
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -13,7 +13,7 @@ interface TooltipProps {
   delayDuration?: number;
 }
 
-// 100% custom tooltip implementation
+// Implementação 100% customizada do tooltip
 const Tooltip: React.FC<TooltipProps> = ({ 
   children, 
   content, 
@@ -24,7 +24,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [isVisible, setIsVisible] = React.useState(false);
   const timeoutRef = React.useRef<NodeJS.Timeout>();
 
-  console.log("🚀 TOOLTIP v13: Rendering pure custom tooltip");
+  console.log("🚀 TOOLTIP v14: Renderizando tooltip customizado puro");
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
@@ -89,22 +89,22 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Empty dummy components for compatibility - DO ABSOLUTELY NOTHING
+// Componentes dummy vazios para compatibilidade - NÃO FAZEM ABSOLUTAMENTE NADA
 const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
-  console.log("🚀 TOOLTIP PROVIDER v13: Dummy provider - just returns children");
+  console.log("🚀 TOOLTIP PROVIDER v14: Provider dummy - apenas retorna children");
   return <React.Fragment>{children}</React.Fragment>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🚀 TOOLTIP TRIGGER v13: Dummy trigger - just returns children");
+  console.log("🚀 TOOLTIP TRIGGER v14: Trigger dummy - apenas retorna children");
   return <React.Fragment>{children}</React.Fragment>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode; side?: string; className?: string }> = ({ children }) => {
-  console.log("🚀 TOOLTIP CONTENT v13: Dummy content - just returns children");
+  console.log("🚀 TOOLTIP CONTENT v14: Content dummy - apenas retorna children");
   return <React.Fragment>{children}</React.Fragment>;
 };
 
-console.log("🚀 TOOLTIP EXPORTS v13: Exporting PURE CUSTOM components - ZERO RADIX");
+console.log("🚀 TOOLTIP EXPORTS v14: Exportando componentes CUSTOMIZADOS PUROS - ZERO RADIX");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
