@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -13,28 +12,22 @@ import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-console.log("🔥 APP: ABSOLUTELY CLEAN VERSION - Zero Radix UI anywhere in the entire app");
+console.log("🔥 APP: FINAL CLEAN VERSION - Zero external tooltip dependencies anywhere");
 
-// Comprehensive debug check for any Radix contamination
+// Check for any remaining contamination
 if (typeof window !== 'undefined') {
-  console.log("🔥 APP: Performing comprehensive Radix contamination check");
-  
-  // Check window object
-  const windowRadixRefs = Object.keys(window).filter(key => 
+  console.log("🔥 APP: Final contamination check");
+  const allKeys = Object.keys(window);
+  const suspiciousKeys = allKeys.filter(key => 
     key.toLowerCase().includes('radix') || 
-    key.toLowerCase().includes('tooltip')
+    key.toLowerCase().includes('tooltip') ||
+    key.toLowerCase().includes('@radix')
   );
   
-  // Check if any modules are still loaded
-  const moduleKeys = Object.keys(window).filter(key => key.includes('__vite'));
-  
-  console.log("🔥 APP: Window radix references:", windowRadixRefs);
-  console.log("🔥 APP: Module keys found:", moduleKeys.length);
-  
-  if (windowRadixRefs.length > 0) {
-    console.error("🔥 APP: FOUND RADIX CONTAMINATION:", windowRadixRefs);
+  if (suspiciousKeys.length > 0) {
+    console.error("🔥 APP: STILL FOUND CONTAMINATION:", suspiciousKeys);
   } else {
-    console.log("🔥 APP: No Radix references found - completely clean");
+    console.log("🔥 APP: Complete cleanup successful - no external tooltip refs");
   }
 }
 
@@ -70,7 +63,7 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering absolutely clean App - zero external tooltip dependencies");
+  console.log("🔥 APP: Rendering final clean version - zero tooltip dependencies");
   
   return (
     <ErrorBoundary>
