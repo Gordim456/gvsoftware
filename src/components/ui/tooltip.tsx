@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: Componente 100% customizado sem Radix");
+console.log("🔥 TOOLTIP: Componente 100% customizado sem Radix - STANDALONE");
 
 // Tooltip completamente standalone - SEM Radix UI
 interface TooltipProps {
@@ -50,14 +50,14 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes de compatibilidade - COMPLETAMENTE INDEPENDENTES
+// Componentes de compatibilidade - VAZIOS para evitar erros
 const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Wrapper simples sem hooks nem Radix");
+  console.log("🔥 TOOLTIP PROVIDER: Wrapper limpo - SEM useState");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Passthrough simples");
+  console.log("🔥 TOOLTIP TRIGGER: Passthrough limpo");
   return <>{children}</>;
 };
 
@@ -67,7 +67,7 @@ const TooltipContent: React.FC<{
   side?: "top" | "bottom" | "left" | "right";
   sideOffset?: number;
 }> = () => {
-  console.log("🔥 TOOLTIP CONTENT: Stub vazio - use o componente Tooltip diretamente");
+  console.log("🔥 TOOLTIP CONTENT: Stub vazio");
   return null;
 };
 
