@@ -2,6 +2,8 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
+console.log("🔥 STANDALONE TOOLTIP: Loading completely standalone implementation");
+
 // Completely standalone tooltip implementation
 interface TooltipProps {
   children: React.ReactNode;
@@ -48,12 +50,14 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Empty compatibility components - these do nothing but prevent import errors
+// Empty compatibility components that return null to prevent any usage
 const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
+  console.log("🔥 TOOLTIP PROVIDER: Using empty provider - no Radix UI");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
+  console.log("🔥 TOOLTIP TRIGGER: Using empty trigger - no Radix UI");
   return <>{children}</>;
 };
 
@@ -63,6 +67,7 @@ const TooltipContent: React.FC<{
   side?: "top" | "bottom" | "left" | "right";
   sideOffset?: number;
 }> = () => {
+  console.log("🔥 TOOLTIP CONTENT: Using empty content - no Radix UI");
   return null;
 };
 
