@@ -49,17 +49,17 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// DUMMY COMPONENTS - NO HOOKS, NO STATE, NO RADIX UI
+// PASSTHROUGH COMPONENTS - NO STATE OR HOOKS
 const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
-  return React.createElement(React.Fragment, null, children);
+  return children as React.ReactElement;
 };
 
 const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => {
-  return React.createElement(React.Fragment, null, children);
+  return children as React.ReactElement;
 };
 
-const TooltipContent = ({ children }: { children: React.ReactNode; className?: string }) => {
-  return React.createElement(React.Fragment, null, children);
+const TooltipContent = ({ children }: { children: React.ReactNode; className?: string; side?: string; sideOffset?: number }) => {
+  return null;
 };
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };

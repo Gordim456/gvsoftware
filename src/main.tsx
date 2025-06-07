@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
-console.log("🔥 MAIN: NUCLEAR CLEAN VERSION - NO TOOLTIP DEPENDENCIES");
+console.log("🔥 MAIN: COMPLETELY CLEAN - NO TOOLTIP ISSUES");
 
 // Error boundary for the entire app
 class GlobalErrorBoundary extends React.Component<
