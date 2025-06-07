@@ -23,25 +23,6 @@ const blockRadixCompletely = () => {
       });
     }
     
-    // Block Radix at the module level
-    if (window && typeof window === 'object') {
-      const originalImport = window.__vite__;
-      if (originalImport) {
-        // Intercept any Radix imports
-        const blockList = ['@radix-ui', 'radix', 'tooltip'];
-        window.__vite__.import = new Proxy(originalImport.import || (() => {}), {
-          apply(target, thisArg, args) {
-            const moduleName = args[0];
-            if (blockList.some(blocked => moduleName.includes(blocked))) {
-              console.error('🚀 MAIN ULTIMATE CLEAN: BLOCKED RADIX IMPORT:', moduleName);
-              return Promise.reject(new Error('Radix imports are blocked'));
-            }
-            return target.apply(thisArg, args);
-          }
-        });
-      }
-    }
-    
     console.log('🚀 MAIN ULTIMATE CLEAN: Radix blocking complete');
   } catch (error) {
     console.error('🚀 MAIN ULTIMATE CLEAN: Error blocking Radix:', error);
