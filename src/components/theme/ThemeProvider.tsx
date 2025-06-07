@@ -1,49 +1,80 @@
 
-"use client"
+import React, { createContext, useContext, useEffect, useState } from "react"
 
-import * as React from "react"
-import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { type ThemeProviderProps } from "next-themes/dist/types"
+type Theme = "dark" | "light" | "system"
 
-console.log("🔥 THEME PROVIDER: Loading CLEAN theme provider - NO RADIX TOOLTIP ANYWHERE");
-
-// Error boundary for theme provider
-class ThemeErrorBoundary extends React.Component<
-  { children: React.ReactNode },
-  { hasError: boolean }
-> {
-  constructor(props: { children: React.ReactNode }) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🔥 THEME ERROR BOUNDARY: Caught theme error:', error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return <div className="min-h-screen bg-slate-900 text-white">Theme Error</div>;
-    }
-
-    return this.props.children;
-  }
+type ThemeProviderProps = {
+  children: React.ReactNode
+  defaultTheme?: Theme
+  storageKey?: string
+  attribute?: string
+  enableSystem?: boolean
 }
 
-export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  React.useEffect(() => {
-    console.log("🔥 THEME PROVIDER: Mounted successfully - COMPLETELY RADIX-FREE");
-  }, []);
+type ThemeProviderState = {
+  theme: Theme
+  setTheme: (theme: Theme) => void
+}
+
+const initialState: ThemeProviderState = {
+  theme: "system",
+  setTheme: () => null,
+}
+
+const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
+
+export function ThemeProvider({
+  children,
+  defaultTheme = "system",
+  storageKey = "vite-ui-theme",
+  attribute = "class",
+  enableSystem = true,
+  ...props
+}: ThemeProviderProps) {
+  const [theme, setTheme] = useState<Theme>(
+    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+  )
+
+  useEffect(() => {
+    const root = window.document.documentElement
+
+    root.classList.remove("light", "dark")
+
+    if (theme === "system" && enableSystem) {
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "dark"
+        : "light"
+
+      root.classList.add(systemTheme)
+      return
+    }
+
+    root.classList.add(theme)
+  }, [theme, enableSystem])
+
+  const value = {
+    theme,
+    setTheme: (theme: Theme) => {
+      localStorage.setItem(storageKey, theme)
+      setTheme(theme)
+    },
+  }
+
+  console.log("🚀 THEME PROVIDER v12: Rendering WITHOUT any Radix dependencies");
 
   return (
-    <ThemeErrorBoundary>
-      <NextThemesProvider {...props}>
-        {children}
-      </NextThemesProvider>
-    </ThemeErrorBoundary>
+    <ThemeProviderContext.Provider {...props} value={value}>
+      {children}
+    </ThemeProviderContext.Provider>
   )
+}
+
+export const useTheme = () => {
+  const context = useContext(ThemeProviderContext)
+
+  if (context === undefined)
+    throw new Error("useTheme must be used within a ThemeProvider")
+
+  return context
 }

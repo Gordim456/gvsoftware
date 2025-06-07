@@ -10,7 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
 
-console.log("🚀 APP v11: Loading ULTRA CLEAN app - ZERO RADIX TOOLTIP DEPENDENCIES");
+console.log("🚀 APP v12: Loading COMPLETELY CLEAN app - ZERO RADIX TOOLTIP");
 
 const Home = lazy(() => import("./pages/Home"));
 const Services = lazy(() => import("./pages/Services"));
@@ -40,7 +40,6 @@ const LoadingFallback = () => (
   </div>
 );
 
-// Maximum protection error boundary
 class AppErrorBoundary extends React.Component<
   { children: React.ReactNode },
   { hasError: boolean; errorMessage: string }
@@ -51,29 +50,21 @@ class AppErrorBoundary extends React.Component<
   }
 
   static getDerivedStateFromError(error: Error) {
-    console.error('🚀 APP ERROR BOUNDARY v11: Caught app error:', error);
+    console.error('🚀 APP ERROR BOUNDARY v12:', error);
     return { hasError: true, errorMessage: error.message };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🚀 APP ERROR BOUNDARY v11: Full error details:', {
+    console.error('🚀 APP ERROR BOUNDARY v12 - Full details:', {
       error: error.message,
       stack: error.stack,
       errorInfo,
-      isRadixTooltip: error.message.includes('tooltip') || error.stack?.includes('tooltip') || error.stack?.includes('radix'),
-      isUseStateIssue: error.message.includes('useState'),
-      isViteDeps: error.stack?.includes('/node_modules/.vite/deps/')
+      isRadixRelated: error.stack?.includes('radix') || error.stack?.includes('tooltip')
     });
     
-    // Force reload for any Radix/Vite deps errors
-    if (error.stack?.includes('radix') || 
-        error.stack?.includes('TooltipProvider') || 
-        error.message.includes('useState') ||
-        error.stack?.includes('/node_modules/.vite/deps/')) {
-      console.error('🚀 DETECTED CRITICAL ERROR - FORCING RELOAD v11');
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+    if (error.stack?.includes('radix') || error.stack?.includes('TooltipProvider')) {
+      console.error('🚀 FORCING RELOAD DUE TO RADIX ERROR v12');
+      setTimeout(() => window.location.reload(), 1000);
     }
   }
 
@@ -82,8 +73,8 @@ class AppErrorBoundary extends React.Component<
       return (
         <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
           <div className="text-center p-8">
-            <h1 className="text-2xl font-bold mb-4">Application Error v11</h1>
-            <p className="text-gray-300 mb-4">Something went wrong while loading the application.</p>
+            <h1 className="text-2xl font-bold mb-4">Application Error v12</h1>
+            <p className="text-gray-300 mb-4">Something went wrong.</p>
             <p className="text-sm text-gray-400 mb-6">Error: {this.state.errorMessage}</p>
             <button 
               onClick={() => window.location.reload()} 
@@ -100,7 +91,6 @@ class AppErrorBoundary extends React.Component<
   }
 }
 
-// Ultra safe ChatBot
 const SafeChatBot = () => {
   try {
     return (
@@ -109,48 +99,29 @@ const SafeChatBot = () => {
       </Suspense>
     );
   } catch (error) {
-    console.error('🚀 CHATBOT ERROR v11:', error);
+    console.error('🚀 CHATBOT ERROR v12:', error);
     return null;
   }
 };
 
 const App: React.FC = () => {
   React.useEffect(() => {
-    console.log("🚀 APP v11: Component mounted successfully - ZERO RADIX TOOLTIP ANYWHERE");
+    console.log("🚀 APP v12: Component mounted - COMPLETELY CLEAN");
     
-    // Verify React hooks
-    console.log("🚀 APP v11: React hooks validation - useState:", !!React.useState);
-    console.log("🚀 APP v11: React hooks validation - useEffect:", !!React.useEffect);
-    
-    // Clear any remaining caches
-    console.log("🚀 APP v11: FINAL cache clearing");
-    
+    // Final cache clear
     try {
       const keys = Object.keys(localStorage);
       keys.forEach(key => {
-        if (key.includes('radix') || key.includes('tooltip') || key.includes('vite')) {
+        if (key.includes('radix') || key.includes('tooltip')) {
           localStorage.removeItem(key);
-          console.log(`🚀 APP v11: Removed localStorage key: ${key}`);
+          console.log(`🚀 APP v12: Removed localStorage key: ${key}`);
         }
       });
     } catch (e) {
-      console.log("🚀 APP v11: localStorage clear completed");
-    }
-
-    try {
-      const keys = Object.keys(sessionStorage);
-      keys.forEach(key => {
-        if (key.includes('radix') || key.includes('tooltip') || key.includes('vite')) {
-          sessionStorage.removeItem(key);
-          console.log(`🚀 APP v11: Removed sessionStorage key: ${key}`);
-        }
-      });
-    } catch (e) {
-      console.log("🚀 APP v11: sessionStorage clear completed");
+      console.log("🚀 APP v12: localStorage clear completed");
     }
   }, []);
   
-  // Defensive rendering with maximum protection
   try {
     return (
       <AppErrorBoundary>
@@ -182,11 +153,11 @@ const App: React.FC = () => {
       </AppErrorBoundary>
     );
   } catch (error) {
-    console.error('🚀 APP v11: Defensive render caught error:', error);
+    console.error('🚀 APP v12: Defensive render caught error:', error);
     return (
       <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
         <div className="text-center p-8">
-          <h1 className="text-2xl font-bold mb-4">App Render Error v11</h1>
+          <h1 className="text-2xl font-bold mb-4">App Render Error v12</h1>
           <button 
             onClick={() => window.location.reload()} 
             className="px-6 py-3 bg-indigo-600 rounded hover:bg-indigo-700 transition-colors"
