@@ -6,7 +6,12 @@ import SocialIcons from '../components/SocialIcons';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Clock } from 'lucide-react';
 
+console.log("🔥 CONTACT PAGE: Loading with proper React import");
+
 const Contact: React.FC = () => {
+  console.log("🔥 CONTACT PAGE: Component rendering, React:", React);
+  console.log("🔥 CONTACT PAGE: useState available:", typeof useState);
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,12 +21,13 @@ const Contact: React.FC = () => {
   });
 
   useEffect(() => {
+    console.log("🔥 CONTACT PAGE: useEffect running, setting document title");
     document.title = 'Contato | GV Software - Fale Conosco';
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log('🔥 CONTACT PAGE: Form submitted:', formData);
     // Aqui você pode implementar o envio do formulário
   };
 
@@ -31,6 +37,8 @@ const Contact: React.FC = () => {
       [e.target.name]: e.target.value
     });
   };
+
+  console.log("🔥 CONTACT PAGE: About to render JSX");
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
