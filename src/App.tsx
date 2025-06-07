@@ -10,9 +10,9 @@ import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
 import TestComponent from "./components/TestComponent";
-import NewChatBot from "./components/chat/NewChatBot";
+import SimpleChatBot from "./components/chat/SimpleChatBot";
 
-console.log("🔥 APP: Loading with NewChatBot");
+console.log("🔥 APP: Loading with SimpleChatBot");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -46,7 +46,7 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering app with NewChatBot");
+  console.log("🔥 APP: Rendering app with SimpleChatBot");
   
   return (
     <QueryClientProvider client={queryClient}>
@@ -70,7 +70,7 @@ const App: React.FC = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
             <TestComponent />
-            <NewChatBot />
+            <SimpleChatBot />
           </Suspense>
         </BrowserRouter>
       </ThemeProvider>

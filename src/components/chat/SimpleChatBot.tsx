@@ -1,17 +1,17 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
 
-interface Message {
+interface ChatMessage {
   id: string;
   text: string;
   isBot: boolean;
   timestamp: Date;
 }
 
-const NewChatBot: React.FC = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [messages, setMessages] = React.useState<Message[]>([
+const SimpleChatBot: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
       text: 'Olá! 👋 Sou o assistente da GV Software. Como posso te ajudar hoje?',
@@ -19,7 +19,7 @@ const NewChatBot: React.FC = () => {
       timestamp: new Date()
     }
   ]);
-  const [inputValue, setInputValue] = React.useState('');
+  const [inputValue, setInputValue] = useState('');
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
@@ -28,7 +28,7 @@ const NewChatBot: React.FC = () => {
   const sendMessage = () => {
     if (!inputValue.trim()) return;
 
-    const userMessage: Message = {
+    const userMessage: ChatMessage = {
       id: Date.now().toString(),
       text: inputValue,
       isBot: false,
@@ -40,7 +40,7 @@ const NewChatBot: React.FC = () => {
 
     // Resposta automática do bot
     setTimeout(() => {
-      const botResponse: Message = {
+      const botResponse: ChatMessage = {
         id: (Date.now() + 1).toString(),
         text: 'Obrigado pela sua mensagem! Nossa equipe entrará em contato em breve. Para urgências, ligue (17) 99785-3416.',
         isBot: true,
@@ -137,4 +137,4 @@ const NewChatBot: React.FC = () => {
   );
 };
 
-export default NewChatBot;
+export default SimpleChatBot;
