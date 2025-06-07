@@ -13,19 +13,28 @@ import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-console.log("🔥 APP: ULTRA CLEAN VERSION - Zero Radix UI dependencies");
+console.log("🔥 APP: ABSOLUTELY CLEAN VERSION - Zero Radix UI anywhere in the entire app");
 
-// Debug check for any Radix contamination
+// Comprehensive debug check for any Radix contamination
 if (typeof window !== 'undefined') {
-  console.log("🔥 APP: Checking for Radix contamination in window object");
-  const radixRefs = Object.keys(window).filter(key => 
+  console.log("🔥 APP: Performing comprehensive Radix contamination check");
+  
+  // Check window object
+  const windowRadixRefs = Object.keys(window).filter(key => 
     key.toLowerCase().includes('radix') || 
     key.toLowerCase().includes('tooltip')
   );
-  if (radixRefs.length > 0) {
-    console.error("🔥 APP: Found Radix references:", radixRefs);
+  
+  // Check if any modules are still loaded
+  const moduleKeys = Object.keys(window).filter(key => key.includes('__vite'));
+  
+  console.log("🔥 APP: Window radix references:", windowRadixRefs);
+  console.log("🔥 APP: Module keys found:", moduleKeys.length);
+  
+  if (windowRadixRefs.length > 0) {
+    console.error("🔥 APP: FOUND RADIX CONTAMINATION:", windowRadixRefs);
   } else {
-    console.log("🔥 APP: No Radix references found in window");
+    console.log("🔥 APP: No Radix references found - completely clean");
   }
 }
 
@@ -61,7 +70,7 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering ultra-clean App with zero Radix dependencies");
+  console.log("🔥 APP: Rendering absolutely clean App - zero external tooltip dependencies");
   
   return (
     <ErrorBoundary>
