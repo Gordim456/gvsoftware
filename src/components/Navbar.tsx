@@ -5,7 +5,13 @@ import { Menu, X, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 
+console.log("🔥 NAVBAR: Loading with explicit React imports");
+console.log("🔥 NAVBAR: React available:", React);
+console.log("🔥 NAVBAR: useState available:", typeof useState);
+
 const Navbar: React.FC = () => {
+  console.log("🔥 NAVBAR: Component rendering, React:", React);
+  
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -46,6 +52,8 @@ const Navbar: React.FC = () => {
   ];
 
   const isActive = (path: string) => location.pathname === path;
+
+  console.log("🔥 NAVBAR: About to render JSX");
 
   return (
     <motion.nav 
