@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-// COMPLETELY STANDALONE TOOLTIP - NO RADIX UI
+// COMPLETELY STANDALONE TOOLTIP - NO RADIX UI WHATSOEVER
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -49,16 +49,19 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// PASSTHROUGH COMPONENTS - NO STATE OR HOOKS
+// COMPLETELY NULL COMPONENTS - NO FUNCTIONALITY
 const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
-  return children as React.ReactElement;
+  // Return children directly as JSX element, no React hooks or state
+  return <>{children}</>;
 };
 
 const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => {
-  return children as React.ReactElement;
+  // Return children directly as JSX element
+  return <>{children}</>;
 };
 
 const TooltipContent = ({ children }: { children: React.ReactNode; className?: string; side?: string; sideOffset?: number }) => {
+  // Return null - no content rendered
   return null;
 };
 
