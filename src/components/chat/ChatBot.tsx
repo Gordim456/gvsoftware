@@ -1,36 +1,33 @@
 
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { MessageCircle, X } from "lucide-react";
 
-console.log("🔥 CHATBOT: Starting simple ChatBot component");
+console.log("🔥 CHATBOT: Loading minimal ChatBot component");
 
-interface ChatBotState {
-  isOpen: boolean;
-}
-
-const ChatBot = (): JSX.Element => {
-  console.log("🔥 CHATBOT: Component function called");
+const ChatBot: React.FC = () => {
+  console.log("🔥 CHATBOT: Component rendering");
   
-  const [state, setState] = useState<ChatBotState>({ isOpen: false });
-  
-  console.log("🔥 CHATBOT: State initialized:", state);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleToggle = useCallback(() => {
-    console.log("🔥 CHATBOT: Toggle called, current state:", state);
-    setState(prev => ({ ...prev, isOpen: !prev.isOpen }));
-  }, [state]);
+  console.log("🔥 CHATBOT: State initialized, isOpen:", isOpen);
 
-  console.log("🔥 CHATBOT: About to render, isOpen:", state.isOpen);
+  const handleToggle = () => {
+    console.log("🔥 CHATBOT: Toggle called, current isOpen:", isOpen);
+    setIsOpen(!isOpen);
+  };
+
+  console.log("🔥 CHATBOT: About to render JSX");
 
   return (
     <>
       {/* Chat button (when closed) */}
-      {!state.isOpen && (
+      {!isOpen && (
         <div className="fixed bottom-6 right-6 z-50">
           <button
             onClick={handleToggle}
             className="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 text-white p-3 rounded-full shadow-2xl hover:shadow-indigo-500/25 transition-all duration-500 hover:scale-110 border-2 border-white/30"
             style={{ width: '56px', height: '56px' }}
+            aria-label="Open chat"
           >
             <MessageCircle className="w-7 h-7 mx-auto" />
           </button>
@@ -38,7 +35,7 @@ const ChatBot = (): JSX.Element => {
       )}
       
       {/* Chat window (when open) */}
-      {state.isOpen && (
+      {isOpen && (
         <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 md:bg-transparent">
           <div className="fixed bottom-0 right-0 w-full md:w-[360px] h-full md:h-[520px] bg-white shadow-2xl transition-all duration-500 rounded-t-3xl md:rounded-3xl md:bottom-6 md:right-6 overflow-hidden flex flex-col border border-gray-200">
             {/* Header */}
@@ -58,6 +55,7 @@ const ChatBot = (): JSX.Element => {
               <button
                 onClick={handleToggle}
                 className="text-white/80 hover:text-white transition-colors hover:bg-white/10 p-1.5 rounded-lg"
+                aria-label="Close chat"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -78,6 +76,6 @@ const ChatBot = (): JSX.Element => {
   );
 };
 
-console.log("🔥 CHATBOT: Component defined, ready for export");
+console.log("🔥 CHATBOT: Component defined successfully");
 
 export default ChatBot;

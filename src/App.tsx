@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -8,10 +9,9 @@ import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
-import ChatBot from "./components/chat/ChatBot";
 import TestComponent from "./components/TestComponent";
 
-console.log("🔥 APP: Loading with simplified ChatBot and TestComponent");
+console.log("🔥 APP: Loading without ChatBot to fix React hook error");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -45,7 +45,7 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering app with simplified ChatBot and TestComponent");
+  console.log("🔥 APP: Rendering app without ChatBot");
   
   return (
     <QueryClientProvider client={queryClient}>
@@ -69,7 +69,7 @@ const App: React.FC = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
             <TestComponent />
-            <ChatBot />
+            {/* ChatBot temporarily disabled due to React hook error */}
           </Suspense>
         </BrowserRouter>
       </ThemeProvider>
