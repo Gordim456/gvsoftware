@@ -2,17 +2,17 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: NUCLEAR ELIMINATION - Zero Radix dependency");
+console.log("🔥 TOOLTIP: COMPLETELY CUSTOM - Zero external dependencies");
 
-// COMPLETELY ISOLATED tooltip implementation - NO external dependencies
-interface PureTooltipProps {
+// PURE React tooltip implementation - NO external dependencies whatsoever
+interface TooltipProps {
   children: React.ReactNode;
   content: string;
   side?: "top" | "bottom" | "left" | "right";
   className?: string;
 }
 
-const PureTooltip: React.FC<PureTooltipProps> = ({ 
+const Tooltip: React.FC<TooltipProps> = ({ 
   children, 
   content, 
   side = "top", 
@@ -50,23 +50,20 @@ const PureTooltip: React.FC<PureTooltipProps> = ({
   );
 };
 
-// NUCLEAR SAFE exports - no hooks, no dependencies
-const Tooltip = PureTooltip;
-
+// Simple pass-through components for API compatibility
 const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
-  console.log("🔥 TOOLTIP PROVIDER: NUCLEAR SAFE - no hooks, no Radix");
-  // Just return children directly - no wrapping, no hooks, no nothing
+  console.log("🔥 TOOLTIP PROVIDER: PURE PASSTHROUGH - no state, no hooks, no nothing");
   return <>{children}</>;
 };
 
 const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => {
-  console.log("🔥 TOOLTIP TRIGGER: NUCLEAR SAFE - no hooks, no Radix");
+  console.log("🔥 TOOLTIP TRIGGER: PURE PASSTHROUGH");
   return <>{children}</>;
 };
 
 const TooltipContent = ({ children }: { children: React.ReactNode; className?: string }) => {
-  console.log("🔥 TOOLTIP CONTENT: NUCLEAR SAFE - no hooks, no Radix");
+  console.log("🔥 TOOLTIP CONTENT: PURE PASSTHROUGH");
   return <>{children}</>;
 };
 
-export { Tooltip, PureTooltip, TooltipProvider, TooltipTrigger, TooltipContent };
+export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
