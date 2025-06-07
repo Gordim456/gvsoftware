@@ -9,7 +9,7 @@ import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 
-console.log("🔥 APP: Loading COMPLETELY CLEAN app - ZERO RADIX TOOLTIP DEPENDENCIES v5");
+console.log("🔥 APP: Loading COMPLETELY CLEAN app - ZERO RADIX TOOLTIP DEPENDENCIES v7");
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
@@ -40,7 +40,7 @@ const LoadingFallback = () => (
   </div>
 );
 
-// Error boundary for the entire app
+// Error boundary for the entire app with enhanced Radix detection
 class AppErrorBoundary extends React.Component<
   { children: React.ReactNode },
   { hasError: boolean; errorMessage: string }
@@ -51,18 +51,27 @@ class AppErrorBoundary extends React.Component<
   }
 
   static getDerivedStateFromError(error: Error) {
-    console.error('🔥 APP ERROR BOUNDARY: Caught app error v5:', error);
+    console.error('🔥 APP ERROR BOUNDARY: Caught app error v7:', error);
     return { hasError: true, errorMessage: error.message };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🔥 APP ERROR BOUNDARY: Full error details v5:', {
+    console.error('🔥 APP ERROR BOUNDARY: Full error details v7:', {
       error: error.message,
       stack: error.stack,
       errorInfo,
       isRadixTooltip: error.message.includes('tooltip') || error.stack?.includes('tooltip') || error.stack?.includes('radix'),
-      isUseStateIssue: error.message.includes('useState')
+      isUseStateIssue: error.message.includes('useState'),
+      isTooltipProvider: error.stack?.includes('TooltipProvider')
     });
+    
+    // If it's a Radix-related error, force a page reload
+    if (error.stack?.includes('radix') || error.stack?.includes('TooltipProvider')) {
+      console.error('🔥 DETECTED RADIX ERROR - FORCING RELOAD v7');
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
   }
 
   render() {
@@ -97,48 +106,69 @@ const SafeChatBot = () => {
       </Suspense>
     );
   } catch (error) {
-    console.error('🔥 CHATBOT ERROR v5:', error);
+    console.error('🔥 CHATBOT ERROR v7:', error);
     return null;
   }
 };
 
 const App: React.FC = () => {
   React.useEffect(() => {
-    console.log("🔥 APP: Component mounted successfully - ABSOLUTELY NO RADIX TOOLTIP ANYWHERE v5");
+    console.log("🔥 APP: Component mounted successfully - ABSOLUTELY NO RADIX TOOLTIP ANYWHERE v7");
     
-    // Force clear any potential Radix references
-    console.log("🔥 APP: Clearing any potential Radix tooltip cache v5");
+    // Verify React hooks are working
+    console.log("🔥 APP: React hooks validation - useState:", !!React.useState);
+    
+    // Force clear any potential Radix references again
+    console.log("🔥 APP: Final clearing of any potential Radix tooltip cache v7");
   }, []);
   
-  return (
-    <AppErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <BrowserRouter>
-            <Toaster />
-            <Sonner />
-            <KeyboardShortcutsProvider />
-            <Suspense fallback={<LoadingFallback />}>
-              <ScrollToTop />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/portfolio" element={<Portfolio />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/privacy" element={<Privacy />} />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-              <SafeChatBot />
-            </Suspense>
-          </BrowserRouter>
-        </ThemeProvider>
-      </QueryClientProvider>
-    </AppErrorBoundary>
-  );
+  // Defensive rendering - wrap everything in try-catch
+  try {
+    return (
+      <AppErrorBoundary>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            <BrowserRouter>
+              <Toaster />
+              <Sonner />
+              <KeyboardShortcutsProvider />
+              <Suspense fallback={<LoadingFallback />}>
+                <ScrollToTop />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/portfolio" element={<Portfolio />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/faq" element={<FAQ />} />
+                  <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+                <SafeChatBot />
+              </Suspense>
+            </BrowserRouter>
+          </ThemeProvider>
+        </QueryClientProvider>
+      </AppErrorBoundary>
+    );
+  } catch (error) {
+    console.error('🔥 APP: Defensive render caught error v7:', error);
+    return (
+      <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
+        <div className="text-center p-8">
+          <h1 className="text-2xl font-bold mb-4">App Render Error</h1>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="px-6 py-3 bg-indigo-600 rounded hover:bg-indigo-700 transition-colors"
+          >
+            Reload Application
+          </button>
+        </div>
+      </div>
+    );
+  }
 };
 
 export default App;

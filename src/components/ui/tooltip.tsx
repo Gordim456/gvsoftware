@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: Loading 100% CUSTOM tooltip - ZERO RADIX UI ANYWHERE v5");
+console.log("🔥 TOOLTIP: Loading 100% CUSTOM tooltip - ZERO RADIX UI ANYWHERE v7");
 
 // Simple custom tooltip interface
 interface TooltipProps {
@@ -22,7 +22,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [isVisible, setIsVisible] = React.useState(false);
 
   React.useEffect(() => {
-    console.log("✅ TOOLTIP: Custom tooltip mounted - COMPLETELY RADIX-FREE v5");
+    console.log("✅ TOOLTIP: Custom tooltip mounted - COMPLETELY RADIX-FREE v7");
   }, []);
 
   const positionClasses = {
@@ -56,20 +56,20 @@ const Tooltip: React.FC<TooltipProps> = ({
 
 // Compatibility components - these do NOTHING with Radix and just pass through children
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Custom provider - NO RADIX DEPENDENCIES v5");
+  console.log("🔥 TOOLTIP PROVIDER: Custom provider - NO RADIX DEPENDENCIES v7");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Custom trigger - NO RADIX DEPENDENCIES v5");
+  console.log("🔥 TOOLTIP TRIGGER: Custom trigger - NO RADIX DEPENDENCIES v7");
   return <>{children}</>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP CONTENT: Custom content - NO RADIX DEPENDENCIES v5");
+  console.log("🔥 TOOLTIP CONTENT: Custom content - NO RADIX DEPENDENCIES v7");
   return <>{children}</>;
 };
 
-console.log("🔥 TOOLTIP EXPORTS: Exporting CUSTOM components - ZERO RADIX UI v5");
+console.log("🔥 TOOLTIP EXPORTS: Exporting CUSTOM components - ZERO RADIX UI v7");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
