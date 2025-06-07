@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -10,6 +11,7 @@ import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
 import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 console.log("🔥 APP: Starting application - React version:", React.version);
 console.log("🔥 APP: React hooks available:", !!React.useState);
@@ -46,35 +48,37 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering main App component");
+  console.log("🔥 APP: Rendering main App component - no tooltip provider");
   
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-        <BrowserRouter>
-          <Toaster />
-          <Sonner />
-          <KeyboardShortcutsProvider />
-          <Suspense fallback={<LoadingFallback />}>
-            <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <TestComponent />
-            <SimpleChatBot />
-          </Suspense>
-        </BrowserRouter>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <BrowserRouter>
+            <Toaster />
+            <Sonner />
+            <KeyboardShortcutsProvider />
+            <Suspense fallback={<LoadingFallback />}>
+              <ScrollToTop />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <TestComponent />
+              <SimpleChatBot />
+            </Suspense>
+          </BrowserRouter>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 };
 
