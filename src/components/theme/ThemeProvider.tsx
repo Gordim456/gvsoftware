@@ -2,7 +2,7 @@
 import * as React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 
-console.log("🔥 THEME PROVIDER: Custom implementation - NO RADIX");
+console.log("🔥 THEME PROVIDER: Custom implementation - NO RADIX - ULTRA CLEAN");
 
 type Theme = "dark" | "light" | "system"
 
@@ -34,7 +34,7 @@ export function ThemeProvider({
   enableSystem = true,
   ...props
 }: ThemeProviderProps) {
-  console.log("🔥 THEME PROVIDER: Rendering theme provider - CLEAN");
+  console.log("🔥 THEME PROVIDER: Rendering theme provider - COMPLETELY CLEAN - NO RADIX");
   
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
@@ -65,6 +65,8 @@ export function ThemeProvider({
       setTheme(theme)
     },
   }
+
+  console.log("🔥 THEME PROVIDER: Providing theme context - ZERO RADIX");
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
