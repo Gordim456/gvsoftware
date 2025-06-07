@@ -10,7 +10,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { submitContactForm, ContactFormData } from '@/services/contactService';
 import { CheckCircle, AlertCircle, SendHorizontal } from 'lucide-react';
 
-// Schema de validação do formulário atualizado
 const formSchema = z.object({
   name: z.string().min(2, { message: "O nome deve ter pelo menos 2 caracteres." }),
   lastName: z.string().min(2, { message: "O sobrenome deve ter pelo menos 2 caracteres." }),
@@ -24,7 +23,7 @@ type ContactFormProps = {
   onSuccess: () => void;
 };
 
-const ContactForm = ({ onSuccess }: ContactFormProps) => {
+const ContactForm: React.FC<ContactFormProps> = ({ onSuccess }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({

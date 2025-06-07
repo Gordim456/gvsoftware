@@ -1,15 +1,22 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import AboutSection from '../components/AboutSection';
 import Services from '../components/Services';
 import Portfolio from '../components/Portfolio';
-import { ContactForm } from '../components/contact/ContactForm';
+import ContactForm from '../components/contact/ContactForm';
 import Footer from '../components/Footer';
 import SocialIcons from '../components/SocialIcons';
 
 const Home: React.FC = () => {
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleContactSuccess = () => {
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 5000);
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 text-white">
       <Navbar />
@@ -27,7 +34,12 @@ const Home: React.FC = () => {
               Vamos conversar sobre o seu projeto e como podemos ajudar a transformar suas ideias em realidade.
             </p>
           </div>
-          <ContactForm />
+          {showSuccess && (
+            <div className="bg-green-500 text-white p-4 rounded-lg mb-6 text-center">
+              Mensagem enviada com sucesso!
+            </div>
+          )}
+          <ContactForm onSuccess={handleContactSuccess} />
         </div>
       </section>
       <SocialIcons />
