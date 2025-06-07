@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP ULTIMATE PURGE: 100% Custom Implementation - ZERO RADIX");
+console.log("🔥 TOOLTIP ULTIMATE ELIMINATION: 100% Custom Implementation - ABSOLUTE ZERO RADIX");
 
 // Completely custom tooltip implementation with zero dependencies
 interface TooltipProps {
@@ -23,7 +23,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [isVisible, setIsVisible] = React.useState(false);
   const timeoutRef = React.useRef<NodeJS.Timeout>();
 
-  console.log("🔥 TOOLTIP ULTIMATE PURGE: Rendering 100% custom tooltip with zero dependencies");
+  console.log("🔥 TOOLTIP ULTIMATE ELIMINATION: Rendering 100% custom tooltip with ABSOLUTE zero dependencies");
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
@@ -88,22 +88,22 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// COMPLETELY EMPTY placeholder components that do ABSOLUTELY NOTHING
+// COMPLETELY EMPTY placeholder components that do ABSOLUTELY NOTHING - just pass through children
 const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER ULTIMATE PURGE: Empty provider - doing nothing");
+  console.log("🔥 TOOLTIP PROVIDER ULTIMATE ELIMINATION: Empty provider - ABSOLUTE passthrough");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER ULTIMATE PURGE: Empty trigger - doing nothing");
+  console.log("🔥 TOOLTIP TRIGGER ULTIMATE ELIMINATION: Empty trigger - ABSOLUTE passthrough");
   return <>{children}</>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode; side?: string; className?: string }> = ({ children }) => {
-  console.log("🔥 TOOLTIP CONTENT ULTIMATE PURGE: Empty content - doing nothing");
+  console.log("🔥 TOOLTIP CONTENT ULTIMATE ELIMINATION: Empty content - ABSOLUTE passthrough");
   return <>{children}</>;
 };
 
-console.log("🔥 TOOLTIP EXPORTS ULTIMATE PURGE: Exporting 100% custom components with ZERO dependencies");
+console.log("🔥 TOOLTIP EXPORTS ULTIMATE ELIMINATION: Exporting 100% custom components with ABSOLUTE ZERO dependencies");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
