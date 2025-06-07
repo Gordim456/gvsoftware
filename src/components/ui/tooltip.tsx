@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("Loading ONLY custom tooltip - zero external dependencies");
+console.log("Custom tooltip component loaded - NO external dependencies");
 
 // Implementação de tooltip 100% customizada - ZERO dependências externas
 interface TooltipProps {
@@ -49,9 +49,9 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes dummy para compatibilidade - 100% customizados sem dependências
+// Componentes para compatibilidade - 100% independentes
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("Custom TooltipProvider - no external deps whatsoever");
+  console.log("Custom TooltipProvider rendering - completely independent");
   return <>{children}</>;
 };
 
