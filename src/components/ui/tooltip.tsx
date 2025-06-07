@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("Tooltip component - 100% custom implementation, zero external dependencies");
+console.log("Tooltip component - ZERO dependencies, 100% custom React implementation");
 
 interface TooltipProps {
   children: React.ReactNode;
@@ -48,18 +48,18 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes de compatibilidade sem usar hooks problemáticos
-const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("TooltipProvider - simple wrapper, no hooks, no dependencies");
-  return <React.Fragment>{children}</React.Fragment>;
+// Componentes simples de compatibilidade - SEM HOOKS
+const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
+  console.log("TooltipProvider - simple passthrough, NO HOOKS, NO DEPENDENCIES");
+  return children;
 };
 
-const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  return <React.Fragment>{children}</React.Fragment>;
+const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => {
+  return children;
 };
 
-const TooltipContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <React.Fragment>{children}</React.Fragment>;
+const TooltipContent = ({ children }: { children: React.ReactNode }) => {
+  return children;
 };
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
