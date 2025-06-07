@@ -13,7 +13,7 @@ import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-console.log("🔥 APP: Clean version - no tooltip blocking needed");
+console.log("🔥 APP: Clean version - monitoring for any tooltip issues");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -47,7 +47,20 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering clean version");
+  console.log("🔥 APP: Rendering clean version - checking for tooltip contamination");
+  
+  // Log any global errors related to tooltips
+  React.useEffect(() => {
+    const handleError = (event: ErrorEvent) => {
+      if (event.message.includes('tooltip') || event.message.includes('useState')) {
+        console.error("🔥 APP: Tooltip-related error detected:", event.message);
+        console.error("🔥 APP: Error stack:", event.error?.stack);
+      }
+    };
+    
+    window.addEventListener('error', handleError);
+    return () => window.removeEventListener('error', handleError);
+  }, []);
   
   return (
     <ErrorBoundary>

@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: Standalone implementation");
+console.log("🔥 TOOLTIP: Complete standalone implementation - no external deps");
 
 // Completely standalone tooltip implementation
 interface TooltipProps {
@@ -50,17 +50,19 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// These components are simple passthroughs for API compatibility
+// Simple passthrough components for API compatibility - NO external dependencies
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Custom implementation");
+  console.log("🔥 TOOLTIP PROVIDER: Pure passthrough - no hooks, no state");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
+  console.log("🔥 TOOLTIP TRIGGER: Pure passthrough");
   return <>{children}</>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode; className?: string }> = ({ children }) => {
+  console.log("🔥 TOOLTIP CONTENT: Pure passthrough");
   return <>{children}</>;
 };
 
