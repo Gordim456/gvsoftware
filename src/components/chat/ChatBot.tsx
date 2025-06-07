@@ -1,5 +1,5 @@
-
-import React, { useState, useEffect, Suspense } from 'react';
+import * as React from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -23,6 +23,9 @@ interface FormData {
 }
 
 const ChatBot: React.FC<ChatBotProps> = ({ className = '' }) => {
+  console.log("🔥 CHATBOT: Component rendering with React:", React);
+  console.log("🔥 CHATBOT: useState available:", typeof useState);
+  
   const [chatState, setChatState] = useState<ChatState>('closed');
   const [conversationId, setConversationId] = useState<string>('');
   const [formData, setFormData] = useState<FormData>({
