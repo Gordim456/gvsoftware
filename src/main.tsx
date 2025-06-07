@@ -6,6 +6,16 @@ import './index.css';
 import { analytics } from './utils/analytics';
 import { cacheService } from './utils/cacheService';
 
+console.log("Starting main.tsx - checking for any Radix UI tooltip imports");
+
+// Check if there are any Radix UI tooltip imports that might be causing issues
+try {
+  // This will help us identify if there are any lingering Radix UI imports
+  console.log("React version:", React.version);
+} catch (error) {
+  console.error("Error in main.tsx:", error);
+}
+
 // Initialize services before rendering
 const initializeApp = async () => {
   try {
@@ -37,6 +47,7 @@ if (rootElement) {
   
   // Initialize services and render
   initializeApp().then(() => {
+    console.log("About to render App component");
     root.render(
       <React.StrictMode>
         <App />
@@ -50,6 +61,13 @@ if (rootElement) {
 // Handle unhandled errors
 window.addEventListener('error', (event) => {
   console.error('Global error:', event.error);
+  console.error('Error details:', {
+    message: event.error?.message,
+    filename: event.filename,
+    lineno: event.lineno,
+    colno: event.colno,
+    stack: event.error?.stack
+  });
   analytics.trackEvent('error', {
     message: event.error?.message || 'Unknown error',
     filename: event.filename,

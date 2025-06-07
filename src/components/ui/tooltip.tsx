@@ -2,6 +2,8 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
+console.log("Loading custom tooltip implementation");
+
 // Simple custom tooltip implementation - no providers needed
 interface TooltipProps {
   children: React.ReactNode;
@@ -47,8 +49,9 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Legacy exports for compatibility (empty implementations)
+// Legacy exports for compatibility - completely custom, no Radix UI
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  console.log("Custom TooltipProvider called - this should be the only tooltip provider");
   return <>{children}</>;
 };
 
