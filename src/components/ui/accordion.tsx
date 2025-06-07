@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -28,7 +27,7 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
       if (type === "multiple") {
         return Array.isArray(value) ? value : [];
       }
-      return value ? [value] : [];
+      return value && typeof value === 'string' ? [value] : [];
     });
 
     const toggleItem = React.useCallback((itemValue: string) => {

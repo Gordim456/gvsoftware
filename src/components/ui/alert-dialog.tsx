@@ -1,5 +1,5 @@
-
 import * as React from "react"
+import * as ReactDOM from "react-dom"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 
@@ -59,7 +59,7 @@ const AlertDialogTrigger = React.forwardRef<HTMLButtonElement, AlertDialogTrigge
     console.log("🔥 ALERT DIALOG TRIGGER ULTIMATE PURGE: Rendering custom trigger");
 
     if (asChild && React.isValidElement(children)) {
-      return React.cloneElement(children, {
+      return React.cloneElement(children as React.ReactElement<any>, {
         onClick: handleClick,
       });
     }
@@ -82,7 +82,7 @@ AlertDialogTrigger.displayName = "AlertDialogTrigger";
 const AlertDialogPortal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   console.log("🔥 ALERT DIALOG PORTAL ULTIMATE PURGE: Rendering custom portal");
   
-  return React.createPortal(children, document.body);
+  return ReactDOM.createPortal(children, document.body);
 };
 
 interface AlertDialogOverlayProps extends React.HTMLAttributes<HTMLDivElement> {}
