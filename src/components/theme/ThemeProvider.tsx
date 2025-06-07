@@ -1,6 +1,5 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { TooltipProvider } from "@/components/ui/tooltip";
 
 type Theme = "dark" | "light" | "system";
 
@@ -67,9 +66,7 @@ export function ThemeProvider({
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
-      <TooltipProvider>
-        {children}
-      </TooltipProvider>
+      {children}
     </ThemeProviderContext.Provider>
   );
 }
