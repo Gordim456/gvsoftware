@@ -54,21 +54,21 @@ const RobotIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
 const ChatBot: React.FC = () => {
   console.log("🚀 CHATBOT: Component rendering - React hooks initialized");
   
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [currentStep, setCurrentStep] = React.useState<ChatStep>('welcome');
-  const [formData, setFormData] = React.useState<FormData>({
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentStep, setCurrentStep] = useState<ChatStep>('welcome');
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     phone: "",
     subject: ""
   });
-  const [showWelcome, setShowWelcome] = React.useState(true);
-  const [conversationId, setConversationId] = React.useState<string | null>(null);
+  const [showWelcome, setShowWelcome] = useState(true);
+  const [conversationId, setConversationId] = useState<string | null>(null);
 
   console.log("🚀 CHATBOT: State initialized successfully");
 
   // Carregar estado salvo quando componente monta
-  React.useEffect(() => {
+  useEffect(() => {
     try {
       const savedData = localStorage.getItem('chatbot-data');
       if (savedData) {
@@ -84,7 +84,7 @@ const ChatBot: React.FC = () => {
   }, []);
 
   // Salvar estado sempre que houver mudanças
-  React.useEffect(() => {
+  useEffect(() => {
     try {
       const dataToSave = {
         formData,
@@ -98,7 +98,7 @@ const ChatBot: React.FC = () => {
     }
   }, [formData, currentStep, conversationId]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isOpen && showWelcome && currentStep === 'welcome') {
       const timer = setTimeout(() => {
         setShowWelcome(false);
