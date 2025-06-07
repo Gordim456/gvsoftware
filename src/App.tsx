@@ -8,9 +8,8 @@ import { lazy, Suspense } from "react";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
-import { TooltipErrorBoundary } from "@/components/ui/tooltip";
 
-console.log("🔥 APP: Loading main app - COMPLETELY CLEAN OF RADIX TOOLTIP");
+console.log("🔥 APP: Loading COMPLETELY CLEAN app - ZERO RADIX TOOLTIP DEPENDENCIES");
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
@@ -96,36 +95,34 @@ const SafeChatBot = () => {
 
 const App: React.FC = () => {
   React.useEffect(() => {
-    console.log("🔥 APP: Component mounted successfully - ZERO RADIX TOOLTIP REFERENCES");
+    console.log("🔥 APP: Component mounted successfully - ABSOLUTELY NO RADIX TOOLTIP ANYWHERE");
   }, []);
   
   return (
     <AppErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <TooltipErrorBoundary>
-            <BrowserRouter>
-              <Toaster />
-              <Sonner />
-              <KeyboardShortcutsProvider />
-              <Suspense fallback={<LoadingFallback />}>
-                <ScrollToTop />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/services" element={<Services />} />
-                  <Route path="/portfolio" element={<Portfolio />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/terms" element={<Terms />} />
-                  <Route path="/privacy" element={<Privacy />} />
-                  <Route path="/faq" element={<FAQ />} />
-                  <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-                <SafeChatBot />
-              </Suspense>
-            </BrowserRouter>
-          </TooltipErrorBoundary>
+          <BrowserRouter>
+            <Toaster />
+            <Sonner />
+            <KeyboardShortcutsProvider />
+            <Suspense fallback={<LoadingFallback />}>
+              <ScrollToTop />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <SafeChatBot />
+            </Suspense>
+          </BrowserRouter>
         </ThemeProvider>
       </QueryClientProvider>
     </AppErrorBoundary>

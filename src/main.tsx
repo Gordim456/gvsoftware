@@ -6,9 +6,8 @@ import './index.css';
 import { analytics } from './utils/analytics';
 import { cacheService } from './utils/cacheService';
 
-console.log("🔥 MAIN: Starting COMPLETELY CLEAN React application - ZERO RADIX TOOLTIP");
+console.log("🔥 MAIN: Starting RADIX-FREE React application");
 console.log("🔥 MAIN: React version:", React.version);
-console.log("🔥 MAIN: React hooks available:", !!React.useState);
 
 // Initialize services before rendering
 const initializeApp = async () => {
@@ -71,7 +70,7 @@ const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
 window.addEventListener('error', handleGlobalError);
 window.addEventListener('unhandledrejection', handleUnhandledRejection);
 
-// Render app with error boundary
+// Render app
 const rootElement = document.getElementById("root");
 if (rootElement) {
   const root = createRoot(rootElement);
@@ -80,7 +79,7 @@ if (rootElement) {
   
   // Initialize services and render
   initializeApp().then(() => {
-    console.log("🔥 MAIN: About to render CLEAN App - NO RADIX TOOLTIP ANYWHERE");
+    console.log("🔥 MAIN: About to render CLEAN App - ABSOLUTELY NO RADIX TOOLTIP");
     
     try {
       root.render(
