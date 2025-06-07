@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -12,29 +13,7 @@ import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-console.log("🔥 APP: Final clean version - absolutely no tooltip dependencies");
-
-// Block any runtime attempts to load Radix tooltip
-if (typeof window !== 'undefined') {
-  // Override any require/import attempts
-  const blockRadixTooltip = () => {
-    console.log("🔥 APP: Implementing final Radix blocking");
-    
-    // Block CommonJS require with proper typing
-    if (typeof require !== 'undefined') {
-      const originalRequire = require;
-      (global as any).require = function(id: string) {
-        if (id.includes('@radix-ui/react-tooltip') || id.includes('radix-tooltip')) {
-          console.error("🔥 APP: Blocked Radix tooltip require:", id);
-          throw new Error('Radix tooltip blocked');
-        }
-        return originalRequire(id);
-      } as any;
-    }
-  };
-  
-  blockRadixTooltip();
-}
+console.log("🔥 APP: Clean version - no tooltip blocking needed");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -68,7 +47,7 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering final clean version");
+  console.log("🔥 APP: Rendering clean version");
   
   return (
     <ErrorBoundary>
