@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP FINAL ELIMINATION: 100% Custom Implementation - ABSOLUTE ZERO RADIX");
+console.log("🔥 TOOLTIP COMPLETE REWRITE: Simple, functional implementation");
 
-// Completely custom tooltip implementation with zero dependencies
+// Simple tooltip implementation that actually works
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -22,8 +22,6 @@ const Tooltip: React.FC<TooltipProps> = ({
 }) => {
   const [isVisible, setIsVisible] = React.useState(false);
   const timeoutRef = React.useRef<NodeJS.Timeout>();
-
-  console.log("🔥 TOOLTIP FINAL ELIMINATION: Rendering 100% custom tooltip with ABSOLUTE zero dependencies");
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
@@ -88,37 +86,35 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// COMPLETELY EMPTY placeholder components that do ABSOLUTELY NOTHING - just pass through children
-const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number; skipDelayDuration?: number; disableHoverableContent?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER FINAL ELIMINATION: Empty provider - ABSOLUTE passthrough with ZERO functionality");
-  
-  // Add aggressive anti-Radix protection
-  React.useEffect(() => {
-    console.log("🔥 TOOLTIP PROVIDER FINAL ELIMINATION: Ensuring zero Radix contamination");
-    
-    // Block any potential Radix tooltip initialization
-    if (typeof window !== 'undefined') {
-      const radixElements = document.querySelectorAll('[data-radix-tooltip], [data-radix-ui-tooltip]');
-      radixElements.forEach(el => {
-        console.log('🔥 TOOLTIP PROVIDER FINAL ELIMINATION: Removing Radix tooltip element:', el);
-        el.remove();
-      });
-    }
-  }, []);
-  
+// Simple pass-through components that do nothing but prevent errors
+const TooltipProvider: React.FC<{ 
+  children: React.ReactNode; 
+  delayDuration?: number; 
+  skipDelayDuration?: number; 
+  disableHoverableContent?: boolean 
+}> = ({ children }) => {
+  console.log("🔥 TOOLTIP PROVIDER: Simple passthrough");
   return <>{children}</>;
 };
 
-const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER FINAL ELIMINATION: Empty trigger - ABSOLUTE passthrough");
+const TooltipTrigger: React.FC<{ 
+  children: React.ReactNode; 
+  asChild?: boolean 
+}> = ({ children }) => {
+  console.log("🔥 TOOLTIP TRIGGER: Simple passthrough");
   return <>{children}</>;
 };
 
-const TooltipContent: React.FC<{ children: React.ReactNode; side?: string; className?: string; sideOffset?: number }> = ({ children }) => {
-  console.log("🔥 TOOLTIP CONTENT FINAL ELIMINATION: Empty content - ABSOLUTE passthrough");
+const TooltipContent: React.FC<{ 
+  children: React.ReactNode; 
+  side?: string; 
+  className?: string; 
+  sideOffset?: number 
+}> = ({ children }) => {
+  console.log("🔥 TOOLTIP CONTENT: Simple passthrough");
   return <>{children}</>;
 };
 
-console.log("🔥 TOOLTIP EXPORTS FINAL ELIMINATION: Exporting 100% custom components with ABSOLUTE ZERO dependencies");
+console.log("🔥 TOOLTIP EXPORTS: Exporting functional components");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
