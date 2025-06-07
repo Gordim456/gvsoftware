@@ -13,23 +13,7 @@ import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-console.log("🔥 APP: ULTRA CLEAN VERSION - Absolutely zero tooltip dependencies");
-
-// Check for any remaining Radix contamination
-if (typeof window !== 'undefined') {
-  console.log("🔥 APP: Final decontamination check");
-  
-  // Block any attempt to load Radix UI tooltip
-  const originalImport = window.fetch;
-  window.fetch = (...args) => {
-    const url = args[0]?.toString() || '';
-    if (url.includes('@radix-ui/react-tooltip') || url.includes('radix-tooltip')) {
-      console.error("🔥 APP: BLOCKED RADIX TOOLTIP LOAD ATTEMPT:", url);
-      return Promise.reject(new Error('Radix tooltip blocked'));
-    }
-    return originalImport.apply(window, args);
-  };
-}
+console.log("🔥 APP: Clean version - no tooltip dependencies");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -63,7 +47,7 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering ultra clean version - absolutely zero tooltip dependencies");
+  console.log("🔥 APP: Rendering clean version");
   
   return (
     <ErrorBoundary>

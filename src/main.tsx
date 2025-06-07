@@ -4,27 +4,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
-console.log("🚀 MAIN: ULTRA CLEAN START - Zero tooltip dependencies, aggressive blocking");
-
-// Aggressive cleanup and blocking
-if (typeof window !== 'undefined') {
-  console.log("🚀 MAIN: Implementing aggressive Radix blocking");
-  
-  // Block module resolution for Radix tooltip with proper typing
-  const originalResolve = Promise.resolve;
-  (Promise as any).resolve = function<T>(value?: T | PromiseLike<T>): Promise<Awaited<T>> {
-    if (typeof value === 'string' && (value.includes('@radix-ui/react-tooltip') || value.includes('radix-tooltip'))) {
-      console.error("🚀 MAIN: BLOCKED RADIX TOOLTIP PROMISE:", value);
-      return originalResolve.call(this, null as any);
-    }
-    return originalResolve.call(this, value);
-  };
-  
-  // Clear any module cache
-  if ('webpackChunkName' in window) {
-    delete (window as any).webpackChunkName;
-  }
-}
+console.log("🚀 MAIN: Clean start - no tooltip dependencies");
 
 // Initialize application
 const rootElement = document.getElementById("root");
@@ -32,7 +12,7 @@ if (rootElement) {
   try {
     const root = createRoot(rootElement);
     
-    console.log("🚀 MAIN: Rendering ultra clean App - completely isolated from Radix");
+    console.log("🚀 MAIN: Rendering App");
     
     root.render(
       <React.StrictMode>
@@ -40,7 +20,7 @@ if (rootElement) {
       </React.StrictMode>
     );
     
-    console.log("🚀 MAIN: App rendered successfully - completely Radix-free");
+    console.log("🚀 MAIN: App rendered successfully");
   } catch (error) {
     console.error('🚀 MAIN: Error during render:', error);
     

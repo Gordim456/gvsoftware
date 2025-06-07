@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: ULTRA CLEAN VERSION - Zero external dependencies, completely standalone");
+console.log("🔥 TOOLTIP: Custom implementation - completely standalone");
 
-// Completely standalone tooltip implementation - NO RADIX UI
+// Completely standalone tooltip implementation
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -50,22 +50,18 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// These are PURE passthrough components - no hooks, no state, no external dependencies
+// Pure passthrough components for API compatibility
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Pure React fragment - absolutely no external dependencies");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Pure React fragment");
   return <>{children}</>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode; className?: string }> = ({ children }) => {
-  console.log("🔥 TOOLTIP CONTENT: Pure React fragment");
   return <>{children}</>;
 };
 
-// Export everything
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
 export default Tooltip;
