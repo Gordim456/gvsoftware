@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: COMPLETELY CUSTOM - Zero external dependencies");
+console.log("🔥 TOOLTIP: COMPLETELY ISOLATED IMPLEMENTATION - Zero dependencies");
 
-// PURE React tooltip implementation - NO external dependencies whatsoever
+// Pure React tooltip implementation - NO external dependencies
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -50,19 +50,19 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Simple pass-through components for API compatibility
+// Pure pass-through components for API compatibility - NO state, NO hooks
 const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
-  console.log("🔥 TOOLTIP PROVIDER: PURE PASSTHROUGH - no state, no hooks, no nothing");
+  console.log("🔥 TOOLTIP PROVIDER: PURE PASSTHROUGH - zero external dependencies");
   return <>{children}</>;
 };
 
 const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => {
-  console.log("🔥 TOOLTIP TRIGGER: PURE PASSTHROUGH");
+  console.log("🔥 TOOLTIP TRIGGER: PURE PASSTHROUGH - no state");
   return <>{children}</>;
 };
 
 const TooltipContent = ({ children }: { children: React.ReactNode; className?: string }) => {
-  console.log("🔥 TOOLTIP CONTENT: PURE PASSTHROUGH");
+  console.log("🔥 TOOLTIP CONTENT: PURE PASSTHROUGH - no logic");
   return <>{children}</>;
 };
 
