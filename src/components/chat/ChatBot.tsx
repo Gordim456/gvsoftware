@@ -1,19 +1,9 @@
 
-import React, { useState, useEffect, Suspense } from "react";
+import React from "react";
 import { MessageCircle, X } from "lucide-react";
 
-// Componente ChatBot simplificado para corrigir o erro
 const ChatBot: React.FC = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
-
-  if (!isLoaded) {
-    return null;
-  }
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const handleOpen = () => {
     setIsOpen(true);

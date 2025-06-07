@@ -9,10 +9,11 @@ import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
+import ChatBot from "./components/chat/ChatBot";
 
-console.log("🔥 APP ULTIMATE PURGE: Loading with ABSOLUTE ZERO RADIX - NUCLEAR VERSION");
+console.log("🔥 APP: Loading with direct ChatBot import");
 
-// Lazy loading components
+// Lazy loading components (ChatBot agora é importado diretamente)
 const Home = lazy(() => import("./pages/Home"));
 const Services = lazy(() => import("./pages/Services"));
 const Portfolio = lazy(() => import("./pages/Portfolio"));
@@ -21,7 +22,6 @@ const Terms = lazy(() => import("./pages/Terms"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const NotFound = lazy(() => import("./pages/NotFound"));
-const ChatBot = lazy(() => import("./components/chat/ChatBot"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
 // Query client configuration
@@ -43,72 +43,9 @@ const LoadingFallback = () => (
   </div>
 );
 
-// Safe ChatBot wrapper
-const SafeChatBot = () => {
-  try {
-    return (
-      <Suspense fallback={null}>
-        <ChatBot />
-      </Suspense>
-    );
-  } catch (error) {
-    console.error('🔥 APP ULTIMATE PURGE: ChatBot error:', error);
-    return null;
-  }
-};
-
-// Main App component - NUCLEAR RADIX ELIMINATION
+// Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP ULTIMATE PURGE: Rendering app with NUCLEAR Radix elimination");
-  
-  // Nuclear runtime check for any Radix contamination
-  React.useEffect(() => {
-    const nuclearRadixCheck = () => {
-      // Check for any Radix in DOM
-      const radixElements = document.querySelectorAll('[data-radix-ui], [data-radix], *[class*="radix"]');
-      if (radixElements.length > 0) {
-        console.error('🔥 APP ULTIMATE PURGE: RADIX DOM CONTAMINATION DETECTED');
-        radixElements.forEach(el => el.remove());
-      }
-      
-      // Check for Radix scripts
-      const scripts = document.querySelectorAll('script');
-      scripts.forEach(script => {
-        if (script.src && (script.src.includes('radix') || script.src.includes('tooltip'))) {
-          console.error('🔥 APP ULTIMATE PURGE: RADIX SCRIPT CONTAMINATION:', script.src);
-          script.remove();
-        }
-      });
-      
-      // Check window object for Radix references
-      if (typeof window === 'object' && window) {
-        const windowKeys = Object.keys(window).filter(key => 
-          key.toLowerCase().includes('radix') || 
-          key.toLowerCase().includes('tooltip') ||
-          key.startsWith('__radix')
-        );
-        
-        if (windowKeys.length > 0) {
-          console.error('🔥 APP ULTIMATE PURGE: RADIX WINDOW CONTAMINATION:', windowKeys);
-          windowKeys.forEach(key => {
-            try {
-              delete (window as any)[key];
-            } catch (e) {
-              console.log('🔥 APP ULTIMATE PURGE: Could not delete window key:', key);
-            }
-          });
-        }
-      }
-    };
-    
-    // Immediate check
-    nuclearRadixCheck();
-    
-    // Continuous monitoring
-    const interval = setInterval(nuclearRadixCheck, 500);
-    
-    return () => clearInterval(interval);
-  }, []);
+  console.log("🔥 APP: Rendering app with direct ChatBot");
   
   return (
     <QueryClientProvider client={queryClient}>
@@ -131,7 +68,7 @@ const App: React.FC = () => {
               <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
-            <SafeChatBot />
+            <ChatBot />
           </Suspense>
         </BrowserRouter>
       </ThemeProvider>

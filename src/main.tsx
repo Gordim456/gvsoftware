@@ -13,20 +13,13 @@ if (rootElement) {
   
   console.log("🚀 MAIN: Rendering application");
   
-  try {
-    root.render(
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    );
-    
-    console.log("🚀 MAIN: Application rendered successfully");
-  } catch (error) {
-    console.error('🚀 MAIN: Render error:', error);
-    
-    // Fallback render without StrictMode if there's an error
-    root.render(<App />);
-  }
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+  
+  console.log("🚀 MAIN: Application rendered successfully");
 } else {
   console.error('🚀 MAIN: Root element not found');
 }
