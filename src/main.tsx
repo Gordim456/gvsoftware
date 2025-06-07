@@ -4,9 +4,9 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
-console.log("🔥 MAIN: FINAL CLEAN VERSION - ZERO TOOLTIP DEPENDENCIES");
+console.log("🔥 MAIN: VERSÃO FINAL COMPLETAMENTE LIMPA - ZERO DEPENDÊNCIAS TOOLTIP");
 
-// Error boundary for the entire app
+// Error boundary para toda a aplicação
 class GlobalErrorBoundary extends React.Component<
   { children: React.ReactNode },
   { hasError: boolean }
@@ -21,7 +21,7 @@ class GlobalErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🔥 MAIN: Global error boundary caught error:', error, errorInfo);
+    console.error('🔥 MAIN: Error boundary capturou erro:', error, errorInfo);
   }
 
   render() {
@@ -29,12 +29,12 @@ class GlobalErrorBoundary extends React.Component<
       return (
         <div className="flex items-center justify-center h-screen bg-slate-950 text-white">
           <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4">Something went wrong</h1>
+            <h1 className="text-2xl font-bold mb-4">Algo deu errado</h1>
             <button 
               onClick={() => window.location.reload()} 
               className="px-4 py-2 bg-indigo-600 rounded hover:bg-indigo-700"
             >
-              Reload Page
+              Recarregar Página
             </button>
           </div>
         </div>
@@ -45,12 +45,12 @@ class GlobalErrorBoundary extends React.Component<
   }
 }
 
-// Initialize application with clean setup
+// Inicializar aplicação com setup limpo
 const rootElement = document.getElementById("root");
 if (rootElement) {
   const root = createRoot(rootElement);
   
-  console.log("🔥 MAIN: Initializing completely clean React app");
+  console.log("🔥 MAIN: Inicializando app React completamente limpo");
   
   root.render(
     <React.StrictMode>
@@ -60,5 +60,5 @@ if (rootElement) {
     </React.StrictMode>
   );
 } else {
-  console.error('🔥 MAIN: Root element not found');
+  console.error('🔥 MAIN: Elemento root não encontrado');
 }

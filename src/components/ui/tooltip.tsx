@@ -2,7 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-// COMPLETELY STANDALONE TOOLTIP - NO RADIX UI WHATSOEVER
+console.log("🔥 TOOLTIP: NOVA IMPLEMENTAÇÃO COMPLETAMENTE LIMPA - ZERO RADIX");
+
+// Tooltip standalone simples
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -10,7 +12,6 @@ interface TooltipProps {
   className?: string;
 }
 
-// Main standalone tooltip component
 const Tooltip: React.FC<TooltipProps> = ({ 
   children, 
   content, 
@@ -49,19 +50,19 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// COMPLETELY NULL COMPONENTS - NO FUNCTIONALITY
-const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
-  // Return children directly as JSX element, no React hooks or state
-  return <>{children}</>;
+// Componentes vazios para compatibilidade - SEM HOOKS
+const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  console.log("🔥 TOOLTIP PROVIDER: Passthrough simples - sem estado");
+  return <div>{children}</div>;
 };
 
-const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => {
-  // Return children directly as JSX element
-  return <>{children}</>;
+const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
+  console.log("🔥 TOOLTIP TRIGGER: Passthrough simples - sem estado");
+  return <div>{children}</div>;
 };
 
-const TooltipContent = ({ children }: { children: React.ReactNode; className?: string; side?: string; sideOffset?: number }) => {
-  // Return null - no content rendered
+const TooltipContent: React.FC<{ children: React.ReactNode; className?: string; side?: string; sideOffset?: number }> = () => {
+  console.log("🔥 TOOLTIP CONTENT: Retornando null - sem renderização");
   return null;
 };
 
