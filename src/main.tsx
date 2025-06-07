@@ -48,6 +48,23 @@ const blockRadixCompletely = () => {
       });
     }
     
+    // Override any potential Radix imports at the module level
+    if (typeof window !== 'undefined') {
+      (window as any).__RADIX_BLOCKED__ = true;
+      
+      // Block RequireJS/AMD loaders
+      if ((window as any).define) {
+        const originalDefine = (window as any).define;
+        (window as any).define = function(name: string, deps: any, factory: any) {
+          if (typeof name === 'string' && name.includes('radix')) {
+            console.error('🚀 MAIN ULTIMATE PURGE: BLOCKED AMD RADIX MODULE:', name);
+            return;
+          }
+          return originalDefine.apply(this, arguments);
+        };
+      }
+    }
+    
     console.log('🚀 MAIN ULTIMATE PURGE: Nuclear Radix blocking complete');
   } catch (error) {
     console.error('🚀 MAIN ULTIMATE PURGE: Error in nuclear blocking:', error);
