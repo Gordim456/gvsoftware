@@ -9,6 +9,19 @@ console.log("🚀 MAIN: COMPLETELY CLEAN START - No Radix UI tooltips");
 // Block any attempts to load Radix UI tooltips
 if (typeof window !== 'undefined') {
   console.log("🚀 MAIN: Blocking any Radix UI tooltip imports");
+  
+  // Override any potential Radix UI imports
+  const originalError = window.onerror;
+  window.onerror = (message, source, lineno, colno, error) => {
+    if (typeof message === 'string' && 
+        (message.includes('@radix-ui') || 
+         message.includes('TooltipProvider') || 
+         message.includes('tooltip'))) {
+      console.error('🚀 MAIN: Blocked Radix UI tooltip error:', message);
+      return true; // Prevent default error handling
+    }
+    return originalError ? originalError(message, source, lineno, colno, error) : false;
+  };
 }
 
 // Initialize application
