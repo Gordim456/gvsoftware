@@ -20,16 +20,16 @@ if (typeof window !== 'undefined') {
   const blockRadixTooltip = () => {
     console.log("🔥 APP: Implementing final Radix blocking");
     
-    // Block CommonJS require
+    // Block CommonJS require with proper typing
     if (typeof require !== 'undefined') {
       const originalRequire = require;
-      require = function(id: string) {
+      (global as any).require = function(id: string) {
         if (id.includes('@radix-ui/react-tooltip') || id.includes('radix-tooltip')) {
           console.error("🔥 APP: Blocked Radix tooltip require:", id);
           throw new Error('Radix tooltip blocked');
         }
         return originalRequire(id);
-      };
+      } as any;
     }
   };
   
