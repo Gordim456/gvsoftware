@@ -1,14 +1,20 @@
 
-import { useTheme } from "next-themes";
+import { useTheme } from "./ThemeProvider";
 import { Sun, Moon } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
+console.log("🔥 THEME TOGGLE FINAL: CARREGANDO COM PROVIDER CUSTOMIZADO");
+
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
+  console.log("🔥 THEME TOGGLE FINAL: Tema atual:", theme);
+
   const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    console.log("🔥 THEME TOGGLE FINAL: Mudando tema para:", newTheme);
+    setTheme(newTheme);
   };
 
   return (

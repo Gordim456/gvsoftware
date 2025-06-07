@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -9,8 +10,9 @@ import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
 
-console.log("🚀 APP v15: CARREGANDO APP COMPLETAMENTE LIMPO - RADIX REMOVIDO");
+console.log("🔥 APP FINAL: CARREGANDO APLICAÇÃO TOTALMENTE LIMPA");
 
+// Lazy loading dos componentes
 const Home = lazy(() => import("./pages/Home"));
 const Services = lazy(() => import("./pages/Services"));
 const Portfolio = lazy(() => import("./pages/Portfolio"));
@@ -22,6 +24,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const ChatBot = lazy(() => import("./components/chat/ChatBot"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
+// Query client com configurações otimizadas
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -33,12 +36,14 @@ const queryClient = new QueryClient({
   },
 });
 
+// Loading fallback simples
 const LoadingFallback = () => (
-  <div className="flex items-center justify-center h-screen bg-gv-darker">
+  <div className="flex items-center justify-center h-screen bg-slate-950">
     <div className="w-8 h-8 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
   </div>
 );
 
+// Error boundary robusto
 class AppErrorBoundary extends React.Component<
   { children: React.ReactNode },
   { hasError: boolean; errorMessage: string }
@@ -49,58 +54,28 @@ class AppErrorBoundary extends React.Component<
   }
 
   static getDerivedStateFromError(error: Error) {
-    console.error('🚨 APP ERROR BOUNDARY v15:', error);
+    console.error('🔥 APP FINAL: Error boundary ativado:', error);
     return { hasError: true, errorMessage: error.message };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🚨 APP ERROR BOUNDARY v15 - DETALHES:', {
+    console.error('🔥 APP FINAL: Erro capturado no boundary:', {
       error: error.message,
       stack: error.stack,
-      errorInfo,
-      isRadixError: error.stack?.includes('radix') || 
-                    error.stack?.includes('tooltip') ||
-                    error.stack?.includes('TooltipProvider') ||
-                    error.message?.includes('useState')
+      errorInfo
     });
-    
-    // RELOAD IMEDIATO se for erro do Radix
-    if (error.stack?.includes('radix') || 
-        error.stack?.includes('TooltipProvider') ||
-        error.stack?.includes('@radix-ui') ||
-        error.message?.includes('useState')) {
-      console.error('🚨 ERRO RADIX NO ERROR BOUNDARY - RELOAD FORÇADO v15');
-      
-      setTimeout(() => {
-        try {
-          localStorage.clear();
-          sessionStorage.clear();
-        } catch (e) {
-          // Ignorar
-        }
-        window.location.href = window.location.href;
-      }, 500);
-    }
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
+        <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center">
           <div className="text-center p-8">
-            <h1 className="text-2xl font-bold mb-4">Erro na Aplicação v15</h1>
+            <h1 className="text-2xl font-bold mb-4">Erro na Aplicação</h1>
             <p className="text-gray-300 mb-4">Algo deu errado.</p>
             <p className="text-sm text-gray-400 mb-6">Erro: {this.state.errorMessage}</p>
             <button 
-              onClick={() => {
-                try {
-                  localStorage.clear();
-                  sessionStorage.clear();
-                } catch (e) {
-                  // Ignorar
-                }
-                window.location.href = window.location.href;
-              }} 
+              onClick={() => window.location.reload()} 
               className="px-6 py-3 bg-indigo-600 rounded hover:bg-indigo-700 transition-colors"
             >
               Recarregar Aplicação
@@ -114,6 +89,7 @@ class AppErrorBoundary extends React.Component<
   }
 }
 
+// ChatBot com proteção extra
 const SafeChatBot = () => {
   try {
     return (
@@ -122,31 +98,15 @@ const SafeChatBot = () => {
       </Suspense>
     );
   } catch (error) {
-    console.error('🚨 CHATBOT ERROR v15:', error);
+    console.error('🔥 APP FINAL: Erro no ChatBot:', error);
     return null;
   }
 };
 
+// Componente principal da aplicação
 const App: React.FC = () => {
   React.useEffect(() => {
-    console.log("🚀 APP v15: Componente montado - TOTALMENTE LIMPO");
-    
-    // Verificação final de vestígios do Radix
-    try {
-      const hasRadixInStorage = Object.keys(localStorage).some(key => 
-        key.includes('radix') || key.includes('tooltip')
-      ) || Object.keys(sessionStorage).some(key => 
-        key.includes('radix') || key.includes('tooltip')
-      );
-      
-      if (hasRadixInStorage) {
-        console.log("🚀 APP v15: Limpando vestígios finais do Radix");
-        localStorage.clear();
-        sessionStorage.clear();
-      }
-    } catch (e) {
-      console.log("🚀 APP v15: Verificação de storage finalizada");
-    }
+    console.log("🔥 APP FINAL: Aplicação montada com sucesso");
   }, []);
   
   try {
@@ -180,21 +140,13 @@ const App: React.FC = () => {
       </AppErrorBoundary>
     );
   } catch (error) {
-    console.error('🚨 APP v15: Erro defensivo capturado:', error);
+    console.error('🔥 APP FINAL: Erro defensivo capturado:', error);
     return (
-      <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
+      <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center">
         <div className="text-center p-8">
-          <h1 className="text-2xl font-bold mb-4">Erro de Renderização v15</h1>
+          <h1 className="text-2xl font-bold mb-4">Erro de Renderização</h1>
           <button 
-            onClick={() => {
-              try {
-                localStorage.clear();
-                sessionStorage.clear();
-              } catch (e) {
-                // Ignorar
-              }
-              window.location.href = window.location.href;
-            }} 
+            onClick={() => window.location.reload()} 
             className="px-6 py-3 bg-indigo-600 rounded hover:bg-indigo-700 transition-colors"
           >
             Recarregar Aplicação

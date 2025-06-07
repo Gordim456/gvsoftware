@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🚀 TOOLTIP v15: COMPLETAMENTE REESCRITO - ZERO RADIX - VERSÃO FINAL");
+console.log("🔥 TOOLTIP FINAL: COMPLETAMENTE REESCRITO SEM RADIX - VERSÃO DEFINITIVA");
 
-// Interface do tooltip customizado - ZERO dependências externas
+// Interface do tooltip 100% customizado
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -13,7 +13,7 @@ interface TooltipProps {
   delayDuration?: number;
 }
 
-// Implementação 100% customizada do tooltip - SEM RADIX
+// Implementação 100% customizada - ZERO dependências externas
 const Tooltip: React.FC<TooltipProps> = ({ 
   children, 
   content, 
@@ -24,7 +24,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [isVisible, setIsVisible] = React.useState(false);
   const timeoutRef = React.useRef<NodeJS.Timeout>();
 
-  console.log("🚀 TOOLTIP v15: Renderizando tooltip customizado - ZERO RADIX");
+  console.log("🔥 TOOLTIP FINAL: Renderizando tooltip customizado");
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
@@ -89,22 +89,22 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes dummy COMPLETAMENTE VAZIOS para compatibilidade
+// Componentes dummy TOTALMENTE VAZIOS - ZERO FUNCIONALIDADE
 const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
-  console.log("🚀 TOOLTIP PROVIDER v15: Provider dummy - RETORNA APENAS CHILDREN");
+  console.log("🔥 TOOLTIP PROVIDER FINAL: Provider dummy vazio");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🚀 TOOLTIP TRIGGER v15: Trigger dummy - RETORNA APENAS CHILDREN");
+  console.log("🔥 TOOLTIP TRIGGER FINAL: Trigger dummy vazio");
   return <>{children}</>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode; side?: string; className?: string }> = ({ children }) => {
-  console.log("🚀 TOOLTIP CONTENT v15: Content dummy - RETORNA APENAS CHILDREN");
+  console.log("🔥 TOOLTIP CONTENT FINAL: Content dummy vazio");
   return <>{children}</>;
 };
 
-console.log("🚀 TOOLTIP EXPORTS v15: Exportando componentes TOTALMENTE CUSTOMIZADOS - ZERO RADIX");
+console.log("🔥 TOOLTIP EXPORTS FINAL: Exportando componentes TOTALMENTE CUSTOMIZADOS");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
