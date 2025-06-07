@@ -12,7 +12,8 @@ import About from "./pages/About";
 import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 
-console.log("🔥 APP: Loading with SimpleChatBot");
+console.log("🔥 APP: Starting application - React version:", React.version);
+console.log("🔥 APP: React hooks available:", !!React.useState);
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -46,7 +47,7 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering app with SimpleChatBot");
+  console.log("🔥 APP: Rendering main App component");
   
   return (
     <QueryClientProvider client={queryClient}>

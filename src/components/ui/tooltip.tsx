@@ -2,17 +2,17 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: Completely custom implementation");
+console.log("🔥 TOOLTIP: Completely isolated custom implementation");
 
-// Custom tooltip implementation that doesn't conflict with Radix
-interface SimpleTooltipProps {
+// Completely custom tooltip that has no relation to Radix UI
+interface CustomTooltipProps {
   children: React.ReactNode;
   content: string;
   side?: "top" | "bottom" | "left" | "right";
   className?: string;
 }
 
-const SimpleTooltip: React.FC<SimpleTooltipProps> = ({ 
+const CustomTooltip: React.FC<CustomTooltipProps> = ({ 
   children, 
   content, 
   side = "top", 
@@ -50,23 +50,23 @@ const SimpleTooltip: React.FC<SimpleTooltipProps> = ({
   );
 };
 
-// Alternative export names to avoid conflicts
-const Tooltip = SimpleTooltip;
+// Export only our custom implementation
+const Tooltip = CustomTooltip;
 
-// Dummy components that just render children to prevent import errors
-const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Custom passthrough");
-  return <div>{children}</div>;
+// Simple passthrough components that don't use any hooks
+const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
+  console.log("🔥 TOOLTIP PROVIDER: Simple passthrough - no hooks");
+  return children as React.ReactElement;
 };
 
-const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Custom passthrough");
-  return <div>{children}</div>;
+const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => {
+  console.log("🔥 TOOLTIP TRIGGER: Simple passthrough - no hooks");
+  return children as React.ReactElement;
 };
 
-const TooltipContent: React.FC<{ children: React.ReactNode; className?: string }> = ({ children }) => {
-  console.log("🔥 TOOLTIP CONTENT: Custom passthrough");
-  return <div>{children}</div>;
+const TooltipContent = ({ children }: { children: React.ReactNode; className?: string }) => {
+  console.log("🔥 TOOLTIP CONTENT: Simple passthrough - no hooks");
+  return children as React.ReactElement;
 };
 
-export { Tooltip, SimpleTooltip, TooltipProvider, TooltipTrigger, TooltipContent };
+export { Tooltip, CustomTooltip, TooltipProvider, TooltipTrigger, TooltipContent };
