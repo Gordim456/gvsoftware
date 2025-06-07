@@ -6,12 +6,12 @@ import { lazy, Suspense } from "react";
 import CleanThemeProvider from "./components/theme/CleanThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
+import About from "./pages/About";
 
 console.log("🔥 APP: Carregando sem NENHUMA dependência do Radix UI");
 
-// Lazy loading das páginas
+// Lazy loading das outras páginas (mantendo About como importação direta)
 const Home = lazy(() => import("./pages/Home"));
-const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
 const Portfolio = lazy(() => import("./pages/Portfolio"));
 const Contact = lazy(() => import("./pages/Contact"));
