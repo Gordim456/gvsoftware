@@ -2,17 +2,17 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: Simple functional implementation");
+console.log("🔥 TOOLTIP: Completely custom implementation");
 
-// Simple tooltip implementation
-interface TooltipProps {
+// Custom tooltip implementation that doesn't conflict with Radix
+interface SimpleTooltipProps {
   children: React.ReactNode;
   content: string;
   side?: "top" | "bottom" | "left" | "right";
   className?: string;
 }
 
-const Tooltip: React.FC<TooltipProps> = ({ 
+const SimpleTooltip: React.FC<SimpleTooltipProps> = ({ 
   children, 
   content, 
   side = "top", 
@@ -50,17 +50,23 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Simple components that do nothing but prevent errors
+// Alternative export names to avoid conflicts
+const Tooltip = SimpleTooltip;
+
+// Dummy components that just render children to prevent import errors
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <>{children}</>;
+  console.log("🔥 TOOLTIP PROVIDER: Custom passthrough");
+  return <div>{children}</div>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  return <>{children}</>;
+  console.log("🔥 TOOLTIP TRIGGER: Custom passthrough");
+  return <div>{children}</div>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode; className?: string }> = ({ children }) => {
-  return <>{children}</>;
+  console.log("🔥 TOOLTIP CONTENT: Custom passthrough");
+  return <div>{children}</div>;
 };
 
-export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
+export { Tooltip, SimpleTooltip, TooltipProvider, TooltipTrigger, TooltipContent };
