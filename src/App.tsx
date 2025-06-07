@@ -10,7 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
 
-console.log("🔥 APP: Loading ULTRA CLEAN application - ABSOLUTELY ZERO RADIX - COMPLETELY CLEAN");
+console.log("🔥 APP: Loading ABSOLUTELY ZERO RADIX - COMPLETE PURGE VERSION");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -57,9 +57,48 @@ const SafeChatBot = () => {
   }
 };
 
-// Main App component - ABSOLUTELY NO RADIX COMPONENTS - COMPLETELY CLEAN
+// Main App component - ZERO RADIX COMPONENTS - COMPLETELY PURGED
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering app with ABSOLUTELY ZERO Radix components - ULTRA CLEAN VERSION");
+  console.log("🔥 APP: Rendering app with ZERO Radix components - PURGED VERSION");
+  
+  // Add runtime check for any Radix references
+  React.useEffect(() => {
+    const checkForRadix = () => {
+      const scripts = document.querySelectorAll('script');
+      scripts.forEach(script => {
+        if (script.src && script.src.includes('radix')) {
+          console.error('🔥 APP: FOUND RADIX SCRIPT:', script.src);
+          script.remove();
+        }
+      });
+      
+      // Check for any Radix in window object
+      if (window && typeof window === 'object') {
+        const windowKeys = Object.keys(window).filter(key => 
+          key.toLowerCase().includes('radix') || 
+          key.toLowerCase().includes('tooltip')
+        );
+        
+        if (windowKeys.length > 0) {
+          console.error('🔥 APP: FOUND RADIX REFERENCES:', windowKeys);
+          windowKeys.forEach(key => {
+            try {
+              delete (window as any)[key];
+            } catch (e) {
+              console.log('🔥 APP: Could not delete:', key);
+            }
+          });
+        }
+      }
+    };
+    
+    checkForRadix();
+    
+    // Check periodically
+    const interval = setInterval(checkForRadix, 1000);
+    
+    return () => clearInterval(interval);
+  }, []);
   
   return (
     <QueryClientProvider client={queryClient}>

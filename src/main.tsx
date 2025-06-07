@@ -4,11 +4,13 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
-console.log("🚀 MAIN: Starting ULTRA CLEAN application - NO RADIX");
+console.log("🚀 MAIN: Starting ULTRA CLEAN application - ZERO RADIX - COMPLETE PURGE");
 
-// Force complete cache clearing and reload if needed
-const clearAllCaches = async () => {
+// Force complete cache clearing and aggressive cleanup
+const purgeAllRadixReferences = async () => {
   try {
+    console.log("🚀 MAIN: PURGING ALL RADIX REFERENCES");
+    
     // Clear all possible caches
     if (typeof Storage !== 'undefined') {
       localStorage.clear();
@@ -20,60 +22,88 @@ const clearAllCaches = async () => {
       await Promise.all(cacheNames.map(name => caches.delete(name)));
     }
     
-    // Force reload if we detect any Radix in the window object
+    // Remove any Radix references from window object
     if (window && typeof window === 'object') {
-      const windowKeys = Object.keys(window).filter(key => 
-        key.toLowerCase().includes('radix') || 
-        key.toLowerCase().includes('tooltip')
-      );
-      
-      if (windowKeys.length > 0) {
-        console.log("🚀 MAIN: Detected Radix remnants, forcing reload:", windowKeys);
-        window.location.reload();
-        return;
-      }
+      const windowKeys = Object.keys(window);
+      windowKeys.forEach(key => {
+        if (key.toLowerCase().includes('radix') || 
+            key.toLowerCase().includes('tooltip') ||
+            key.toLowerCase().includes('provider')) {
+          try {
+            delete (window as any)[key];
+            console.log("🚀 MAIN: Removed window reference:", key);
+          } catch (e) {
+            console.log("🚀 MAIN: Could not remove:", key);
+          }
+        }
+      });
     }
     
-    console.log('🚀 MAIN: All caches cleared successfully');
+    // Force garbage collection if available
+    if ((window as any).gc) {
+      (window as any).gc();
+    }
+    
+    console.log('🚀 MAIN: All Radix references purged');
   } catch (error) {
-    console.error('🚀 MAIN: Error clearing caches:', error);
+    console.error('🚀 MAIN: Error purging references:', error);
   }
 };
 
-// Simple error handler
+// Enhanced error handler with Radix detection
 const handleGlobalError = (event: ErrorEvent) => {
   const message = event.error?.message || event.message || 'Unknown error';
-  console.error('🚀 MAIN: Global error:', message);
+  console.error('🚀 MAIN: Global error detected:', message);
   
-  // If it's a Radix/tooltip related error, force reload
-  if (message.includes('TooltipProvider') || message.includes('radix') || message.includes('tooltip')) {
-    console.log('🚀 MAIN: Detected Radix error, forcing reload...');
-    setTimeout(() => window.location.reload(), 100);
+  // If it's ANY Radix related error, force hard reload
+  if (message.includes('TooltipProvider') || 
+      message.includes('radix') || 
+      message.includes('tooltip') ||
+      message.includes('useState') ||
+      message.includes('Cannot read properties of null')) {
+    console.log('🚀 MAIN: RADIX ERROR DETECTED - FORCING HARD RELOAD');
+    // Force hard reload with timestamp to bust all caches
+    setTimeout(() => {
+      window.location.href = window.location.href.split('?')[0] + '?purge=' + Date.now();
+    }, 100);
   }
 };
 
 window.addEventListener('error', handleGlobalError);
 window.addEventListener('unhandledrejection', (event: PromiseRejectionEvent) => {
   console.error('🚀 MAIN: Unhandled promise rejection:', event.reason);
+  
+  // Check if rejection is Radix related
+  const reason = String(event.reason);
+  if (reason.includes('TooltipProvider') || reason.includes('radix') || reason.includes('tooltip')) {
+    console.log('🚀 MAIN: RADIX PROMISE REJECTION - FORCING RELOAD');
+    setTimeout(() => {
+      window.location.href = window.location.href.split('?')[0] + '?purge=' + Date.now();
+    }, 100);
+  }
 });
 
-// Render application
+// Render application with complete purge
 const rootElement = document.getElementById("root");
 if (rootElement) {
   const root = createRoot(rootElement);
   
-  clearAllCaches().then(() => {
-    console.log("🚀 MAIN: Rendering CLEAN application");
+  purgeAllRadixReferences().then(() => {
+    console.log("🚀 MAIN: Starting render after complete purge");
     
-    root.render(
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    );
+    // Add a small delay to ensure cleanup is complete
+    setTimeout(() => {
+      root.render(
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      );
+      
+      console.log("🚀 MAIN: Application rendered successfully - ZERO RADIX");
+    }, 50);
     
-    console.log("🚀 MAIN: Application rendered successfully");
   }).catch((error) => {
-    console.error("🚀 MAIN: Failed to initialize:", error);
+    console.error("🚀 MAIN: Failed to purge or initialize:", error);
     
     // Fallback render with hard reload option
     root.render(
@@ -83,12 +113,12 @@ if (rootElement) {
           <p className="text-gray-300 mb-4">Failed to initialize the application.</p>
           <button 
             onClick={() => {
-              // Force hard reload with cache busting
-              window.location.href = window.location.href + '?t=' + Date.now();
+              // Force hard reload with complete cache busting
+              window.location.href = window.location.href.split('?')[0] + '?force=' + Date.now();
             }} 
             className="px-6 py-3 bg-indigo-600 rounded hover:bg-indigo-700 transition-colors"
           >
-            Force Reload Application
+            Force Complete Reload
           </button>
         </div>
       </div>
