@@ -9,7 +9,7 @@ import {
   ToastViewport,
 } from "@/components/ui/toast"
 
-console.log("🔥 TOASTER STANDALONE: Implementação 100% independente - SEM Radix UI");
+console.log("🔥 TOASTER FINAL: 100% standalone - SEM Radix UI");
 
 export function Toaster() {
   const { toasts } = useToast()

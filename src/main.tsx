@@ -5,11 +5,11 @@ import App from './App.tsx';
 import './index.css';
 import ErrorBoundary from './components/ErrorBoundary';
 
-console.log("🔥 MAIN: Inicializando app COMPLETAMENTE LIMPO - ZERO Radix UI");
+console.log("🔥 MAIN FINAL: App iniciando SEM Radix UI - 100% limpo");
 
-// Error handling melhorado
+// Error handling aprimorado
 window.addEventListener('error', (event) => {
-  console.error('🔥 ERRO GLOBAL:', {
+  console.error('🔥 ERRO GLOBAL DETECTADO:', {
     message: event.error?.message,
     stack: event.error?.stack,
     filename: event.filename,
@@ -18,12 +18,17 @@ window.addEventListener('error', (event) => {
     type: 'runtime_error'
   });
   
+  // Detectar erros específicos do Radix UI
   if (event.error?.message?.includes('Cannot read properties of null')) {
-    console.error('🔥 ERRO useState DETECTADO - Radix UI ainda presente');
+    console.error('🔥 ERRO useState CRÍTICO - Possível cache do Radix UI');
   }
   
   if (event.error?.message?.includes('TooltipProvider')) {
-    console.error('🔥 ERRO TOOLTIP PROVIDER - Radix UI ainda presente');
+    console.error('🔥 ERRO TOOLTIP PROVIDER - Cache do Radix UI detectado');
+  }
+  
+  if (event.error?.message?.includes('@radix-ui')) {
+    console.error('🔥 ERRO RADIX UI - Dependência ainda presente no bundle');
   }
 });
 
@@ -33,7 +38,7 @@ window.addEventListener('unhandledrejection', (event) => {
 
 const rootElement = document.getElementById("root");
 if (rootElement) {
-  console.log("🔥 MAIN: Elemento root encontrado, iniciando React app LIMPO");
+  console.log("🔥 MAIN FINAL: Iniciando React app 100% limpo");
   const root = createRoot(rootElement);
   root.render(
     <React.StrictMode>
@@ -43,5 +48,5 @@ if (rootElement) {
     </React.StrictMode>
   );
 } else {
-  console.error('🔥 MAIN: CRÍTICO - Elemento root não encontrado');
+  console.error('🔥 MAIN FINAL: ERRO CRÍTICO - Root não encontrado');
 }

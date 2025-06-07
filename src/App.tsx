@@ -2,24 +2,22 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import CleanThemeProvider from "./components/theme/CleanThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
+import Home from "./pages/Home";
+import Services from "./pages/Services";
+import Portfolio from "./pages/Portfolio";
+import Contact from "./pages/Contact";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import FAQ from "./pages/FAQ";
+import NotFound from "./pages/NotFound";
+import AdminDashboard from "./pages/AdminDashboard";
 
-console.log("🔥 APP: Carregando COMPLETAMENTE LIMPO - SEM Radix UI");
-
-// Lazy loading das outras páginas (mantendo About como importação direta)
-const Home = lazy(() => import("./pages/Home"));
-const Services = lazy(() => import("./pages/Services"));
-const Portfolio = lazy(() => import("./pages/Portfolio"));
-const Contact = lazy(() => import("./pages/Contact"));
-const Terms = lazy(() => import("./pages/Terms"));
-const Privacy = lazy(() => import("./pages/Privacy"));
-const FAQ = lazy(() => import("./pages/FAQ"));
-const NotFound = lazy(() => import("./pages/NotFound"));
-const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+console.log("🔥 APP FINAL: Carregando SEM nenhuma dependência Radix UI");
 
 // Query client
 const queryClient = new QueryClient({
@@ -41,7 +39,7 @@ const LoadingFallback = () => (
 );
 
 const App: React.FC = () => {
-  console.log("🔥 APP: Renderizando COMPLETAMENTE LIMPO - ZERO Radix UI");
+  console.log("🔥 APP FINAL: Renderizando sem NENHUMA dependência Radix UI");
   
   return (
     <QueryClientProvider client={queryClient}>

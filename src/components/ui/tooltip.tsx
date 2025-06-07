@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP STANDALONE: Implementação 100% independente - SEM Radix UI");
+console.log("🔥 TOOLTIP FINAL: Implementação 100% standalone - ZERO Radix UI");
 
-// Implementação standalone completa do tooltip
+// Implementação standalone FINAL do tooltip - SEM Radix UI
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -50,26 +50,23 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes de compatibilidade - NUNCA usados, apenas para não quebrar imports
-const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Componente vazio - não deveria ser usado");
-  return <React.Fragment>{children}</React.Fragment>;
-};
+// Componentes vazios para compatibilidade - NUNCA renderizam nada do Radix
+const TooltipProvider = ({ children }: { children: React.ReactNode; delayDuration?: number }) => (
+  <React.Fragment>{children}</React.Fragment>
+);
 
-const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Componente vazio - não deveria ser usado");
-  return <React.Fragment>{children}</React.Fragment>;
-};
+const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => (
+  <React.Fragment>{children}</React.Fragment>
+);
 
-const TooltipContent: React.FC<{ 
+const TooltipContent = ({ children }: { 
   children?: React.ReactNode; 
   className?: string;
   side?: "top" | "bottom" | "left" | "right";
   sideOffset?: number;
-}> = ({ children }) => {
-  console.log("🔥 TOOLTIP CONTENT: Componente vazio - não deveria ser usado");
-  return <React.Fragment>{children}</React.Fragment>;
-};
+}) => (
+  <React.Fragment>{children}</React.Fragment>
+);
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
 export default Tooltip;
