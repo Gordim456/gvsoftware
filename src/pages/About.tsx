@@ -13,36 +13,37 @@ const About: React.FC = () => {
     document.title = 'Sobre | GV Software - Nossa História e Missão';
     setIsLoaded(true);
     
-    const meta = document.createElement('meta');
-    meta.name = 'description';
-    meta.content = 'Conheça a GV Software - Empresa especializada em desenvolvimento de software com mais de 5 anos de experiência criando soluções digitais inovadoras.';
-    if (!document.querySelector('meta[name="description"]')) {
+    const existingMeta = document.querySelector('meta[name="description"]');
+    if (!existingMeta) {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Conheça a GV Software - Empresa especializada em desenvolvimento de software com mais de 5 anos de experiência criando soluções digitais inovadoras.';
       document.head.appendChild(meta);
     }
   }, []);
 
   const stats = [
-    { icon: <Code />, label: 'Projetos Finalizados', value: '1', description: 'Soluções desenvolvidas' },
-    { icon: <Users />, label: 'Clientes Satisfeitos', value: '1', description: 'Empresas atendidas' },
-    { icon: <Award />, label: 'Experiência', value: 'Primeiro Ano', description: 'No mercado digital' },
-    { icon: <TrendingUp />, label: 'Taxa de Sucesso', value: '100%', description: 'Projetos bem-sucedidos' }
+    { icon: Code, label: 'Projetos Finalizados', value: '1', description: 'Soluções desenvolvidas' },
+    { icon: Users, label: 'Clientes Satisfeitos', value: '1', description: 'Empresas atendidas' },
+    { icon: Award, label: 'Experiência', value: 'Primeiro Ano', description: 'No mercado digital' },
+    { icon: TrendingUp, label: 'Taxa de Sucesso', value: '100%', description: 'Projetos bem-sucedidos' }
   ];
 
   const features = [
     {
-      icon: <Globe />,
+      icon: Globe,
       title: 'Soluções Globais',
       description: 'Desenvolvemos aplicações que atendem padrões internacionais de qualidade e performance.',
       color: 'from-blue-500 to-cyan-500'
     },
     {
-      icon: <Shield />,
+      icon: Shield,
       title: 'Segurança Avançada',
       description: 'Implementamos as melhores práticas de segurança para proteger seus dados e sistemas.',
       color: 'from-green-500 to-emerald-500'
     },
     {
-      icon: <Zap />,
+      icon: Zap,
       title: 'Performance Otimizada',
       description: 'Criamos soluções rápidas e eficientes que garantem a melhor experiência do usuário.',
       color: 'from-purple-500 to-pink-500'
@@ -99,25 +100,28 @@ const About: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            {stats.map((stat, index) => (
-              <motion.div 
-                key={index}
-                className="text-center p-6 bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300"
-                whileHover={{ y: -5, scale: 1.02 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 + index * 0.1 }}
-              >
-                <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white">
-                  {stat.icon}
-                </div>
-                <h3 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent mb-2">
-                  {stat.value}
-                </h3>
-                <p className="text-white font-semibold mb-1">{stat.label}</p>
-                <p className="text-gray-400 text-sm">{stat.description}</p>
-              </motion.div>
-            ))}
+            {stats.map((stat, index) => {
+              const IconComponent = stat.icon;
+              return (
+                <motion.div 
+                  key={index}
+                  className="text-center p-6 bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300"
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 + index * 0.1 }}
+                >
+                  <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white">
+                    <IconComponent className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent mb-2">
+                    {stat.value}
+                  </h3>
+                  <p className="text-white font-semibold mb-1">{stat.label}</p>
+                  <p className="text-gray-400 text-sm">{stat.description}</p>
+                </motion.div>
+              );
+            })}
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-12 mb-16">
@@ -162,22 +166,25 @@ const About: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.6 }}
           >
-            {features.map((feature, index) => (
-              <motion.div 
-                key={index}
-                className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300"
-                whileHover={{ y: -5, scale: 1.02 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.4 + index * 0.1 }}
-              >
-                <div className={`w-16 h-16 bg-gradient-to-br ${feature.color} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
-                  {feature.icon}
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-4">{feature.title}</h3>
-                <p className="text-gray-300 leading-relaxed">{feature.description}</p>
-              </motion.div>
-            ))}
+            {features.map((feature, index) => {
+              const IconComponent = feature.icon;
+              return (
+                <motion.div 
+                  key={index}
+                  className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300"
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.4 + index * 0.1 }}
+                >
+                  <div className={`w-16 h-16 bg-gradient-to-br ${feature.color} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
+                    <IconComponent className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4">{feature.title}</h3>
+                  <p className="text-gray-300 leading-relaxed">{feature.description}</p>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </section>
