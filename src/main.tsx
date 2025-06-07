@@ -8,11 +8,21 @@ import { cacheService } from './utils/cacheService';
 
 console.log("🔥 MAIN ULTRA FINAL: INICIANDO APLICAÇÃO 100% LIMPA SEM RADIX");
 
-// LIMPEZA ULTRA AGRESSIVA DE TODOS OS VESTÍGIOS + RADIX
+// LIMPEZA ULTRA AGRESSIVA DE TODOS OS VESTÍGIOS + RADIX + HARD CACHE CLEAR
 if (typeof window !== 'undefined') {
   console.log("🔥 MAIN ULTRA FINAL: EXECUTANDO LIMPEZA ULTRA AGRESSIVA ANTI-RADIX");
   
   try {
+    // Forçar limpeza de TODOS os caches do navegador
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        registrations.forEach(registration => {
+          registration.unregister();
+          console.log("🔥 MAIN ULTRA FINAL: Service worker removido");
+        });
+      });
+    }
+    
     // Limpar TODOS os storages
     localStorage.clear();
     sessionStorage.clear();
@@ -29,24 +39,95 @@ if (typeof window !== 'undefined') {
     }
     
     // Limpar QUALQUER referência Radix no window
-    if ((window as any).__RADIX_UI_TOOLTIP__) {
-      delete (window as any).__RADIX_UI_TOOLTIP__;
-      console.log("🔥 MAIN ULTRA FINAL: Limpou referência Radix Tooltip");
-    }
+    const radixKeys = Object.keys(window).filter(key => 
+      key.toLowerCase().includes('radix') || 
+      key.includes('__RADIX') ||
+      key.includes('TOOLTIP')
+    );
     
-    // Verificar integridade do React
-    if (!React || !React.useState || !React.useEffect || !React.Fragment) {
-      console.error("🔥 MAIN ULTRA FINAL: React corrompido - forçando reload");
-      window.location.reload();
-      throw new Error("React corrompido");
-    }
+    radixKeys.forEach(key => {
+      try {
+        delete (window as any)[key];
+        console.log(`🔥 MAIN ULTRA FINAL: Removeu chave Radix: ${key}`);
+      } catch (e) {
+        console.log(`🔥 MAIN ULTRA FINAL: Erro ao remover ${key}:`, e);
+      }
+    });
     
-    console.log("🔥 MAIN ULTRA FINAL: React verificado e íntegro");
+    // Verificar integridade do React com timeout
+    const checkReact = () => {
+      if (!React || !React.useState || !React.useEffect || !React.Fragment) {
+        console.error("🔥 MAIN ULTRA FINAL: React corrompido - forçando hard reload");
+        window.location.href = window.location.href + '?t=' + Date.now();
+        throw new Error("React corrompido");
+      }
+      console.log("🔥 MAIN ULTRA FINAL: React verificado e íntegro");
+    };
+    
+    // Aguardar um pouco antes de verificar o React
+    setTimeout(checkReact, 100);
     
   } catch (e) {
     console.log("🔥 MAIN ULTRA FINAL: Limpeza concluída:", e);
+    // Em caso de erro, forçar reload com timestamp
+    setTimeout(() => {
+      window.location.href = window.location.href + '?nocache=' + Date.now();
+    }, 200);
   }
 }
+
+// Error handlers ultra defensivos ANTI-RADIX com reload forçado
+const handleGlobalError = (event: ErrorEvent) => {
+  const errorMessage = event.error?.message || event.message || '';
+  const errorStack = event.error?.stack || '';
+  
+  console.error('🔥 MAIN ULTRA FINAL: Erro global capturado:', {
+    message: errorMessage,
+    stack: errorStack,
+    filename: event.filename
+  });
+  
+  // Se for QUALQUER erro relacionado ao React, hooks ou RADIX, reload IMEDIATO
+  if (errorMessage.includes('useState') || 
+      errorMessage.includes('useEffect') ||
+      errorMessage.includes('Cannot read properties of null') ||
+      errorMessage.includes('radix') ||
+      errorMessage.includes('Radix') ||
+      errorMessage.includes('RADIX') ||
+      errorMessage.includes('TooltipProvider') ||
+      errorStack.includes('useState') ||
+      errorStack.includes('useEffect') ||
+      errorStack.includes('radix') ||
+      errorStack.includes('TooltipProvider')) {
+    
+    console.error('🔥 MAIN ULTRA FINAL: Erro crítico detectado - HARD RELOAD IMEDIATO');
+    
+    // Hard reload com timestamp para evitar cache
+    window.location.href = window.location.protocol + '//' + 
+                          window.location.host + 
+                          window.location.pathname + 
+                          '?hardreload=' + Date.now();
+  }
+};
+
+// Remover listeners antigos antes de adicionar novos
+window.removeEventListener('error', handleGlobalError);
+window.removeEventListener('unhandledrejection', () => {});
+
+window.addEventListener('error', handleGlobalError);
+window.addEventListener('unhandledrejection', (event: PromiseRejectionEvent) => {
+  const reason = event.reason?.message || event.reason || '';
+  console.error('🔥 MAIN ULTRA FINAL: Promise rejeitada:', reason);
+  
+  if (typeof reason === 'string' && (
+      reason.includes('radix') || 
+      reason.includes('TooltipProvider') ||
+      reason.includes('useState')
+    )) {
+    console.error('🔥 MAIN ULTRA FINAL: Erro Radix em promise - HARD RELOAD');
+    window.location.href = window.location.href + '?promisereload=' + Date.now();
+  }
+});
 
 // Inicialização dos serviços
 const initializeApp = async () => {
@@ -60,94 +141,35 @@ const initializeApp = async () => {
   }
 };
 
-// Error handlers ultra defensivos ANTI-RADIX
-const handleGlobalError = (event: ErrorEvent) => {
-  const errorMessage = event.error?.message || event.message || '';
-  const errorStack = event.error?.stack || '';
-  
-  console.error('🔥 MAIN ULTRA FINAL: Erro global capturado:', {
-    message: errorMessage,
-    stack: errorStack,
-    filename: event.filename
-  });
-  
-  // Se for QUALQUER erro relacionado ao React, hooks ou RADIX, reload imediato
-  if (errorMessage.includes('useState') || 
-      errorMessage.includes('useEffect') ||
-      errorMessage.includes('Cannot read properties of null') ||
-      errorMessage.includes('radix') ||
-      errorMessage.includes('Radix') ||
-      errorMessage.includes('RADIX') ||
-      errorMessage.includes('TooltipProvider') ||
-      errorStack.includes('useState') ||
-      errorStack.includes('useEffect') ||
-      errorStack.includes('radix') ||
-      errorStack.includes('TooltipProvider')) {
-    console.error('🔥 MAIN ULTRA FINAL: Erro crítico do React/Radix detectado - RELOAD FORÇADO');
-    
-    setTimeout(() => {
-      window.location.href = window.location.href;
-    }, 100);
-  }
-};
-
-window.addEventListener('error', handleGlobalError);
-window.addEventListener('unhandledrejection', (event: PromiseRejectionEvent) => {
-  const reason = event.reason?.message || event.reason || '';
-  console.error('🔥 MAIN ULTRA FINAL: Promise rejeitada:', reason);
-  
-  // Verificar se é erro relacionado ao Radix
-  if (typeof reason === 'string' && (
-      reason.includes('radix') || 
-      reason.includes('TooltipProvider') ||
-      reason.includes('useState')
-    )) {
-    console.error('🔥 MAIN ULTRA FINAL: Erro Radix em promise - RELOAD FORÇADO');
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
-  }
-});
-
-// Renderização da aplicação
+// Renderização da aplicação com timeout para garantir limpeza
 const rootElement = document.getElementById("root");
 if (rootElement) {
   const root = createRoot(rootElement);
   
-  initializeApp().then(() => {
-    console.log("🔥 MAIN ULTRA FINAL: Renderizando aplicação SEM RADIX");
-    
-    try {
-      root.render(
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      );
-      console.log("🔥 MAIN ULTRA FINAL: Aplicação renderizada com SUCESSO TOTAL SEM RADIX!");
-    } catch (error) {
-      console.error("🔥 MAIN ULTRA FINAL: Erro crítico na renderização:", error);
-      rootElement.innerHTML = `
-        <div style="padding: 20px; color: red; font-family: Arial; text-align: center; background: #0f172a; min-height: 100vh;">
-          <h2>❌ Erro de renderização</h2>
-          <p>Erro: ${error}</p>
-          <button onclick="window.location.reload()" style="padding: 10px 20px; background: #6366f1; color: white; border: none; border-radius: 5px; cursor: pointer;">
-            Recarregar Aplicação
-          </button>
-        </div>
-      `;
-    }
-  }).catch((error) => {
-    console.error("🔥 MAIN ULTRA FINAL: Erro na inicialização:", error);
-    rootElement.innerHTML = `
-      <div style="padding: 20px; color: red; font-family: Arial; text-align: center; background: #0f172a; min-height: 100vh;">
-        <h2>❌ Erro de inicialização</h2>
-        <p>Erro: ${error}</p>
-        <button onclick="window.location.reload()" style="padding: 10px 20px; background: #6366f1; color: white; border: none; border-radius: 5px; cursor: pointer;">
-          Recarregar Aplicação
-        </button>
-      </div>
-    `;
-  });
+  // Aguardar um pouco para garantir que a limpeza foi concluída
+  setTimeout(() => {
+    initializeApp().then(() => {
+      console.log("🔥 MAIN ULTRA FINAL: Renderizando aplicação SEM RADIX");
+      
+      try {
+        root.render(
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        );
+        console.log("🔥 MAIN ULTRA FINAL: Aplicação renderizada com SUCESSO TOTAL SEM RADIX!");
+      } catch (error) {
+        console.error("🔥 MAIN ULTRA FINAL: Erro crítico na renderização:", error);
+        // Hard reload em caso de erro de renderização
+        window.location.href = window.location.href + '?rendererror=' + Date.now();
+      }
+    }).catch((error) => {
+      console.error("🔥 MAIN ULTRA FINAL: Erro na inicialização:", error);
+      // Hard reload em caso de erro de inicialização
+      window.location.href = window.location.href + '?initerror=' + Date.now();
+    });
+  }, 300); // Aguardar 300ms para garantir limpeza completa
+  
 } else {
   console.error('🔥 MAIN ULTRA FINAL: Elemento root não encontrado');
 }
