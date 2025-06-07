@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-console.log("🔥 CLEAN THEME PROVIDER: Restored with theme functionality");
+console.log("🔥 CLEAN THEME PROVIDER: Loading with zero external dependencies");
 
 type Theme = "dark" | "light" | "system";
 
@@ -29,6 +29,8 @@ export function CleanThemeProvider({
   storageKey = "gv-ui-theme",
   ...props
 }: ThemeProviderProps) {
+  console.log("🔥 CLEAN THEME PROVIDER: Initializing with theme:", defaultTheme);
+  
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   );
@@ -54,6 +56,7 @@ export function CleanThemeProvider({
   const value = {
     theme,
     setTheme: (theme: Theme) => {
+      console.log("🔥 CLEAN THEME PROVIDER: Setting theme to:", theme);
       localStorage.setItem(storageKey, theme);
       setTheme(theme);
     },

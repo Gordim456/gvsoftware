@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 STANDALONE TOOLTIP: Loading completely standalone implementation");
+console.log("🔥 STANDALONE TOOLTIP: Loading 100% independent implementation - NO RADIX UI");
 
-// Completely standalone tooltip implementation
+// Completely standalone tooltip implementation with no Radix dependencies
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -19,6 +19,8 @@ const Tooltip: React.FC<TooltipProps> = ({
   className 
 }) => {
   const [isVisible, setIsVisible] = React.useState(false);
+  
+  console.log("🔥 STANDALONE TOOLTIP: Rendering standalone tooltip");
 
   const positionClasses = {
     top: "bottom-full left-1/2 transform -translate-x-1/2 mb-2",
@@ -50,14 +52,14 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Empty compatibility components that return null to prevent any usage
+// Completely empty compatibility components - these should NEVER be used but exist to prevent import errors
 const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Using empty provider - no Radix UI");
+  console.log("🔥 EMPTY TOOLTIP PROVIDER: This should never render - using fallback");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Using empty trigger - no Radix UI");
+  console.log("🔥 EMPTY TOOLTIP TRIGGER: This should never render - using fallback");
   return <>{children}</>;
 };
 
@@ -67,7 +69,7 @@ const TooltipContent: React.FC<{
   side?: "top" | "bottom" | "left" | "right";
   sideOffset?: number;
 }> = () => {
-  console.log("🔥 TOOLTIP CONTENT: Using empty content - no Radix UI");
+  console.log("🔥 EMPTY TOOLTIP CONTENT: This should never render - using fallback");
   return null;
 };
 
