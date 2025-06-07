@@ -13,7 +13,7 @@ import TestComponent from "./components/TestComponent";
 import SimpleChatBot from "./components/chat/SimpleChatBot";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-console.log("🔥 APP: RADIX-FREE VERSION - No tooltip dependencies at all");
+console.log("🔥 APP: COMPLETELY RADIX-FREE VERSION - Zero tooltip dependencies");
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home"));
@@ -47,19 +47,36 @@ const LoadingFallback = () => (
 
 // Main App component
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering RADIX-FREE version - checking for any external tooltip contamination");
+  console.log("🔥 APP: Rendering COMPLETELY CLEAN version - zero external dependencies");
   
-  // Monitor for any tooltip-related errors
+  // Enhanced error monitoring
   React.useEffect(() => {
     const handleError = (event: ErrorEvent) => {
-      if (event.message.includes('tooltip') || event.message.includes('@radix-ui')) {
-        console.error("🔥 APP: RADIX CONTAMINATION DETECTED:", event.message);
-        console.error("🔥 APP: Stack:", event.error?.stack);
+      console.error("🔥 APP: Global error detected:", {
+        message: event.message,
+        filename: event.filename,
+        lineno: event.lineno,
+        colno: event.colno,
+        stack: event.error?.stack
+      });
+      
+      if (event.message.includes('tooltip') || event.message.includes('@radix-ui') || event.message.includes('useState')) {
+        console.error("🔥 APP: CRITICAL - Radix UI contamination still present!");
+        console.error("🔥 APP: This should not happen - all Radix dependencies removed");
       }
     };
     
+    const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+      console.error("🔥 APP: Unhandled promise rejection:", event.reason);
+    };
+    
     window.addEventListener('error', handleError);
-    return () => window.removeEventListener('error', handleError);
+    window.addEventListener('unhandledrejection', handleUnhandledRejection);
+    
+    return () => {
+      window.removeEventListener('error', handleError);
+      window.removeEventListener('unhandledrejection', handleUnhandledRejection);
+    };
   }, []);
   
   return (

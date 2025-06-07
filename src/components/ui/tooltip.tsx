@@ -50,21 +50,21 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// ABSOLUTELY NO HOOKS OR STATE - Pure passthrough components
-const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: ZERO dependencies - pure passthrough");
-  // NO useState, NO useEffect, NO hooks at all
-  return <React.Fragment>{children}</React.Fragment>;
+// Simple passthrough components that do NOTHING except return children
+// These exist ONLY for API compatibility and use NO hooks whatsoever
+const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
+  console.log("🔥 TOOLTIP PROVIDER: Pure passthrough - absolutely no state");
+  return children;
 };
 
-const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Pure passthrough - no hooks");
-  return <React.Fragment>{children}</React.Fragment>;
+const TooltipTrigger = ({ children }: { children: React.ReactNode; asChild?: boolean }) => {
+  console.log("🔥 TOOLTIP TRIGGER: Pure passthrough - no logic");
+  return children;
 };
 
-const TooltipContent: React.FC<{ children: React.ReactNode; className?: string }> = ({ children }) => {
-  console.log("🔥 TOOLTIP CONTENT: Pure passthrough - no hooks");
-  return <React.Fragment>{children}</React.Fragment>;
+const TooltipContent = ({ children }: { children: React.ReactNode; className?: string }) => {
+  console.log("🔥 TOOLTIP CONTENT: Pure passthrough - no rendering");
+  return children;
 };
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
