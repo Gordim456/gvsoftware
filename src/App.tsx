@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -8,11 +7,11 @@ import { lazy, Suspense } from "react";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
+import About from "./pages/About"; // Static import instead of lazy
 
-console.log("🔥 APP: Loading COMPLETELY CLEAN app - ZERO RADIX TOOLTIP DEPENDENCIES v7");
+console.log("🔥 APP: Loading COMPLETELY CLEAN app - ZERO RADIX TOOLTIP DEPENDENCIES v8");
 
 const Home = lazy(() => import("./pages/Home"));
-const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
 const Portfolio = lazy(() => import("./pages/Portfolio"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -51,12 +50,12 @@ class AppErrorBoundary extends React.Component<
   }
 
   static getDerivedStateFromError(error: Error) {
-    console.error('🔥 APP ERROR BOUNDARY: Caught app error v7:', error);
+    console.error('🔥 APP ERROR BOUNDARY: Caught app error v8:', error);
     return { hasError: true, errorMessage: error.message };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🔥 APP ERROR BOUNDARY: Full error details v7:', {
+    console.error('🔥 APP ERROR BOUNDARY: Full error details v8:', {
       error: error.message,
       stack: error.stack,
       errorInfo,
@@ -67,7 +66,7 @@ class AppErrorBoundary extends React.Component<
     
     // If it's a Radix-related error, force a page reload
     if (error.stack?.includes('radix') || error.stack?.includes('TooltipProvider')) {
-      console.error('🔥 DETECTED RADIX ERROR - FORCING RELOAD v7');
+      console.error('🔥 DETECTED RADIX ERROR - FORCING RELOAD v8');
       setTimeout(() => {
         window.location.reload();
       }, 2000);
@@ -106,20 +105,20 @@ const SafeChatBot = () => {
       </Suspense>
     );
   } catch (error) {
-    console.error('🔥 CHATBOT ERROR v7:', error);
+    console.error('🔥 CHATBOT ERROR v8:', error);
     return null;
   }
 };
 
 const App: React.FC = () => {
   React.useEffect(() => {
-    console.log("🔥 APP: Component mounted successfully - ABSOLUTELY NO RADIX TOOLTIP ANYWHERE v7");
+    console.log("🔥 APP: Component mounted successfully - ABSOLUTELY NO RADIX TOOLTIP ANYWHERE v8");
     
     // Verify React hooks are working
     console.log("🔥 APP: React hooks validation - useState:", !!React.useState);
     
     // Force clear any potential Radix references again
-    console.log("🔥 APP: Final clearing of any potential Radix tooltip cache v7");
+    console.log("🔥 APP: Final clearing of any potential Radix tooltip cache v8");
   }, []);
   
   // Defensive rendering - wrap everything in try-catch
@@ -154,7 +153,7 @@ const App: React.FC = () => {
       </AppErrorBoundary>
     );
   } catch (error) {
-    console.error('🔥 APP: Defensive render caught error v7:', error);
+    console.error('🔥 APP: Defensive render caught error v8:', error);
     return (
       <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
         <div className="text-center p-8">
