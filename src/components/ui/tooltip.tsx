@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP FINAL: COMPLETAMENTE REESCRITO SEM RADIX - VERSÃO DEFINITIVA");
+console.log("🔥 TOOLTIP ULTRA FINAL: ZERO RADIX - IMPLEMENTAÇÃO 100% LIMPA");
 
-// Interface do tooltip 100% customizado
+// Interface do tooltip completamente customizada
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -13,7 +13,7 @@ interface TooltipProps {
   delayDuration?: number;
 }
 
-// Implementação 100% customizada - ZERO dependências externas
+// Tooltip 100% customizado sem NENHUMA dependência externa
 const Tooltip: React.FC<TooltipProps> = ({ 
   children, 
   content, 
@@ -24,7 +24,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const [isVisible, setIsVisible] = React.useState(false);
   const timeoutRef = React.useRef<NodeJS.Timeout>();
 
-  console.log("🔥 TOOLTIP FINAL: Renderizando tooltip customizado");
+  console.log("🔥 TOOLTIP ULTRA FINAL: Renderizando tooltip 100% customizado");
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
@@ -89,22 +89,22 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes dummy TOTALMENTE VAZIOS - ZERO FUNCIONALIDADE
+// Componentes COMPLETAMENTE VAZIOS - ZERO funcionalidade Radix
 const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER FINAL: Provider dummy vazio");
+  console.log("🔥 TOOLTIP PROVIDER ULTRA FINAL: Provider TOTALMENTE vazio");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER FINAL: Trigger dummy vazio");
+  console.log("🔥 TOOLTIP TRIGGER ULTRA FINAL: Trigger TOTALMENTE vazio");
   return <>{children}</>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode; side?: string; className?: string }> = ({ children }) => {
-  console.log("🔥 TOOLTIP CONTENT FINAL: Content dummy vazio");
+  console.log("🔥 TOOLTIP CONTENT ULTRA FINAL: Content TOTALMENTE vazio");
   return <>{children}</>;
 };
 
-console.log("🔥 TOOLTIP EXPORTS FINAL: Exportando componentes TOTALMENTE CUSTOMIZADOS");
+console.log("🔥 TOOLTIP EXPORTS ULTRA FINAL: Exportando componentes 100% LIMPOS");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };

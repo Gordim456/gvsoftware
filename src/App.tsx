@@ -10,7 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
 
-console.log("🔥 APP FINAL: CARREGANDO APLICAÇÃO TOTALMENTE LIMPA");
+console.log("🔥 APP ULTRA FINAL: CARREGANDO APLICAÇÃO 100% LIMPA SEM RADIX");
 
 // Lazy loading dos componentes
 const Home = lazy(() => import("./pages/Home"));
@@ -54,12 +54,12 @@ class AppErrorBoundary extends React.Component<
   }
 
   static getDerivedStateFromError(error: Error) {
-    console.error('🔥 APP FINAL: Error boundary ativado:', error);
+    console.error('🔥 APP ULTRA FINAL: Error boundary ativado:', error);
     return { hasError: true, errorMessage: error.message };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🔥 APP FINAL: Erro capturado no boundary:', {
+    console.error('🔥 APP ULTRA FINAL: Erro capturado no boundary:', {
       error: error.message,
       stack: error.stack,
       errorInfo
@@ -98,15 +98,15 @@ const SafeChatBot = () => {
       </Suspense>
     );
   } catch (error) {
-    console.error('🔥 APP FINAL: Erro no ChatBot:', error);
+    console.error('🔥 APP ULTRA FINAL: Erro no ChatBot:', error);
     return null;
   }
 };
 
-// Componente principal da aplicação
+// Componente principal da aplicação - SEM TOOLTIP PROVIDER
 const App: React.FC = () => {
   React.useEffect(() => {
-    console.log("🔥 APP FINAL: Aplicação montada com sucesso");
+    console.log("🔥 APP ULTRA FINAL: Aplicação montada com sucesso - SEM RADIX");
   }, []);
   
   try {
@@ -140,7 +140,7 @@ const App: React.FC = () => {
       </AppErrorBoundary>
     );
   } catch (error) {
-    console.error('🔥 APP FINAL: Erro defensivo capturado:', error);
+    console.error('🔥 APP ULTRA FINAL: Erro defensivo capturado:', error);
     return (
       <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center">
         <div className="text-center p-8">
