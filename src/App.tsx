@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -8,6 +7,8 @@ import { lazy, Suspense } from "react";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
+
+console.log("🔥 APP: Loading main app component - ZERO RADIX TOOLTIP DEPENDENCIES");
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
@@ -54,12 +55,12 @@ const SafeChatBot = () => {
 
 const App: React.FC = () => {
   React.useEffect(() => {
-    console.log("🔥 APP: Component mounted - ZERO RADIX TOOLTIP DEPENDENCIES");
+    console.log("🔥 APP: Component mounted successfully - ABSOLUTELY NO RADIX TOOLTIP ANYWHERE");
   }, []);
   
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
         <BrowserRouter>
           <Toaster />
           <Sonner />

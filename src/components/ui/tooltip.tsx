@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP COMPONENT: 100% CUSTOM IMPLEMENTATION - ZERO RADIX DEPENDENCIES");
+console.log("🔥 TOOLTIP COMPONENT: Loading 100% custom implementation - ABSOLUTELY NO RADIX");
 
 interface TooltipProps {
   children: React.ReactNode;
@@ -22,7 +22,7 @@ const Tooltip: React.FC<TooltipProps> = ({
 
   React.useEffect(() => {
     setIsMounted(true);
-    console.log("✅ TOOLTIP: Mounted successfully with custom implementation");
+    console.log("✅ TOOLTIP: Custom tooltip mounted successfully - NO RADIX ANYWHERE");
   }, []);
 
   const positionClasses = {
@@ -40,11 +40,11 @@ const Tooltip: React.FC<TooltipProps> = ({
     <div 
       className="relative inline-block"
       onMouseEnter={() => {
-        console.log("🔥 TOOLTIP: Mouse enter - showing tooltip");
+        console.log("🔥 TOOLTIP: Mouse enter - showing custom tooltip");
         setIsVisible(true);
       }}
       onMouseLeave={() => {
-        console.log("🔥 TOOLTIP: Mouse leave - hiding tooltip");
+        console.log("🔥 TOOLTIP: Mouse leave - hiding custom tooltip");
         setIsVisible(false);
       }}
     >
@@ -64,29 +64,31 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// COMPATIBILITY COMPONENTS - 100% CUSTOM WITH NO DEPENDENCIES
+// COMPATIBILITY COMPONENTS - 100% CUSTOM, NO RADIX DEPENDENCIES
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   React.useEffect(() => {
-    console.log("🔥 TOOLTIP PROVIDER: Custom provider mounted - NO RADIX");
+    console.log("🔥 TOOLTIP PROVIDER: Custom provider active - ZERO RADIX DEPENDENCIES");
   }, []);
   
-  return <div className="tooltip-provider-wrapper">{children}</div>;
+  return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
   React.useEffect(() => {
-    console.log("🔥 TOOLTIP TRIGGER: Custom trigger mounted - NO RADIX");
+    console.log("🔥 TOOLTIP TRIGGER: Custom trigger active - ZERO RADIX DEPENDENCIES");
   }, []);
   
-  return <span className="tooltip-trigger-wrapper">{children}</span>;
+  return <>{children}</>;
 };
 
 const TooltipContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   React.useEffect(() => {
-    console.log("🔥 TOOLTIP CONTENT: Custom content mounted - NO RADIX");
+    console.log("🔥 TOOLTIP CONTENT: Custom content active - ZERO RADIX DEPENDENCIES");
   }, []);
   
-  return <div className="tooltip-content-wrapper">{children}</div>;
+  return <>{children}</>;
 };
+
+console.log("🔥 TOOLTIP EXPORTS: Exporting custom components - NO RADIX ANYWHERE");
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
