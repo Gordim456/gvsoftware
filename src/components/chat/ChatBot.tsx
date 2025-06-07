@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, Suspense } from 'react';
+import * as React from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -24,12 +24,12 @@ interface FormData {
 
 const ChatBot: React.FC<ChatBotProps> = ({ className = '' }) => {
   console.log("🔥 CHATBOT: Component rendering with React:", React);
-  console.log("🔥 CHATBOT: useState available:", typeof useState);
+  console.log("🔥 CHATBOT: useState available:", typeof React.useState);
   console.log("🔥 CHATBOT: React.useState available:", typeof React.useState);
   
-  const [chatState, setChatState] = useState<ChatState>('closed');
-  const [conversationId, setConversationId] = useState<string>('');
-  const [formData, setFormData] = useState<FormData>({
+  const [chatState, setChatState] = React.useState<ChatState>('closed');
+  const [conversationId, setConversationId] = React.useState<string>('');
+  const [formData, setFormData] = React.useState<FormData>({
     name: '',
     email: '',
     phone: '',
@@ -38,7 +38,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ className = '' }) => {
 
   console.log("🔥 CHATBOT: Component rendering, state:", chatState);
 
-  useEffect(() => {
+  React.useEffect(() => {
     // Generate conversation ID when opening chat
     if (chatState !== 'closed' && !conversationId) {
       setConversationId(`conv_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
@@ -157,7 +157,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ className = '' }) => {
 
         {/* Content */}
         <div className="flex-1 overflow-hidden">
-          <Suspense fallback={<LoadingFallback />}>
+          <React.Suspense fallback={<LoadingFallback />}>
             <AnimatePresence mode="wait">
               {chatState === 'options' && (
                 <motion.div
@@ -226,7 +226,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ className = '' }) => {
                 </motion.div>
               )}
             </AnimatePresence>
-          </Suspense>
+          </React.Suspense>
         </div>
       </div>
     </motion.div>
