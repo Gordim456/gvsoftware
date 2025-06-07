@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback, useEffect } from 'react';
+import * as React from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { Menu, X, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -7,20 +7,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 console.log("🔥 NAVBAR: Loading with explicit React imports");
 console.log("🔥 NAVBAR: React available:", React);
-console.log("🔥 NAVBAR: useState available:", typeof useState);
+console.log("🔥 NAVBAR: useState available:", typeof React.useState);
 
 const Navbar: React.FC = () => {
   console.log("🔥 NAVBAR: Component rendering, React:", React);
   
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
   const location = useLocation();
   
-  const toggleMenu = useCallback(() => {
+  const toggleMenu = React.useCallback(() => {
     setIsOpen(!isOpen);
   }, [isOpen]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
         setScrolled(true);
@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
     };
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     setIsOpen(false);
   }, [location]);
 
