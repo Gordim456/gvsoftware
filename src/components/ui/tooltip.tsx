@@ -2,12 +2,12 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-// Completely custom tooltip implementation without any external dependencies
-const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
+// Custom tooltip implementation - no external dependencies
+const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return <>{children}</>;
 };
 
-const Tooltip = ({ children }: { children: React.ReactNode }) => {
+const Tooltip: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return <div className="relative inline-block group">{children}</div>;
 };
 
