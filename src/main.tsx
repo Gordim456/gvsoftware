@@ -5,11 +5,11 @@ import App from './App.tsx';
 import './index.css';
 import ErrorBoundary from './components/ErrorBoundary';
 
-console.log("🔥 MAIN: Starting app with complete error protection and debugging");
+console.log("🔥 MAIN: Inicializando app LIMPO - SEM Radix UI");
 
-// Enhanced error handling to catch ALL errors
+// Error handling melhorado
 window.addEventListener('error', (event) => {
-  console.error('🔥 GLOBAL ERROR CAUGHT:', {
+  console.error('🔥 ERRO GLOBAL:', {
     message: event.error?.message,
     stack: event.error?.stack,
     filename: event.filename,
@@ -18,20 +18,22 @@ window.addEventListener('error', (event) => {
     type: 'runtime_error'
   });
   
-  // Check if it's the specific useState error we're tracking
   if (event.error?.message?.includes('Cannot read properties of null')) {
-    console.error('🔥 SPECIFIC useState ERROR DETECTED - This should be eliminated now');
+    console.error('🔥 ERRO useState DETECTADO - deveria estar eliminado agora');
+  }
+  
+  if (event.error?.message?.includes('TooltipProvider')) {
+    console.error('🔥 ERRO TOOLTIP PROVIDER - deveria estar eliminado');
   }
 });
 
 window.addEventListener('unhandledrejection', (event) => {
-  console.error('🔥 UNHANDLED PROMISE REJECTION:', event.reason);
+  console.error('🔥 PROMISE REJEITADA:', event.reason);
 });
 
-// Additional React error boundary
 const rootElement = document.getElementById("root");
 if (rootElement) {
-  console.log("🔥 MAIN: Root element found, starting React app");
+  console.log("🔥 MAIN: Elemento root encontrado, iniciando React app");
   const root = createRoot(rootElement);
   root.render(
     <React.StrictMode>
@@ -41,5 +43,5 @@ if (rootElement) {
     </React.StrictMode>
   );
 } else {
-  console.error('🔥 MAIN: CRITICAL - Root element not found');
+  console.error('🔥 MAIN: CRÍTICO - Elemento root não encontrado');
 }

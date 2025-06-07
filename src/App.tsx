@@ -7,7 +7,7 @@ import CleanThemeProvider from "./components/theme/CleanThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 
-console.log("🔥 APP: Starting with completely clean providers - absolutely no Radix UI");
+console.log("🔥 APP: Carregando sem NENHUMA dependência do Radix UI");
 
 // Lazy loading das páginas
 const Home = lazy(() => import("./pages/Home"));
@@ -41,7 +41,7 @@ const LoadingFallback = () => (
 );
 
 const App: React.FC = () => {
-  console.log("🔥 APP: Rendering with absolutely no Radix UI components");
+  console.log("🔥 APP: Renderizando completamente limpo - SEM Radix UI");
   
   return (
     <QueryClientProvider client={queryClient}>

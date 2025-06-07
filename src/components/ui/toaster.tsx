@@ -5,12 +5,17 @@ import {
   Toast,
   ToastClose,
   ToastDescription,
-  ToastProvider,
   ToastTitle,
   ToastViewport,
 } from "@/components/ui/toast"
 
-console.log("🔥 TOASTER: Loading clean version");
+console.log("🔥 TOASTER: Carregando versão limpa SEM Radix");
+
+// Implementação standalone do ToastProvider
+const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  console.log("🔥 TOAST PROVIDER: Usando implementação limpa");
+  return <>{children}</>;
+};
 
 export function Toaster() {
   const { toasts } = useToast()
