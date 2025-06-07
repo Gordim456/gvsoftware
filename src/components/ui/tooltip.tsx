@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP: Criado completamente do zero sem Radix");
+console.log("🔥 TOOLTIP: Componente 100% customizado sem Radix");
 
 // Tooltip completamente standalone - SEM Radix UI
 interface TooltipProps {
@@ -50,19 +50,24 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes stub para compatibilidade - SEM hooks, SEM Radix
-const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Stub simples sem Radix");
-  return <div>{children}</div>;
+// Componentes de compatibilidade - COMPLETAMENTE INDEPENDENTES
+const TooltipProvider: React.FC<{ children: React.ReactNode; delayDuration?: number }> = ({ children }) => {
+  console.log("🔥 TOOLTIP PROVIDER: Wrapper simples sem hooks nem Radix");
+  return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode; asChild?: boolean }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Stub simples sem Radix");
-  return <div>{children}</div>;
+  console.log("🔥 TOOLTIP TRIGGER: Passthrough simples");
+  return <>{children}</>;
 };
 
-const TooltipContent: React.FC<{ children?: React.ReactNode }> = () => {
-  console.log("🔥 TOOLTIP CONTENT: Stub simples sem Radix");
+const TooltipContent: React.FC<{ 
+  children?: React.ReactNode; 
+  className?: string;
+  side?: "top" | "bottom" | "left" | "right";
+  sideOffset?: number;
+}> = () => {
+  console.log("🔥 TOOLTIP CONTENT: Stub vazio - use o componente Tooltip diretamente");
   return null;
 };
 
