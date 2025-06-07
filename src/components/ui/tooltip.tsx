@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-// Simple tooltip implementation without Radix UI dependencies
+// Completely custom tooltip implementation without any external dependencies
 const TooltipProvider = ({ children }: { children: React.ReactNode }) => {
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
 const Tooltip = ({ children }: { children: React.ReactNode }) => {
@@ -18,13 +18,6 @@ const TooltipTrigger = React.forwardRef<
     asChild?: boolean;
   }
 >(({ children, className, asChild = false, ...props }, ref) => {
-  if (asChild && React.isValidElement(children)) {
-    return React.cloneElement(children as React.ReactElement<any>, {
-      className: cn(className, (children as any).props?.className),
-      ...props,
-    });
-  }
-  
   return (
     <div ref={ref} className={cn("cursor-pointer", className)} {...props}>
       {children}
