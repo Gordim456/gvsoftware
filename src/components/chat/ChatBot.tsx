@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { MessageCircle, X } from "lucide-react";
 
-console.log("🔥 CHATBOT: Loading minimal ChatBot component");
+console.log("🔥 CHATBOT: Loading ChatBot component");
 
 const ChatBot: React.FC = () => {
   console.log("🔥 CHATBOT: Component rendering");
