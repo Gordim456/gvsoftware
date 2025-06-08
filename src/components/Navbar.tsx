@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <RouterLink to="/" className="cursor-pointer flex items-center">

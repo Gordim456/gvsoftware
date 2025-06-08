@@ -8,19 +8,19 @@ import OptimizedHeroImage from './OptimizedHeroImage';
 const Hero = () => {
   return (
     <section className="w-full min-h-screen bg-gv-darker pt-20 pb-12">
-      <div className="w-full px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center min-h-[80vh]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center min-h-[80vh]">
             <div className="space-y-6 text-center md:text-left">
               <div className="inline-block bg-indigo-600/20 px-4 py-1 rounded-full mb-4 border border-indigo-500/30">
                 <span className="text-indigo-300 text-sm font-medium">Inovação & Tecnologia</span>
               </div>
               
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
                 Transformando ideias em <span className="gradient-text font-extrabold">realidade digital</span>
               </h1>
               
-              <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-lg mx-auto md:mx-0">
+              <p className="text-lg md:text-xl text-gray-400 max-w-lg mx-auto md:mx-0">
                 Desenvolvemos soluções digitais personalizadas e inovadoras que impulsionam o crescimento do seu negócio com tecnologia de ponta.
               </p>
               
@@ -38,27 +38,27 @@ const Hero = () => {
                 </RouterLink>
               </div>
               
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-4">
+              <div className="grid grid-cols-2 gap-4 mt-8 pt-4">
                 <div className="text-center">
-                  <h4 className="text-2xl sm:text-3xl font-bold text-green-400">+3</h4>
-                  <p className="text-gray-400 text-xs sm:text-sm">Projetos Finalizados</p>
+                  <h4 className="text-2xl md:text-3xl font-bold text-green-400">+3</h4>
+                  <p className="text-gray-400 text-sm">Projetos Finalizados</p>
                 </div>
                 <div className="text-center">
-                  <h4 className="text-2xl sm:text-3xl font-bold text-green-400">+3</h4>
-                  <p className="text-gray-400 text-xs sm:text-sm">Clientes Satisfeitos</p>
+                  <h4 className="text-2xl md:text-3xl font-bold text-green-400">+3</h4>
+                  <p className="text-gray-400 text-sm">Clientes Satisfeitos</p>
                 </div>
                 <div className="text-center">
-                  <h4 className="text-xl sm:text-2xl md:text-3xl font-bold text-green-400">Primeiro Ano</h4>
-                  <p className="text-gray-400 text-xs sm:text-sm">De Experiência</p>
+                  <h4 className="text-xl md:text-2xl font-bold text-green-400">Primeiro Ano</h4>
+                  <p className="text-gray-400 text-sm">De Experiência</p>
                 </div>
                 <div className="text-center">
-                  <h4 className="text-2xl sm:text-3xl font-bold text-green-400">100%</h4>
-                  <p className="text-gray-400 text-xs sm:text-sm">Taxa de Sucesso</p>
+                  <h4 className="text-2xl md:text-3xl font-bold text-green-400">100%</h4>
+                  <p className="text-gray-400 text-sm">Taxa de Sucesso</p>
                 </div>
               </div>
             </div>
             
-            <div className="hidden md:block">
+            <div className="block">
               <OptimizedHeroImage />
             </div>
           </div>
