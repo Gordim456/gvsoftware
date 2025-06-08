@@ -14,19 +14,19 @@ const Portfolio: React.FC = () => {
   const projects = [
     {
       id: 1,
-      title: 'E-commerce Moderno',
-      description: 'Plataforma completa de e-commerce com pagamentos integrados e painel administrativo.',
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d',
+      title: 'Sistema de Gestão Bebidas ON',
+      description: 'Sistema completo para controle de estoque e vendas de bebidas com dashboard administrativo.',
+      image: '/lovable-uploads/61ef491d-1126-436c-be67-fd525f729623.png',
       tech: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
-      category: 'Web',
+      category: 'Web App',
       icon: Globe,
       status: 'Concluído'
     },
     {
       id: 2,
-      title: 'App de Gestão',
+      title: 'App Mobile de Gestão',
       description: 'Aplicativo mobile para gestão de tarefas e projetos com sincronização em tempo real.',
-      image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c',
+      image: '/lovable-uploads/9805566a-c46b-4db7-8637-f74f6a89da91.png',
       tech: ['React Native', 'Firebase', 'TypeScript'],
       category: 'Mobile',
       icon: Smartphone,
@@ -34,53 +34,83 @@ const Portfolio: React.FC = () => {
     },
     {
       id: 3,
-      title: 'Sistema de CRM',
-      description: 'Sistema personalizado de gerenciamento de relacionamento com clientes.',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f',
+      title: 'Sistema de CRM Personalizado',
+      description: 'Sistema personalizado de gerenciamento de relacionamento com clientes e vendas.',
+      image: '/lovable-uploads/9805566a-c46b-4db7-8637-f74f6a89da91.png',
       tech: ['Vue.js', 'Laravel', 'MySQL'],
       category: 'Sistema',
       icon: Database,
       status: 'Em Desenvolvimento'
+    },
+    {
+      id: 4,
+      title: 'E-commerce Moderno',
+      description: 'Plataforma completa de e-commerce com pagamentos integrados e painel administrativo.',
+      image: '/project-1.jpg',
+      tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+      category: 'Web App',
+      icon: Globe,
+      status: 'Concluído'
+    },
+    {
+      id: 5,
+      title: 'App de Delivery',
+      description: 'Aplicativo de delivery com rastreamento em tempo real e sistema de pagamentos.',
+      image: '/project-6.jpg',
+      tech: ['React Native', 'Express', 'MongoDB'],
+      category: 'Mobile',
+      icon: Smartphone,
+      status: 'Concluído'
+    },
+    {
+      id: 6,
+      title: 'Dashboard Analytics',
+      description: 'Painel interativo para visualização de dados e métricas de negócios em tempo real.',
+      image: '/project-4.jpg',
+      tech: ['React', 'D3.js', 'Python', 'FastAPI'],
+      category: 'Web App',
+      icon: Database,
+      status: 'Concluído'
     }
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-gv-darker text-white">
       <Navbar />
       
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950"></div>
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-gv-darker via-indigo-950/30 to-purple-950/30"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
           <motion.div 
             className="text-center"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent">
-              Nosso <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Portfólio</span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              Nosso <span className="gradient-text">Portfólio</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Conheça alguns dos projetos que desenvolvemos com excelência e inovação.
+            <p className="text-xl md:text-2xl text-gv-gray max-w-3xl mx-auto leading-relaxed">
+              Conheça alguns dos projetos que desenvolvemos com excelência e inovação para nossos clientes.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Projects Grid */}
-      <section className="py-16 bg-slate-950">
-        <div className="container mx-auto px-4">
+      <section className="py-16 bg-gv-darker">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => {
               const IconComponent = project.icon;
               return (
                 <motion.div 
                   key={project.id}
-                  className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm rounded-3xl border border-slate-700/50 shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 overflow-hidden group"
+                  className="bg-gv-dark/80 backdrop-blur-sm rounded-2xl border border-gray-800/50 shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 overflow-hidden group hover:border-indigo-500/30"
                   whileHover={{ y: -5, scale: 1.02 }}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -91,9 +121,9 @@ const Portfolio: React.FC = () => {
                     <img 
                       src={project.image} 
                       alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                     <div className="absolute top-4 right-4">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                         project.status === 'Concluído' 
@@ -104,28 +134,41 @@ const Portfolio: React.FC = () => {
                       </span>
                     </div>
                     <div className="absolute bottom-4 left-4">
-                      <IconComponent className="w-6 h-6 text-white" />
+                      <div className="bg-white/10 backdrop-blur-sm p-2 rounded-lg">
+                        <IconComponent className="w-5 h-5 text-white" />
+                      </div>
                     </div>
                   </div>
                   
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
-                    <p className="text-gray-300 text-sm mb-4 leading-relaxed">{project.description}</p>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full font-medium border border-indigo-500/30">
+                        {project.category}
+                      </span>
+                    </div>
                     
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-200 transition-colors">
+                      {project.title}
+                    </h3>
+                    
+                    <p className="text-gv-gray text-sm mb-4 leading-relaxed">
+                      {project.description}
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-2 mb-6">
                       {project.tech.map((tech, idx) => (
-                        <span key={idx} className="px-2 py-1 bg-indigo-500/20 text-indigo-300 rounded-md text-xs">
+                        <span key={idx} className="px-2 py-1 bg-gv-darker/70 text-gray-300 rounded-md text-xs border border-gray-700/50 hover:border-indigo-500/30 transition-colors">
                           {tech}
                         </span>
                       ))}
                     </div>
                     
                     <div className="flex gap-3">
-                      <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-sm font-medium transition-colors">
+                      <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/20">
                         <ExternalLink className="w-4 h-4" />
                         Ver Projeto
                       </button>
-                      <button className="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-medium transition-colors">
+                      <button className="flex items-center gap-2 px-4 py-2 bg-gv-darker hover:bg-gray-700 rounded-lg text-sm font-medium transition-colors border border-gray-700/50 hover:border-gray-600">
                         <Github className="w-4 h-4" />
                         Código
                       </button>
