@@ -1,31 +1,13 @@
 
-import * as React from 'react';
+import React from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { Menu, X, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 
-console.log("🔥 NAVBAR: Loading with explicit React imports");
-console.log("🔥 NAVBAR: React available:", React);
-console.log("🔥 NAVBAR: useState available:", typeof React.useState);
+console.log("🔥 NAVBAR ULTRA CLEAN: Zero external providers");
 
 const Navbar: React.FC = () => {
-  console.log("🔥 NAVBAR: Component rendering, React:", React);
-  
-  // CRITICAL: Check React availability BEFORE any hook calls
-  if (!React || typeof React.useState !== 'function') {
-    console.error("🔥 NAVBAR: React or React.useState is not available!");
-    return (
-      <nav className="fixed w-full z-50 bg-gv-darker/95 backdrop-blur-lg shadow-lg py-3">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <div className="text-white">Loading...</div>
-          </div>
-        </div>
-      </nav>
-    );
-  }
-  
   const [isOpen, setIsOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
   const location = useLocation();
@@ -66,8 +48,6 @@ const Navbar: React.FC = () => {
   ];
 
   const isActive = (path: string) => location.pathname === path;
-
-  console.log("🔥 NAVBAR: About to render JSX");
 
   return (
     <motion.nav 

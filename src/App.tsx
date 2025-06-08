@@ -15,7 +15,7 @@ import FAQ from './pages/FAQ';
 import NotFound from './pages/NotFound';
 import AdminDashboard from './pages/AdminDashboard';
 
-console.log("🔥 APP CLEAN: Carregando versão 100% LIMPA - SEM NENHUM provider externo");
+console.log("🔥 APP ULTRA CLEAN: NO PROVIDERS - 100% native React");
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,7 +35,7 @@ const LoadingFallback = () => (
 );
 
 const App: React.FC = () => {
-  console.log("🔥 APP CLEAN: Renderizando versão 100% LIMPA - SEM NENHUM provider externo");
+  console.log("🔥 APP ULTRA CLEAN: Rendering with ZERO external providers");
   
   return (
     <QueryClientProvider client={queryClient}>

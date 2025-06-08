@@ -5,11 +5,11 @@ import App from './App.tsx';
 import './index.css';
 import ErrorBoundary from './components/ErrorBoundary';
 
-console.log("🔥 MAIN CLEAN: App iniciando 100% LIMPO - SEM providers externos");
+console.log("🔥 MAIN ULTRA CLEAN: Starting with ZERO external dependencies");
 
 const rootElement = document.getElementById("root");
 if (rootElement) {
-  console.log("🔥 MAIN CLEAN: Iniciando React app 100% limpo");
+  console.log("🔥 MAIN ULTRA CLEAN: Rendering pure React app");
   const root = createRoot(rootElement);
   root.render(
     <React.StrictMode>
@@ -19,5 +19,5 @@ if (rootElement) {
     </React.StrictMode>
   );
 } else {
-  console.error('🔥 MAIN CLEAN: ERRO - Root não encontrado');
+  console.error('🔥 MAIN ULTRA CLEAN: ERROR - Root element not found');
 }
