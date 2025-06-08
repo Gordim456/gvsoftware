@@ -15,7 +15,7 @@ import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./pages/AdminDashboard";
 
-console.log("🔥 APP CLEAN: Carregando versão limpa SEM dependências problemáticas");
+console.log("🔥 APP FINAL: Completely clean - NO external tooltip dependencies");
 
 // Query client
 const queryClient = new QueryClient({
@@ -37,7 +37,7 @@ const LoadingFallback = () => (
 );
 
 const App: React.FC = () => {
-  console.log("🔥 APP CLEAN: Renderizando versão limpa");
+  console.log("🔥 APP FINAL: Rendering completely clean version");
   
   return (
     <QueryClientProvider client={queryClient}>

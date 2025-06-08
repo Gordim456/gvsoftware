@@ -2,9 +2,9 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP FINAL: 100% React standalone - ZERO external dependencies");
+console.log("🔥 TOOLTIP STANDALONE: 100% React native - NO external dependencies whatsoever");
 
-// COMPLETE standalone tooltip implementation - NO external dependencies
+// Complete standalone tooltip implementation
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -50,36 +50,23 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// COMPLETELY EMPTY compatibility components - render ONLY children, NO external calls
+// Stub components that do NOTHING but return children - NO external calls
 const TooltipProvider: React.FC<{ 
   children: React.ReactNode; 
   delayDuration?: number 
-}> = ({ children }) => {
-  console.log("🔥 TOOLTIP: Using STANDALONE TooltipProvider - NO external dependencies");
-  // Return children directly with NO external calls
-  return <>{children}</>;
-};
+}> = ({ children }) => <>{children}</>;
 
 const TooltipTrigger: React.FC<{ 
   children: React.ReactNode; 
   asChild?: boolean 
-}> = ({ children }) => {
-  console.log("🔥 TOOLTIP: Using STANDALONE TooltipTrigger - NO external dependencies");
-  // Return children directly with NO external calls
-  return <>{children}</>;
-};
+}> = ({ children }) => <>{children}</>;
 
 const TooltipContent: React.FC<{ 
   children?: React.ReactNode; 
   className?: string;
   side?: "top" | "bottom" | "left" | "right";
   sideOffset?: number;
-}> = ({ children }) => {
-  console.log("🔥 TOOLTIP: Using STANDALONE TooltipContent - NO external dependencies");
-  // Return children directly with NO external calls
-  return <>{children}</>;
-};
+}> = ({ children }) => <>{children}</>;
 
-// Export our standalone components
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
 export default Tooltip;
