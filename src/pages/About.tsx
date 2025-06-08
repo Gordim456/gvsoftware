@@ -4,10 +4,15 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SocialIcons from '../components/SocialIcons';
 
-const About: React.FC = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
+console.log("🔥 ABOUT: Iniciando com React explícito");
 
-  useEffect(() => {
+const About: React.FC = () => {
+  console.log("🔥 ABOUT: React disponível:", React);
+  console.log("🔥 ABOUT: useState disponível:", typeof React.useState);
+  
+  const [isLoaded, setIsLoaded] = React.useState(false);
+
+  React.useEffect(() => {
     document.title = 'Sobre | GV Software - Nossa História e Missão';
     setIsLoaded(true);
     
