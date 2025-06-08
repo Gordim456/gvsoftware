@@ -2,9 +2,8 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP STANDALONE: 100% React native - NO external dependencies whatsoever");
+console.log("🔥 TOOLTIP NOVO: 100% React nativo - ZERO dependencies externas");
 
-// Complete standalone tooltip implementation
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -50,7 +49,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Stub components that do NOTHING but return children - NO external calls
+// Componentes vazios que NÃO fazem NADA - apenas retornam children
 const TooltipProvider: React.FC<{ 
   children: React.ReactNode; 
   delayDuration?: number 

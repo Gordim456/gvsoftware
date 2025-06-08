@@ -15,9 +15,8 @@ import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./pages/AdminDashboard";
 
-console.log("🔥 APP FINAL: Completely clean - NO external tooltip dependencies");
+console.log("🔥 APP NOVO: Carregando versão NOVA - ZERO dependencies externas");
 
-// Query client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -29,7 +28,6 @@ const queryClient = new QueryClient({
   },
 });
 
-// Loading component
 const LoadingFallback = () => (
   <div className="flex items-center justify-center h-screen bg-slate-950">
     <div className="w-8 h-8 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
@@ -37,7 +35,7 @@ const LoadingFallback = () => (
 );
 
 const App: React.FC = () => {
-  console.log("🔥 APP FINAL: Rendering completely clean version");
+  console.log("🔥 APP NOVO: Renderizando versão NOVA completamente limpa");
   
   return (
     <QueryClientProvider client={queryClient}>
