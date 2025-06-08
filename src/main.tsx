@@ -5,11 +5,11 @@ import App from './App.tsx';
 import './index.css';
 import ErrorBoundary from './components/ErrorBoundary';
 
-console.log("🔥 MAIN NOVO: App iniciando 100% LIMPO - ZERO Radix UI");
+console.log("🔥 MAIN DESKTOP FIX: App iniciando 100% LIMPO para desktop");
 
 const rootElement = document.getElementById("root");
 if (rootElement) {
-  console.log("🔥 MAIN NOVO: Iniciando React app completamente limpo");
+  console.log("🔥 MAIN DESKTOP FIX: Iniciando React app limpo para desktop");
   const root = createRoot(rootElement);
   root.render(
     <React.StrictMode>
@@ -19,5 +19,5 @@ if (rootElement) {
     </React.StrictMode>
   );
 } else {
-  console.error('🔥 MAIN NOVO: ERRO - Root não encontrado');
+  console.error('🔥 MAIN DESKTOP FIX: ERRO - Root não encontrado');
 }

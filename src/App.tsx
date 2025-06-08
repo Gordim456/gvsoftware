@@ -15,7 +15,7 @@ import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./pages/AdminDashboard";
 
-console.log("🔥 APP NOVO: Carregando versão NOVA - ZERO dependencies externas");
+console.log("🔥 APP DESKTOP FIX: Carregando versão LIMPA para desktop");
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,7 +35,7 @@ const LoadingFallback = () => (
 );
 
 const App: React.FC = () => {
-  console.log("🔥 APP NOVO: Renderizando versão NOVA completamente limpa");
+  console.log("🔥 APP DESKTOP FIX: Renderizando versão LIMPA para desktop");
   
   return (
     <QueryClientProvider client={queryClient}>

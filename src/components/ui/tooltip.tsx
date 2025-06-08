@@ -2,7 +2,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-console.log("🔥 TOOLTIP NOVO: 100% React nativo - ZERO dependencies externas");
+console.log("🔥 TOOLTIP DESKTOP FIX: 100% React nativo - ZERO dependencies");
 
 interface TooltipProps {
   children: React.ReactNode;
@@ -49,7 +49,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes vazios que NÃO fazem NADA - apenas retornam children
+// Componentes stub que NÃO fazem NADA - apenas retornam children
 const TooltipProvider: React.FC<{ 
   children: React.ReactNode; 
   delayDuration?: number 
