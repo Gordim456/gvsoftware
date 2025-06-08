@@ -23,10 +23,7 @@ interface FormData {
 }
 
 const ChatBot: React.FC<ChatBotProps> = ({ className = '' }) => {
-  console.log("🔥 CHATBOT: Component rendering with React:", React);
-  console.log("🔥 CHATBOT: useState available:", typeof React?.useState);
-  
-  // Early return if React is not available - BEFORE any hook calls
+  // CRITICAL: Check React availability BEFORE any other operations
   if (!React || typeof React.useState !== 'function') {
     console.error("🔥 CHATBOT: React or React.useState is not available!");
     return (
@@ -37,6 +34,9 @@ const ChatBot: React.FC<ChatBotProps> = ({ className = '' }) => {
       </div>
     );
   }
+
+  console.log("🔥 CHATBOT: Component rendering with React:", React);
+  console.log("🔥 CHATBOT: useState available:", typeof React?.useState);
   
   const [chatState, setChatState] = React.useState<ChatState>('closed');
   const [conversationId, setConversationId] = React.useState<string>('');
