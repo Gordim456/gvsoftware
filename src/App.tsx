@@ -3,9 +3,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense } from "react";
-import CleanThemeProvider from "./components/theme/CleanThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
-import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
@@ -17,7 +15,7 @@ import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./pages/AdminDashboard";
 
-console.log("🔥 APP FINAL: Carregando SEM nenhuma dependência Radix UI");
+console.log("🔥 APP CLEAN: Carregando versão limpa SEM dependências problemáticas");
 
 // Query client
 const queryClient = new QueryClient({
@@ -39,30 +37,27 @@ const LoadingFallback = () => (
 );
 
 const App: React.FC = () => {
-  console.log("🔥 APP FINAL: Renderizando sem NENHUMA dependência Radix UI");
+  console.log("🔥 APP CLEAN: Renderizando versão limpa");
   
   return (
     <QueryClientProvider client={queryClient}>
-      <CleanThemeProvider>
-        <BrowserRouter>
-          <KeyboardShortcutsProvider />
-          <Suspense fallback={<LoadingFallback />}>
-            <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
-      </CleanThemeProvider>
+      <BrowserRouter>
+        <Suspense fallback={<LoadingFallback />}>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
     </QueryClientProvider>
   );
 };
