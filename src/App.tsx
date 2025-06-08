@@ -1,5 +1,5 @@
 
-import React from "react";
+import * as React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense } from "react";
@@ -15,7 +15,7 @@ import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./pages/AdminDashboard";
 
-console.log("🔥 APP DESKTOP FIX: Carregando versão LIMPA para desktop");
+console.log("🔥 APP DESKTOP FIX: Carregando versão COMPLETAMENTE LIMPA - SEM Radix UI");
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,7 +35,7 @@ const LoadingFallback = () => (
 );
 
 const App: React.FC = () => {
-  console.log("🔥 APP DESKTOP FIX: Renderizando versão LIMPA para desktop");
+  console.log("🔥 APP DESKTOP FIX: Renderizando versão COMPLETAMENTE LIMPA - SEM Radix UI");
   
   return (
     <QueryClientProvider client={queryClient}>
