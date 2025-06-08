@@ -53,19 +53,28 @@ const Tooltip: React.FC<TooltipProps> = ({
 const TooltipProvider: React.FC<{ 
   children: React.ReactNode; 
   delayDuration?: number 
-}> = ({ children }) => <>{children}</>;
+}> = ({ children }) => {
+  console.log("🔥 TOOLTIP PROVIDER: Usando versão STUB - não faz nada");
+  return <>{children}</>;
+};
 
 const TooltipTrigger: React.FC<{ 
   children: React.ReactNode; 
   asChild?: boolean 
-}> = ({ children }) => <>{children}</>;
+}> = ({ children }) => {
+  console.log("🔥 TOOLTIP TRIGGER: Usando versão STUB - não faz nada");
+  return <>{children}</>;
+};
 
 const TooltipContent: React.FC<{ 
   children?: React.ReactNode; 
   className?: string;
   side?: "top" | "bottom" | "left" | "right";
   sideOffset?: number;
-}> = ({ children }) => <>{children}</>;
+}> = ({ children }) => {
+  console.log("🔥 TOOLTIP CONTENT: Usando versão STUB - não faz nada");
+  return <>{children}</>;
+};
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
 export default Tooltip;

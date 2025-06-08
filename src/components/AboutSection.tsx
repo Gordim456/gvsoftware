@@ -8,7 +8,7 @@ import AboutHeader from './about/AboutHeader';
 import AboutFeatures from './about/AboutFeatures';
 import AboutImage from './about/AboutImage';
 
-console.log("🔥 ABOUT SECTION: Loading clean version");
+console.log("🔥 ABOUT SECTION: Loading clean version - NO external tooltips");
 
 const AboutSection: React.FC = () => {
   return (
