@@ -1,21 +1,21 @@
 
-import * as React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Suspense } from "react";
-import ScrollToTop from "./components/ScrollToTop";
-import About from "./pages/About";
-import Home from "./pages/Home";
-import Services from "./pages/Services";
-import Portfolio from "./pages/Portfolio";
-import Contact from "./pages/Contact";
-import Terms from "./pages/Terms";
-import Privacy from "./pages/Privacy";
-import FAQ from "./pages/FAQ";
-import NotFound from "./pages/NotFound";
-import AdminDashboard from "./pages/AdminDashboard";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Suspense } from 'react';
+import ScrollToTop from './components/ScrollToTop';
+import About from './pages/About';
+import Home from './pages/Home';
+import Services from './pages/Services';
+import Portfolio from './pages/Portfolio';
+import Contact from './pages/Contact';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
+import FAQ from './pages/FAQ';
+import NotFound from './pages/NotFound';
+import AdminDashboard from './pages/AdminDashboard';
 
-console.log("🔥 APP DESKTOP FIX: Carregando versão COMPLETAMENTE LIMPA - SEM Radix UI");
+console.log("🔥 APP CLEAN: Carregando versão 100% LIMPA - SEM NENHUM provider externo");
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,7 +35,7 @@ const LoadingFallback = () => (
 );
 
 const App: React.FC = () => {
-  console.log("🔥 APP DESKTOP FIX: Renderizando versão COMPLETAMENTE LIMPA - SEM Radix UI");
+  console.log("🔥 APP CLEAN: Renderizando versão 100% LIMPA - SEM NENHUM provider externo");
   
   return (
     <QueryClientProvider client={queryClient}>

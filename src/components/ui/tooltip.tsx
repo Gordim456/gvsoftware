@@ -1,8 +1,7 @@
 
-import * as React from "react"
-import { cn } from "@/lib/utils"
+import React from "react";
 
-console.log("🔥 TOOLTIP DESKTOP FIX: 100% React nativo - ZERO dependencies");
+console.log("🔥 TOOLTIP CLEAN: 100% React nativo - ZERO dependencies externas");
 
 interface TooltipProps {
   children: React.ReactNode;
@@ -15,7 +14,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   children, 
   content, 
   side = "top", 
-  className 
+  className = "" 
 }) => {
   const [isVisible, setIsVisible] = React.useState(false);
   
@@ -35,11 +34,7 @@ const Tooltip: React.FC<TooltipProps> = ({
       {children}
       {isVisible && content && (
         <div
-          className={cn(
-            "absolute z-50 px-3 py-1.5 text-sm text-white bg-gray-900 rounded-md shadow-lg whitespace-nowrap pointer-events-none",
-            positionClasses[side],
-            className
-          )}
+          className={`absolute z-50 px-3 py-1.5 text-sm text-white bg-gray-900 rounded-md shadow-lg whitespace-nowrap pointer-events-none ${positionClasses[side]} ${className}`}
           role="tooltip"
         >
           {content}
@@ -49,30 +44,19 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes stub que NÃO fazem NADA - apenas retornam children
-const TooltipProvider: React.FC<{ 
-  children: React.ReactNode; 
-  delayDuration?: number 
-}> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Usando versão STUB - não faz nada");
+// Componentes simples que apenas retornam children - SEM HOOKS
+const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  console.log("🔥 TOOLTIP PROVIDER: Versão limpa - apenas retorna children");
   return <>{children}</>;
 };
 
-const TooltipTrigger: React.FC<{ 
-  children: React.ReactNode; 
-  asChild?: boolean 
-}> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Usando versão STUB - não faz nada");
+const TooltipTrigger: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  console.log("🔥 TOOLTIP TRIGGER: Versão limpa - apenas retorna children");
   return <>{children}</>;
 };
 
-const TooltipContent: React.FC<{ 
-  children?: React.ReactNode; 
-  className?: string;
-  side?: "top" | "bottom" | "left" | "right";
-  sideOffset?: number;
-}> = ({ children }) => {
-  console.log("🔥 TOOLTIP CONTENT: Usando versão STUB - não faz nada");
+const TooltipContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
+  console.log("🔥 TOOLTIP CONTENT: Versão limpa - apenas retorna children");
   return <>{children}</>;
 };
 
