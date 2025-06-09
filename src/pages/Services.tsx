@@ -6,10 +6,34 @@ import SocialIcons from '../components/SocialIcons';
 import { motion } from 'framer-motion';
 import { Code, Smartphone, Globe, ShoppingCart, Database, Zap } from 'lucide-react';
 
+console.log('🚀 SERVICES: Loading services page - ensuring React is available');
+console.log('🚀 SERVICES: React object:', React);
+console.log('🚀 SERVICES: useEffect function:', useEffect);
+
 const Services: React.FC = () => {
-  useEffect(() => {
-    document.title = 'Serviços | GV Software - Soluções Digitais';
-  }, []);
+  console.log('🚀 SERVICES: Component rendering started');
+
+  // Defensive check for useEffect
+  if (!useEffect) {
+    console.error('🔥 SERVICES: useEffect is not available!');
+    return (
+      <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-red-400 mb-4">Error Loading Services</h1>
+          <p className="text-gray-300">React hooks are not available. Please refresh the page.</p>
+        </div>
+      </div>
+    );
+  }
+
+  try {
+    useEffect(() => {
+      console.log('🚀 SERVICES: Setting document title');
+      document.title = 'Serviços | GV Software - Soluções Digitais';
+    }, []);
+  } catch (error) {
+    console.error('🔥 SERVICES: Error in useEffect:', error);
+  }
 
   const services = [
     {
@@ -49,6 +73,8 @@ const Services: React.FC = () => {
       features: ['Arquitetura de Software', 'Code Review', 'Performance Audit', 'Mentoria']
     }
   ];
+
+  console.log('🚀 SERVICES: Rendering component JSX');
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
@@ -119,4 +145,5 @@ const Services: React.FC = () => {
   );
 };
 
+console.log('✅ SERVICES: Services component defined successfully');
 export default Services;
