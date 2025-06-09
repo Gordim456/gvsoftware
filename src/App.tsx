@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import CleanAbout from './pages/CleanAbout';
 import ServicesPage from './pages/Services';
 import FAQ from './pages/FAQ';
+import Contact from './pages/Contact';
 import './utils/analytics';
 
 console.log('🚀 APP: Starting ultra clean app - COMPLETELY RADIX-FREE');
@@ -82,6 +83,7 @@ const App: React.FC = () => {
               <Route path="/about" element={<CleanAbout />} />
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/faq" element={<FAQ />} />
+              <Route path="/contact" element={<Contact />} />
             </Routes>
             <Toaster />
           </div>

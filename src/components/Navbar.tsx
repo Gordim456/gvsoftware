@@ -10,7 +10,8 @@ const Navbar: React.FC = () => {
     { name: 'Início', href: '/' },
     { name: 'Sobre', href: '/about' },
     { name: 'Serviços', href: '/services' },
-    { name: 'FAQ', href: '/faq' }
+    { name: 'FAQ', href: '/faq' },
+    { name: 'Contato', href: '/contact' }
   ];
 
   const closeMenu = () => setIsOpen(false);
