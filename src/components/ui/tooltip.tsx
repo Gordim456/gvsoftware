@@ -1,6 +1,8 @@
 
 import React from "react";
 
+console.log('🔧 TOOLTIP: Loading custom tooltip component...');
+
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -42,8 +44,9 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes simples compatíveis com shadcn
+// Componentes compatíveis simples (sem dependências externas)
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  console.log('🔧 TOOLTIP: TooltipProvider rendering...');
   return <>{children}</>;
 };
 
@@ -54,6 +57,8 @@ const TooltipTrigger: React.FC<{ children: React.ReactNode }> = ({ children }) =
 const TooltipContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   return <>{children}</>;
 };
+
+console.log('✅ TOOLTIP: Custom tooltip components defined successfully');
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
 export default Tooltip;
