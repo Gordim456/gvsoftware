@@ -1,7 +1,7 @@
 
 import React from "react";
 
-console.log('🔧 TOOLTIP: Loading CLEAN tooltip component - NO RADIX');
+console.log('🔧 TOOLTIP: Carregando tooltip COMPLETAMENTE LIMPO');
 
 interface TooltipProps {
   children: React.ReactNode;
@@ -34,9 +34,9 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// VERSÕES LIMPAS SEM useState ou hooks problemáticos
+// Componentes wrapper simples SEM hooks ou estado
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log('🔧 TOOLTIP: CLEAN TooltipProvider rendering...');
+  console.log('🔧 TOOLTIP: Provider LIMPO renderizando');
   return <>{children}</>;
 };
 
@@ -48,7 +48,7 @@ const TooltipContent: React.FC<{ children?: React.ReactNode }> = ({ children }) 
   return <>{children}</>;
 };
 
-console.log('✅ TOOLTIP: CLEAN tooltip components defined - ZERO RADIX DEPENDENCIES');
+console.log('✅ TOOLTIP: Componentes LIMPOS definidos - SEM RADIX');
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
 export default Tooltip;
