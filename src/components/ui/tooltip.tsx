@@ -1,7 +1,7 @@
 
 import React from "react";
 
-console.log('🔧 TOOLTIP: Loading minimal tooltip component...');
+console.log('🔧 TOOLTIP: Loading simple tooltip component...');
 
 interface TooltipProps {
   children: React.ReactNode;
@@ -34,21 +34,21 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes simples sem qualquer hook ou estado
+// Simple wrapper components that just pass through children
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   console.log('🔧 TOOLTIP: TooltipProvider rendering...');
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
 const TooltipContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
-console.log('✅ TOOLTIP: Minimal tooltip components defined successfully');
+console.log('✅ TOOLTIP: Simple tooltip components defined successfully');
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
 export default Tooltip;
