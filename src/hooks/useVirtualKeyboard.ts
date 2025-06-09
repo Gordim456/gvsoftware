@@ -48,12 +48,11 @@ export const useVirtualKeyboard = () => {
     window.addEventListener('resize', handleResize);
     window.addEventListener('orientationchange', handleOrientationChange);
 
-    // Listener para foco em inputs (iOS Safari) - corrigindo o tipo
+    // Listener para foco em inputs (iOS Safari)
     const handleFocusIn = (e: FocusEvent) => {
-      const target = e.target;
-      if (target && (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
         setTimeout(() => {
-          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 300);
       }
     };

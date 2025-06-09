@@ -7,7 +7,7 @@ const AboutHero = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-indigo-900/70 z-10"></div>
       <img
         src="https://images.unsplash.com/photo-1483058712412-4245e9b90334"
-        alt="Sobre a GV Software - Nossa História"
+        alt="About Hero"
         className="w-full h-full object-cover"
         loading="eager"
         fetchPriority="high"
@@ -27,7 +27,7 @@ const AboutHero = () => {
             Nossa <span className="gradient-text">História</span>
           </h1>
           <p className="text-xl text-gray-200 max-w-3xl mx-auto">
-            A GV Software nasceu com a missão de democratizar o acesso à tecnologia, criando soluções digitais inovadoras que transformam negócios e impulsionam o crescimento empresarial.
+            Transformando ideias em soluções digitais inovadoras desde 2015, com paixão pela excelência e compromisso com resultados.
           </p>
         </div>
       </div>
