@@ -1,22 +1,22 @@
 
 import React from "react";
 
-console.log('🔧 TOOLTIP: Loading completely standalone tooltip - ZERO external dependencies');
+console.log('🔧 STANDALONE TOOLTIP: Loading completely independent tooltip - NO RADIX DEPENDENCIES');
 
-interface TooltipProps {
+interface StandaloneTooltipProps {
   children: React.ReactNode;
   content: string;
   side?: "top" | "bottom" | "left" | "right";
   className?: string;
 }
 
-const Tooltip: React.FC<TooltipProps> = ({ 
+const StandaloneTooltip: React.FC<StandaloneTooltipProps> = ({ 
   children, 
   content, 
   side = "top", 
   className = "" 
 }) => {
-  console.log('🔧 TOOLTIP: Rendering standalone tooltip component');
+  console.log('🔧 STANDALONE TOOLTIP: Rendering completely independent tooltip');
   
   const positionClasses = {
     top: 'bottom-full left-1/2 transform -translate-x-1/2 mb-2',
@@ -38,21 +38,28 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Completely standalone wrapper components
-const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log('🔧 TOOLTIP: Standalone provider - no state, no external deps');
+// Simple wrapper components that do nothing but pass through children
+const SimpleTooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  console.log('🔧 STANDALONE TOOLTIP: Simple provider - just passes through children');
   return <>{children}</>;
 };
 
-const TooltipTrigger: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const SimpleTooltipTrigger: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return <>{children}</>;
 };
 
-const TooltipContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
+const SimpleTooltipContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   return <>{children}</>;
 };
 
-console.log('✅ TOOLTIP: Completely standalone tooltip defined - ZERO EXTERNAL DEPENDENCIES');
+console.log('✅ STANDALONE TOOLTIP: Completely independent tooltip defined');
 
-export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
-export default Tooltip;
+// Export with different names to avoid conflicts
+export { 
+  StandaloneTooltip as Tooltip, 
+  SimpleTooltipProvider as TooltipProvider, 
+  SimpleTooltipTrigger as TooltipTrigger, 
+  SimpleTooltipContent as TooltipContent 
+};
+
+export default StandaloneTooltip;
