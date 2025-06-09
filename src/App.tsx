@@ -24,37 +24,25 @@ const queryClient = new QueryClient({
 const App: React.FC = () => {
   console.log('🚀 APP: Rendering App component...');
 
-  try {
-    return (
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider defaultTheme="dark" storageKey="gv-software-theme">
-          <div className="min-h-screen bg-slate-950 text-white">
-            <Navbar />
-            <Routes>
-              <Route path="/" element={
-                <>
-                  <Hero />
-                  <Services />
-                </>
-              } />
-              <Route path="/about" element={<About />} />
-            </Routes>
-            <Toaster />
-          </div>
-        </ThemeProvider>
-      </QueryClientProvider>
-    );
-  } catch (error) {
-    console.error('❌ APP: Error rendering App:', error);
-    return (
-      <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-400 mb-4">Erro na aplicação</h1>
-          <p className="text-gray-300">Por favor, recarregue a página.</p>
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider defaultTheme="dark" storageKey="gv-software-theme">
+        <div className="min-h-screen bg-slate-950 text-white">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Hero />
+                <Services />
+              </>
+            } />
+            <Route path="/about" element={<About />} />
+          </Routes>
+          <Toaster />
         </div>
-      </div>
-    );
-  }
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
 };
 
 console.log('✅ APP: App component defined successfully');
