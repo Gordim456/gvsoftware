@@ -76,7 +76,7 @@ const App: React.FC = () => {
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <CleanThemeProvider defaultTheme="dark" storageKey="gv-software-theme">
-          <div className="min-h-screen bg-slate-950 text-white w-full overflow-x-hidden">
+          <div className="min-h-screen bg-slate-950 text-white w-full overflow-x-hidden antialiased">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<CleanAbout />} />
