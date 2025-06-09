@@ -4,16 +4,16 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "./CleanThemeProvider";
 
-console.log("🔥 THEME TOGGLE CLEAN: Carregando limpo");
+console.log("🔥 THEME TOGGLE CLEAN: Loading completely clean theme toggle - NO TOOLTIP DEPENDENCIES");
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
-  console.log("🔥 THEME TOGGLE CLEAN: Tema atual:", theme);
+  console.log("🔥 THEME TOGGLE CLEAN: Current theme:", theme);
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
-    console.log("🔥 THEME TOGGLE CLEAN: Mudando tema para:", newTheme);
+    console.log("🔥 THEME TOGGLE CLEAN: Changing theme to:", newTheme);
     setTheme(newTheme);
   };
 
@@ -30,6 +30,7 @@ export function ThemeToggle() {
         size="icon"
         className="relative overflow-hidden bg-gradient-to-br from-violet-500/10 via-purple-500/10 to-indigo-500/10 
                  border-white/20 backdrop-blur-sm rounded-full w-12 h-12 shadow-lg hover:shadow-purple-500/20"
+        title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
       >
         <motion.div
           className="absolute inset-0 bg-gradient-to-br from-violet-600/20 via-purple-600/20 to-indigo-600/20 rounded-full"
