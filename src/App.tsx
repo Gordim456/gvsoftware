@@ -10,7 +10,7 @@ import Services from './components/Services';
 import CleanAbout from './pages/CleanAbout';
 import './utils/analytics';
 
-console.log('🚀 APP: Starting App - 100% CLEAN VERSION WITHOUT RADIX');
+console.log('🚀 APP: Starting completely clean app - ZERO RADIX UI DEPENDENCIES');
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,7 +22,7 @@ const queryClient = new QueryClient({
 });
 
 const App: React.FC = () => {
-  console.log('🚀 APP: Rendering App - ZERO RADIX DEPENDENCIES');
+  console.log('🚀 APP: Rendering clean app - NO EXTERNAL UI LIBRARIES');
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -45,5 +45,5 @@ const App: React.FC = () => {
   );
 };
 
-console.log('✅ APP: App defined successfully - COMPLETELY FREE OF RADIX UI');
+console.log('✅ APP: Clean app defined successfully - COMPLETELY FREE OF RADIX UI');
 export default App;
