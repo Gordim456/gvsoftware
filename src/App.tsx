@@ -7,11 +7,13 @@ import { Toaster } from './components/ui/toaster';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
+import Home from './pages/Home';
 import CleanAbout from './pages/CleanAbout';
+import ServicesPage from './pages/Services';
+import FAQ from './pages/FAQ';
 import './utils/analytics';
 
 console.log('🚀 APP: Starting ultra clean app - COMPLETELY RADIX-FREE');
-console.log('🚀 APP: CleanThemeProvider imported:', CleanThemeProvider);
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -51,17 +53,17 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-red-400 mb-4">Something went wrong</h1>
-            <p className="text-gray-300 mb-4">
-              {this.state.error?.message || 'An unexpected error occurred'}
+        <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-4">
+          <div className="text-center max-w-md w-full">
+            <h1 className="text-xl md:text-2xl font-bold text-red-400 mb-4">Algo deu errado</h1>
+            <p className="text-gray-300 mb-4 text-sm md:text-base">
+              {this.state.error?.message || 'Ocorreu um erro inesperado'}
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+              className="w-full md:w-auto px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 text-sm md:text-base"
             >
-              Reload Page
+              Recarregar Página
             </button>
           </div>
         </div>
@@ -73,36 +75,18 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 }
 
 const App: React.FC = () => {
-  console.log('🚀 APP: Rendering ultra clean app - NO RADIX UI ANYWHERE');
-  console.log('🚀 APP: About to render CleanThemeProvider');
+  console.log('🚀 APP: Rendering ultra clean responsive app');
 
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <CleanThemeProvider defaultTheme="dark" storageKey="gv-software-theme">
-          <div className="min-h-screen bg-slate-950 text-white">
+          <div className="min-h-screen bg-slate-950 text-white w-full overflow-x-hidden">
             <Routes>
-              <Route path="/" element={
-                <>
-                  <Navbar />
-                  <Hero />
-                  <Services />
-                </>
-              } />
+              <Route path="/" element={<Home />} />
               <Route path="/about" element={<CleanAbout />} />
-              <Route path="/services" element={
-                <>
-                  <Navbar />
-                  <div className="pt-20">
-                    <div className="container mx-auto px-4 py-16">
-                      <h1 className="text-4xl font-bold text-center mb-8">Nossos Serviços</h1>
-                      <p className="text-gray-300 text-center max-w-2xl mx-auto">
-                        Oferecemos soluções completas em tecnologia para transformar suas ideias em realidade digital.
-                      </p>
-                    </div>
-                  </div>
-                </>
-              } />
+              <Route path="/services" element={<ServicesPage />} />
+              <Route path="/faq" element={<FAQ />} />
             </Routes>
             <Toaster />
           </div>
@@ -112,5 +96,5 @@ const App: React.FC = () => {
   );
 };
 
-console.log('✅ APP: Ultra clean app defined - ZERO RADIX UI DEPENDENCIES');
+console.log('✅ APP: Ultra clean responsive app defined');
 export default App;
