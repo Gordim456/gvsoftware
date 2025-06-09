@@ -11,8 +11,6 @@ import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
 import './utils/analytics';
 
-console.log('🚀 APP: Starting ultra clean app - COMPLETELY RADIX-FREE');
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -38,12 +36,11 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    console.error('🔥 APP ERROR BOUNDARY: Caught error:', error);
     return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🔥 APP ERROR BOUNDARY: Error details:', error, errorInfo);
+    console.error('Error details:', error, errorInfo);
   }
 
   render() {
@@ -71,13 +68,11 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 }
 
 const App: React.FC = () => {
-  console.log('🚀 APP: Rendering ultra clean responsive app');
-
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <CleanThemeProvider defaultTheme="dark" storageKey="gv-software-theme">
-          <div className="min-h-screen bg-slate-950 text-white w-full overflow-x-hidden antialiased">
+          <div className="min-h-screen bg-slate-950 text-white w-full overflow-x-hidden">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<CleanAbout />} />
@@ -93,5 +88,4 @@ const App: React.FC = () => {
   );
 };
 
-console.log('✅ APP: Ultra clean responsive app defined');
 export default App;
