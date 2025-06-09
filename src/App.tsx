@@ -10,7 +10,7 @@ import Services from './components/Services';
 import CleanAbout from './pages/CleanAbout';
 import './utils/analytics';
 
-console.log('🚀 APP: Iniciando App - VERSÃO 100% LIMPA');
+console.log('🚀 APP: Iniciando App - VERSÃO 100% LIMPA SEM RADIX');
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,5 +43,5 @@ const App: React.FC = () => {
   );
 };
 
-console.log('✅ APP: App definido com sucesso - COMPLETAMENTE LIVRE DE ERROS');
+console.log('✅ APP: App definido com sucesso - COMPLETAMENTE LIVRE DE RADIX UI');
 export default App;
