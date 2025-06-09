@@ -1,7 +1,7 @@
 
 import React from "react";
 
-console.log('🔧 TOOLTIP: Loading simple tooltip component...');
+console.log('🔧 TOOLTIP: Loading CLEAN tooltip component - NO RADIX');
 
 interface TooltipProps {
   children: React.ReactNode;
@@ -34,9 +34,9 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Simple wrapper components that just pass through children
+// VERSÕES LIMPAS SEM useState ou hooks problemáticos
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log('🔧 TOOLTIP: TooltipProvider rendering...');
+  console.log('🔧 TOOLTIP: CLEAN TooltipProvider rendering...');
   return <>{children}</>;
 };
 
@@ -48,7 +48,7 @@ const TooltipContent: React.FC<{ children?: React.ReactNode }> = ({ children }) 
   return <>{children}</>;
 };
 
-console.log('✅ TOOLTIP: Simple tooltip components defined successfully');
+console.log('✅ TOOLTIP: CLEAN tooltip components defined - ZERO RADIX DEPENDENCIES');
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
 export default Tooltip;
