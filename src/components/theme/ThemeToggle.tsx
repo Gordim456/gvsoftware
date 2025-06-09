@@ -4,16 +4,11 @@ import { motion } from "framer-motion";
 import StandaloneButton from "@/components/ui/standalone-button";
 import { useTheme } from "./CleanThemeProvider";
 
-console.log("🔥 THEME TOGGLE ULTRA CLEAN: Loading completely standalone theme toggle");
-
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
-  console.log("🔥 THEME TOGGLE ULTRA CLEAN: Current theme:", theme);
-
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
-    console.log("🔥 THEME TOGGLE ULTRA CLEAN: Switching to:", newTheme);
     setTheme(newTheme);
   };
 
