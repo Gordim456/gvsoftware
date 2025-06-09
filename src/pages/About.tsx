@@ -3,8 +3,10 @@ import React from 'react';
 import Footer from '../components/Footer';
 import SocialIcons from '../components/SocialIcons';
 
+console.log('🚀 ABOUT: Loading About page...');
+
 const About: React.FC = () => {
-  // Removendo todos os hooks useState e useEffect que estavam causando erro
+  console.log('🚀 ABOUT: Rendering About component...');
   
   return (
     <div className="min-h-screen flex flex-col bg-slate-950 text-white pt-20">
@@ -38,24 +40,41 @@ const About: React.FC = () => {
       <section className="py-12 sm:py-16 bg-slate-950">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {[
-              { icon: '💻', label: 'Projetos Finalizados', value: '+3', description: 'Soluções desenvolvidas' },
-              { icon: '👥', label: 'Clientes Satisfeitos', value: '+3', description: 'Empresas atendidas' },
-              { icon: '🏆', label: 'Experiência', value: 'Primeiro Ano', description: 'De Experiência' },
-              { icon: '📈', label: 'Taxa de Sucesso', value: '100%', description: 'Projetos bem-sucedidos' }
-            ].map((stat, index) => (
-              <div 
-                key={index}
-                className="text-center p-4 sm:p-6 bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300"
-              >
-                <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">{stat.icon}</div>
-                <h3 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent mb-2">
-                  {stat.value}
-                </h3>
-                <p className="text-white font-semibold mb-1 text-sm sm:text-base">{stat.label}</p>
-                <p className="text-gray-400 text-xs sm:text-sm">{stat.description}</p>
-              </div>
-            ))}
+            <div className="text-center p-4 sm:p-6 bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">💻</div>
+              <h3 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent mb-2">
+                +3
+              </h3>
+              <p className="text-white font-semibold mb-1 text-sm sm:text-base">Projetos Finalizados</p>
+              <p className="text-gray-400 text-xs sm:text-sm">Soluções desenvolvidas</p>
+            </div>
+            
+            <div className="text-center p-4 sm:p-6 bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">👥</div>
+              <h3 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent mb-2">
+                +3
+              </h3>
+              <p className="text-white font-semibold mb-1 text-sm sm:text-base">Clientes Satisfeitos</p>
+              <p className="text-gray-400 text-xs sm:text-sm">Empresas atendidas</p>
+            </div>
+            
+            <div className="text-center p-4 sm:p-6 bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🏆</div>
+              <h3 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent mb-2">
+                Primeiro Ano
+              </h3>
+              <p className="text-white font-semibold mb-1 text-sm sm:text-base">Experiência</p>
+              <p className="text-gray-400 text-xs sm:text-sm">De Experiência</p>
+            </div>
+            
+            <div className="text-center p-4 sm:p-6 bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">📈</div>
+              <h3 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent mb-2">
+                100%
+              </h3>
+              <p className="text-white font-semibold mb-1 text-sm sm:text-base">Taxa de Sucesso</p>
+              <p className="text-gray-400 text-xs sm:text-sm">Projetos bem-sucedidos</p>
+            </div>
           </div>
         </div>
       </section>
@@ -94,4 +113,5 @@ const About: React.FC = () => {
   );
 };
 
+console.log('✅ ABOUT: About component defined successfully');
 export default About;
