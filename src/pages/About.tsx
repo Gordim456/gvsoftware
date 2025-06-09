@@ -1,24 +1,11 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Footer from '../components/Footer';
 import SocialIcons from '../components/SocialIcons';
 
 const About: React.FC = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    document.title = 'Sobre | GV Software - Nossa História e Missão';
-    setIsLoaded(true);
-  }, []);
-
-  if (!isLoaded) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-slate-950">
-        <div className="w-8 h-8 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
-
+  // Removendo todos os hooks useState e useEffect que estavam causando erro
+  
   return (
     <div className="min-h-screen flex flex-col bg-slate-950 text-white pt-20">
       {/* Hero Section */}
