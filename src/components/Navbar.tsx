@@ -1,8 +1,6 @@
 
 import React from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { Menu, X, Code } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 
 console.log("🔥 NAVBAR ULTRA CLEAN: Zero external providers");
@@ -10,7 +8,6 @@ console.log("🔥 NAVBAR ULTRA CLEAN: Zero external providers");
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
-  const location = useLocation();
   
   const toggleMenu = React.useCallback(() => {
     setIsOpen(!isOpen);
@@ -31,23 +28,17 @@ const Navbar: React.FC = () => {
     };
   }, []);
 
-  React.useEffect(() => {
-    setIsOpen(false);
-  }, [location]);
-
   const navLinks = [
-    { name: 'Início', href: '/' },
-    { name: 'Sobre', href: '/about' },
-    { name: 'Serviços', href: '/services' },
-    { name: 'Portfólio', href: '/portfolio' },
+    { name: 'Início', href: '#' },
+    { name: 'Sobre', href: '#about' },
+    { name: 'Serviços', href: '#services' },
+    { name: 'Portfólio', href: '#portfolio' },
     { 
       name: 'Contato', 
-      href: '/contact',
+      href: '#contact',
       isHighlighted: true 
     }
   ];
-
-  const isActive = (path: string) => location.pathname === path;
 
   return (
     <motion.nav 
@@ -60,7 +51,7 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <RouterLink to="/" className="cursor-pointer flex items-center">
+            <a href="#" className="cursor-pointer flex items-center">
               <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-2 rounded-lg mr-3">
                 <Code className="w-6 h-6 text-white" />
               </div>
@@ -71,15 +62,15 @@ const Navbar: React.FC = () => {
               >
                 <span className="gradient-text">GV</span> Software
               </motion.h1>
-            </RouterLink>
+            </a>
           </div>
           
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-8">
               {navLinks.map((link) => (
-                <RouterLink
+                <a
                   key={link.name}
-                  to={link.href}
+                  href={link.href}
                   className={`relative group ${
                     link.isHighlighted 
                       ? 'bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-2 rounded-full text-white hover:shadow-lg hover:shadow-indigo-500/20 transform hover:scale-105 transition-all duration-300'
@@ -94,9 +85,9 @@ const Navbar: React.FC = () => {
                     {link.name}
                   </span>
                   {!link.isHighlighted && (
-                    <span className={`absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 transform ${isActive(link.href) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'} transition-transform origin-left`}></span>
+                    <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                   )}
-                </RouterLink>
+                </a>
               ))}
             </div>
           </div>
@@ -144,16 +135,12 @@ const Navbar: React.FC = () => {
                   }}
                   transition={{ duration: 0.4 }}
                 >
-                  <RouterLink
-                    to={link.href}
-                    className={`block px-4 py-3 rounded-lg transition-all ${
-                      isActive(link.href) 
-                        ? 'bg-indigo-600/20 text-indigo-400 font-medium'
-                        : 'text-gray-300 hover:bg-gray-800/50 hover:text-white'
-                    }`}
+                  <a
+                    href={link.href}
+                    className="block px-4 py-3 rounded-lg transition-all text-gray-300 hover:bg-gray-800/50 hover:text-white"
                   >
                     {link.name}
-                  </RouterLink>
+                  </a>
                 </motion.div>
               ))}
             </motion.div>

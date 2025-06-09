@@ -2,7 +2,6 @@
 import React from 'react';
 import { ArrowRight, Code, Server, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link as RouterLink } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -25,17 +24,13 @@ const Hero = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <RouterLink to="/contact">
-                  <Button className="w-full sm:w-auto px-6 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium text-lg">
-                    Fale Conosco <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                </RouterLink>
+                <Button className="w-full sm:w-auto px-6 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium text-lg">
+                  Fale Conosco <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
                 
-                <RouterLink to="/services">
-                  <Button variant="outline" className="w-full sm:w-auto px-6 py-4 border-2 border-gray-600 text-white hover:bg-gray-800 rounded-xl font-medium text-lg">
-                    Nossos Serviços
-                  </Button>
-                </RouterLink>
+                <Button variant="outline" className="w-full sm:w-auto px-6 py-4 border-2 border-gray-600 text-white hover:bg-gray-800 rounded-xl font-medium text-lg">
+                  Nossos Serviços
+                </Button>
               </div>
               
               <div className="grid grid-cols-2 gap-4 mt-8 pt-4 max-w-md">
