@@ -11,6 +11,7 @@ import CleanAbout from './pages/CleanAbout';
 import './utils/analytics';
 
 console.log('🚀 APP: Starting ultra clean app - COMPLETELY RADIX-FREE');
+console.log('🚀 APP: CleanThemeProvider imported:', CleanThemeProvider);
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,6 +29,7 @@ interface ErrorBoundaryProps {
 
 interface ErrorBoundaryState {
   hasError: boolean;
+  error?: Error;
 }
 
 // Simple error boundary component
@@ -39,7 +41,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
     console.error('🔥 APP ERROR BOUNDARY: Caught error:', error);
-    return { hasError: true };
+    return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
@@ -52,6 +54,9 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
         <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-red-400 mb-4">Something went wrong</h1>
+            <p className="text-gray-300 mb-4">
+              {this.state.error?.message || 'An unexpected error occurred'}
+            </p>
             <button 
               onClick={() => window.location.reload()} 
               className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
@@ -69,6 +74,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
 const App: React.FC = () => {
   console.log('🚀 APP: Rendering ultra clean app - NO RADIX UI ANYWHERE');
+  console.log('🚀 APP: About to render CleanThemeProvider');
 
   return (
     <ErrorBoundary>
