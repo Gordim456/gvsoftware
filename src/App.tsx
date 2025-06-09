@@ -21,27 +21,79 @@ const queryClient = new QueryClient({
   },
 });
 
+// Simple error boundary component
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    console.error('🔥 APP ERROR BOUNDARY: Caught error:', error);
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('🔥 APP ERROR BOUNDARY: Error details:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-red-400 mb-4">Something went wrong</h1>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+            >
+              Reload Page
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
 const App: React.FC = () => {
   console.log('🚀 APP: Rendering ultra clean app - NO RADIX UI ANYWHERE');
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <CleanThemeProvider defaultTheme="dark" storageKey="gv-software-theme">
-        <div className="min-h-screen bg-slate-950 text-white">
-          <Routes>
-            <Route path="/" element={
-              <>
-                <Navbar />
-                <Hero />
-                <Services />
-              </>
-            } />
-            <Route path="/about" element={<CleanAbout />} />
-          </Routes>
-          <Toaster />
-        </div>
-      </CleanThemeProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <CleanThemeProvider defaultTheme="dark" storageKey="gv-software-theme">
+          <div className="min-h-screen bg-slate-950 text-white">
+            <Routes>
+              <Route path="/" element={
+                <>
+                  <Navbar />
+                  <Hero />
+                  <Services />
+                </>
+              } />
+              <Route path="/about" element={<CleanAbout />} />
+              <Route path="/services" element={
+                <>
+                  <Navbar />
+                  <div className="pt-20">
+                    <div className="container mx-auto px-4 py-16">
+                      <h1 className="text-4xl font-bold text-center mb-8">Nossos Serviços</h1>
+                      <p className="text-gray-300 text-center max-w-2xl mx-auto">
+                        Oferecemos soluções completas em tecnologia para transformar suas ideias em realidade digital.
+                      </p>
+                    </div>
+                  </div>
+                </>
+              } />
+            </Routes>
+            <Toaster />
+          </div>
+        </CleanThemeProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 };
 
