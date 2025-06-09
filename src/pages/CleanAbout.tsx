@@ -8,10 +8,13 @@ import AboutStats from '../components/about/AboutStats';
 import AboutMissionVision from '../components/about/AboutMissionVision';
 import AboutFeatureGrid from '../components/about/AboutFeatureGrid';
 
+console.log('🚀 CLEAN ABOUT: Loading completely clean about page - NO RADIX UI ANYWHERE');
+
 const CleanAbout: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    console.log('🚀 CLEAN ABOUT: Setting up page metadata');
     document.title = 'Sobre | GV Software - Nossa História e Missão';
     setIsLoaded(true);
     
@@ -25,12 +28,15 @@ const CleanAbout: React.FC = () => {
   }, []);
 
   if (!isLoaded) {
+    console.log('🚀 CLEAN ABOUT: Showing loading state');
     return (
       <div className="flex items-center justify-center h-screen bg-slate-950">
         <div className="w-8 h-8 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
+
+  console.log('🚀 CLEAN ABOUT: Rendering clean about page');
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-950 text-white">
@@ -45,4 +51,5 @@ const CleanAbout: React.FC = () => {
   );
 };
 
+console.log('✅ CLEAN ABOUT: Clean about page defined successfully - ZERO RADIX DEPENDENCIES');
 export default CleanAbout;

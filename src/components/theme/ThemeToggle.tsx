@@ -1,7 +1,7 @@
 
 import { Sun, Moon } from "lucide-react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import StandaloneButton from "@/components/ui/standalone-button";
 import { useTheme } from "./CleanThemeProvider";
 
 console.log("🔥 THEME TOGGLE ULTRA CLEAN: Loading completely standalone theme toggle");
@@ -24,7 +24,7 @@ export function ThemeToggle() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.5, duration: 0.4 }}
     >
-      <Button
+      <StandaloneButton
         onClick={toggleTheme}
         variant="outline"
         size="icon"
@@ -64,7 +64,7 @@ export function ThemeToggle() {
             </motion.div>
           )}
         </motion.div>
-      </Button>
+      </StandaloneButton>
     </motion.div>
   );
 }
