@@ -1,11 +1,10 @@
 
 import React from 'react';
 import { ArrowRight, Code, Server, Globe } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 const Hero = () => {
   return (
-    <section className="w-full min-h-screen bg-gv-darker pt-20 pb-12">
+    <section className="w-full min-h-screen bg-slate-950 pt-20 pb-12">
       <div className="w-full px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-[80vh]">
@@ -16,7 +15,7 @@ const Hero = () => {
               </div>
               
               <h1 className="text-4xl lg:text-5xl font-bold leading-tight text-white">
-                Transformando ideias em <span className="gradient-text font-extrabold">realidade digital</span>
+                Transformando ideias em <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent font-extrabold">realidade digital</span>
               </h1>
               
               <p className="text-lg text-gray-400 max-w-lg">
@@ -24,13 +23,13 @@ const Hero = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button className="w-full sm:w-auto px-6 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium text-lg">
+                <button className="w-full sm:w-auto px-6 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium text-lg transition-colors flex items-center justify-center">
                   Fale Conosco <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
+                </button>
                 
-                <Button variant="outline" className="w-full sm:w-auto px-6 py-4 border-2 border-gray-600 text-white hover:bg-gray-800 rounded-xl font-medium text-lg">
+                <button className="w-full sm:w-auto px-6 py-4 border-2 border-gray-600 text-white hover:bg-gray-800 rounded-xl font-medium text-lg transition-colors">
                   Nossos Serviços
-                </Button>
+                </button>
               </div>
               
               <div className="grid grid-cols-2 gap-4 mt-8 pt-4 max-w-md">
@@ -64,22 +63,22 @@ const Hero = () => {
                 <div className="space-y-4">
                   <h3 className="text-2xl font-bold text-white">Sistema de Gestão de Bebidas</h3>
                   <p className="text-gray-300">Sistema completo para controle de estoque e vendas de bebidas.</p>
-                  <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl">
+                  <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl py-3 px-4 transition-colors flex items-center justify-center">
                     Conheça o sistema <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Bottom cards - visible on all screens */}
+          {/* Bottom cards */}
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
               <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit flex items-center justify-center mx-auto">
                 <Code className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-white text-center">Desenvolvimento Web</h3>
-              <p className="text-gray-400 text-center">Criamos sites e aplicações web modernas, responsivas e otimizadas utilizando as tecnologias mais avançadas do mercado.</p>
+              <p className="text-gray-400 text-center">Criamos sites e aplicações web modernas, responsivas e otimizadas.</p>
             </div>
             
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
@@ -87,7 +86,7 @@ const Hero = () => {
                 <Server className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-white text-center">Aplicações Empresariais</h3>
-              <p className="text-gray-400 text-center">Desenvolvemos soluções sob medida para otimizar processos e aumentar a produtividade.</p>
+              <p className="text-gray-400 text-center">Desenvolvemos soluções sob medida para otimizar processos.</p>
             </div>
             
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
@@ -95,7 +94,7 @@ const Hero = () => {
                 <Globe className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-white text-center">Presença Digital</h3>
-              <p className="text-gray-400 text-center">Estratégias completas para destacar sua marca no ambiente digital com soluções personalizadas.</p>
+              <p className="text-gray-400 text-center">Estratégias completas para destacar sua marca no ambiente digital.</p>
             </div>
           </div>
         </div>
