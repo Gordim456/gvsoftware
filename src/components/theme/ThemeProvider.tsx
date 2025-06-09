@@ -1,5 +1,7 @@
 
-import { createContext, useContext, useEffect, useState } from "react"
+import React, { createContext, useContext, useEffect, useState } from "react"
+
+console.log('🔧 THEME: Loading standalone theme provider - NO RADIX DEPENDENCIES');
 
 type Theme = "dark" | "light" | "system"
 
@@ -23,10 +25,12 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
 export function ThemeProvider({
   children,
-  defaultTheme = "dark",
+  defaultTheme = "system",
   storageKey = "vite-ui-theme",
   ...props
 }: ThemeProviderProps) {
+  console.log('🔧 THEME: Rendering standalone theme provider');
+  
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
   )
@@ -72,3 +76,5 @@ export const useTheme = () => {
 
   return context
 }
+
+console.log('✅ THEME: Standalone theme provider defined successfully - ZERO RADIX DEPENDENCIES');

@@ -10,7 +10,7 @@ import Services from './components/Services';
 import About from './pages/About';
 import './utils/analytics';
 
-console.log('🚀 APP: Starting App component...');
+console.log('🚀 APP: Starting App component - RADIX-FREE VERSION...');
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,7 +22,7 @@ const queryClient = new QueryClient({
 });
 
 const App: React.FC = () => {
-  console.log('🚀 APP: Rendering App component...');
+  console.log('🚀 APP: Rendering App component - NO RADIX DEPENDENCIES...');
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -45,5 +45,5 @@ const App: React.FC = () => {
   );
 };
 
-console.log('✅ APP: App component defined successfully');
+console.log('✅ APP: App component defined successfully - COMPLETELY RADIX-FREE');
 export default App;
