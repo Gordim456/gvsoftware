@@ -67,20 +67,6 @@
     padding-left: 1rem;
     padding-right: 1rem;
   }
-
-  @media (min-width: 640px) {
-    .container, .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl, .max-w-3xl, .max-w-2xl, .max-w-xl {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .container, .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl, .max-w-3xl, .max-w-2xl, .max-w-xl {
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
-  }
 }
 
 @layer base {

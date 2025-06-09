@@ -16,23 +16,23 @@ const Hero = () => {
                 <span className="text-indigo-300 text-sm font-medium">Inovação & Tecnologia</span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
+              <h1 className="text-4xl font-bold leading-tight text-white">
                 Transformando ideias em <span className="gradient-text font-extrabold">realidade digital</span>
               </h1>
               
-              <p className="text-lg md:text-xl text-gray-400 max-w-lg mx-auto">
+              <p className="text-lg text-gray-400 max-w-lg mx-auto">
                 Desenvolvemos soluções digitais personalizadas e inovadoras que impulsionam o crescimento do seu negócio com tecnologia de ponta.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                <RouterLink to="/contact">
-                  <Button className="w-full sm:w-auto px-6 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium text-lg">
+              <div className="flex flex-col gap-4 pt-4 w-full">
+                <RouterLink to="/contact" className="w-full">
+                  <Button className="w-full px-6 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium text-lg">
                     Solicitar Orçamento <ArrowRight className="w-5 h-5" />
                   </Button>
                 </RouterLink>
                 
-                <RouterLink to="/services">
-                  <Button variant="outline" className="w-full sm:w-auto px-6 py-4 border-2 border-gray-600 text-white hover:bg-gray-800 rounded-xl font-medium text-lg">
+                <RouterLink to="/services" className="w-full">
+                  <Button variant="outline" className="w-full px-6 py-4 border-2 border-gray-600 text-white hover:bg-gray-800 rounded-xl font-medium text-lg">
                     Nossos Serviços
                   </Button>
                 </RouterLink>
@@ -57,35 +57,31 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-            
-            <div className="w-full max-w-lg mx-auto">
-              <OptimizedHeroImage />
-            </div>
           </div>
 
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="mt-16 grid grid-cols-1 gap-6">
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit flex items-center justify-center">
+              <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit flex items-center justify-center mx-auto">
                 <Code className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-white">Desenvolvimento Web</h3>
-              <p className="text-gray-400">Criamos sites e aplicações web modernas, responsivas e otimizadas utilizando as tecnologias mais avançadas do mercado.</p>
+              <h3 className="text-xl font-semibold mb-2 text-white text-center">Desenvolvimento Web</h3>
+              <p className="text-gray-400 text-center">Criamos sites e aplicações web modernas, responsivas e otimizadas utilizando as tecnologias mais avançadas do mercado.</p>
             </div>
             
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit flex items-center justify-center">
+              <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit flex items-center justify-center mx-auto">
                 <Server className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-white">Aplicações Empresariais</h3>
-              <p className="text-gray-400">Desenvolvemos soluções sob medida para otimizar processos e aumentar a produtividade.</p>
+              <h3 className="text-xl font-semibold mb-2 text-white text-center">Aplicações Empresariais</h3>
+              <p className="text-gray-400 text-center">Desenvolvemos soluções sob medida para otimizar processos e aumentar a produtividade.</p>
             </div>
             
             <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-              <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit flex items-center justify-center">
+              <div className="mb-4 bg-indigo-600 p-3 rounded-lg w-fit flex items-center justify-center mx-auto">
                 <Globe className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-white">Presença Digital</h3>
-              <p className="text-gray-400">Estratégias completas para destacar sua marca no ambiente digital com soluções personalizadas.</p>
+              <h3 className="text-xl font-semibold mb-2 text-white text-center">Presença Digital</h3>
+              <p className="text-gray-400 text-center">Estratégias completas para destacar sua marca no ambiente digital com soluções personalizadas.</p>
             </div>
           </div>
         </div>
