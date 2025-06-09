@@ -1,8 +1,6 @@
 
 import React from "react";
 
-console.log("🔥 TOOLTIP CLEAN: 100% React nativo - ZERO dependencies externas");
-
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -44,19 +42,15 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes simples que apenas retornam children - SEM HOOKS
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP PROVIDER: Versão limpa - apenas retorna children");
   return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP TRIGGER: Versão limpa - apenas retorna children");
   return <>{children}</>;
 };
 
 const TooltipContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  console.log("🔥 TOOLTIP CONTENT: Versão limpa - apenas retorna children");
   return <>{children}</>;
 };
 
