@@ -8,7 +8,6 @@ const Hero = () => {
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col items-center text-center min-h-[calc(100vh-8rem)] justify-center space-y-8">
-            {/* Main content - sempre centralizado */}
             <div className="space-y-6 max-w-4xl w-full">
               <div className="inline-block bg-indigo-600/20 px-3 py-1 sm:px-4 sm:py-2 rounded-full mb-4 border border-indigo-500/30">
                 <span className="text-indigo-300 text-xs sm:text-sm font-medium">Inovação & Tecnologia</span>
@@ -33,7 +32,6 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Project showcase - centralizado */}
             <div className="w-full max-w-md mx-auto">
               <div className="relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-4 sm:p-6 border border-gray-700 shadow-2xl">
                 <img
@@ -51,7 +49,6 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Stats - layout responsivo */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 w-full max-w-2xl mx-auto">
               <div className="text-center">
                 <h4 className="text-xl sm:text-2xl font-bold text-green-400">+3</h4>
@@ -71,7 +68,6 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Bottom cards - layout uniforme */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full max-w-4xl mx-auto">
               <div className="bg-gray-800 p-4 sm:p-6 rounded-lg border border-gray-700">
                 <div className="mb-4 bg-indigo-600 p-2 sm:p-3 rounded-lg w-fit flex items-center justify-center mx-auto">

@@ -4,9 +4,6 @@ import { Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { CleanThemeProvider } from './components/theme/CleanThemeProvider';
 import { Toaster } from './components/ui/toaster';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Services from './components/Services';
 import Home from './pages/Home';
 import CleanAbout from './pages/CleanAbout';
 import ServicesPage from './pages/Services';
@@ -24,7 +21,6 @@ const queryClient = new QueryClient({
   },
 });
 
-// Define proper types for ErrorBoundary
 interface ErrorBoundaryProps {
   children: React.ReactNode;
 }
@@ -34,7 +30,6 @@ interface ErrorBoundaryState {
   error?: Error;
 }
 
-// Simple error boundary component
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
