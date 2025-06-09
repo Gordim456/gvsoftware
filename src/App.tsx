@@ -27,17 +27,19 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <CleanThemeProvider defaultTheme="dark" storageKey="gv-software-theme">
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Navbar />
-              <Hero />
-              <Services />
-            </>
-          } />
-          <Route path="/about" element={<CleanAbout />} />
-        </Routes>
-        <Toaster />
+        <div className="min-h-screen bg-slate-950 text-white">
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Navbar />
+                <Hero />
+                <Services />
+              </>
+            } />
+            <Route path="/about" element={<CleanAbout />} />
+          </Routes>
+          <Toaster />
+        </div>
       </CleanThemeProvider>
     </QueryClientProvider>
   );

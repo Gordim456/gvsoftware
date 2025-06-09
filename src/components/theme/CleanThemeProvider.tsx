@@ -25,17 +25,29 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
 export function CleanThemeProvider({
   children,
-  defaultTheme = "system",
-  storageKey = "vite-ui-theme",
+  defaultTheme = "dark",
+  storageKey = "gv-software-theme",
   ...props
 }: ThemeProviderProps) {
-  console.log('🔧 CLEAN THEME: Inicializando provider limpo');
+  console.log('🔧 CLEAN THEME: Inicializando provider limpo com tema:', defaultTheme);
   
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
-  )
+  // Garantir que o tema inicial nunca seja null/undefined
+  const getInitialTheme = (): Theme => {
+    try {
+      const savedTheme = localStorage.getItem(storageKey) as Theme;
+      if (savedTheme && ['dark', 'light', 'system'].includes(savedTheme)) {
+        return savedTheme;
+      }
+    } catch (error) {
+      console.warn('Erro ao acessar localStorage:', error);
+    }
+    return defaultTheme || "dark";
+  };
+
+  const [theme, setTheme] = useState<Theme>(getInitialTheme)
 
   useEffect(() => {
+    console.log('🔧 CLEAN THEME: Aplicando tema:', theme);
     const root = window.document.documentElement
 
     root.classList.remove("light", "dark")
@@ -47,17 +59,24 @@ export function CleanThemeProvider({
         : "light"
 
       root.classList.add(systemTheme)
+      console.log('🔧 CLEAN THEME: Tema do sistema aplicado:', systemTheme);
       return
     }
 
     root.classList.add(theme)
+    console.log('🔧 CLEAN THEME: Tema manual aplicado:', theme);
   }, [theme])
 
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme)
-      setTheme(theme)
+    setTheme: (newTheme: Theme) => {
+      console.log('🔧 CLEAN THEME: Alterando tema para:', newTheme);
+      try {
+        localStorage.setItem(storageKey, newTheme)
+      } catch (error) {
+        console.warn('Erro ao salvar tema no localStorage:', error);
+      }
+      setTheme(newTheme)
     },
   }
 
@@ -73,8 +92,10 @@ export function CleanThemeProvider({
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext)
 
-  if (context === undefined)
-    throw new Error("useTheme must be used within a ThemeProvider")
+  if (context === undefined) {
+    console.error('🔥 CLEAN THEME: useTheme deve ser usado dentro de CleanThemeProvider');
+    throw new Error("useTheme must be used within a CleanThemeProvider")
+  }
 
   return context
 }
