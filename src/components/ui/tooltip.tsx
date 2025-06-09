@@ -42,6 +42,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
+// Componentes simples compatíveis com shadcn
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return <>{children}</>;
 };
