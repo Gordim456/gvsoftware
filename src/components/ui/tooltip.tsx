@@ -1,7 +1,7 @@
 
 import React from "react";
 
-console.log('🔧 TOOLTIP: Carregando tooltip COMPLETAMENTE LIMPO - SEM RADIX');
+console.log('🔧 TOOLTIP: Loading completely clean tooltip - NO RADIX DEPENDENCIES');
 
 interface TooltipProps {
   children: React.ReactNode;
@@ -16,7 +16,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   side = "top", 
   className = "" 
 }) => {
-  console.log('🔧 TOOLTIP: Renderizando tooltip simples');
+  console.log('🔧 TOOLTIP: Rendering simple tooltip');
   
   return (
     <div className="relative inline-block group">
@@ -36,21 +36,21 @@ const Tooltip: React.FC<TooltipProps> = ({
   );
 };
 
-// Componentes wrapper simples SEM estado ou hooks complexos
+// Simple wrapper components without any state or complex logic
 const TooltipProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log('🔧 TOOLTIP: Provider LIMPO renderizando - SEM HOOKS');
-  return <div className="tooltip-provider">{children}</div>;
+  console.log('🔧 TOOLTIP: Simple provider rendering');
+  return <>{children}</>;
 };
 
 const TooltipTrigger: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <div className="tooltip-trigger">{children}</div>;
+  return <>{children}</>;
 };
 
 const TooltipContent: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  return <div className="tooltip-content">{children}</div>;
+  return <>{children}</>;
 };
 
-console.log('✅ TOOLTIP: Componentes LIMPOS definidos - ZERO RADIX DEPENDENCIES');
+console.log('✅ TOOLTIP: Clean components defined - ZERO RADIX DEPENDENCIES');
 
 export { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent };
 export default Tooltip;

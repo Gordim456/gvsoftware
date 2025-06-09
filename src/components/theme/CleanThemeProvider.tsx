@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react"
 
-console.log('🔧 CLEAN THEME: Carregando provider COMPLETAMENTE LIMPO');
+console.log('🔧 CLEAN THEME: Loading provider COMPLETELY CLEAN');
 
 type Theme = "dark" | "light" | "system"
 
@@ -17,7 +17,7 @@ type ThemeProviderState = {
 }
 
 const initialState: ThemeProviderState = {
-  theme: "system",
+  theme: "dark", // Changed from "system" to "dark" as default
   setTheme: () => null,
 }
 
@@ -25,13 +25,13 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
 export function CleanThemeProvider({
   children,
-  defaultTheme = "dark",
+  defaultTheme = "dark", // Ensure we always have a valid theme
   storageKey = "gv-software-theme",
   ...props
 }: ThemeProviderProps) {
-  console.log('🔧 CLEAN THEME: Inicializando provider limpo com tema:', defaultTheme);
+  console.log('🔧 CLEAN THEME: Initializing clean provider with theme:', defaultTheme);
   
-  // Garantir que o tema inicial nunca seja null/undefined
+  // Ensure the initial theme is never null/undefined
   const getInitialTheme = (): Theme => {
     try {
       const savedTheme = localStorage.getItem(storageKey) as Theme;
@@ -39,7 +39,7 @@ export function CleanThemeProvider({
         return savedTheme;
       }
     } catch (error) {
-      console.warn('Erro ao acessar localStorage:', error);
+      console.warn('Error accessing localStorage:', error);
     }
     return defaultTheme || "dark";
   };
@@ -47,7 +47,7 @@ export function CleanThemeProvider({
   const [theme, setTheme] = useState<Theme>(getInitialTheme)
 
   useEffect(() => {
-    console.log('🔧 CLEAN THEME: Aplicando tema:', theme);
+    console.log('🔧 CLEAN THEME: Applying theme:', theme);
     const root = window.document.documentElement
 
     root.classList.remove("light", "dark")
@@ -59,28 +59,28 @@ export function CleanThemeProvider({
         : "light"
 
       root.classList.add(systemTheme)
-      console.log('🔧 CLEAN THEME: Tema do sistema aplicado:', systemTheme);
+      console.log('🔧 CLEAN THEME: System theme applied:', systemTheme);
       return
     }
 
     root.classList.add(theme)
-    console.log('🔧 CLEAN THEME: Tema manual aplicado:', theme);
+    console.log('🔧 CLEAN THEME: Manual theme applied:', theme);
   }, [theme])
 
   const value = {
     theme,
     setTheme: (newTheme: Theme) => {
-      console.log('🔧 CLEAN THEME: Alterando tema para:', newTheme);
+      console.log('🔧 CLEAN THEME: Changing theme to:', newTheme);
       try {
         localStorage.setItem(storageKey, newTheme)
       } catch (error) {
-        console.warn('Erro ao salvar tema no localStorage:', error);
+        console.warn('Error saving theme to localStorage:', error);
       }
       setTheme(newTheme)
     },
   }
 
-  console.log('🔧 CLEAN THEME: Provider configurado com sucesso');
+  console.log('🔧 CLEAN THEME: Provider configured successfully');
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
@@ -93,11 +93,11 @@ export const useTheme = () => {
   const context = useContext(ThemeProviderContext)
 
   if (context === undefined) {
-    console.error('🔥 CLEAN THEME: useTheme deve ser usado dentro de CleanThemeProvider');
+    console.error('🔥 CLEAN THEME: useTheme must be used within CleanThemeProvider');
     throw new Error("useTheme must be used within a CleanThemeProvider")
   }
 
   return context
 }
 
-console.log('✅ CLEAN THEME: Provider LIMPO definido - SEM RADIX UI');
+console.log('✅ CLEAN THEME: Clean provider defined - NO RADIX UI');
