@@ -19,18 +19,4 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  build: {
-    rollupOptions: {
-      external: [
-        '@radix-ui/react-tooltip',
-        '@radix-ui/react-toast'
-      ]
-    }
-  },
-  optimizeDeps: {
-    exclude: [
-      '@radix-ui/react-tooltip',
-      '@radix-ui/react-toast'
-    ]
-  }
 }));
