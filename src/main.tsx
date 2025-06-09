@@ -1,55 +1,38 @@
 
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App.tsx';
-import './index.css';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import App from './App.tsx'
+import './index.css'
+import './App.css'
+import ErrorBoundary from './components/ErrorBoundary'
 
-console.log('🚀 MAIN: Starting GV Software application...');
+console.log('🚀 MAIN: Iniciando aplicação - VERSÃO LIMPA SEM RADIX');
 
-try {
-  const rootElement = document.getElementById('root');
-  
-  if (!rootElement) {
-    console.error('❌ MAIN: Root element not found!');
-    throw new Error('Root element not found');
-  }
+const container = document.getElementById('root');
+if (!container) {
+  throw new Error('Failed to find the root element');
+}
 
-  console.log('✅ MAIN: Root element found, creating React root...');
-  
-  const root = createRoot(rootElement);
+const root = ReactDOM.createRoot(container);
 
-  root.render(
-    <StrictMode>
+// Captura de erros globais
+window.addEventListener('error', (event) => {
+  console.error('🔥 MAIN: Erro global capturado:', event.error);
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+  console.error('🔥 MAIN: Promise rejeitada:', event.reason);
+});
+
+root.render(
+  <React.StrictMode>
+    <ErrorBoundary>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </StrictMode>,
-  );
-  
-  console.log('✅ MAIN: GV Software app rendered successfully');
-} catch (error) {
-  console.error('❌ MAIN: Fatal error during app initialization:', error);
-  
-  // Fallback em caso de erro crítico
-  document.body.innerHTML = `
-    <div style="
-      display: flex; 
-      flex-direction: column; 
-      justify-content: center; 
-      align-items: center; 
-      height: 100vh; 
-      background: #0F172A; 
-      color: white; 
-      font-family: system-ui;
-      padding: 20px;
-      text-align: center;
-    ">
-      <h1 style="color: #6366f1; margin-bottom: 20px;">GV Software</h1>
-      <p>Carregando aplicação...</p>
-      <p style="margin-top: 20px; font-size: 14px; color: #94a3b8;">
-        Se esta mensagem persistir, recarregue a página.
-      </p>
-    </div>
-  `;
-}
+    </ErrorBoundary>
+  </React.StrictMode>
+);
+
+console.log('✅ MAIN: Aplicação renderizada com sucesso - SEM DEPENDÊNCIAS PROBLEMÁTICAS');

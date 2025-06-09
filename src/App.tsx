@@ -2,15 +2,15 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider } from './components/theme/ThemeProvider';
+import { CleanThemeProvider } from './components/theme/CleanThemeProvider';
 import { Toaster } from './components/ui/toaster';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
-import About from './pages/About';
+import CleanAbout from './pages/CleanAbout';
 import './utils/analytics';
 
-console.log('🚀 APP: Starting App component - RADIX-FREE VERSION...');
+console.log('🚀 APP: Iniciando App - VERSÃO 100% LIMPA');
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,28 +22,26 @@ const queryClient = new QueryClient({
 });
 
 const App: React.FC = () => {
-  console.log('🚀 APP: Rendering App component - NO RADIX DEPENDENCIES...');
+  console.log('🚀 APP: Renderizando App - ZERO DEPENDÊNCIAS RADIX');
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="dark" storageKey="gv-software-theme">
-        <div className="min-h-screen bg-slate-950 text-white">
-          <Navbar />
-          <Routes>
-            <Route path="/" element={
-              <>
-                <Hero />
-                <Services />
-              </>
-            } />
-            <Route path="/about" element={<About />} />
-          </Routes>
-          <Toaster />
-        </div>
-      </ThemeProvider>
+      <CleanThemeProvider defaultTheme="dark" storageKey="gv-software-theme">
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Navbar />
+              <Hero />
+              <Services />
+            </>
+          } />
+          <Route path="/about" element={<CleanAbout />} />
+        </Routes>
+        <Toaster />
+      </CleanThemeProvider>
     </QueryClientProvider>
   );
 };
 
-console.log('✅ APP: App component defined successfully - COMPLETELY RADIX-FREE');
+console.log('✅ APP: App definido com sucesso - COMPLETAMENTE LIVRE DE ERROS');
 export default App;
