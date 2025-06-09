@@ -1,91 +1,69 @@
 
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { CleanThemeProvider } from './components/theme/CleanThemeProvider';
-import { Toaster } from './components/ui/toaster';
-import Home from './pages/Home';
-import CleanAbout from './pages/CleanAbout';
-import ServicesPage from './pages/Services';
-import FAQ from './pages/FAQ';
-import Contact from './pages/Contact';
-import './utils/analytics';
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { ThemeProvider } from "./components/theme/ThemeProvider";
+import ScrollToTop from "./components/ScrollToTop";
+
+const Home = lazy(() => import("./pages/Home"));
+const About = lazy(() => import("./pages/About"));
+const Services = lazy(() => import("./pages/Services"));
+const Portfolio = lazy(() => import("./pages/Portfolio"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Terms = lazy(() => import("./pages/Terms"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const FAQ = lazy(() => import("./pages/FAQ"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const ChatBot = lazy(() => import("./components/chat/ChatBot"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      staleTime: 1000 * 60 * 5,
+      gcTime: 1000 * 60 * 10,
       retry: 1,
       refetchOnWindowFocus: false,
     },
   },
 });
 
-interface ErrorBoundaryProps {
-  children: React.ReactNode;
-}
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center h-screen bg-gv-darker">
+    <div className="w-8 h-8 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
 
-interface ErrorBoundaryState {
-  hasError: boolean;
-  error?: Error;
-}
-
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  constructor(props: ErrorBoundaryProps) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('Error details:', error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-4">
-          <div className="text-center max-w-md w-full">
-            <h1 className="text-xl md:text-2xl font-bold text-red-400 mb-4">Algo deu errado</h1>
-            <p className="text-gray-300 mb-4 text-sm md:text-base">
-              {this.state.error?.message || 'Ocorreu um erro inesperado'}
-            </p>
-            <button 
-              onClick={() => window.location.reload()} 
-              className="w-full md:w-auto px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 text-sm md:text-base"
-            >
-              Recarregar Página
-            </button>
-          </div>
-        </div>
-      );
-    }
-
-    return this.props.children;
-  }
-}
-
-const App: React.FC = () => {
-  return (
-    <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <CleanThemeProvider defaultTheme="dark" storageKey="gv-software-theme">
-          <div className="min-h-screen bg-slate-950 text-white w-full overflow-x-hidden">
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <ScrollToTop />
+          <Suspense fallback={<LoadingFallback />}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/about" element={<CleanAbout />} />
-              <Route path="/services" element={<ServicesPage />} />
-              <Route path="/faq" element={<FAQ />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
-            <Toaster />
-          </div>
-        </CleanThemeProvider>
-      </QueryClientProvider>
-    </ErrorBoundary>
-  );
-};
+            <ChatBot />
+          </Suspense>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
+  </QueryClientProvider>
+);
 
 export default App;

@@ -1,19 +1,15 @@
-
 import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
 import { ChevronRight, MoreHorizontal } from "lucide-react"
-import { cn } from "@/lib/utils"
 
-console.log("🔥 BREADCRUMB ULTIMATE PURGE: 100% Custom Implementation - ZERO RADIX");
+import { cn } from "@/lib/utils"
 
 const Breadcrumb = React.forwardRef<
   HTMLElement,
   React.ComponentPropsWithoutRef<"nav"> & {
     separator?: React.ReactNode
   }
->(({ ...props }, ref) => {
-  console.log("🔥 BREADCRUMB ULTIMATE PURGE: Rendering custom breadcrumb");
-  return <nav ref={ref} aria-label="breadcrumb" {...props} />
-});
+>(({ ...props }, ref) => <nav ref={ref} aria-label="breadcrumb" {...props} />)
 Breadcrumb.displayName = "Breadcrumb"
 
 const BreadcrumbList = React.forwardRef<
@@ -48,26 +44,15 @@ const BreadcrumbLink = React.forwardRef<
   React.ComponentPropsWithoutRef<"a"> & {
     asChild?: boolean
   }
->(({ asChild, className, children, ...props }, ref) => {
-  console.log("🔥 BREADCRUMB LINK ULTIMATE PURGE: Rendering custom link");
-
-  // Custom asChild implementation without Radix Slot
-  if (asChild && React.isValidElement(children)) {
-    return React.cloneElement(children as React.ReactElement<any>, {
-      className: cn("transition-colors hover:text-foreground", className),
-      ref,
-      ...props,
-    });
-  }
+>(({ asChild, className, ...props }, ref) => {
+  const Comp = asChild ? Slot : "a"
 
   return (
-    <a
+    <Comp
       ref={ref}
       className={cn("transition-colors hover:text-foreground", className)}
       {...props}
-    >
-      {children}
-    </a>
+    />
   )
 })
 BreadcrumbLink.displayName = "BreadcrumbLink"
@@ -118,8 +103,6 @@ const BreadcrumbEllipsis = ({
   </span>
 )
 BreadcrumbEllipsis.displayName = "BreadcrumbElipssis"
-
-console.log("🔥 BREADCRUMB EXPORTS ULTIMATE PURGE: Exporting 100% custom components with ZERO dependencies");
 
 export {
   Breadcrumb,

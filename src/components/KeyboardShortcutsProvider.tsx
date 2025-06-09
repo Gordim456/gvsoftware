@@ -1,50 +1,65 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
+import { useEffect, useState } from 'react';
+import AdminLogin from './admin/AdminLogin';
+import AdminDashboard from '../pages/AdminDashboard';
 
 const KeyboardShortcutsProvider = () => {
-  const navigate = useNavigate();
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [showAdminPanel, setShowAdminPanel] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Ctrl/Cmd + K para busca (placeholder)
-      if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+      // CTRL + SHIFT + A para abrir painel admin
+      if (event.ctrlKey && event.shiftKey && event.key === 'A') {
         event.preventDefault();
-        // Implementar busca no futuro
+        setShowAdminLogin(true);
       }
 
-      // Alt + H para Home
-      if (event.altKey && event.key === 'h') {
-        event.preventDefault();
-        navigate('/');
-      }
-
-      // Alt + A para About
-      if (event.altKey && event.key === 'a') {
-        event.preventDefault();
-        navigate('/about');
-      }
-
-      // Alt + S para Services
-      if (event.altKey && event.key === 's') {
-        event.preventDefault();
-        navigate('/services');
-      }
-
-      // Alt + C para Contact
-      if (event.altKey && event.key === 'c') {
-        event.preventDefault();
-        navigate('/contact');
+      // ESC para fechar painéis
+      if (event.key === 'Escape') {
+        setShowAdminLogin(false);
+        setShowAdminPanel(false);
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [navigate]);
+  }, []);
 
-  return null;
+  const handleAdminLogin = () => {
+    setShowAdminLogin(false);
+    setShowAdminPanel(true);
+  };
+
+  const handleAdminCancel = () => {
+    setShowAdminLogin(false);
+  };
+
+  const handleAdminBack = () => {
+    setShowAdminPanel(false);
+  };
+
+  return (
+    <>
+      {showAdminLogin && (
+        <div className="fixed inset-0 z-[9999]">
+          <AdminLogin 
+            onLogin={handleAdminLogin}
+            onCancel={handleAdminCancel}
+          />
+        </div>
+      )}
+      
+      {showAdminPanel && (
+        <div className="fixed inset-0 z-[9999] bg-white">
+          <AdminDashboard onBack={handleAdminBack} />
+        </div>
+      )}
+    </>
+  );
 };
 
 export default KeyboardShortcutsProvider;

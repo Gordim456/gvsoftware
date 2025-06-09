@@ -1,16 +1,11 @@
 
+import { useTheme } from "./ThemeProvider";
 import { Sun, Moon } from "lucide-react";
 import { motion } from "framer-motion";
-import StandaloneButton from "@/components/ui/standalone-button";
-import { useTheme } from "./CleanThemeProvider";
+import { Button } from "@/components/ui/button";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-  };
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <motion.div
@@ -19,13 +14,12 @@ export function ThemeToggle() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.5, duration: 0.4 }}
     >
-      <StandaloneButton
+      <Button
         onClick={toggleTheme}
         variant="outline"
         size="icon"
         className="relative overflow-hidden bg-gradient-to-br from-violet-500/10 via-purple-500/10 to-indigo-500/10 
                  border-white/20 backdrop-blur-sm rounded-full w-12 h-12 shadow-lg hover:shadow-purple-500/20"
-        title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
       >
         <motion.div
           className="absolute inset-0 bg-gradient-to-br from-violet-600/20 via-purple-600/20 to-indigo-600/20 rounded-full"
@@ -59,7 +53,7 @@ export function ThemeToggle() {
             </motion.div>
           )}
         </motion.div>
-      </StandaloneButton>
+      </Button>
     </motion.div>
   );
 }

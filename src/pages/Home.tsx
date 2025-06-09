@@ -1,49 +1,22 @@
 
-import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
-import Hero from '../components/Hero';
-import AboutSection from '../components/AboutSection';
-import Services from '../components/Services';
-import Portfolio from '../components/Portfolio';
-import ContactForm from '../components/contact/ContactForm';
 import Footer from '../components/Footer';
 import SocialIcons from '../components/SocialIcons';
+import Hero from '../components/Hero';
+import Services from '../components/Services';
+import Testimonials from '../components/Testimonials';
 
-const Home: React.FC = () => {
-  const [showSuccess, setShowSuccess] = useState(false);
-
-  const handleContactSuccess = () => {
-    setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 5000);
-  };
-
+const Home = () => {
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen w-full bg-gv-darker">
       <Navbar />
-      <Hero />
-      <AboutSection />
-      <Services />
-      <Portfolio />
-      <section id="contact" className="py-16 bg-slate-900">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Entre em <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Contato</span>
-            </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Vamos conversar sobre o seu projeto e como podemos ajudar a transformar suas ideias em realidade.
-            </p>
-          </div>
-          {showSuccess && (
-            <div className="bg-green-500 text-white p-4 rounded-lg mb-6 text-center">
-              Mensagem enviada com sucesso!
-            </div>
-          )}
-          <ContactForm onSuccess={handleContactSuccess} />
-        </div>
-      </section>
-      <SocialIcons />
+      <main className="w-full">
+        <Hero />
+        <Services />
+        <Testimonials />
+      </main>
       <Footer />
+      <SocialIcons />
     </div>
   );
 };

@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -8,9 +7,7 @@ import AboutHeader from './about/AboutHeader';
 import AboutFeatures from './about/AboutFeatures';
 import AboutImage from './about/AboutImage';
 
-console.log("🔥 ABOUT SECTION: Loading completely clean version - NO RADIX DEPENDENCIES");
-
-const AboutSection: React.FC = () => {
+const About = () => {
   return (
     <section id="about" className="py-20 bg-gv-darker relative overflow-hidden">
       <div className="absolute -top-40 -right-40 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl"></div>
@@ -35,18 +32,19 @@ const AboutSection: React.FC = () => {
               entregando soluções personalizadas que impulsionam o crescimento e a inovação.
             </p>
             
+            {/* Estatísticas como na imagem 2 */}
             <div className="flex gap-6 mt-6">
               <div>
-                <h4 className="text-3xl font-bold text-green-400">+3</h4>
+                <h4 className="text-3xl font-bold text-green-400">+1</h4>
                 <p className="text-gv-gray text-sm">Projetos Finalizados</p>
               </div>
               <div>
-                <h4 className="text-3xl font-bold text-green-400">+3</h4>
+                <h4 className="text-3xl font-bold text-green-400">+1</h4>
                 <p className="text-gv-gray text-sm">Clientes Satisfeitos</p>
               </div>
               <div>
                 <h4 className="text-3xl font-bold text-green-400">Primeiro Ano</h4>
-                <p className="text-gv-gray text-sm">De Experiência</p>
+                <p className="text-gv-gray text-sm">Anos de Experiência</p>
               </div>
               <div>
                 <h4 className="text-3xl font-bold text-green-400">100%</h4>
@@ -75,4 +73,4 @@ const AboutSection: React.FC = () => {
   );
 };
 
-export default AboutSection;
+export default About;

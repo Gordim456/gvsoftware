@@ -1,54 +1,27 @@
-
 import * as React from "react"
+import * as HoverCardPrimitive from "@radix-ui/react-hover-card"
+
 import { cn } from "@/lib/utils"
 
-console.log("🔥 HOVER CARD ULTIMATE ELIMINATION: 100% Custom Implementation - ABSOLUTE ZERO RADIX");
+const HoverCard = HoverCardPrimitive.Root
 
-interface HoverCardProps {
-  children: React.ReactNode;
-}
-
-const HoverCard: React.FC<HoverCardProps> = ({ children }) => {
-  console.log("🔥 HOVER CARD ULTIMATE ELIMINATION: Rendering custom hover card");
-  return <div className="relative">{children}</div>;
-};
-
-const HoverCardTrigger = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-  console.log("🔥 HOVER CARD TRIGGER ULTIMATE ELIMINATION: Rendering custom trigger");
-  return (
-    <div
-      ref={ref}
-      className={cn("cursor-pointer", className)}
-      {...props}
-    />
-  );
-});
-HoverCardTrigger.displayName = "HoverCardTrigger";
+const HoverCardTrigger = HoverCardPrimitive.Trigger
 
 const HoverCardContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & {
-    align?: "start" | "center" | "end";
-    sideOffset?: number;
-  }
->(({ className, align = "center", sideOffset = 4, ...props }, ref) => {
-  console.log("🔥 HOVER CARD CONTENT ULTIMATE ELIMINATION: Rendering custom content");
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "z-50 w-64 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none",
-        className
-      )}
-      {...props}
-    />
-  );
-});
-HoverCardContent.displayName = "HoverCardContent";
-
-console.log("🔥 HOVER CARD EXPORTS ULTIMATE ELIMINATION: Exporting 100% custom components with ABSOLUTE ZERO dependencies");
+  React.ElementRef<typeof HoverCardPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>
+>(({ className, align = "center", sideOffset = 4, ...props }, ref) => (
+  <HoverCardPrimitive.Content
+    ref={ref}
+    align={align}
+    sideOffset={sideOffset}
+    className={cn(
+      "z-50 w-64 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      className
+    )}
+    {...props}
+  />
+))
+HoverCardContent.displayName = HoverCardPrimitive.Content.displayName
 
 export { HoverCard, HoverCardTrigger, HoverCardContent }
