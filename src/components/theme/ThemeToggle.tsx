@@ -4,16 +4,16 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "./CleanThemeProvider";
 
-console.log("🔥 THEME TOGGLE CLEAN: Loading completely clean theme toggle - NO TOOLTIP DEPENDENCIES");
+console.log("🔥 THEME TOGGLE ULTRA CLEAN: Loading completely standalone theme toggle");
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
-  console.log("🔥 THEME TOGGLE CLEAN: Current theme:", theme);
+  console.log("🔥 THEME TOGGLE ULTRA CLEAN: Current theme:", theme);
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
-    console.log("🔥 THEME TOGGLE CLEAN: Changing theme to:", newTheme);
+    console.log("🔥 THEME TOGGLE ULTRA CLEAN: Switching to:", newTheme);
     setTheme(newTheme);
   };
 
