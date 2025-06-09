@@ -1,7 +1,5 @@
 
 import React from 'react';
-import Footer from '../components/Footer';
-import SocialIcons from '../components/SocialIcons';
 
 console.log('🚀 ABOUT: Loading About page...');
 
@@ -107,8 +105,12 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      <SocialIcons />
-      <Footer />
+      {/* Footer placeholder - removendo componentes que podem causar erro */}
+      <div className="bg-slate-900 text-white py-8">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-gray-400">© 2024 GV Software. Todos os direitos reservados.</p>
+        </div>
+      </div>
     </div>
   );
 };
