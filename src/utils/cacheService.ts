@@ -21,6 +21,7 @@ interface CacheDB extends DBSchema {
       timestamp: number;
       encrypted: boolean;
     };
+    indexes: { 'conversationId': string };
   };
   analytics: {
     key: string;
