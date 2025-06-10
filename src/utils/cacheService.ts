@@ -78,12 +78,13 @@ class CacheService {
 
       for (const conversation of conversations) {
         const data = encrypt ? EncryptionService.encrypt(conversation) : conversation;
-        await store.put({
+        const cacheItem = {
           id: conversation.id,
           data,
           timestamp: Date.now(),
           encrypted: encrypt
-        });
+        };
+        await store.put(cacheItem);
       }
       await tx.done;
     } catch (error) {
@@ -126,13 +127,14 @@ class CacheService {
 
       for (const message of messages) {
         const data = encrypt ? EncryptionService.encrypt(message) : message;
-        await store.put({
+        const cacheItem = {
           id: message.id,
           conversationId,
           data,
           timestamp: Date.now(),
           encrypted: encrypt
-        });
+        };
+        await store.put(cacheItem);
       }
       await tx.done;
     } catch (error) {
@@ -171,9 +173,9 @@ class CacheService {
     if (!this.db) return;
 
     try {
-      const stores: (keyof CacheDB)[] = ['conversations', 'messages', 'analytics'];
+      const storeNames = ['conversations', 'messages', 'analytics'] as const;
       
-      for (const storeName of stores) {
+      for (const storeName of storeNames) {
         const tx = this.db.transaction(storeName, 'readwrite');
         const store = tx.objectStore(storeName);
         const all = await store.getAll();
