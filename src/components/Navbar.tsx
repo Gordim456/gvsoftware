@@ -1,11 +1,9 @@
-
 import * as React from 'react';
-import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const location = useLocation();
 
   const navigation = [
