@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { MessageCircle, X, Sparkles, Zap } from "lucide-react";
 import { FormData, ChatStep, ChatOption, AUTO_MESSAGES } from "./ChatBotTypes";
@@ -61,7 +60,7 @@ const RobotIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   </div>
 );
 
-const ChatBot = () => {
+const ChatBot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState<ChatStep>('welcome');
   const [formData, setFormData] = useState<FormData>({
