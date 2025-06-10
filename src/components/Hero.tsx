@@ -66,25 +66,25 @@ const Hero = () => {
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-gv-dark p-6 rounded-lg border border-gray-800 hover:border-gv-primary transition-colors duration-200">
               <div className="mb-4 bg-gv-primary bg-opacity-10 p-3 rounded-md w-fit">
-                <Code className="w-6 h-6 text-gv-primary" />
+                <Code className="w-8 h-8 text-gv-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Desenvolvimento Web</h3>
+              <h3 className="text-xl font-semibold mb-2 text-white">Desenvolvimento Web</h3>
               <p className="text-gv-gray">Criamos sites e aplicações web modernas utilizando as melhores tecnologias do mercado.</p>
             </div>
             
             <div className="bg-gv-dark p-6 rounded-lg border border-gray-800 hover:border-gv-primary transition-colors duration-200">
               <div className="mb-4 bg-gv-primary bg-opacity-10 p-3 rounded-md w-fit">
-                <Server className="w-6 h-6 text-gv-primary" />
+                <Server className="w-8 h-8 text-gv-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Aplicações Empresariais</h3>
+              <h3 className="text-xl font-semibold mb-2 text-white">Aplicações Empresariais</h3>
               <p className="text-gv-gray">Desenvolvemos soluções sob medida para otimizar processos e aumentar a produtividade.</p>
             </div>
             
             <div className="bg-gv-dark p-6 rounded-lg border border-gray-800 hover:border-gv-primary transition-colors duration-200">
               <div className="mb-4 bg-gv-primary bg-opacity-10 p-3 rounded-md w-fit">
-                <Globe className="w-6 h-6 text-gv-primary" />
+                <Globe className="w-8 h-8 text-gv-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Presença Digital</h3>
+              <h3 className="text-xl font-semibold mb-2 text-white">Presença Digital</h3>
               <p className="text-gv-gray">Estratégias completas para destacar sua marca no ambiente digital com soluções personalizadas.</p>
             </div>
           </div>
