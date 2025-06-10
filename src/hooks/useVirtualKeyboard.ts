@@ -50,9 +50,10 @@ export const useVirtualKeyboard = () => {
 
     // Listener para foco em inputs (iOS Safari)
     const handleFocusIn = (e: FocusEvent) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+      const target = e.target as HTMLElement;
+      if (target && (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) {
         setTimeout(() => {
-          e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 300);
       }
     };
