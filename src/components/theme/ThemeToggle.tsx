@@ -1,5 +1,5 @@
 
-import React from "react";
+import * as React from "react";
 import { useTheme } from "./ThemeProvider";
 import { Sun, Moon } from "lucide-react";
 import { motion } from "framer-motion";
