@@ -1,165 +1,100 @@
 
-import { useState, useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Code } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence } from 'framer-motion';
+import * as React from 'react';
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setIsOpen(false);
-  }, [location]);
-
-  const navLinks = [
+  const navigation = [
     { name: 'Início', href: '/' },
     { name: 'Sobre', href: '/about' },
     { name: 'Serviços', href: '/services' },
     { name: 'Portfólio', href: '/portfolio' },
-    { 
-      name: 'Contato', 
-      href: '/contact',
-      isHighlighted: true 
-    }
+    { name: 'Contato', href: '/contact' },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (href: string) => {
+    if (href === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname.startsWith(href);
+  };
 
   return (
-    <motion.nav 
-      className={`fixed w-full z-50 transition-all duration-500 
-        ${scrolled ? 'bg-gv-darker/95 backdrop-blur-lg shadow-lg py-3' : 'bg-transparent py-5'}`}
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-    >
+    <nav className="bg-gv-dark/95 backdrop-blur-md border-b border-gray-800 fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+        <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <RouterLink to="/" className="cursor-pointer flex items-center">
-              <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-2 rounded-lg mr-3">
-                <Code className="w-6 h-6 text-white" />
+            <Link to="/" className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">GV</span>
               </div>
-              <motion.h1 
-                className="text-2xl font-bold text-white"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <span className="gradient-text">GV</span> Software
-              </motion.h1>
-            </RouterLink>
+              <span className="text-white font-bold text-xl">Software</span>
+            </Link>
           </div>
-          
+
+          {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-8">
-              {navLinks.map((link) => (
-                <RouterLink
-                  key={link.name}
-                  to={link.href}
-                  className={`relative group ${
-                    link.isHighlighted 
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-2 rounded-full text-white hover:shadow-lg hover:shadow-indigo-500/20 transform hover:scale-105 transition-all duration-300'
-                      : 'relative group'
+            <div className="ml-10 flex items-baseline space-x-4">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    isActive(item.href)
+                      ? 'bg-indigo-600 text-white'
+                      : 'text-gv-gray hover:bg-gray-700 hover:text-white'
                   }`}
                 >
-                  <span className={`${
-                    link.isHighlighted
-                      ? 'text-white font-medium'
-                      : 'text-gray-300 hover:text-white px-3 py-2 text-sm font-medium cursor-pointer transition-colors'
-                  }`}>
-                    {link.name}
-                  </span>
-                  {!link.isHighlighted && (
-                    <span className={`absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 transform ${isActive(link.href) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'} transition-transform origin-left`}></span>
-                  )}
-                </RouterLink>
+                  {item.name}
+                </Link>
               ))}
             </div>
           </div>
-          
+
+          {/* Mobile menu button */}
           <div className="md:hidden">
             <button
-              onClick={toggleMenu}
-              className="text-gray-400 hover:text-white focus:outline-none p-2.5 rounded-lg bg-gray-800/60 backdrop-blur-sm hover:bg-gray-700/80 transition-colors"
-              aria-label="Toggle menu"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              aria-expanded="false"
             >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              <span className="sr-only">Open main menu</span>
+              {isMenuOpen ? (
+                <X className="block h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Menu className="block h-6 w-6" aria-hidden="true" />
+              )}
             </button>
           </div>
         </div>
       </div>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div 
-            className="md:hidden bg-gradient-to-b from-gv-darker/98 to-gv-darker backdrop-blur-lg"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <motion.div
-              className="px-4 py-5 space-y-3"
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    staggerChildren: 0.1
-                  }
-                }
-              }}
-            >
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.name}
-                  variants={{
-                    hidden: { opacity: 0, y: 10 },
-                    visible: { opacity: 1, y: 0 }
-                  }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <RouterLink
-                    to={link.href}
-                    className={`block px-4 py-3 rounded-lg transition-all ${
-                      isActive(link.href) 
-                        ? 'bg-indigo-600/20 text-indigo-400 font-medium'
-                        : 'text-gray-300 hover:bg-gray-800/50 hover:text-white'
-                    }`}
-                  >
-                    {link.name}
-                  </RouterLink>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+      {/* Mobile menu */}
+      {isMenuOpen && (
+        <div className="md:hidden">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gv-dark border-t border-gray-800">
+            {navigation.map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                  isActive(item.href)
+                    ? 'bg-indigo-600 text-white'
+                    : 'text-gv-gray hover:bg-gray-700 hover:text-white'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </nav>
   );
 };
 
