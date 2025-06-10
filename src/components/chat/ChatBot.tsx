@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import * as React from "react";
 import { MessageCircle, X, Sparkles, Zap } from "lucide-react";
 import { FormData, ChatStep, ChatOption, AUTO_MESSAGES } from "./ChatBotTypes";
 import ChatBotForm from "./ChatBotForm";
@@ -61,19 +61,19 @@ const RobotIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
 );
 
 const ChatBot: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [currentStep, setCurrentStep] = useState<ChatStep>('welcome');
-  const [formData, setFormData] = useState<FormData>({
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [currentStep, setCurrentStep] = React.useState<ChatStep>('welcome');
+  const [formData, setFormData] = React.useState<FormData>({
     name: "",
     email: "",
     phone: "",
     subject: ""
   });
-  const [showWelcome, setShowWelcome] = useState(true);
-  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [showWelcome, setShowWelcome] = React.useState(true);
+  const [conversationId, setConversationId] = React.useState<string | null>(null);
 
   // Carregar estado salvo quando componente monta
-  useEffect(() => {
+  React.useEffect(() => {
     const savedData = localStorage.getItem('chatbot-data');
     if (savedData) {
       try {
@@ -89,7 +89,7 @@ const ChatBot: React.FC = () => {
   }, []);
 
   // Salvar estado sempre que houver mudanças
-  useEffect(() => {
+  React.useEffect(() => {
     const dataToSave = {
       formData,
       currentStep,
@@ -99,7 +99,7 @@ const ChatBot: React.FC = () => {
     localStorage.setItem('chatbot-data', JSON.stringify(dataToSave));
   }, [formData, currentStep, conversationId]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isOpen && showWelcome && currentStep === 'welcome') {
       const timer = setTimeout(() => {
         setShowWelcome(false);
