@@ -1,9 +1,8 @@
-
 import { useState, useEffect, useCallback } from "react";
 import { ArrowLeft } from "lucide-react";
 import { ChatService } from "../services/chatService";
 import { Conversation, ChatMessage } from "../components/chat/ChatBotTypes";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import AdminHeader from "../components/admin/AdminHeader";
 import ConversationsList from "../components/admin/ConversationsList";
 import ChatPanel from "../components/admin/ChatPanel";
@@ -20,7 +19,6 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [supportName, setSupportName] = useState("");
   const [showSupportNameModal, setShowSupportNameModal] = useState(false);
-  const { toast } = useToast();
 
   // Carregar nome do suporte salvo
   useEffect(() => {
@@ -56,15 +54,11 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
     } catch (error) {
       console.error('Erro ao carregar conversas:', error);
       setConversations([]);
-      toast({
-        title: "Erro",
-        description: "Falha ao carregar conversas",
-        variant: "destructive"
-      });
+      toast.error("Falha ao carregar conversas");
     } finally {
       setIsLoading(false);
     }
-  }, [toast]);
+  }, []);
 
   const loadMessages = useCallback(async (conversationId: string) => {
     try {
@@ -76,13 +70,9 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
     } catch (error) {
       console.error('Erro ao carregar mensagens:', error);
       setMessages([]);
-      toast({
-        title: "Erro",
-        description: "Falha ao carregar mensagens",
-        variant: "destructive"
-      });
+      toast.error("Falha ao carregar mensagens");
     }
-  }, [toast]);
+  }, []);
 
   const sendMessage = useCallback(async () => {
     if (!newMessage.trim() || !selectedConversation || !supportName.trim()) {
@@ -116,32 +106,22 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
         
         console.log('Status da conversa atualizado para "active"');
         
-        toast({
-          title: "Mensagem enviada",
-          description: "Sua resposta foi enviada com sucesso"
-        });
+        toast.success("Sua resposta foi enviada com sucesso");
       }
     } catch (error) {
       console.error('Erro ao enviar mensagem:', error);
-      toast({
-        title: "Erro",
-        description: "Falha ao enviar mensagem",
-        variant: "destructive"
-      });
+      toast.error("Falha ao enviar mensagem");
     }
-  }, [newMessage, selectedConversation, supportName, toast]);
+  }, [newMessage, selectedConversation, supportName]);
 
   const saveSupportName = useCallback((name: string) => {
     if (name.trim()) {
       localStorage.setItem('admin-support-name', name.trim());
       setSupportName(name.trim());
       setShowSupportNameModal(false);
-      toast({
-        title: "Nome salvo",
-        description: "Seu nome foi configurado com sucesso"
-      });
+      toast.success("Seu nome foi configurado com sucesso");
     }
-  }, [toast]);
+  }, []);
 
   const changeSupportName = useCallback(() => {
     setShowSupportNameModal(true);
@@ -157,19 +137,12 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
             : conv
         )
       );
-      toast({
-        title: "Status atualizado",
-        description: `Conversa marcada como ${status === 'active' ? 'ativa' : status === 'closed' ? 'fechada' : 'aguardando'}`
-      });
+      toast.success(`Conversa marcada como ${status === 'active' ? 'ativa' : status === 'closed' ? 'fechada' : 'aguardando'}`);
     } catch (error) {
       console.error('Erro ao atualizar status:', error);
-      toast({
-        title: "Erro",
-        description: "Falha ao atualizar status da conversa",
-        variant: "destructive"
-      });
+      toast.error("Falha ao atualizar status da conversa");
     }
-  }, [toast]);
+  }, []);
 
   const deleteConversation = useCallback(async (conversationId: string) => {
     if (!confirm('Tem certeza que deseja excluir esta conversa?')) return;
@@ -185,19 +158,12 @@ const AdminDashboard = ({ onBack }: { onBack: () => void }) => {
       }
       
       console.log('Conversa excluída com sucesso');
-      toast({
-        title: "Conversa excluída",
-        description: "A conversa foi removida com sucesso"
-      });
+      toast.success("A conversa foi removida com sucesso");
     } catch (error) {
       console.error('Erro ao excluir conversa:', error);
-      toast({
-        title: "Erro",
-        description: "Falha ao excluir conversa",
-        variant: "destructive"
-      });
+      toast.error("Falha ao excluir conversa");
     }
-  }, [selectedConversation, toast]);
+  }, [selectedConversation]);
 
   const selectedConv = conversations.find(c => c.id === selectedConversation);
 

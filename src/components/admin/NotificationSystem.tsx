@@ -1,8 +1,7 @@
-
 import { useState, useEffect } from "react";
 import { Bell, X, MessageSquare, User } from "lucide-react";
 import { ChatService } from "../../services/chatService";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 
 interface Notification {
   id: string;
@@ -18,7 +17,6 @@ const NotificationSystem = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [showNotifications, setShowNotifications] = useState(false);
   const [lastCheck, setLastCheck] = useState(new Date());
-  const { toast } = useToast();
 
   // Verificar novas notificações a cada 10 segundos
   useEffect(() => {
@@ -53,9 +51,8 @@ const NotificationSystem = () => {
               setNotifications(prev => [notification, ...prev]);
               
               // Toast para notificação visual
-              toast({
-                title: notification.title,
-                description: notification.message,
+              toast.info(notification.message, {
+                description: notification.title,
                 duration: 5000
               });
 
@@ -84,9 +81,8 @@ const NotificationSystem = () => {
 
           setNotifications(prev => [notification, ...prev]);
           
-          toast({
-            title: notification.title,
-            description: notification.message,
+          toast.info(notification.message, {
+            description: notification.title,
             duration: 5000
           });
 
@@ -114,7 +110,7 @@ const NotificationSystem = () => {
     const interval = setInterval(checkForUpdates, 10000);
 
     return () => clearInterval(interval);
-  }, [lastCheck, toast]);
+  }, [lastCheck]);
 
   const unreadCount = notifications.filter(n => !n.isRead).length;
 
