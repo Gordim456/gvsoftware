@@ -1,4 +1,5 @@
-import * as React from 'react';
+
+import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -11,10 +12,10 @@ import { motion } from 'framer-motion';
 import { MessageSquare, Zap, Shield, Clock, Star, CheckCircle } from 'lucide-react';
 
 const Contact = () => {
-  const [formSubmitted, setFormSubmitted] = React.useState(false);
-  const [isLoaded, setIsLoaded] = React.useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = 'Contato | GV Software - Fale Conosco';
     setIsLoaded(true);
     

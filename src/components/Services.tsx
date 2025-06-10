@@ -1,5 +1,4 @@
 
-import * as React from 'react';
 import { Code, Smartphone, PenTool, Settings } from 'lucide-react';
 
 const services = [

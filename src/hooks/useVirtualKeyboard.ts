@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const useVirtualKeyboard = () => {
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
@@ -48,9 +48,9 @@ export const useVirtualKeyboard = () => {
     window.addEventListener('resize', handleResize);
     window.addEventListener('orientationchange', handleOrientationChange);
 
-    // Listener para foco em inputs (iOS Safari)
+    // Listener para foco em inputs (iOS Safari) - corrigindo o tipo
     const handleFocusIn = (e: FocusEvent) => {
-      const target = e.target as HTMLElement;
+      const target = e.target;
       if (target && (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) {
         setTimeout(() => {
           target.scrollIntoView({ behavior: 'smooth', block: 'center' });

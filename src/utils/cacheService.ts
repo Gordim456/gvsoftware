@@ -34,16 +34,6 @@ interface CacheDB extends DBSchema {
   };
 }
 
-interface ConversationData {
-  id: string;
-  [key: string]: any;
-}
-
-interface MessageData {
-  id: string;
-  [key: string]: any;
-}
-
 class CacheService {
   private db: IDBPDatabase<CacheDB> | null = null;
   private readonly CACHE_DURATION = 30 * 60 * 1000; // 30 minutos
@@ -69,7 +59,7 @@ class CacheService {
     }
   }
 
-  async cacheConversations(conversations: ConversationData[], encrypt = true) {
+  async cacheConversations(conversations: any[], encrypt = true) {
     if (!this.db) await this.init();
     if (!this.db) return;
 
@@ -79,13 +69,12 @@ class CacheService {
 
       for (const conversation of conversations) {
         const data = encrypt ? EncryptionService.encrypt(conversation) : conversation;
-        const cacheItem = {
+        await store.put({
           id: conversation.id,
           data,
           timestamp: Date.now(),
           encrypted: encrypt
-        };
-        await store.put(cacheItem);
+        });
       }
       await tx.done;
     } catch (error) {
@@ -118,7 +107,7 @@ class CacheService {
     }
   }
 
-  async cacheMessages(conversationId: string, messages: MessageData[], encrypt = true) {
+  async cacheMessages(conversationId: string, messages: any[], encrypt = true) {
     if (!this.db) await this.init();
     if (!this.db) return;
 
@@ -128,14 +117,13 @@ class CacheService {
 
       for (const message of messages) {
         const data = encrypt ? EncryptionService.encrypt(message) : message;
-        const cacheItem = {
+        await store.put({
           id: message.id,
           conversationId,
           data,
           timestamp: Date.now(),
           encrypted: encrypt
-        };
-        await store.put(cacheItem);
+        });
       }
       await tx.done;
     } catch (error) {
@@ -151,7 +139,7 @@ class CacheService {
       const tx = this.db.transaction('messages', 'readonly');
       const store = tx.objectStore('messages');
       const index = store.index('conversationId');
-      const cached = await index.getAll(IDBKeyRange.only(conversationId));
+      const cached = await index.getAll(conversationId);
 
       const validCached = cached.filter(item => 
         Date.now() - item.timestamp < this.CACHE_DURATION
@@ -174,9 +162,9 @@ class CacheService {
     if (!this.db) return;
 
     try {
-      const storeNames = ['conversations', 'messages', 'analytics'] as const;
+      const stores = ['conversations', 'messages', 'analytics'] as const;
       
-      for (const storeName of storeNames) {
+      for (const storeName of stores) {
         const tx = this.db.transaction(storeName, 'readwrite');
         const store = tx.objectStore(storeName);
         const all = await store.getAll();

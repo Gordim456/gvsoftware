@@ -3,151 +3,69 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <title>GV Software</title>
-    <meta name="description" content="GV Software - Desenvolvimento de Software" />
-    <meta name="author" content="GV Software" />
-    <meta name="keywords" content="desenvolvimento, software, web, mobile, apps, sistemas" />
-
-    <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#6366f1" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="GV Software" />
-    <meta name="msapplication-TileColor" content="#6366f1" />
-    <meta name="msapplication-tap-highlight" content="no" />
-
-    <!-- Manifest -->
-    <link rel="manifest" href="/manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" href="/lovable-uploads/f9a88f53-3e07-4405-88ba-38a71e63e353.png" />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="GV Software" />
-    <meta property="og:description" content="GV Software - Desenvolvimento de Software" />
+    <!-- SEO Meta Tags -->
+    <title>GV Software - Desenvolvimento de Software e Soluções Digitais</title>
+    <meta name="description" content="GV Software oferece desenvolvimento de software personalizado, aplicações web modernas e soluções digitais inovadoras para impulsionar seu negócio. Entre em contato para orçamento gratuito." />
+    <meta name="keywords" content="desenvolvimento software, aplicações web, soluções digitais, desenvolvimento personalizado, tecnologia, inovação, GV Software" />
+    <meta name="author" content="GV Software" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="pt-BR" />
+    <meta name="revisit-after" content="7 days" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="GV Software - Desenvolvimento de Software" />
+    <meta property="og:description" content="Transformando ideias em realidade digital com soluções de software personalizadas e inovadoras." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
-    <!-- Twitter Card -->
+    <meta property="og:url" content="https://gvsoftware.com" />
+    <meta property="og:image" content="/lovable-uploads/f9a88f53-3e07-4405-88ba-38a71e63e353.png" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="GV Software" />
+    
+    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta name="twitter:title" content="GV Software - Desenvolvimento de Software" />
+    <meta name="twitter:description" content="Soluções digitais inovadoras e personalizadas para o seu negócio." />
+    <meta name="twitter:image" content="/lovable-uploads/f9a88f53-3e07-4405-88ba-38a71e63e353.png" />
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/lovable-uploads/f9a88f53-3e07-4405-88ba-38a71e63e353.png" type="image/png">
+    <link rel="apple-touch-icon" href="/lovable-uploads/f9a88f53-3e07-4405-88ba-38a71e63e353.png">
     
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://mjawenqlewhvpixelutg.supabase.co" crossorigin>
-    
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Security Headers -->
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="X-Frame-Options" content="DENY" />
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
-    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/hero-image.svg" as="image">
+    <link rel="preload" href="/about-image.svg" as="image">
     
     <style>
-      /* CSS para otimização de teclado virtual */
-      .keyboard-open {
-        height: 100vh !important;
-        overflow: hidden;
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #0f172a;
+        font-family: 'Inter', sans-serif;
+        color: white;
       }
       
-      .keyboard-open body {
-        position: fixed;
+      #root {
+        margin: 0;
+        padding: 0;
         width: 100%;
+        min-height: 100vh;
       }
       
-      /* PWA specific styles */
-      @media (display-mode: standalone) {
-        body {
-          -webkit-user-select: none;
-          -webkit-touch-callout: none;
-          -webkit-tap-highlight-color: transparent;
-        }
-      }
-      
-      /* Performance optimizations */
       * {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-      
-      /* Loading screen */
-      #initial-loader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #581c87 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        transition: opacity 0.5s ease-out;
-      }
-      
-      #initial-loader.hidden {
-        opacity: 0;
-        pointer-events: none;
-      }
-      
-      .loader-spinner {
-        width: 40px;
-        height: 40px;
-        border: 3px solid rgba(99, 102, 241, 0.3);
-        border-top: 3px solid #6366f1;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-      
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        box-sizing: border-box;
       }
     </style>
   </head>
 
   <body>
-    <div id="initial-loader">
-      <div class="loader-spinner"></div>
-    </div>
-    
     <div id="root"></div>
-    
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
-    
-    <script>
-      // Remove loading screen after app loads
-      window.addEventListener('load', () => {
-        const loader = document.getElementById('initial-loader');
-        if (loader) {
-          setTimeout(() => {
-            loader.classList.add('hidden');
-            setTimeout(() => loader.remove(), 500);
-          }, 1000);
-        }
-      });
-      
-      // PWA install prompt
-      let deferredPrompt;
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        console.log('PWA install prompt available');
-      });
-      
-      // Handle PWA install
-      window.addEventListener('appinstalled', () => {
-        console.log('PWA was installed');
-        deferredPrompt = null;
-      });
-    </script>
   </body>
 </html>
