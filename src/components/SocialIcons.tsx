@@ -1,5 +1,5 @@
 
-import React from 'react';
+import * as React from 'react';
 import { motion } from 'framer-motion';
 import { Instagram } from 'lucide-react';
 import TikTokIcon from './icons/TikTokIcon';
