@@ -12,6 +12,8 @@ import { analytics } from "./utils/analytics";
 import { cacheService } from "./utils/cacheService";
 import { useVirtualKeyboard } from "./hooks/useVirtualKeyboard";
 
+console.log('App component loading, React:', !!React);
+
 // Lazy load pages to improve initial load time
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));

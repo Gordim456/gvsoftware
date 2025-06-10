@@ -1,8 +1,9 @@
-
 import React, { useEffect, useState, lazy, Suspense, memo } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SocialIcons from '../components/SocialIcons';
+
+console.log('Home component loading, React:', !!React);
 
 const Hero = lazy(() => import('../components/Hero'));
 const Services = lazy(() => import('../components/Services'));
@@ -28,6 +29,7 @@ const Home = () => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    console.log('Home useEffect running');
     document.title = 'Início | GV Software - Soluções Digitais Modernas';
     const timer = setTimeout(() => setIsReady(true), 50);
     return () => clearTimeout(timer);
