@@ -1,18 +1,18 @@
 
-import React, { useEffect, useState, lazy, Suspense, memo } from 'react';
+import * as React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SocialIcons from '../components/SocialIcons';
 
 console.log('Home component loading, React:', !!React);
 
-const Hero = lazy(() => import('../components/Hero'));
-const Services = lazy(() => import('../components/Services'));
-const Testimonials = lazy(() => import('../components/Testimonials'));
+const Hero = React.lazy(() => import('../components/Hero'));
+const Services = React.lazy(() => import('../components/Services'));
+const Testimonials = React.lazy(() => import('../components/Testimonials'));
 
-const MemoizedFooter = memo(Footer);
-const MemoizedNavbar = memo(Navbar);
-const MemoizedSocialIcons = memo(SocialIcons);
+const MemoizedFooter = React.memo(Footer);
+const MemoizedNavbar = React.memo(Navbar);
+const MemoizedSocialIcons = React.memo(SocialIcons);
 
 const LoadingSpinner = () => (
   <div className="w-full py-8 flex justify-center">
@@ -20,16 +20,16 @@ const LoadingSpinner = () => (
   </div>
 );
 
-const OptimizedBackground = memo(() => (
+const OptimizedBackground = React.memo(() => (
   <div className="fixed inset-0 z-0">
     <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950" />
   </div>
 ));
 
 const Home = () => {
-  const [isReady, setIsReady] = useState(false);
+  const [isReady, setIsReady] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     console.log('Home useEffect running');
     document.title = 'Início | GV Software - Soluções Digitais Modernas';
     const timer = setTimeout(() => setIsReady(true), 50);
@@ -48,17 +48,17 @@ const Home = () => {
         <MemoizedNavbar />
         
         <div className="relative">
-          <Suspense fallback={<LoadingSpinner />}>
+          <React.Suspense fallback={<LoadingSpinner />}>
             <Hero />
-          </Suspense>
+          </React.Suspense>
           
-          <Suspense fallback={<LoadingSpinner />}>
+          <React.Suspense fallback={<LoadingSpinner />}>
             <Services />
-          </Suspense>
+          </React.Suspense>
           
-          <Suspense fallback={<LoadingSpinner />}>
+          <React.Suspense fallback={<LoadingSpinner />}>
             <Testimonials />
-          </Suspense>
+          </React.Suspense>
         </div>
         
         <MemoizedFooter />
