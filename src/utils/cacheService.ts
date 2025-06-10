@@ -33,6 +33,16 @@ interface CacheDB extends DBSchema {
   };
 }
 
+interface ConversationData {
+  id: string;
+  [key: string]: any;
+}
+
+interface MessageData {
+  id: string;
+  [key: string]: any;
+}
+
 class CacheService {
   private db: IDBPDatabase<CacheDB> | null = null;
   private readonly CACHE_DURATION = 30 * 60 * 1000; // 30 minutos
@@ -58,7 +68,7 @@ class CacheService {
     }
   }
 
-  async cacheConversations(conversations: any[], encrypt = true) {
+  async cacheConversations(conversations: ConversationData[], encrypt = true) {
     if (!this.db) await this.init();
     if (!this.db) return;
 
@@ -106,7 +116,7 @@ class CacheService {
     }
   }
 
-  async cacheMessages(conversationId: string, messages: any[], encrypt = true) {
+  async cacheMessages(conversationId: string, messages: MessageData[], encrypt = true) {
     if (!this.db) await this.init();
     if (!this.db) return;
 
@@ -138,7 +148,7 @@ class CacheService {
       const tx = this.db.transaction('messages', 'readonly');
       const store = tx.objectStore('messages');
       const index = store.index('conversationId');
-      const cached = await index.getAll(conversationId);
+      const cached = await index.getAll(IDBKeyRange.only(conversationId));
 
       const validCached = cached.filter(item => 
         Date.now() - item.timestamp < this.CACHE_DURATION
@@ -161,11 +171,11 @@ class CacheService {
     if (!this.db) return;
 
     try {
-      const stores = ['conversations', 'messages', 'analytics'];
+      const stores: (keyof CacheDB)[] = ['conversations', 'messages', 'analytics'];
       
       for (const storeName of stores) {
-        const tx = this.db.transaction(storeName as any, 'readwrite');
-        const store = tx.objectStore(storeName as any);
+        const tx = this.db.transaction(storeName, 'readwrite');
+        const store = tx.objectStore(storeName);
         const all = await store.getAll();
         
         for (const item of all) {
