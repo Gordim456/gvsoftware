@@ -372,9 +372,10 @@ const ChatBot = () => {
 
               {currentStep === 'chat' && (
                 <ChatBotLiveChat 
-                  onBack={() => setCurrentStep('options')}
-                  userName={formData.name}
                   conversationId={conversationId}
+                  userName={formData.name}
+                  onClose={handleClose}
+                  onBack={() => setCurrentStep('options')}
                 />
               )}
             </div>
