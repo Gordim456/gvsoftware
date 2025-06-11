@@ -8,7 +8,7 @@ import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import KeyboardShortcutsProvider from "./components/KeyboardShortcutsProvider";
 
-// Lazy load pages
+// Lazy load pages to improve initial load time
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
@@ -20,17 +20,19 @@ const FAQ = lazy(() => import("./pages/FAQ"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const ChatBot = lazy(() => import("./components/chat/ChatBot"));
 
+// Create QueryClient with optimized settings
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5,
-      gcTime: 1000 * 60 * 10,
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      gcTime: 1000 * 60 * 10, // 10 minutes
       retry: 1,
       refetchOnWindowFocus: false,
     },
   },
 });
 
+// Loading fallback component
 const LoadingFallback = () => (
   <div className="flex items-center justify-center h-screen bg-gv-darker">
     <div className="animate-pulse text-indigo-500 text-xl">Carregando...</div>
