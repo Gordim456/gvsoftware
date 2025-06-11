@@ -1,200 +1,188 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Send, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ChatService } from '@/services/chatService';
-
-interface Message {
-  id: string;
-  type: 'user' | 'bot' | 'admin';
-  content: string;
-  timestamp: string;
-  sender_name: string;
-  is_read: boolean;
-}
+import { useState, useRef, useEffect } from "react";
+import { ArrowLeft, Send, User, Clock, CheckCircle } from "lucide-react";
+import { ChatMessage } from "./ChatBotTypes";
 
 interface ChatBotLiveChatProps {
-  conversationId: string;
+  onBack: () => void;
   userName: string;
-  onClose: () => void;
-  onBack?: () => void;
+  conversationId?: string | null;
 }
 
-const ChatBotLiveChat: React.FC<ChatBotLiveChatProps> = ({ 
-  conversationId, 
-  userName, 
-  onClose,
-  onBack 
-}) => {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [newMessage, setNewMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+const ChatBotLiveChat = ({ onBack, userName, conversationId }: ChatBotLiveChatProps) => {
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [newMessage, setNewMessage] = useState("");
+  const [isConnecting, setIsConnecting] = useState(true);
+  const [isOnline, setIsOnline] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  useEffect(() => {
-    loadMessages();
-    
-    // Polling para novas mensagens a cada 2 segundos
-    const interval = setInterval(() => {
-      checkForNewMessages();
+    // Simulate connection process
+    const timer = setTimeout(() => {
+      setIsConnecting(false);
+      const currentHour = new Date().getHours();
+      const isBusinessHours = currentHour >= 9 && currentHour < 18;
+      
+      setIsOnline(isBusinessHours);
+      
+      const welcomeMessage: ChatMessage = {
+        id: Date.now().toString(),
+        conversation_id: conversationId || undefined,
+        type: 'bot',
+        content: isBusinessHours 
+          ? `Olá ${userName}! Você está conectado com nossa equipe. Como posso ajudar?`
+          : `Olá ${userName}! No momento estamos fora do horário de atendimento (9h às 18h). Deixe sua mensagem que responderemos em breve!`,
+        timestamp: new Date()
+      };
+      
+      setMessages([welcomeMessage]);
     }, 2000);
 
-    return () => clearInterval(interval);
-  }, [conversationId]);
+    return () => clearTimeout(timer);
+  }, [userName, conversationId]);
 
-  const loadMessages = async () => {
-    try {
-      const data = await ChatService.getMessages(conversationId);
-      setMessages(data);
-    } catch (error) {
-      console.error('Erro ao carregar mensagens:', error);
-    }
-  };
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
-  const checkForNewMessages = async () => {
-    if (messages.length === 0) return;
-    
-    try {
-      const lastMessage = messages[messages.length - 1];
-      const newMessages = await ChatService.pollForNewMessages(
-        conversationId,
-        lastMessage.timestamp
-      );
-      
-      if (newMessages.length > 0) {
-        setMessages(prev => [...prev, ...newMessages]);
-      }
-    } catch (error) {
-      console.error('Erro ao verificar novas mensagens:', error);
-    }
-  };
+  const handleSendMessage = () => {
+    if (!newMessage.trim()) return;
 
-  const handleSendMessage = async () => {
-    if (!newMessage.trim() || isLoading) return;
+    const userMessage: ChatMessage = {
+      id: Date.now().toString(),
+      conversation_id: conversationId || undefined,
+      type: 'user',
+      content: newMessage,
+      timestamp: new Date()
+    };
 
-    const messageContent = newMessage.trim();
-    setNewMessage('');
-    setIsLoading(true);
+    setMessages(prev => [...prev, userMessage]);
+    setNewMessage("");
 
-    try {
-      const messageData = {
-        conversation_id: conversationId,
-        type: 'user' as const,
-        content: messageContent,
-        sender_name: userName
+    // Simulate bot response
+    setTimeout(() => {
+      const botResponse: ChatMessage = {
+        id: (Date.now() + 1).toString(),
+        conversation_id: conversationId || undefined,
+        type: 'bot',
+        content: isOnline 
+          ? "Recebemos sua mensagem! Um de nossos especialistas responderá em instantes."
+          : "Sua mensagem foi registrada! Entraremos em contato no próximo horário comercial.",
+        timestamp: new Date()
       };
-
-      const sentMessage = await ChatService.sendMessage(messageData);
-      
-      // Adicionar mensagem enviada à lista imediatamente
-      const newMsg: Message = {
-        id: sentMessage.id,
-        type: sentMessage.type,
-        content: sentMessage.content,
-        timestamp: sentMessage.timestamp,
-        sender_name: sentMessage.sender_name,
-        is_read: sentMessage.is_read
-      };
-
-      setMessages(prev => [...prev, newMsg]);
-
-    } catch (error) {
-      console.error('Erro ao enviar mensagem:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      handleSendMessage();
-    }
-  };
-
-  const formatTime = (timestamp: string) => {
-    return new Date(timestamp).toLocaleTimeString('pt-BR', {
-      hour: '2-digit',
-      minute: '2-digit'
-    });
+      setMessages(prev => [...prev, botResponse]);
+    }, 1000);
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-2xl border border-gray-200 max-w-md w-full h-96 flex flex-col">
+    <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 rounded-t-lg flex justify-between items-center">
-        <div>
-          <h3 className="font-semibold">Chat com Suporte</h3>
-          <p className="text-sm opacity-90">Estamos aqui para ajudar!</p>
-        </div>
-        <Button
-          onClick={onClose}
-          variant="ghost"
-          size="icon"
-          className="text-white hover:bg-white/20 h-8 w-8"
+      <div className="flex items-center gap-3 p-4 border-b border-gray-200">
+        <button
+          onClick={onBack}
+          className="p-2 hover:bg-gray-100 rounded-full transition-colors"
         >
-          <X className="w-4 h-4" />
-        </Button>
+          <ArrowLeft className="w-5 h-5 text-gray-600" />
+        </button>
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-600 
+                        rounded-full flex items-center justify-center">
+            <User className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h4 className="font-semibold text-gray-800">Suporte GV Software</h4>
+            <div className="flex items-center gap-2 text-sm">
+              <div className={`w-2 h-2 rounded-full ${isOnline ? 'bg-green-400' : 'bg-yellow-400'}`}></div>
+              <span className="text-gray-600">
+                {isConnecting ? 'Conectando...' : isOnline ? 'Online' : 'Fora do horário'}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 p-4 overflow-y-auto space-y-3">
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
-          >
-            <div
-              className={`max-w-xs px-3 py-2 rounded-lg ${
-                message.type === 'user'
-                  ? 'bg-indigo-600 text-white'
-                  : message.type === 'admin'
-                  ? 'bg-green-100 text-green-800 border border-green-200'
-                  : 'bg-gray-100 text-gray-800'
-              }`}
-            >
-              {message.type === 'admin' && (
-                <div className="text-xs font-semibold mb-1 text-green-600">
-                  {message.sender_name} (Suporte)
-                </div>
-              )}
-              <p className="text-sm">{message.content}</p>
-              <p className="text-xs opacity-70 mt-1">
-                {formatTime(message.timestamp)}
-              </p>
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+        {isConnecting ? (
+          <div className="flex justify-center items-center h-full">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
+              <p className="text-gray-600">Conectando com nossa equipe...</p>
             </div>
           </div>
-        ))}
-        <div ref={messagesEndRef} />
+        ) : (
+          <>
+            {messages.map((message) => (
+              <div
+                key={message.id}
+                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div className={`flex items-start gap-2 max-w-[280px] ${
+                  message.type === 'user' ? 'flex-row-reverse' : 'flex-row'
+                }`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                    message.type === 'user' 
+                      ? 'bg-gray-300' 
+                      : 'bg-gradient-to-br from-purple-500 to-blue-600'
+                  }`}>
+                    {message.type === 'user' ? (
+                      <User className="w-4 h-4 text-gray-600" />
+                    ) : (
+                      <CheckCircle className="w-4 h-4 text-white" />
+                    )}
+                  </div>
+                  <div className={`rounded-2xl p-3 ${
+                    message.type === 'user'
+                      ? 'bg-gradient-to-br from-purple-500 to-blue-600 text-white rounded-br-md'
+                      : 'bg-white text-gray-800 rounded-tl-md shadow-sm border border-gray-100'
+                  }`}>
+                    <p className="text-sm">{message.content}</p>
+                    <span className={`text-xs mt-1 block ${
+                      message.type === 'user' ? 'text-white/70' : 'text-gray-500'
+                    }`}>
+                      {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div ref={messagesEndRef} />
+          </>
+        )}
       </div>
 
       {/* Input */}
-      <div className="p-4 border-t border-gray-200">
-        <div className="flex gap-2">
-          <Input
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Digite sua mensagem..."
-            disabled={isLoading}
-            className="flex-1"
-          />
-          <Button
-            onClick={handleSendMessage}
-            disabled={!newMessage.trim() || isLoading}
-            className="bg-indigo-600 hover:bg-indigo-700"
-          >
-            <Send className="w-4 h-4" />
-          </Button>
+      {!isConnecting && (
+        <div className="p-4 border-t border-gray-200 bg-white">
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+              placeholder="Digite sua mensagem..."
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-xl 
+                       focus:outline-none focus:ring-2 focus:ring-purple-500 
+                       focus:border-purple-500"
+            />
+            <button
+              onClick={handleSendMessage}
+              disabled={!newMessage.trim()}
+              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white 
+                       px-4 py-3 rounded-xl hover:from-purple-700 hover:to-blue-700 
+                       transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <Send className="w-5 h-5" />
+            </button>
+          </div>
+          
+          {!isOnline && (
+            <div className="flex items-center gap-2 mt-2 text-sm text-yellow-600">
+              <Clock className="w-4 h-4" />
+              <span>Fora do horário. Suas mensagens serão respondidas em breve.</span>
+            </div>
+          )}
         </div>
-      </div>
+      )}
     </div>
   );
 };

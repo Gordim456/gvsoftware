@@ -6,24 +6,14 @@ interface LazyImageProps {
   alt: string;
   className?: string;
   placeholder?: string;
-  priority?: boolean;
 }
 
-const LazyImage = ({ 
-  src, 
-  alt, 
-  className = '', 
-  placeholder = '', 
-  priority = false 
-}: LazyImageProps) => {
+const LazyImage = ({ src, alt, className = '', placeholder = '' }: LazyImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(priority);
-  const [hasError, setHasError] = useState(false);
-  const imgRef = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    if (priority) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -31,10 +21,7 @@ const LazyImage = ({
           observer.disconnect();
         }
       },
-      { 
-        threshold: 0.1,
-        rootMargin: '100px' // Carrega antes de aparecer na tela
-      }
+      { threshold: 0.1 }
     );
 
     if (imgRef.current) {
@@ -42,36 +29,25 @@ const LazyImage = ({
     }
 
     return () => observer.disconnect();
-  }, [priority]);
-
-  const handleLoad = () => {
-    setIsLoaded(true);
-  };
-
-  const handleError = () => {
-    setHasError(true);
-    setIsLoaded(true);
-  };
+  }, []);
 
   return (
-    <div ref={imgRef} className={`relative overflow-hidden ${className}`}>
+    <div ref={imgRef} className={`overflow-hidden ${className}`}>
       {!isInView ? (
         <div className={`bg-gray-800 animate-pulse ${className}`} />
       ) : (
         <>
-          {!isLoaded && !hasError && (
+          {!isLoaded && (
             <div className={`bg-gray-800 animate-pulse absolute inset-0 ${className}`} />
           )}
           <img
-            src={hasError && placeholder ? placeholder : src}
+            src={src}
             alt={alt}
-            className={`transition-opacity duration-500 object-cover ${
+            className={`transition-opacity duration-300 ${
               isLoaded ? 'opacity-100' : 'opacity-0'
             } ${className}`}
-            onLoad={handleLoad}
-            onError={handleError}
-            loading={priority ? 'eager' : 'lazy'}
-            decoding="async"
+            onLoad={() => setIsLoaded(true)}
+            loading="lazy"
           />
         </>
       )}
