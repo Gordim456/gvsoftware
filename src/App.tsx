@@ -48,6 +48,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <KeyboardShortcutsProvider />
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -62,7 +63,6 @@ const App = () => (
             </Routes>
             <ChatBot />
           </Suspense>
-          <KeyboardShortcutsProvider />
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>
