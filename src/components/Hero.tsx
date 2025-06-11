@@ -40,16 +40,16 @@ const Hero = () => {
               
               <div className="hidden sm:flex gap-6 mt-6">
                 <div>
-                  <h4 className="text-3xl font-bold text-green-400">+100</h4>
+                  <h4 className="text-3xl font-bold text-green-400">+3</h4>
                   <p className="text-gv-gray text-sm">Projetos Entregues</p>
                 </div>
                 <div>
-                  <h4 className="text-3xl font-bold text-green-400">+50</h4>
+                  <h4 className="text-3xl font-bold text-green-400">+3</h4>
                   <p className="text-gv-gray text-sm">Clientes Satisfeitos</p>
                 </div>
                 <div>
-                  <h4 className="text-3xl font-bold text-green-400">+5</h4>
-                  <p className="text-gv-gray text-sm">Anos de Experiência</p>
+                  <h4 className="text-3xl font-bold text-green-400">Primeiro</h4>
+                  <p className="text-gv-gray text-sm">Ano no Mercado Digital</p>
                 </div>
               </div>
             </div>
