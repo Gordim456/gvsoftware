@@ -23,8 +23,8 @@ const About = () => {
 
   // Stats atualizados
   const stats = [
-    { icon: <Code />, label: 'Projetos Finalizados', value: '1', description: 'Soluções desenvolvidas' },
-    { icon: <Users />, label: 'Clientes Satisfeitos', value: '1', description: 'Empresas atendidas' },
+    { icon: <Code />, label: 'Projetos Finalizados', value: '3', description: 'Soluções desenvolvidas' },
+    { icon: <Users />, label: 'Clientes Satisfeitos', value: '3', description: 'Empresas atendidas' },
     { icon: <Award />, label: 'Experiência', value: 'Primeiro Ano', description: 'No mercado digital' },
     { icon: <TrendingUp />, label: 'Taxa de Sucesso', value: '100%', description: 'Projetos bem-sucedidos' }
   ];
