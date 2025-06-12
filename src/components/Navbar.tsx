@@ -62,7 +62,7 @@ const Navbar = () => {
             <RouterLink to="/" className="cursor-pointer flex items-center">
               <div className="w-12 h-12 mr-3 rounded-lg overflow-hidden">
                 <img 
-                  src="/lovable-uploads/5967b8d4-ec53-4160-9e71-10714412ff41.png" 
+                  src="https://s12.gifyu.com/images/bxD2v.gif" 
                   alt="GV Software Logo" 
                   className="w-full h-full object-cover"
                 />

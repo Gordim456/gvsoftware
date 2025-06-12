@@ -42,24 +42,26 @@ const KeyboardShortcutsProvider = () => {
     setShowAdminPanel(false);
   };
 
-  return (
-    <>
-      {showAdminLogin && (
-        <div className="fixed inset-0 z-[9999]">
-          <AdminLogin 
-            onLogin={handleAdminLogin}
-            onCancel={handleAdminCancel}
-          />
-        </div>
-      )}
-      
-      {showAdminPanel && (
-        <div className="fixed inset-0 z-[9999] bg-white">
-          <AdminDashboard onBack={handleAdminBack} />
-        </div>
-      )}
-    </>
-  );
+  if (showAdminLogin) {
+    return (
+      <div className="fixed inset-0 z-[9999]">
+        <AdminLogin 
+          onLogin={handleAdminLogin}
+          onCancel={handleAdminCancel}
+        />
+      </div>
+    );
+  }
+  
+  if (showAdminPanel) {
+    return (
+      <div className="fixed inset-0 z-[9999] bg-white">
+        <AdminDashboard onBack={handleAdminBack} />
+      </div>
+    );
+  }
+
+  return null;
 };
 
 export default KeyboardShortcutsProvider;
