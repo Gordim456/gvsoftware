@@ -1,12 +1,12 @@
 
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SocialIcons from '../components/SocialIcons';
 
-const Hero = React.lazy(() => import('../components/Hero'));
-const Services = React.lazy(() => import('../components/Services'));
-const Testimonials = React.lazy(() => import('../components/Testimonials'));
+const Hero = lazy(() => import('../components/Hero'));
+const Services = lazy(() => import('../components/Services'));
+const Testimonials = lazy(() => import('../components/Testimonials'));
 
 const MemoizedFooter = React.memo(Footer);
 const MemoizedNavbar = React.memo(Navbar);
@@ -45,17 +45,17 @@ const Home = () => {
         <MemoizedNavbar />
         
         <div className="relative">
-          <React.Suspense fallback={<LoadingSpinner />}>
+          <Suspense fallback={<LoadingSpinner />}>
             <Hero />
-          </React.Suspense>
+          </Suspense>
           
-          <React.Suspense fallback={<LoadingSpinner />}>
+          <Suspense fallback={<LoadingSpinner />}>
             <Services />
-          </React.Suspense>
+          </Suspense>
           
-          <React.Suspense fallback={<LoadingSpinner />}>
+          <Suspense fallback={<LoadingSpinner />}>
             <Testimonials />
-          </React.Suspense>
+          </Suspense>
         </div>
         
         <MemoizedFooter />
