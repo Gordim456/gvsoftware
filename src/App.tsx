@@ -1,10 +1,9 @@
 
-import { Suspense, lazy } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
-import { Toaster } from '@/components/ui/toaster';
-import { Toaster as Sonner } from '@/components/ui/sonner';
+import { Toaster } from '@/components/ui/sonner';
 import ScrollToTop from '@/components/ScrollToTop';
 import KeyboardShortcutsProvider from '@/components/KeyboardShortcutsProvider';
 import SocialIcons from '@/components/SocialIcons';
@@ -63,7 +62,6 @@ function App() {
             </Suspense>
             
             <Toaster />
-            <Sonner />
           </div>
         </Router>
       </ThemeProvider>
