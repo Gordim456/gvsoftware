@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Code } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -60,15 +60,19 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <RouterLink to="/" className="cursor-pointer flex items-center">
-              <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-2 rounded-lg mr-3">
-                <Code className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 mr-3 rounded-lg overflow-hidden">
+                <img 
+                  src="/lovable-uploads/5967b8d4-ec53-4160-9e71-10714412ff41.png" 
+                  alt="GV Software Logo" 
+                  className="w-full h-full object-cover"
+                />
               </div>
               <motion.h1 
                 className="text-2xl font-bold text-white"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <span className="gradient-text">GV</span> Software
+                GV Software
               </motion.h1>
             </RouterLink>
           </div>

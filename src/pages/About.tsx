@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -21,11 +22,11 @@ const About = () => {
     }
   }, []);
 
-  // Stats atualizados
+  // Stats atualizados para ser igual à página inicial
   const stats = [
-    { icon: <Code />, label: 'Projetos Finalizados', value: '1', description: 'Soluções desenvolvidas' },
-    { icon: <Users />, label: 'Clientes Satisfeitos', value: '1', description: 'Empresas atendidas' },
-    { icon: <Award />, label: 'Experiência', value: 'Primeiro Ano', description: 'No mercado digital' },
+    { icon: <Code />, label: 'Projetos Entregues', value: '+3', description: 'Soluções desenvolvidas' },
+    { icon: <Users />, label: 'Clientes Satisfeitos', value: '+3', description: 'Empresas atendidas' },
+    { icon: <Award />, label: 'Experiência', value: 'Primeiro', description: 'Ano no Mercado Digital' },
     { icon: <TrendingUp />, label: 'Taxa de Sucesso', value: '100%', description: 'Projetos bem-sucedidos' }
   ];
 
@@ -86,7 +87,7 @@ const About = () => {
           </p>
         </motion.div>
 
-        {/* Grid de Stats */}
+        {/* Grid de Stats - igual à página inicial */}
         <motion.div 
           className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -105,7 +106,7 @@ const About = () => {
               <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white">
                 {stat.icon}
               </div>
-              <h3 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent mb-2">
+              <h3 className="text-3xl font-bold text-green-400 mb-2">
                 {stat.value}
               </h3>
               <p className="text-white font-semibold mb-1">{stat.label}</p>
