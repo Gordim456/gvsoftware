@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 
 const Hero = lazy(() => import('../components/Hero'));
 const Services = lazy(() => import('../components/Services'));
+const AboutSection = lazy(() => import('../components/AboutSection'));
 const Testimonials = lazy(() => import('../components/Testimonials'));
 
 const MemoizedFooter = React.memo(Footer);
@@ -45,6 +46,10 @@ const Home = () => {
         <div className="relative">
           <Suspense fallback={<LoadingSpinner />}>
             <Hero />
+          </Suspense>
+          
+          <Suspense fallback={<LoadingSpinner />}>
+            <AboutSection />
           </Suspense>
           
           <Suspense fallback={<LoadingSpinner />}>
