@@ -1,13 +1,13 @@
 
-import { useEffect, useState } from 'react';
+import React from 'react';
 import AdminLogin from './admin/AdminLogin';
 import AdminDashboard from '../pages/AdminDashboard';
 
 const KeyboardShortcutsProvider = () => {
-  const [showAdminLogin, setShowAdminLogin] = useState(false);
-  const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const [showAdminLogin, setShowAdminLogin] = React.useState(false);
+  const [showAdminPanel, setShowAdminPanel] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       // CTRL + SHIFT + A para abrir painel admin
       if (event.ctrlKey && event.shiftKey && event.key === 'A') {
