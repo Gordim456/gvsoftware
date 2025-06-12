@@ -2,7 +2,6 @@
 import React, { Suspense, lazy } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import SocialIcons from '../components/SocialIcons';
 
 const Hero = lazy(() => import('../components/Hero'));
 const Services = lazy(() => import('../components/Services'));
@@ -10,7 +9,6 @@ const Testimonials = lazy(() => import('../components/Testimonials'));
 
 const MemoizedFooter = React.memo(Footer);
 const MemoizedNavbar = React.memo(Navbar);
-const MemoizedSocialIcons = React.memo(SocialIcons);
 
 const LoadingSpinner = () => (
   <div className="w-full py-8 flex justify-center">
@@ -59,7 +57,6 @@ const Home = () => {
         </div>
         
         <MemoizedFooter />
-        <MemoizedSocialIcons />
       </div>
     </div>
   );
