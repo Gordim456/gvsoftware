@@ -4,9 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { Toaster } from '@/components/ui/sonner';
-import ScrollToTop from '@/components/ScrollToTop';
-import KeyboardShortcutsProvider from '@/components/KeyboardShortcutsProvider';
-import SocialIcons from '@/components/SocialIcons';
 import './App.css';
 
 // Lazy load pages
@@ -24,7 +21,7 @@ const Privacy = lazy(() => import('@/pages/Privacy'));
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 5 * 60 * 1000,
       retry: 1,
     },
   },
@@ -42,10 +39,6 @@ function App() {
       <ThemeProvider>
         <Router>
           <div className="min-h-screen bg-gv-darker text-white">
-            <ScrollToTop />
-            <KeyboardShortcutsProvider />
-            <SocialIcons />
-            
             <Suspense fallback={<LoadingSpinner />}>
               <Routes>
                 <Route path="/" element={<Home />} />

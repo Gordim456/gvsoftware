@@ -1,12 +1,9 @@
 
-import { useTheme } from "./ThemeProvider";
 import { Sun, Moon } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 export function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
-
   return (
     <motion.div
       className="fixed z-50 bottom-8 left-8"
@@ -15,7 +12,6 @@ export function ThemeToggle() {
       transition={{ delay: 0.5, duration: 0.4 }}
     >
       <Button
-        onClick={toggleTheme}
         variant="outline"
         size="icon"
         className="relative overflow-hidden bg-gradient-to-br from-violet-500/10 via-purple-500/10 to-indigo-500/10 
@@ -30,28 +26,8 @@ export function ThemeToggle() {
         <motion.div
           className="absolute inset-0 flex items-center justify-center"
           initial={false}
-          animate={{ rotate: theme === 'dark' ? 0 : 180 }}
-          transition={{ duration: 0.6, type: "spring" }}
         >
-          {theme === 'dark' ? (
-            <motion.div
-              initial={{ y: 20, opacity: 0, rotate: -45 }}
-              animate={{ y: 0, opacity: 1, rotate: 0 }}
-              exit={{ y: -20, opacity: 0, rotate: 45 }}
-              transition={{ duration: 0.4 }}
-            >
-              <Sun className="h-6 w-6 text-yellow-400" />
-            </motion.div>
-          ) : (
-            <motion.div
-              initial={{ y: 20, opacity: 0, rotate: 45 }}
-              animate={{ y: 0, opacity: 1, rotate: 0 }}
-              exit={{ y: -20, opacity: 0, rotate: -45 }}
-              transition={{ duration: 0.4 }}
-            >
-              <Moon className="h-6 w-6 text-blue-400" />
-            </motion.div>
-          )}
+          <Moon className="h-6 w-6 text-blue-400" />
         </motion.div>
       </Button>
     </motion.div>
