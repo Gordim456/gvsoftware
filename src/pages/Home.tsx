@@ -1,5 +1,5 @@
 
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useState, useEffect, memo } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -8,8 +8,8 @@ const Services = lazy(() => import('../components/Services'));
 const AboutSection = lazy(() => import('../components/AboutSection'));
 const Testimonials = lazy(() => import('../components/Testimonials'));
 
-const MemoizedFooter = React.memo(Footer);
-const MemoizedNavbar = React.memo(Navbar);
+const MemoizedFooter = memo(Footer);
+const MemoizedNavbar = memo(Navbar);
 
 const LoadingSpinner = () => (
   <div className="w-full py-8 flex justify-center">
@@ -17,16 +17,16 @@ const LoadingSpinner = () => (
   </div>
 );
 
-const OptimizedBackground = React.memo(() => (
+const OptimizedBackground = memo(() => (
   <div className="fixed inset-0 z-0">
     <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950" />
   </div>
 ));
 
 const Home = () => {
-  const [isReady, setIsReady] = React.useState(false);
+  const [isReady, setIsReady] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = 'Início | GV Software - Soluções Digitais Modernas';
     const timer = setTimeout(() => setIsReady(true), 50);
     return () => clearTimeout(timer);
