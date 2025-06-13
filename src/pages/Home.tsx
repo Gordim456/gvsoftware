@@ -24,9 +24,9 @@ const OptimizedBackground = memo(() => (
 ));
 
 const Home = () => {
-  const [isReady, setIsReady] = useState(false);
+  const [isReady, setIsReady] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.title = 'Início | GV Software - Soluções Digitais Modernas';
     const timer = setTimeout(() => setIsReady(true), 50);
     return () => clearTimeout(timer);
