@@ -1,23 +1,47 @@
 
-import React from 'react';
+import React, { createContext, useContext } from 'react';
 
-// ThemeProvider completamente estático - sem hooks
+// Criando o contexto do tema
+const ThemeContext = createContext({
+  theme: 'dark' as const,
+  setTheme: () => {},
+  toggleTheme: () => {},
+});
+
+// Provider que fornece valores fixos para o tema
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Aplicando tema dark direto no document sem useEffect
-  if (typeof window !== 'undefined') {
-    const root = window.document.documentElement;
-    root.classList.remove('light', 'dark');
-    root.classList.add('dark');
-  }
+  // Aplicando tema dark direto no document
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const root = window.document.documentElement;
+      root.classList.remove('light', 'dark');
+      root.classList.add('dark');
+    }
+  }, []);
 
-  return <>{children}</>;
-}
-
-// Hook que retorna valores fixos sem usar contexto
-export const useTheme = () => {
-  return {
+  const themeValue = {
     theme: 'dark' as const,
     setTheme: () => {},
     toggleTheme: () => {},
   };
+
+  return (
+    <ThemeContext.Provider value={themeValue}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+// Hook que usa o contexto
+export const useTheme = () => {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    // Retorna valores padrão se o contexto não estiver disponível
+    return {
+      theme: 'dark' as const,
+      setTheme: () => {},
+      toggleTheme: () => {},
+    };
+  }
+  return context;
 };
