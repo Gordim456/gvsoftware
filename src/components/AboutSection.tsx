@@ -32,8 +32,8 @@ const About = () => {
               entregando soluções personalizadas que impulsionam o crescimento e a inovação.
             </p>
             
-            {/* Estatísticas como na imagem 2 */}
-            <div className="flex gap-6 mt-6">
+            {/* Estatísticas com o GIF implementado */}
+            <div className="flex gap-6 mt-6 items-center">
               <div>
                 <h4 className="text-3xl font-bold text-green-400">+100</h4>
                 <p className="text-gv-gray text-sm">Projetos Entregues</p>
@@ -45,6 +45,17 @@ const About = () => {
               <div>
                 <h4 className="text-3xl font-bold text-green-400">+5</h4>
                 <p className="text-gv-gray text-sm">Anos de Experiência</p>
+              </div>
+              {/* GIF implementado aqui */}
+              <div className="ml-4">
+                <iframe 
+                  src="https://tenor.com/embed/12585593039499783578" 
+                  width="80" 
+                  height="80" 
+                  style={{ border: 'none' }}
+                  title="GV GIF"
+                  className="rounded-lg"
+                ></iframe>
               </div>
             </div>
             
