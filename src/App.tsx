@@ -35,32 +35,30 @@ const LoadingSpinner = () => (
 
 function App() {
   return (
-    <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <Router>
-            <div className="min-h-screen bg-gv-darker text-white">
-              <Suspense fallback={<LoadingSpinner />}>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/services" element={<Services />} />
-                  <Route path="/portfolio" element={<Portfolio />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
-                  <Route path="/faq" element={<FAQ />} />
-                  <Route path="/terms" element={<Terms />} />
-                  <Route path="/privacy" element={<Privacy />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </Suspense>
-              
-              <Toaster />
-            </div>
-          </Router>
-        </ThemeProvider>
-      </QueryClientProvider>
-    </React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <Router>
+          <div className="min-h-screen bg-gv-darker text-white">
+            <Suspense fallback={<LoadingSpinner />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+            
+            <Toaster />
+          </div>
+        </Router>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 

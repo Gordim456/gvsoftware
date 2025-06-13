@@ -1,5 +1,5 @@
 
-import React, { Suspense, lazy, useState, useEffect, memo } from 'react';
+import React, { Suspense, lazy, memo } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
