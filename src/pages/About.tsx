@@ -1,11 +1,11 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Users, Target, Award, TrendingUp, Code, Globe, Shield, Zap } from 'lucide-react';
 
 const About: React.FC = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.title = 'Sobre | GV Software - Nossa História e Missão';
     setIsLoaded(true);
     

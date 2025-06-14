@@ -1,12 +1,12 @@
 
-import { useEffect } from 'react';
+import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Terms = () => {
-  useEffect(() => {
+  React.useEffect(() => {
     document.title = 'Termos de Uso | GV Software';
     window.scrollTo(0, 0);
   }, []);
