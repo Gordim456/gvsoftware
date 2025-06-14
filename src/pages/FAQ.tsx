@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { HelpCircle, Plus, Minus, Search } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -13,19 +13,17 @@ interface FAQItem {
 }
 
 const FAQ: React.FC = () => {
-  const [searchTerm, setSearchTerm] = React.useState('');
-  const [selectedCategory, setSelectedCategory] = React.useState('all');
-  const [isVisible, setIsVisible] = React.useState(false);
-  const [expandedIndex, setExpandedIndex] = React.useState<number | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [isVisible, setIsVisible] = useState(false);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = 'FAQ | GV Software';
-    // Immediate visibility for better performance
     setIsVisible(true);
   }, []);
 
-  // Memoized FAQ items
-  const faqItems: FAQItem[] = React.useMemo(() => [
+  const faqItems: FAQItem[] = useMemo(() => [
     {
       question: "Quanto tempo leva para desenvolver um site?",
       answer: "O prazo varia de acordo com a complexidade do projeto. Websites simples podem levar de 2 a 4 semanas, enquanto projetos mais complexos podem levar de 2 a 6 meses. Durante nossa consulta inicial, podemos fornecer uma estimativa mais precisa com base nas suas necessidades específicas.",
@@ -68,11 +66,9 @@ const FAQ: React.FC = () => {
     }
   ], []);
 
-  // Memoized categories
-  const categories = React.useMemo(() => ['all', 'desenvolvimento', 'design', 'comercial', 'suporte'], []);
+  const categories = useMemo(() => ['all', 'desenvolvimento', 'design', 'comercial', 'suporte'], []);
 
-  // Memoized filtered FAQs for better performance
-  const filteredFAQs = React.useMemo(() => {
+  const filteredFAQs = useMemo(() => {
     return faqItems.filter(item => {
       const matchesSearch = item.question.toLowerCase().includes(searchTerm.toLowerCase()) || 
                             item.answer.toLowerCase().includes(searchTerm.toLowerCase());
@@ -91,7 +87,6 @@ const FAQ: React.FC = () => {
       <SocialIcons />
 
       <section className="pt-32 pb-20 relative overflow-hidden">
-        {/* Simplified decorative elements */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5"></div>
         <div className="absolute bottom-40 right-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5"></div>
         
