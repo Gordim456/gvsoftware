@@ -7,7 +7,7 @@ import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
-import KeyboardShortcutsProvider from '@/components/KeyboardShortcutsProvider';
+import SimpleKeyboardShortcuts from '@/components/SimpleKeyboardShortcuts';
 import DebugConsole from '@/components/DebugConsole';
 import './App.css';
 
@@ -55,7 +55,7 @@ function App() {
             </main>
             <Footer />
             <ScrollToTop />
-            <KeyboardShortcutsProvider />
+            <SimpleKeyboardShortcuts />
             <DebugConsole />
           </div>
           <Toaster />
