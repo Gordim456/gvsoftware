@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import AdminLogin from './admin/AdminLogin';
 import AdminDashboard from '../pages/AdminDashboard';
 
-const KeyboardShortcutsProvider = () => {
+const KeyboardShortcutsProvider: React.FC = () => {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
 

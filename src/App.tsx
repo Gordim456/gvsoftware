@@ -34,9 +34,8 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
+      <ThemeProvider defaultTheme="dark">
         <Router>
-          <KeyboardShortcutsProvider />
           <div className="min-h-screen bg-gv-darker text-white">
             <Navbar />
             <main>
@@ -55,6 +54,7 @@ function App() {
             </main>
             <Footer />
             <ScrollToTop />
+            <KeyboardShortcutsProvider />
           </div>
           <Toaster />
         </Router>
