@@ -1,5 +1,5 @@
 
-import * as React from "react";
+import React from "react";
 import { ChevronDown, ChevronUp, ArrowLeft, Clock, CheckCircle } from "lucide-react";
 
 interface ChatBotFAQProps {
