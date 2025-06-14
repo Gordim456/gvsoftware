@@ -5,7 +5,7 @@ import TikTokIcon from './icons/TikTokIcon';
 
 const SocialIcons = () => {
   return (
-    <div className="fixed right-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-3 z-50 animate-fade-in">
+    <div className="fixed right-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-3 z-50">
       {/* Instagram Icon */}
       <a 
         href="https://www.instagram.com/gv_software/" 
@@ -13,10 +13,11 @@ const SocialIcons = () => {
         rel="noopener noreferrer" 
         className="relative group hover:scale-110 transition-transform duration-300"
       >
-        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-rose-500 via-purple-500 to-yellow-500 opacity-0 group-hover:opacity-100 blur-sm -z-10 group-hover:scale-120 transition-all duration-600"></div>
+        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-rose-500 via-purple-500 to-yellow-500 opacity-0 group-hover:opacity-100 blur-sm -z-10 transition-all duration-600" 
+             style={{ transform: 'scale(1.2)' }}></div>
         
         <div className="bg-gradient-to-tr from-rose-500 via-purple-500 to-yellow-500 p-3 rounded-full shadow-lg hover:shadow-purple-500/30 transition-all duration-200 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-full animate-pulse"></div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-full"></div>
           <Instagram className="w-5 h-5 text-white relative z-10" strokeWidth={2.2} />
         </div>
       </a>
