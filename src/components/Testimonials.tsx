@@ -1,5 +1,5 @@
 
-import React from 'react';
+import * as React from 'react';
 import { Star, ChartLine, TrendingUp } from 'lucide-react';
 
 const TestimonialCard = ({ name, role, company, content, rating }: { 
@@ -30,7 +30,7 @@ const TestimonialCard = ({ name, role, company, content, rating }: {
   );
 };
 
-const Testimonials = () => {
+const Testimonials: React.FC = () => {
   const testimonial = {
     name: "Renan",
     role: "Fundador",

@@ -1,5 +1,5 @@
 
-import React from 'react';
+import * as React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import AboutHeader from './about/AboutHeader';
 import AboutFeatures from './about/AboutFeatures';
 import AboutImage from './about/AboutImage';
 
-const About = () => {
+const About: React.FC = () => {
   return (
     <section id="about" className="py-20 bg-gv-darker relative overflow-hidden">
       <div className="absolute -top-40 -right-40 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl"></div>

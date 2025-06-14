@@ -1,9 +1,10 @@
 
+import * as React from 'react';
 import { ArrowRight, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
-const CallToAction = () => {
+const CallToAction: React.FC = () => {
   return (
     <section className="py-16 bg-gradient-to-r from-indigo-900/50 to-purple-900/50 backdrop-blur-sm">
       <div className="max-w-4xl mx-auto px-4 text-center">

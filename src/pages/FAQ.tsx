@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
+
+import * as React from 'react';
 import { HelpCircle, Plus, Minus, Search } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -12,19 +13,19 @@ interface FAQItem {
 }
 
 const FAQ: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [isVisible, setIsVisible] = useState(false);
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [searchTerm, setSearchTerm] = React.useState('');
+  const [selectedCategory, setSelectedCategory] = React.useState('all');
+  const [isVisible, setIsVisible] = React.useState(false);
+  const [expandedIndex, setExpandedIndex] = React.useState<number | null>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.title = 'FAQ | GV Software';
     // Immediate visibility for better performance
     setIsVisible(true);
   }, []);
 
   // Memoized FAQ items
-  const faqItems: FAQItem[] = useMemo(() => [
+  const faqItems: FAQItem[] = React.useMemo(() => [
     {
       question: "Quanto tempo leva para desenvolver um site?",
       answer: "O prazo varia de acordo com a complexidade do projeto. Websites simples podem levar de 2 a 4 semanas, enquanto projetos mais complexos podem levar de 2 a 6 meses. Durante nossa consulta inicial, podemos fornecer uma estimativa mais precisa com base nas suas necessidades específicas.",
@@ -68,10 +69,10 @@ const FAQ: React.FC = () => {
   ], []);
 
   // Memoized categories
-  const categories = useMemo(() => ['all', 'desenvolvimento', 'design', 'comercial', 'suporte'], []);
+  const categories = React.useMemo(() => ['all', 'desenvolvimento', 'design', 'comercial', 'suporte'], []);
 
   // Memoized filtered FAQs for better performance
-  const filteredFAQs = useMemo(() => {
+  const filteredFAQs = React.useMemo(() => {
     return faqItems.filter(item => {
       const matchesSearch = item.question.toLowerCase().includes(searchTerm.toLowerCase()) || 
                             item.answer.toLowerCase().includes(searchTerm.toLowerCase());
