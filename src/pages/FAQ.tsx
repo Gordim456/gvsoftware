@@ -1,5 +1,4 @@
-
-import { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { HelpCircle, Plus, Minus, Search } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -12,7 +11,7 @@ interface FAQItem {
   category: string;
 }
 
-const FAQ = () => {
+const FAQ: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isVisible, setIsVisible] = useState(false);
