@@ -5,6 +5,7 @@ import App from './App.tsx';
 import './index.css';
 
 console.log('main.tsx: Iniciando aplicação');
+console.log('main.tsx: React version:', React.version);
 console.log('main.tsx: Verificando elemento root');
 
 const container = document.getElementById("root");
@@ -18,6 +19,10 @@ console.log('main.tsx: Elemento root encontrado, criando React root');
 const root = createRoot(container);
 
 console.log('main.tsx: Renderizando aplicação');
+
+// Verificar se há múltiplas instâncias do React
+console.log('main.tsx: Verificando instâncias do React...');
+console.log('main.tsx: React.version atual:', React.version);
 
 root.render(
   <StrictMode>

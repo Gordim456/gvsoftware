@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 
 const SimpleKeyboardShortcuts: React.FC = () => {
   console.log('SimpleKeyboardShortcuts: Component carregado');
+  console.log('SimpleKeyboardShortcuts: React hooks disponíveis:', {
+    useEffect: typeof useEffect
+  });
   
   useEffect(() => {
     console.log('SimpleKeyboardShortcuts: useEffect executado, adicionando event listener');
@@ -16,11 +19,21 @@ const SimpleKeyboardShortcuts: React.FC = () => {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    try {
+      window.addEventListener('keydown', handleKeyDown);
+      console.log('SimpleKeyboardShortcuts: Event listener adicionado com sucesso');
+    } catch (error) {
+      console.error('SimpleKeyboardShortcuts: Erro ao adicionar event listener:', error);
+    }
 
     return () => {
       console.log('SimpleKeyboardShortcuts: Removendo event listener');
-      window.removeEventListener('keydown', handleKeyDown);
+      try {
+        window.removeEventListener('keydown', handleKeyDown);
+        console.log('SimpleKeyboardShortcuts: Event listener removido com sucesso');
+      } catch (error) {
+        console.error('SimpleKeyboardShortcuts: Erro ao remover event listener:', error);
+      }
     };
   }, []);
 
