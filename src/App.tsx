@@ -8,6 +8,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 import KeyboardShortcutsProvider from '@/components/KeyboardShortcutsProvider';
+import DebugConsole from '@/components/DebugConsole';
 import './App.css';
 
 // Pages
@@ -55,6 +56,7 @@ function App() {
             <Footer />
             <ScrollToTop />
             <KeyboardShortcutsProvider />
+            <DebugConsole />
           </div>
           <Toaster />
         </Router>
