@@ -1,11 +1,11 @@
 
-import { useEffect } from 'react';
+import React from 'react';
 
 export const useKeyboardShortcut = () => {
   // Este hook foi movido para KeyboardShortcutsProvider para evitar
   // handlers duplicados. Mantido apenas para compatibilidade.
   
-  useEffect(() => {
+  React.useEffect(() => {
     console.log("Hook use-keyboard-shortcut foi mantido apenas para compatibilidade");
   }, []);
 };
