@@ -33,7 +33,7 @@ const sliderItems = [
 
 export const HeroSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const intervalRef = useRef(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -47,7 +47,7 @@ export const HeroSlider = () => {
     };
   }, []);
 
-  const handleDotClick = (index) => {
+  const handleDotClick = (index: number) => {
     setCurrentIndex(index);
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
