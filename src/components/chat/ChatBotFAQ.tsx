@@ -1,14 +1,9 @@
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { ChevronDown, ChevronUp, ArrowLeft, Clock, CheckCircle } from "lucide-react";
 
-interface ChatBotFAQProps {
-  onBack: () => void;
-  userName: string;
-}
-
-const ChatBotFAQ: React.FC<ChatBotFAQProps> = ({ onBack, userName }) => {
-  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+const ChatBotFAQ = ({ onBack, userName }) => {
+  const [openFAQ, setOpenFAQ] = useState(null);
 
   const faqs = [
     {
@@ -35,7 +30,6 @@ const ChatBotFAQ: React.FC<ChatBotFAQProps> = ({ onBack, userName }) => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex items-center gap-3">
         <button
           onClick={onBack}
@@ -56,7 +50,6 @@ const ChatBotFAQ: React.FC<ChatBotFAQProps> = ({ onBack, userName }) => {
         </div>
       </div>
 
-      {/* FAQ List */}
       <div className="space-y-3">
         {faqs.map((faq, index) => (
           <div
@@ -86,7 +79,6 @@ const ChatBotFAQ: React.FC<ChatBotFAQProps> = ({ onBack, userName }) => {
         ))}
       </div>
 
-      {/* Contact Option */}
       <div className="bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 
                     rounded-xl p-4">
         <div className="flex items-center gap-3">

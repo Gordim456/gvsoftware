@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -31,9 +31,9 @@ const sliderItems = [
   }
 ];
 
-export const HeroSlider: React.FC = () => {
+export const HeroSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const intervalRef = useRef<NodeJS.Timeout>();
+  const intervalRef = useRef();
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -45,7 +45,7 @@ export const HeroSlider: React.FC = () => {
     };
   }, []);
 
-  const handleDotClick = (index: number) => {
+  const handleDotClick = (index) => {
     setCurrentIndex(index);
     if (intervalRef.current) {
       clearInterval(intervalRef.current);

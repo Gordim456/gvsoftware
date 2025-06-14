@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const faqs = [
@@ -21,10 +21,10 @@ const faqs = [
   }
 ];
 
-const QuickFAQ: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+const QuickFAQ = () => {
+  const [openIndex, setOpenIndex] = useState(null);
 
-  const toggleFAQ = (index: number) => {
+  const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
