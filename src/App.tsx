@@ -24,6 +24,8 @@ import Terms from '@/pages/Terms';
 import NotFound from '@/pages/NotFound';
 import AdminDashboard from '@/pages/AdminDashboard';
 
+console.log('App.tsx: Starting App component render');
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -34,6 +36,8 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+  console.log('App.tsx: App component rendering');
+  
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark">

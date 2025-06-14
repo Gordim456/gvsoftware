@@ -9,9 +9,14 @@ import Contact from '@/components/Contact';
 import QuickFAQ from '@/components/QuickFAQ';
 import CallToAction from '@/components/CallToAction';
 
+console.log('Home.tsx: Component loaded');
+
 const Home: React.FC = () => {
+  console.log('Home.tsx: Home component rendering');
+  
   React.useEffect(() => {
     document.title = 'Início | GV Software - Desenvolvimento de Software';
+    console.log('Home.tsx: Document title set');
   }, []);
 
   return (

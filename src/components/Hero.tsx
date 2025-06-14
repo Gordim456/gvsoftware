@@ -6,7 +6,11 @@ import { Link as RouterLink } from 'react-router-dom';
 import { BackgroundGradient } from './BackgroundGradient';
 import { HeroSlider } from './HeroSlider';
 
+console.log('Hero.tsx: Component loaded');
+
 const Hero: React.FC = () => {
+  console.log('Hero.tsx: Hero component rendering');
+  
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       <BackgroundGradient>
