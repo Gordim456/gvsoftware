@@ -23,8 +23,8 @@ const OptimizedBackground = memo(() => (
   </div>
 ));
 
-const Home = () => {
-  const [isReady, setIsReady] = useState(false);
+const Home: React.FC = () => {
+  const [isReady, setIsReady] = useState<boolean>(false);
 
   useEffect(() => {
     document.title = 'Início | GV Software - Soluções Digitais Modernas';
