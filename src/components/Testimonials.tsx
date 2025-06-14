@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Star, ChartLine, TrendingUp } from 'lucide-react';
 
 const TestimonialCard = ({ name, role, company, content, rating }: { 
@@ -11,14 +10,7 @@ const TestimonialCard = ({ name, role, company, content, rating }: {
   rating: number 
 }) => {
   return (
-    <motion.div 
-      className="bg-gv-dark p-8 rounded-xl border border-gray-800 hover:border-indigo-500/30 transition-all duration-300"
-      whileHover={{ y: -5, boxShadow: "0 10px 30px -15px rgba(79, 70, 229, 0.2)" }}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-    >
+    <div className="bg-gv-dark p-8 rounded-xl border border-gray-800 hover:border-indigo-500/30 transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/20 animate-fade-in">
       <div className="flex mb-4">
         {Array.from({ length: rating }).map((_, i) => (
           <Star key={i} className="w-5 h-5 text-yellow-500 fill-yellow-500" />
@@ -34,7 +26,7 @@ const TestimonialCard = ({ name, role, company, content, rating }: {
           <p className="text-sm text-gv-gray">{role}, {company}</p>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -50,22 +42,16 @@ const Testimonials = () => {
   return (
     <section className="py-20 bg-gv-darker relative overflow-hidden">
       {/* Decorative elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob"></div>
-      <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob animation-delay-2000"></div>
+      <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-pulse" style={{animationDelay: '2s'}}></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <motion.div
-            className="w-16 h-16 mx-auto bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6"
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 260, damping: 20 }}
-          >
+          <div className="w-16 h-16 mx-auto bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6 animate-pulse">
             <ChartLine className="w-8 h-8 text-indigo-400" />
-          </motion.div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">O Que Nossos <span className="gradient-text">Clientes Dizem</span></h2>
-          <p className="text-gv-gray max-w-2xl mx-auto">
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 animate-fade-in">O Que Nossos <span className="gradient-text">Clientes Dizem</span></h2>
+          <p className="text-gv-gray max-w-2xl mx-auto animate-fade-in">
             Veja como nossos serviços têm transformado negócios e criado experiências digitais excepcionais.
           </p>
         </div>
@@ -82,18 +68,12 @@ const Testimonials = () => {
           </div>
         </div>
         
-        <motion.div 
-          className="mt-16 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-        >
+        <div className="mt-16 text-center animate-fade-in" style={{animationDelay: '0.5s'}}>
           <div className="inline-flex items-center gap-2 text-indigo-400 bg-indigo-500/10 px-6 py-3 rounded-full">
             <TrendingUp className="h-5 w-5" />
             <span className="font-semibold">Aplicativo Bebidas ON - Transformando o delivery de bebidas</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

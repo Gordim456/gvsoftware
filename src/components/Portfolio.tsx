@@ -1,7 +1,7 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 const ProjectCard = ({ 
   image, 
@@ -17,11 +17,7 @@ const ProjectCard = ({
   link: string 
 }) => {
   return (
-    <motion.div 
-      className="bg-gv-darker p-6 rounded-lg border border-gray-800 overflow-hidden group hover:border-indigo-500/30"
-      whileHover={{ y: -5, boxShadow: "0 10px 30px -15px rgba(79, 70, 229, 0.2)" }}
-      transition={{ duration: 0.3 }}
-    >
+    <div className="bg-gv-darker p-6 rounded-lg border border-gray-800 overflow-hidden group hover:border-indigo-500/30 transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/20">
       <div className="relative mb-6 overflow-hidden rounded-md">
         <img 
           src={image} 
@@ -49,7 +45,7 @@ const ProjectCard = ({
           Ver projeto <ExternalLink className="ml-1 w-4 h-4" />
         </a>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -99,69 +95,30 @@ const Portfolio = () => {
     }
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
-
   return (
     <section id="portfolio" className="py-20 bg-gv-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <motion.div
-            className="w-16 h-16 mx-auto bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6"
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 260, damping: 20 }}
-          >
+          <div className="w-16 h-16 mx-auto bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6 animate-pulse">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
               <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
               <line x1="12" y1="22.08" x2="12" y2="12"></line>
             </svg>
-          </motion.div>
+          </div>
           
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 animate-fade-in">
             Nosso <span className="gradient-text">Portfólio</span>
-          </motion.h2>
+          </h2>
           
-          <motion.p 
-            className="text-gv-gray max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <p className="text-gv-gray max-w-2xl mx-auto animate-fade-in">
             Conheça alguns dos projetos que desenvolvemos para nossos clientes.
-          </motion.p>
+          </p>
         </div>
         
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <motion.div key={index} variants={itemVariants}>
+            <div key={index} className="animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
               <ProjectCard
                 image={project.image}
                 title={project.title}
@@ -169,9 +126,9 @@ const Portfolio = () => {
                 description={project.description}
                 link={project.link}
               />
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
         
         <div className="text-center mt-12">
           <Link 
