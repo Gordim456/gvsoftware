@@ -6,13 +6,11 @@ interface BackgroundGradientProps {
 }
 
 export const BackgroundGradient = ({ children }: BackgroundGradientProps) => {
-  console.log('BackgroundGradient: Component renderizado - totalmente limpo de framer-motion');
-  
   return (
     <div className="relative min-h-screen">
       <div className="absolute inset-0 -z-10 h-full w-full">
         <div className="absolute h-full w-full bg-gv-darker">
-          {/* Animações CSS puras - sem framer-motion */}
+          {/* Animações CSS puras - sem conflitos de contexto */}
           <div
             className="absolute inset-0"
             style={{
