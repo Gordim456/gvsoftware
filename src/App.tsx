@@ -1,64 +1,31 @@
 
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider } from '@/components/theme/ThemeProvider';
-import { Toaster } from '@/components/ui/sonner';
 import './App.css';
 
-// Lazy load das páginas
-const Home = lazy(() => import('@/pages/Home'));
-const About = lazy(() => import('@/pages/About'));
-const Services = lazy(() => import('@/pages/Services'));
-const Portfolio = lazy(() => import('@/pages/Portfolio'));
-const Contact = lazy(() => import('@/pages/Contact'));
-const AdminDashboard = lazy(() => import('@/pages/AdminDashboard'));
-const NotFound = lazy(() => import('@/pages/NotFound'));
-const FAQ = lazy(() => import('@/pages/FAQ'));
-const Terms = lazy(() => import('@/pages/Terms'));
-const Privacy = lazy(() => import('@/pages/Privacy'));
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutos
-      retry: 1,
-    },
-  },
-});
-
-const LoadingSpinner = () => (
-  <div className="min-h-screen flex items-center justify-center bg-gv-darker">
-    <div className="animate-pulse text-indigo-500 text-xl">Carregando...</div>
-  </div>
-);
+// Componente simples para teste
+const SimpleHome = () => {
+  return (
+    <div className="min-h-screen bg-slate-950 text-white">
+      <nav className="bg-slate-900 p-4">
+        <h1 className="text-2xl font-bold text-indigo-400">GV Software</h1>
+      </nav>
+      <main className="p-8">
+        <h2 className="text-4xl font-bold mb-4">Bem-vindo ao GV Software</h2>
+        <p className="text-gray-300">Site funcionando corretamente!</p>
+      </main>
+    </div>
+  );
+};
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <Router>
-          <div className="min-h-screen bg-gv-darker text-white">
-            <Suspense fallback={<LoadingSpinner />}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/portfolio" element={<Portfolio />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/privacy" element={<Privacy />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-            
-            <Toaster />
-          </div>
-        </Router>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <Router>
+      <Routes>
+        <Route path="/" element={<SimpleHome />} />
+        <Route path="*" element={<SimpleHome />} />
+      </Routes>
+    </Router>
   );
 }
 
