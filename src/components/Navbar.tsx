@@ -1,19 +1,18 @@
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [scrolled, setScrolled] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
         setScrolled(true);
@@ -29,7 +28,7 @@ const Navbar = () => {
   }, []);
 
   // Close mobile menu when route changes
-  React.useEffect(() => {
+  useEffect(() => {
     setIsOpen(false);
   }, [location]);
 
