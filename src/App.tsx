@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -10,6 +9,7 @@ import ScrollToTop from '@/components/ScrollToTop';
 import SimpleKeyboardShortcuts from '@/components/SimpleKeyboardShortcuts';
 import DebugConsole from '@/components/DebugConsole';
 import ReactDebugger from '@/components/ReactDebugger';
+import ContextDebugger from '@/components/ContextDebugger';
 import './App.css';
 
 // Pages
@@ -45,6 +45,7 @@ function App() {
         <Router>
           <div className="min-h-screen bg-gv-darker text-white">
             <ReactDebugger />
+            <ContextDebugger />
             <Navbar />
             <main>
               <Routes>
