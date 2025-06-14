@@ -1,23 +1,29 @@
 
-import { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { HelpCircle, Plus, Minus, Search } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Input } from '@/components/ui/input';
 import SocialIcons from '@/components/SocialIcons';
 
-const FAQ = () => {
+interface FAQItem {
+  question: string;
+  answer: string;
+  category: string;
+}
+
+const FAQ: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isVisible, setIsVisible] = useState(false);
-  const [expandedIndex, setExpandedIndex] = useState(null);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   useEffect(() => {
     document.title = 'FAQ | GV Software';
     setIsVisible(true);
   }, []);
 
-  const faqItems = useMemo(() => [
+  const faqItems: FAQItem[] = useMemo(() => [
     {
       question: "Quanto tempo leva para desenvolver um site?",
       answer: "O prazo varia de acordo com a complexidade do projeto. Websites simples podem levar de 2 a 4 semanas, enquanto projetos mais complexos podem levar de 2 a 6 meses. Durante nossa consulta inicial, podemos fornecer uma estimativa mais precisa com base nas suas necessidades específicas.",
@@ -71,7 +77,7 @@ const FAQ = () => {
     });
   }, [faqItems, searchTerm, selectedCategory]);
 
-  const toggleFAQ = (index) => {
+  const toggleFAQ = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 

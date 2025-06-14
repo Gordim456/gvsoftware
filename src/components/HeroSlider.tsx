@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -31,25 +31,25 @@ const sliderItems = [
   }
 ];
 
-export const HeroSlider = () => {
+export const HeroSlider: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const intervalRef = useRef();
+  const intervalRef = useRef<number>();
 
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
+    intervalRef.current = window.setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % sliderItems.length);
     }, 6000);
     
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (intervalRef.current) window.clearInterval(intervalRef.current);
     };
   }, []);
 
-  const handleDotClick = (index) => {
+  const handleDotClick = (index: number) => {
     setCurrentIndex(index);
     if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = setInterval(() => {
+      window.clearInterval(intervalRef.current);
+      intervalRef.current = window.setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % sliderItems.length);
       }, 6000);
     }
