@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
 import { toast } from 'sonner';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -10,11 +10,11 @@ import ContactInfo from '../components/contact/ContactInfo';
 import SocialIcons from '../components/SocialIcons';
 import { MessageSquare, Zap, Shield, Clock, Star, CheckCircle } from 'lucide-react';
 
-const Contact = () => {
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+const Contact: React.FC = () => {
+  const [formSubmitted, setFormSubmitted] = React.useState(false);
+  const [isLoaded, setIsLoaded] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.title = 'Contato | GV Software - Fale Conosco';
     setIsLoaded(true);
     
