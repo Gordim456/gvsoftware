@@ -8,7 +8,6 @@ import ContactForm from '../components/contact/ContactForm';
 import ContactSuccess from '../components/contact/ContactSuccess';
 import ContactInfo from '../components/contact/ContactInfo';
 import SocialIcons from '../components/SocialIcons';
-import { motion } from 'framer-motion';
 import { MessageSquare, Zap, Shield, Clock, Star, CheckCircle } from 'lucide-react';
 
 const Contact = () => {
@@ -75,20 +74,10 @@ const Contact = () => {
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-cyan-600/10 to-blue-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.div
-            className="w-20 h-20 mx-auto bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-8 shadow-2xl"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-          >
+        <div className="text-center mb-16 animate-fade-in">
+          <div className="w-20 h-20 mx-auto bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-8 shadow-2xl animate-bounce-soft">
             <MessageSquare className="w-10 h-10 text-white" />
-          </motion.div>
+          </div>
           
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent">
             Entre em <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Contato</span>
@@ -99,65 +88,41 @@ const Contact = () => {
           </p>
 
           {/* Indicadores de confiança */}
-          <motion.div 
-            className="flex flex-wrap justify-center gap-6 mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-          >
+          <div className="flex flex-wrap justify-center gap-6 mb-12 animate-fade-in-delay-1">
             {trustIndicators.map((indicator, index) => (
               <div key={index} className="flex items-center gap-2 text-indigo-300 bg-indigo-500/10 px-4 py-2 rounded-full">
                 {indicator.icon}
                 <span className="text-sm font-medium">{indicator.text}</span>
               </div>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Cards de Benefícios Aprimorados */}
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 animate-fade-in-delay-2">
           {benefits.map((benefit, index) => (
-            <motion.div 
+            <div 
               key={index}
-              className="text-center p-8 bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm rounded-3xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300 shadow-2xl"
-              whileHover={{ y: -5, scale: 1.02 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 + index * 0.1 }}
+              className="text-center p-8 bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm rounded-3xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300 shadow-2xl hover:-translate-y-2 hover:scale-105"
             >
               <div className={`w-16 h-16 mx-auto mb-6 bg-gradient-to-br ${benefit.color} rounded-2xl flex items-center justify-center text-white shadow-lg`}>
                 {benefit.icon}
               </div>
               <h3 className="text-xl font-bold text-white mb-3">{benefit.title}</h3>
               <p className="text-gray-300">{benefit.description}</p>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Grid de Formulário de Contato e Informações */}
         <div className="grid md:grid-cols-12 gap-8 lg:gap-12">
           {/* Informações de Contato */}
-          <motion.div 
-            className="md:col-span-5 space-y-6"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-          >
+          <div className="md:col-span-5 space-y-6 animate-fade-in-delay-3">
             <ContactInfo />
-          </motion.div>
+          </div>
           
           {/* Formulário de Contato */}
-          <motion.div 
-            className="md:col-span-7"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.0, duration: 0.6 }}
-          >
+          <div className="md:col-span-7 animate-fade-in-delay-3">
             <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700/50 shadow-2xl">
               {formSubmitted ? (
                 <ContactSuccess onReset={() => setFormSubmitted(false)} />
@@ -170,7 +135,7 @@ const Contact = () => {
                 </>
               )}
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
