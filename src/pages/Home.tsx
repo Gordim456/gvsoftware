@@ -1,5 +1,5 @@
 
-import React, { Suspense, lazy, memo, useState, useEffect } from 'react';
+import React, { Suspense, lazy, memo, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -24,17 +24,9 @@ const OptimizedBackground = memo(() => (
 ));
 
 const Home: React.FC = () => {
-  const [isReady, setIsReady] = useState<boolean>(false);
-
   useEffect(() => {
     document.title = 'Início | GV Software - Soluções Digitais Modernas';
-    const timer = setTimeout(() => setIsReady(true), 50);
-    return () => clearTimeout(timer);
   }, []);
-
-  if (!isReady) {
-    return <LoadingSpinner />;
-  }
 
   return (
     <div className="min-h-screen">
