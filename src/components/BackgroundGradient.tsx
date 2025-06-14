@@ -6,11 +6,13 @@ interface BackgroundGradientProps {
 }
 
 export const BackgroundGradient = ({ children }: BackgroundGradientProps) => {
+  console.log('BackgroundGradient: Rendering component');
+  
   return (
     <div className="relative min-h-screen">
       <div className="absolute inset-0 -z-10 h-full w-full">
         <div className="absolute h-full w-full bg-gv-darker">
-          {/* Animações CSS puras - sem conflitos de contexto */}
+          {/* Pure CSS animations - no JavaScript motion libraries */}
           <div
             className="absolute inset-0"
             style={{
