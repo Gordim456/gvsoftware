@@ -24,7 +24,7 @@ type ContactFormProps = {
   onSuccess: () => void;
 };
 
-const ContactForm = ({ onSuccess }: ContactFormProps) => {
+const ContactForm: React.FC<ContactFormProps> = ({ onSuccess }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
