@@ -1,31 +1,66 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from '@/components/ui/sonner';
+import { ThemeProvider } from '@/components/theme/ThemeProvider';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import ScrollToTop from '@/components/ScrollToTop';
+import KeyboardShortcutsProvider from '@/components/KeyboardShortcutsProvider';
 import './App.css';
 
-// Componente simples para teste
-const SimpleHome = () => {
-  return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      <nav className="bg-slate-900 p-4">
-        <h1 className="text-2xl font-bold text-indigo-400">GV Software</h1>
-      </nav>
-      <main className="p-8">
-        <h2 className="text-4xl font-bold mb-4">Bem-vindo ao GV Software</h2>
-        <p className="text-gray-300">Site funcionando corretamente!</p>
-      </main>
-    </div>
-  );
-};
+// Pages
+import Home from '@/pages/Home';
+import About from '@/pages/About';
+import Services from '@/pages/Services';
+import Portfolio from '@/pages/Portfolio';
+import Contact from '@/pages/Contact';
+import FAQ from '@/pages/FAQ';
+import Privacy from '@/pages/Privacy';
+import Terms from '@/pages/Terms';
+import NotFound from '@/pages/NotFound';
+import AdminDashboard from '@/pages/AdminDashboard';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      retry: 1,
+    },
+  },
+});
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<SimpleHome />} />
-        <Route path="*" element={<SimpleHome />} />
-      </Routes>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <KeyboardShortcutsProvider>
+          <Router>
+            <div className="min-h-screen bg-gv-darker text-white">
+              <Navbar />
+              <main>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/portfolio" element={<Portfolio />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/faq" element={<FAQ />} />
+                  <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/admin" element={<AdminDashboard />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+              <Footer />
+              <ScrollToTop />
+            </div>
+            <Toaster />
+          </Router>
+        </KeyboardShortcutsProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 
