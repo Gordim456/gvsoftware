@@ -1,5 +1,5 @@
 
-import React, { Suspense, lazy, memo } from 'react';
+import React, { Suspense, lazy, memo, useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -24,9 +24,9 @@ const OptimizedBackground = memo(() => (
 ));
 
 const Home = () => {
-  const [isReady, setIsReady] = React.useState(false);
+  const [isReady, setIsReady] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = 'Início | GV Software - Soluções Digitais Modernas';
     const timer = setTimeout(() => setIsReady(true), 50);
     return () => clearTimeout(timer);
