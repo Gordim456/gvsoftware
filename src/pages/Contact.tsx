@@ -1,5 +1,4 @@
-
-import * as React from 'react';
+import React from 'react';
 import { toast } from 'sonner';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';

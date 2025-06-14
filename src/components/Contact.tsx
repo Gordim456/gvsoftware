@@ -1,5 +1,5 @@
 
-import * as React from 'react';
+import React from 'react';
 import { toast } from 'sonner';
 import ContactBackground from './contact/ContactBackground';
 import ContactLayout from './contact/ContactLayout';

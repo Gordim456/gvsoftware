@@ -1,5 +1,5 @@
 
-import * as React from 'react';
+import React from 'react';
 import Hero from '@/components/Hero';
 import AboutSection from '@/components/AboutSection';
 import Services from '@/components/Services';
