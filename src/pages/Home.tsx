@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import * as React from 'react';
 import Hero from '@/components/Hero';
 import AboutSection from '@/components/AboutSection';
 import Services from '@/components/Services';
@@ -10,7 +10,7 @@ import QuickFAQ from '@/components/QuickFAQ';
 import CallToAction from '@/components/CallToAction';
 
 const Home: React.FC = () => {
-  useEffect(() => {
+  React.useEffect(() => {
     document.title = 'Início | GV Software - Desenvolvimento de Software';
   }, []);
 

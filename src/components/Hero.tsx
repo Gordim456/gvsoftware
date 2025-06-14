@@ -1,12 +1,12 @@
 
-import React from 'react';
+import * as React from 'react';
 import { ArrowRight, Code, Server, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link as RouterLink } from 'react-router-dom';
 import { BackgroundGradient } from './BackgroundGradient';
 import { HeroSlider } from './HeroSlider';
 
-const Hero = () => {
+const Hero: React.FC = () => {
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       <BackgroundGradient>
