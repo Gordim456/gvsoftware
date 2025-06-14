@@ -31,25 +31,27 @@ const sliderItems = [
   }
 ];
 
-export const HeroSlider: React.FC = () => {
+export const HeroSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const intervalRef = useRef<number>();
+  const intervalRef = useRef(null);
 
   useEffect(() => {
-    intervalRef.current = window.setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % sliderItems.length);
     }, 6000);
     
     return () => {
-      if (intervalRef.current) window.clearInterval(intervalRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     };
   }, []);
 
-  const handleDotClick = (index: number) => {
+  const handleDotClick = (index) => {
     setCurrentIndex(index);
     if (intervalRef.current) {
-      window.clearInterval(intervalRef.current);
-      intervalRef.current = window.setInterval(() => {
+      clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % sliderItems.length);
       }, 6000);
     }

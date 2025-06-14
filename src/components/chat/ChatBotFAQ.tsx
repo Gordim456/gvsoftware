@@ -2,13 +2,8 @@
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp, ArrowLeft, Clock, CheckCircle } from "lucide-react";
 
-interface ChatBotFAQProps {
-  onBack: () => void;
-  userName: string;
-}
-
-const ChatBotFAQ: React.FC<ChatBotFAQProps> = ({ onBack, userName }) => {
-  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+const ChatBotFAQ = ({ onBack, userName }) => {
+  const [openFAQ, setOpenFAQ] = useState(null);
 
   const faqs = [
     {
