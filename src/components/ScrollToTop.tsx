@@ -6,6 +6,7 @@ export default function ScrollToTop() {
   const { pathname } = useLocation();
 
   React.useEffect(() => {
+    console.log("ScrollToTop effect triggered for pathname:", pathname);
     window.scrollTo({
       top: 0,
       behavior: "instant"

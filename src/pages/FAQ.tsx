@@ -1,5 +1,5 @@
 
-import * as React from 'react';
+import React from 'react';
 import { HelpCircle, Plus, Minus, Search } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
