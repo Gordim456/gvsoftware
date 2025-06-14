@@ -69,7 +69,7 @@
   }
 }
 
-/* Animações CSS customizadas para substituir framer-motion */
+/* Animações CSS customizadas */
 @keyframes gentle-pulse {
   0%, 100% {
     opacity: 0.3;
