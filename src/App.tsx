@@ -23,6 +23,9 @@ import Terms from '@/pages/Terms';
 import NotFound from '@/pages/NotFound';
 import AdminDashboard from '@/pages/AdminDashboard';
 
+console.log('App.tsx: Iniciando aplicação');
+console.log('App.tsx: React version:', React.version);
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -33,6 +36,8 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+  console.log('App.tsx: Renderizando App component');
+  
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark">
