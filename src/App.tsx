@@ -9,6 +9,7 @@ import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 import SimpleKeyboardShortcuts from '@/components/SimpleKeyboardShortcuts';
 import DebugConsole from '@/components/DebugConsole';
+import SocialIcons from '@/components/SocialIcons';
 import './App.css';
 
 // Pages
@@ -56,6 +57,7 @@ function App() {
             <Footer />
             <ScrollToTop />
             <SimpleKeyboardShortcuts />
+            <SocialIcons />
             <DebugConsole />
           </div>
           <Toaster />
