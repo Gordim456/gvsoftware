@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-console.log('HeroSlider.tsx: Component loaded');
-
 const sliderItems = [
   {
     image: "/lovable-uploads/61ef491d-1126-436c-be67-fd525f729623.png",
@@ -34,13 +32,10 @@ const sliderItems = [
 ];
 
 export const HeroSlider = () => {
-  console.log('HeroSlider.tsx: HeroSlider component rendering');
-  
   const [currentIndex, setCurrentIndex] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    console.log('HeroSlider.tsx: Setting up interval');
     intervalRef.current = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % sliderItems.length);
     }, 6000);
@@ -53,7 +48,6 @@ export const HeroSlider = () => {
   }, []);
 
   const handleDotClick = (index: number) => {
-    console.log('HeroSlider.tsx: Dot clicked:', index);
     setCurrentIndex(index);
     if (intervalRef.current) {
       clearInterval(intervalRef.current);

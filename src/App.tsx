@@ -8,8 +8,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 import SimpleKeyboardShortcuts from '@/components/SimpleKeyboardShortcuts';
-import DebugConsole from '@/components/DebugConsole';
 import SocialIcons from '@/components/SocialIcons';
+import ChatBot from '@/components/chat/ChatBot';
 import './App.css';
 
 // Pages
@@ -62,7 +62,7 @@ function App() {
             <ScrollToTop />
             <SimpleKeyboardShortcuts />
             <SocialIcons />
-            <DebugConsole />
+            <ChatBot />
           </div>
           <Toaster />
         </Router>
