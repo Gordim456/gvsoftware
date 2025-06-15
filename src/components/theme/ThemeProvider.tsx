@@ -1,5 +1,5 @@
 
-import React from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 type Theme = 'dark' | 'light' | 'system';
 
@@ -19,7 +19,7 @@ const initialState: ThemeProviderState = {
   setTheme: () => null,
 };
 
-const ThemeProviderContext = React.createContext<ThemeProviderState>(initialState);
+const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   children,
@@ -27,14 +27,14 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   storageKey = 'vite-ui-theme',
   ...props
 }) => {
-  const [theme, setTheme] = React.useState<Theme>(() => {
+  const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
       return (localStorage.getItem(storageKey) as Theme) || defaultTheme;
     }
     return defaultTheme;
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const root = window.document.documentElement;
 
     root.classList.remove('light', 'dark');
@@ -70,7 +70,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
 };
 
 export const useTheme = () => {
-  const context = React.useContext(ThemeProviderContext);
+  const context = useContext(ThemeProviderContext);
 
   if (context === undefined) {
     throw new Error('useTheme must be used within a ThemeProvider');
