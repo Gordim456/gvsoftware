@@ -1,23 +1,24 @@
+
+import * as React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
 import ScrollToTop from "./components/ScrollToTop";
 
 // Lazy load pages to improve initial load time
-const Home = lazy(() => import("./pages/Home"));
-const About = lazy(() => import("./pages/About"));
-const Services = lazy(() => import("./pages/Services"));
-const Portfolio = lazy(() => import("./pages/Portfolio"));
-const Contact = lazy(() => import("./pages/Contact"));
-const Terms = lazy(() => import("./pages/Terms"));
-const Privacy = lazy(() => import("./pages/Privacy"));
-const FAQ = lazy(() => import("./pages/FAQ"));
-const NotFound = lazy(() => import("./pages/NotFound"));
-const ChatBot = lazy(() => import("./components/chat/ChatBot"));
+const Home = React.lazy(() => import("./pages/Home"));
+const About = React.lazy(() => import("./pages/About"));
+const Services = React.lazy(() => import("./pages/Services"));
+const Portfolio = React.lazy(() => import("./pages/Portfolio"));
+const Contact = React.lazy(() => import("./pages/Contact"));
+const Terms = React.lazy(() => import("./pages/Terms"));
+const Privacy = React.lazy(() => import("./pages/Privacy"));
+const FAQ = React.lazy(() => import("./pages/FAQ"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
+const ChatBot = React.lazy(() => import("./components/chat/ChatBot"));
 
 // Create QueryClient with optimized settings
 const queryClient = new QueryClient({
@@ -46,7 +47,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
-          <Suspense fallback={<LoadingFallback />}>
+          <React.Suspense fallback={<LoadingFallback />}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
@@ -59,7 +60,7 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
             <ChatBot />
-          </Suspense>
+          </React.Suspense>
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>
