@@ -21,7 +21,7 @@ const faqs = [
   }
 ];
 
-const QuickFAQ: React.FC = () => {
+const QuickFAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {

@@ -1,12 +1,13 @@
 
-import React from 'react';
+import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Terms = () => {
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = 'Termos de Uso | GV Software';
     window.scrollTo(0, 0);
   }, []);
@@ -26,7 +27,12 @@ const Terms = () => {
             <span>Voltar</span>
           </Link>
           
-          <div className="bg-gv-darker p-8 rounded-xl border border-gray-800 animate-fade-in">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="bg-gv-darker p-8 rounded-xl border border-gray-800"
+          >
             <div className="mb-10 text-center">
               <div className="h-1 w-32 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto rounded-full animate-pulse mb-6"></div>
               <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">Termos de Uso</h1>
@@ -76,7 +82,7 @@ const Terms = () => {
                 <p className="text-indigo-400">contato@gvsoftware.tech</p>
               </section>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
       

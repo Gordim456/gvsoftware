@@ -1,4 +1,6 @@
 
+import { motion } from 'framer-motion';
+
 const AboutTeam = () => {
   const teamSections = [
     {
@@ -22,9 +24,11 @@ const AboutTeam = () => {
     <div className="relative z-10 mt-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {teamSections.map((section, index) => (
-          <div 
+          <motion.div 
             key={index}
-            className="relative rounded-xl overflow-hidden hover:-translate-y-2 transition-transform duration-300"
+            className="relative rounded-xl overflow-hidden"
+            whileHover={{ y: -10 }}
+            transition={{ duration: 0.3 }}
           >
             <img 
               src={section.image}
@@ -36,7 +40,7 @@ const AboutTeam = () => {
               <h3 className="text-xl font-bold">{section.title}</h3>
               <p className="text-sm text-gray-300">{section.subtitle}</p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

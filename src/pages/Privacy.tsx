@@ -1,12 +1,13 @@
 
-import React from 'react';
+import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Privacy = () => {
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = 'Política de Privacidade | GV Software';
     window.scrollTo(0, 0);
   }, []);
@@ -26,7 +27,12 @@ const Privacy = () => {
             <span>Voltar</span>
           </Link>
           
-          <div className="bg-gv-darker p-8 rounded-xl border border-gray-800 animate-fade-in">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="bg-gv-darker p-8 rounded-xl border border-gray-800"
+          >
             <div className="mb-10 text-center">
               <div className="h-1 w-32 bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 mx-auto rounded-full animate-pulse mb-6"></div>
               <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400">Política de Privacidade</h1>
@@ -96,7 +102,7 @@ const Privacy = () => {
                 <p className="text-indigo-400">contato@gvsoftware.tech</p>
               </section>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
       

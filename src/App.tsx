@@ -1,74 +1,70 @@
 
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Toaster } from '@/components/ui/sonner';
-import { ThemeProvider } from '@/components/theme/ThemeProvider';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import ScrollToTop from '@/components/ScrollToTop';
-import SimpleKeyboardShortcuts from '@/components/SimpleKeyboardShortcuts';
-import SocialIcons from '@/components/SocialIcons';
-import ChatBot from '@/components/chat/ChatBot';
-import './App.css';
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { ThemeProvider } from "./components/theme/ThemeProvider";
+import ScrollToTop from "./components/ScrollToTop";
 
-// Pages
-import Home from '@/pages/Home';
-import About from '@/pages/About';
-import Services from '@/pages/Services';
-import Portfolio from '@/pages/Portfolio';
-import Contact from '@/pages/Contact';
-import FAQ from '@/pages/FAQ';
-import Privacy from '@/pages/Privacy';
-import Terms from '@/pages/Terms';
-import NotFound from '@/pages/NotFound';
-import AdminDashboard from '@/pages/AdminDashboard';
+// Lazy load pages to improve initial load time
+const Home = lazy(() => import("./pages/Home"));
+const About = lazy(() => import("./pages/About"));
+const Services = lazy(() => import("./pages/Services"));
+const Portfolio = lazy(() => import("./pages/Portfolio"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Terms = lazy(() => import("./pages/Terms"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const FAQ = lazy(() => import("./pages/FAQ"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const ChatBot = lazy(() => import("./components/chat/ChatBot"));
 
-console.log('App.tsx: Starting App component render');
-
+// Create QueryClient with optimized settings
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5,
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      gcTime: 1000 * 60 * 10, // 10 minutes
       retry: 1,
+      refetchOnWindowFocus: false,
     },
   },
 });
 
-function App() {
-  console.log('App.tsx: App component rendering');
-  
-  return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="dark">
-        <Router>
-          <div className="min-h-screen bg-gv-darker text-white">
-            <Navbar />
-            <main>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/portfolio" element={<Portfolio />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="/privacy" element={<Privacy />} />
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/admin" element={<AdminDashboard onBack={() => window.history.back()} />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-            <Footer />
-            <ScrollToTop />
-            <SimpleKeyboardShortcuts />
-            <SocialIcons />
+// Loading fallback component
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center h-screen bg-gv-darker">
+    <div className="animate-pulse text-indigo-500 text-xl">Carregando...</div>
+  </div>
+);
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <ScrollToTop />
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
             <ChatBot />
-          </div>
-          <Toaster />
-        </Router>
-      </ThemeProvider>
-    </QueryClientProvider>
-  );
-}
+          </Suspense>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
+  </QueryClientProvider>
+);
 
 export default App;

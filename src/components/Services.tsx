@@ -1,5 +1,4 @@
 
-import * as React from 'react';
 import { Code, Smartphone, PenTool, Settings } from 'lucide-react';
 
 const services = [
@@ -29,7 +28,7 @@ const services = [
   }
 ];
 
-const Services: React.FC = () => {
+const Services = () => {
   return (
     <section id="services" className="py-12 bg-gv-darker relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

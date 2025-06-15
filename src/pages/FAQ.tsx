@@ -1,23 +1,32 @@
 
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import { HelpCircle, Plus, Minus, Search } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Input } from '@/components/ui/input';
 import SocialIcons from '@/components/SocialIcons';
 
+interface FAQItem {
+  question: string;
+  answer: string;
+  category: string;
+}
+
 const FAQ = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isVisible, setIsVisible] = useState(false);
-  const [expandedIndex, setExpandedIndex] = useState(null);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   useEffect(() => {
     document.title = 'FAQ | GV Software';
+    // Immediate visibility for better performance
     setIsVisible(true);
   }, []);
 
-  const faqItems = useMemo(() => [
+  // Memoized FAQ items
+  const faqItems: FAQItem[] = useMemo(() => [
     {
       question: "Quanto tempo leva para desenvolver um site?",
       answer: "O prazo varia de acordo com a complexidade do projeto. Websites simples podem levar de 2 a 4 semanas, enquanto projetos mais complexos podem levar de 2 a 6 meses. Durante nossa consulta inicial, podemos fornecer uma estimativa mais precisa com base nas suas necessidades específicas.",
@@ -60,8 +69,10 @@ const FAQ = () => {
     }
   ], []);
 
+  // Memoized categories
   const categories = useMemo(() => ['all', 'desenvolvimento', 'design', 'comercial', 'suporte'], []);
 
+  // Memoized filtered FAQs for better performance
   const filteredFAQs = useMemo(() => {
     return faqItems.filter(item => {
       const matchesSearch = item.question.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -71,29 +82,61 @@ const FAQ = () => {
     });
   }, [faqItems, searchTerm, selectedCategory]);
 
-  const toggleFAQ = (index) => {
+  const toggleFAQ = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
+  // Optimized motion variants with reduced animation complexity
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05 // Reduced stagger time
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 10 }, // Reduced movement
+    show: { opacity: 1, y: 0 }
+  };
+
   return (
-    <div className={`min-h-screen bg-gv-darker transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+    <motion.div 
+      className="min-h-screen bg-gv-darker"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isVisible ? 1 : 0 }}
+      transition={{ duration: 0.3 }} // Shorter transition
+    >
       <Navbar />
       <SocialIcons />
 
       <section className="pt-32 pb-20 relative overflow-hidden">
+        {/* Simplified decorative elements */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5"></div>
         <div className="absolute bottom-40 right-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5"></div>
         
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 animate-fade-in">
-            <div className="w-16 h-16 mx-auto bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6 animate-bounce-soft">
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: -10 }} // Reduced movement
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }} // Shorter transition
+          >
+            <motion.div
+              className="w-16 h-16 mx-auto bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6"
+              initial={{ scale: 0.9 }} // Less dramatic scale
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }} // Gentler spring
+            >
               <HelpCircle className="w-8 h-8 text-indigo-400" />
-            </div>
+            </motion.div>
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Perguntas <span className="gradient-text">Frequentes</span></h2>
             <p className="text-gv-gray max-w-2xl mx-auto text-lg">
               Encontre respostas para as perguntas mais comuns sobre nossos serviços e processos.
             </p>
-          </div>
+          </motion.div>
 
           <div className="mb-12 flex flex-col md:flex-row gap-4">
             <div className="relative flex-1">
@@ -123,12 +166,19 @@ const FAQ = () => {
             </div>
           </div>
 
-          <div className="space-y-4 animate-fade-in">
+          <motion.div
+            className="space-y-4"
+            variants={container}
+            initial="hidden"
+            animate="show"
+          >
             {filteredFAQs.length > 0 ? (
               filteredFAQs.map((faq, index) => (
-                <div
+                <motion.div
                   key={index}
+                  variants={item}
                   className="bg-gv-dark border border-gray-800 rounded-xl overflow-hidden"
+                  style={{ willChange: 'auto' }} // Let browser optimize
                 >
                   <button
                     className="w-full px-6 py-4 text-left flex justify-between items-center"
@@ -151,18 +201,26 @@ const FAQ = () => {
                   >
                     <p className="text-gv-gray">{faq.answer}</p>
                   </div>
-                </div>
+                </motion.div>
               ))
             ) : (
-              <div className="text-center py-12 bg-gv-dark border border-gray-800 rounded-xl">
+              <motion.div 
+                variants={item}
+                className="text-center py-12 bg-gv-dark border border-gray-800 rounded-xl"
+              >
                 <p className="text-gv-gray text-lg">
                   Nenhuma pergunta encontrada para sua pesquisa. Tente outros termos ou entre em contato conosco.
                 </p>
-              </div>
+              </motion.div>
             )}
-          </div>
+          </motion.div>
 
-          <div className="mt-16 text-center animate-fade-in">
+          <motion.div 
+            className="mt-16 text-center"
+            initial={{ opacity: 0, y: 10 }} // Reduced movement
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.4 }} // Shorter transition with small delay
+          >
             <p className="text-gv-gray mb-4">Ainda tem dúvidas?</p>
             <a 
               href="/contact" 
@@ -170,12 +228,12 @@ const FAQ = () => {
             >
               Entre em contato conosco
             </a>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <Footer />
-    </div>
+    </motion.div>
   );
 };
 
