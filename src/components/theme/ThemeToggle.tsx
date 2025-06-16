@@ -1,12 +1,22 @@
 
 import React from 'react';
-import { useTheme } from "./ThemeProvider";
 import { Sun, Moon } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 export function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
+  const [isDark, setIsDark] = React.useState(true);
+
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+    if (isDark) {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    } else {
+      document.documentElement.classList.remove('light');
+      document.documentElement.classList.add('dark');
+    }
+  };
 
   return (
     <motion.div
@@ -31,10 +41,10 @@ export function ThemeToggle() {
         <motion.div
           className="absolute inset-0 flex items-center justify-center"
           initial={false}
-          animate={{ rotate: theme === 'dark' ? 0 : 180 }}
+          animate={{ rotate: isDark ? 0 : 180 }}
           transition={{ duration: 0.6, type: "spring" }}
         >
-          {theme === 'dark' ? (
+          {isDark ? (
             <motion.div
               initial={{ y: 20, opacity: 0, rotate: -45 }}
               animate={{ y: 0, opacity: 1, rotate: 0 }}
