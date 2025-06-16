@@ -1,92 +1,72 @@
 
 import React from 'react';
-import { ArrowRight, Code, Server, Globe } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Link as RouterLink } from 'react-router-dom';
-import { BackgroundGradient } from './BackgroundGradient';
-import { HeroSlider } from './HeroSlider';
+import { motion } from 'framer-motion';
+import { ArrowRight, Code, Zap, Shield } from 'lucide-react';
 
 const Hero = () => {
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      <BackgroundGradient>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <div className="inline-block bg-indigo-600/20 px-4 py-1 rounded-full mb-4 border border-indigo-500/30">
-                <span className="text-indigo-300 text-sm font-medium">Inovação & Tecnologia</span>
-              </div>
-              
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
-                Transformando ideias em <span className="gradient-text font-extrabold">realidade digital</span>
-              </h1>
-              
-              <p className="text-lg md:text-xl text-gv-gray max-w-lg">
-                Soluções digitais inovadoras e personalizadas para o seu negócio.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
-                <RouterLink to="/contact">
-                  <Button className="px-6 py-4 bg-gv-primary hover:bg-indigo-600 text-white rounded-xl font-medium text-lg flex items-center gap-3 transition-colors">
-                    Fale Conosco <ArrowRight className="w-5 h-5" />
-                  </Button>
-                </RouterLink>
-                
-                <RouterLink to="/services">
-                  <Button variant="outline" className="px-6 py-4 border-2 border-gv-gray text-white hover:bg-gray-800 rounded-xl font-medium text-lg transition-colors">
-                    Nossos Serviços
-                  </Button>
-                </RouterLink>
-              </div>
-              
-              <div className="hidden sm:flex gap-6 mt-6">
-                <div>
-                  <h4 className="text-3xl font-bold gradient-text">+100</h4>
-                  <p className="text-gv-gray">Projetos Entregues</p>
-                </div>
-                <div>
-                  <h4 className="text-3xl font-bold gradient-text">+50</h4>
-                  <p className="text-gv-gray">Clientes Satisfeitos</p>
-                </div>
-                <div>
-                  <h4 className="text-3xl font-bold gradient-text">+5</h4>
-                  <p className="text-gv-gray">Anos de Experiência</p>
-                </div>
-              </div>
-            </div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950"></div>
+      
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
+      
+      <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent">
+            Transformamos <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Ideias</span> em Soluções Digitais
+          </h1>
+          
+          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+            Desenvolvimento de software personalizado para empresas que buscam inovação, performance e resultados excepcionais.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <motion.button
+              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Começar Projeto
+              <ArrowRight className="w-5 h-5" />
+            </motion.button>
             
-            <div className="hidden md:block relative">
-              <HeroSlider />
-            </div>
+            <motion.button
+              className="border-2 border-indigo-500 text-indigo-400 hover:bg-indigo-500 hover:text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Ver Portfólio
+            </motion.button>
           </div>
-
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-gv-dark p-6 rounded-lg border border-gray-800 hover:border-gv-primary transition-colors duration-200">
-              <div className="mb-4 bg-gv-primary bg-opacity-10 p-3 rounded-md w-fit">
-                <Code className="w-6 h-6 text-gv-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Desenvolvimento Web</h3>
-              <p className="text-gv-gray">Criamos sites e aplicações web modernas utilizando as melhores tecnologias do mercado.</p>
-            </div>
-            
-            <div className="bg-gv-dark p-6 rounded-lg border border-gray-800 hover:border-gv-primary transition-colors duration-200">
-              <div className="mb-4 bg-gv-primary bg-opacity-10 p-3 rounded-md w-fit">
-                <Server className="w-6 h-6 text-gv-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Aplicações Empresariais</h3>
-              <p className="text-gv-gray">Desenvolvemos soluções sob medida para otimizar processos e aumentar a produtividade.</p>
-            </div>
-            
-            <div className="bg-gv-dark p-6 rounded-lg border border-gray-800 hover:border-gv-primary transition-colors duration-200">
-              <div className="mb-4 bg-gv-primary bg-opacity-10 p-3 rounded-md w-fit">
-                <Globe className="w-6 h-6 text-gv-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Presença Digital</h3>
-              <p className="text-gv-gray">Estratégias completas para destacar sua marca no ambiente digital com soluções personalizadas.</p>
-            </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {[
+              { icon: <Code />, title: 'Código Limpo', description: 'Desenvolvimento seguindo as melhores práticas' },
+              { icon: <Zap />, title: 'Performance', description: 'Soluções otimizadas para máxima velocidade' },
+              { icon: <Shield />, title: 'Segurança', description: 'Proteção avançada para seus dados' }
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                className="bg-gradient-to-br from-slate-900/50 to-slate-800/30 backdrop-blur-sm p-6 rounded-xl border border-slate-700/50"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 + index * 0.1 }}
+              >
+                <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
+                <p className="text-gray-400">{feature.description}</p>
+              </motion.div>
+            ))}
           </div>
-        </div>
-      </BackgroundGradient>
+        </motion.div>
+      </div>
     </section>
   );
 };
