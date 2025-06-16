@@ -6,6 +6,7 @@ import Services from '../components/Services';
 import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
 import SocialIcons from '../components/SocialIcons';
+import ChatBot from '../components/chat/ChatBot';
 
 const Home = () => {
   React.useEffect(() => {
@@ -20,6 +21,7 @@ const Home = () => {
       <Testimonials />
       <Footer />
       <SocialIcons />
+      <ChatBot />
     </div>
   );
 };

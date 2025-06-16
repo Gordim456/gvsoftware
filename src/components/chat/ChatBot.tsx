@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
-import { MessageSquare, X, Send, User, Mail, Phone, MessageCircle, Sparkles } from "lucide-react";
+import { MessageSquare, X, Send, User, Mail, Phone, MessageCircle, Sparkles, Bot } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface FormData {
   name: string;
@@ -34,165 +35,250 @@ const ChatBot = () => {
 
   return (
     <>
-      {!isOpen && (
-        <div className="fixed bottom-8 right-8 z-50">
-          <button
-            onClick={() => setIsOpen(true)}
-            className="bg-gradient-to-br from-purple-600 via-blue-600 to-blue-700 
-                     text-white p-4 rounded-full shadow-lg hover:shadow-xl 
-                     transition-all duration-300 hover:scale-110
-                     group relative animate-bounce"
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.div 
+            className="fixed bottom-8 right-8 z-50"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 200, damping: 15 }}
           >
-            <MessageSquare className="w-6 h-6" />
-            <span className="absolute -top-12 right-0 bg-white px-4 py-2 rounded-full 
-                         text-sm font-medium text-blue-600 shadow-lg opacity-0 
-                         group-hover:opacity-100 transition-opacity duration-300 
-                         whitespace-nowrap">
-              Em que posso ajudar hoje? <Sparkles className="w-4 h-4 inline-block ml-1" />
-            </span>
-          </button>
-        </div>
-      )}
-
-      {isOpen && (
-        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50">
-          <div className="fixed bottom-0 right-0 w-full md:w-[400px] h-full md:h-[600px] 
-                       bg-white shadow-2xl transition-all duration-300 rounded-t-[2rem]
-                       animate-[slideIn_0.3s_ease-out] overflow-hidden">
-            
-            {/* Header */}
-            <div className="flex items-center justify-between p-4 bg-gradient-to-br 
-                          from-purple-600 via-blue-600 to-blue-700 text-white 
-                          rounded-t-[2rem]">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-white/10 rounded-full flex items-center 
-                              justify-center backdrop-blur-sm">
-                  <MessageSquare className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Contato GV Software</h3>
-                  <span className="text-xs text-white/80">Resposta rápida</span>
-                </div>
-              </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-white/80 hover:text-white transition-colors"
+            <motion.button
+              onClick={() => setIsOpen(true)}
+              className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 
+                       text-white p-4 rounded-full shadow-2xl hover:shadow-indigo-500/50 
+                       transition-all duration-300 group overflow-hidden"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              animate={{ 
+                boxShadow: [
+                  "0 0 20px rgba(99, 102, 241, 0.3)",
+                  "0 0 40px rgba(147, 51, 234, 0.4)",
+                  "0 0 20px rgba(99, 102, 241, 0.3)"
+                ]
+              }}
+              transition={{ 
+                boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <motion.div
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                className="relative z-10"
               >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Content */}
-            <div className="h-[calc(100%-140px)] overflow-y-auto p-6">
-              {!isSubmitted ? (
-                <div className="space-y-6">
-                  <div className="text-center mb-6">
-                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-purple-500 to-blue-600 
-                                  rounded-full flex items-center justify-center mb-4">
-                      <MessageSquare className="w-8 h-8 text-white" />
-                    </div>
-                    <h4 className="font-bold text-gray-800 text-xl">Entre em Contato!</h4>
-                    <p className="text-sm text-gray-500 mt-2">
-                      Preencha seus dados e entraremos em contato
-                    </p>
-                  </div>
-
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="relative">
-                      <User className="absolute left-3 top-3 w-5 h-5 text-blue-500" />
-                      <input
-                        type="text"
-                        placeholder="Nome completo"
-                        value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl 
-                                 focus:outline-none focus:ring-2 focus:ring-blue-500/20 
-                                 focus:border-blue-500 transition-all"
-                        required
-                      />
-                    </div>
-
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-3 w-5 h-5 text-blue-500" />
-                      <input
-                        type="email"
-                        placeholder="Seu email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl 
-                                 focus:outline-none focus:ring-2 focus:ring-blue-500/20 
-                                 focus:border-blue-500 transition-all"
-                        required
-                      />
-                    </div>
-
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-3 w-5 h-5 text-blue-500" />
-                      <input
-                        type="tel"
-                        placeholder="Telefone"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl 
-                                 focus:outline-none focus:ring-2 focus:ring-blue-500/20 
-                                 focus:border-blue-500 transition-all"
-                        required
-                      />
-                    </div>
-
-                    <div className="relative">
-                      <MessageCircle className="absolute left-3 top-3 w-5 h-5 text-blue-500" />
-                      <input
-                        type="text"
-                        placeholder="Assunto"
-                        value={formData.subject}
-                        onChange={(e) => setFormData({...formData, subject: e.target.value})}
-                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl 
-                                 focus:outline-none focus:ring-2 focus:ring-blue-500/20 
-                                 focus:border-blue-500 transition-all"
-                        required
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      className="w-full bg-gradient-to-r from-purple-600 to-blue-600 
-                               text-white py-3 rounded-xl hover:shadow-lg transition-all 
-                               duration-300 flex items-center justify-center gap-2"
-                    >
-                      <Send className="w-5 h-5" />
-                      Enviar Mensagem
-                    </button>
-                  </form>
+                <MessageSquare className="w-6 h-6" />
+              </motion.div>
+              
+              <motion.div
+                className="absolute -top-16 right-0 bg-white px-4 py-2 rounded-2xl 
+                         text-sm font-medium text-indigo-600 shadow-lg opacity-0 
+                         group-hover:opacity-100 transition-all duration-300 
+                         whitespace-nowrap border border-indigo-100"
+                initial={{ y: 10, opacity: 0 }}
+                whileHover={{ y: 0, opacity: 1 }}
+              >
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-purple-500" />
+                  Precisa de ajuda? Fale conosco!
                 </div>
-              ) : (
-                <div className="text-center space-y-6">
-                  <div className="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center">
-                    <span className="text-2xl">✅</span>
-                  </div>
-                  
-                  <div>
-                    <h4 className="text-xl font-bold text-gray-800 mb-2">
-                      Obrigado, {formData.name}!
-                    </h4>
-                    <p className="text-gray-600">
-                      Recebemos sua mensagem e entraremos em contato em breve através do email {formData.email}.
-                    </p>
-                  </div>
+                <div className="absolute -bottom-2 right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-white"></div>
+              </motion.div>
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-                  <button
-                    onClick={resetForm}
-                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 
-                             text-white py-3 rounded-xl hover:shadow-lg transition-all duration-300"
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsOpen(false)}
+          >
+            <motion.div
+              className="fixed bottom-0 right-0 w-full md:w-[420px] h-full md:h-[650px] 
+                       bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 
+                       shadow-2xl transition-all duration-300 rounded-t-3xl md:rounded-l-3xl
+                       border border-indigo-800/50 overflow-hidden"
+              initial={{ x: "100%", y: "100%" }}
+              animate={{ x: 0, y: 0 }}
+              exit={{ x: "100%", y: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Animated background */}
+              <div className="absolute inset-0 opacity-20">
+                <div className="absolute top-0 left-1/4 w-32 h-32 bg-indigo-500 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute bottom-1/4 right-0 w-32 h-32 bg-purple-500 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+              </div>
+              
+              {/* Header */}
+              <motion.div 
+                className="flex items-center justify-between p-6 bg-gradient-to-r 
+                          from-indigo-600 via-purple-600 to-pink-600 text-white 
+                          rounded-t-3xl relative overflow-hidden"
+                initial={{ y: -50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-600/20 to-indigo-600/20"></div>
+                <div className="flex items-center gap-4 relative z-10">
+                  <motion.div 
+                    className="w-12 h-12 bg-white/20 rounded-full flex items-center 
+                              justify-center backdrop-blur-sm border border-white/30"
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
                   >
-                    Nova Mensagem
-                  </button>
+                    <Bot className="w-6 h-6" />
+                  </motion.div>
+                  <div>
+                    <h3 className="font-bold text-lg">Assistente GV Software</h3>
+                    <span className="text-sm text-white/90 flex items-center gap-2">
+                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                      Online - Resposta rápida
+                    </span>
+                  </div>
                 </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+                <motion.button
+                  onClick={() => setIsOpen(false)}
+                  className="text-white/80 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
+                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <X className="w-5 h-5" />
+                </motion.button>
+              </motion.div>
+
+              {/* Content */}
+              <div className="h-[calc(100%-88px)] overflow-y-auto p-6 relative z-10">
+                <AnimatePresence mode="wait">
+                  {!isSubmitted ? (
+                    <motion.div 
+                      className="space-y-6"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="text-center mb-8">
+                        <motion.div 
+                          className="w-20 h-20 mx-auto bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 
+                                    rounded-full flex items-center justify-center mb-6 shadow-2xl"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ type: "spring", stiffness: 200, delay: 0.3 }}
+                        >
+                          <MessageSquare className="w-10 h-10 text-white" />
+                        </motion.div>
+                        <h4 className="font-bold text-white text-2xl mb-2">Vamos conversar!</h4>
+                        <p className="text-gray-300 text-sm leading-relaxed">
+                          Preencha seus dados e nossa equipe entrará em contato em breve
+                        </p>
+                      </div>
+
+                      <form onSubmit={handleSubmit} className="space-y-5">
+                        {[
+                          { icon: User, placeholder: "Nome completo", type: "text", field: "name" },
+                          { icon: Mail, placeholder: "Seu melhor email", type: "email", field: "email" },
+                          { icon: Phone, placeholder: "WhatsApp para contato", type: "tel", field: "phone" },
+                          { icon: MessageCircle, placeholder: "Como podemos ajudar?", type: "text", field: "subject" }
+                        ].map((input, index) => (
+                          <motion.div 
+                            key={input.field}
+                            className="relative"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.4 + index * 0.1 }}
+                          >
+                            <input.icon className="absolute left-4 top-4 w-5 h-5 text-indigo-400" />
+                            <input
+                              type={input.type}
+                              placeholder={input.placeholder}
+                              value={formData[input.field as keyof FormData]}
+                              onChange={(e) => setFormData({...formData, [input.field]: e.target.value})}
+                              className="w-full pl-12 pr-4 py-4 bg-slate-800/50 border border-slate-600 rounded-xl 
+                                       focus:outline-none focus:ring-2 focus:ring-indigo-500/50 
+                                       focus:border-indigo-500 transition-all duration-300 text-white
+                                       placeholder-gray-400 backdrop-blur-sm"
+                              required
+                            />
+                          </motion.div>
+                        ))}
+
+                        <motion.button
+                          type="submit"
+                          className="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 
+                                   text-white py-4 rounded-xl hover:shadow-lg transition-all 
+                                   duration-300 flex items-center justify-center gap-3 font-semibold
+                                   hover:from-pink-600 hover:to-indigo-600 shadow-xl shadow-indigo-500/25"
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.8 }}
+                        >
+                          <Send className="w-5 h-5" />
+                          Enviar Mensagem
+                          <Sparkles className="w-4 h-4" />
+                        </motion.button>
+                      </form>
+                    </motion.div>
+                  ) : (
+                    <motion.div 
+                      className="text-center space-y-6"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ type: "spring", stiffness: 200 }}
+                    >
+                      <motion.div 
+                        className="w-20 h-20 mx-auto bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+                      >
+                        <motion.span 
+                          className="text-3xl"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ delay: 0.4 }}
+                        >
+                          ✅
+                        </motion.span>
+                      </motion.div>
+                      
+                      <div>
+                        <h4 className="text-2xl font-bold text-white mb-4">
+                          Obrigado, {formData.name}! 🎉
+                        </h4>
+                        <p className="text-gray-300 leading-relaxed mb-2">
+                          Recebemos sua mensagem com sucesso!
+                        </p>
+                        <p className="text-sm text-gray-400">
+                          Nossa equipe entrará em contato através do email <span className="text-indigo-400 font-medium">{formData.email}</span> em breve.
+                        </p>
+                      </div>
+
+                      <motion.button
+                        onClick={resetForm}
+                        className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 
+                                 text-white py-4 rounded-xl hover:shadow-lg transition-all duration-300 font-semibold"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        Enviar Nova Mensagem
+                      </motion.button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
