@@ -10,7 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 
 // Lazy load pages to improve initial load time
 const Home = React.lazy(() => import("./pages/Home"));
-const About = React.lazy(() => import("./pages/About"));
+const AboutPage = React.lazy(() => import("./pages/About"));
 const Services = React.lazy(() => import("./pages/Services"));
 const Portfolio = React.lazy(() => import("./pages/Portfolio"));
 const Contact = React.lazy(() => import("./pages/Contact"));
@@ -50,7 +50,7 @@ const App = () => (
           <React.Suspense fallback={<LoadingFallback />}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
+              <Route path="/about" element={<AboutPage />} />
               <Route path="/services" element={<Services />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/contact" element={<Contact />} />

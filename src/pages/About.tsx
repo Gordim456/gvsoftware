@@ -1,12 +1,12 @@
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SocialIcons from '../components/SocialIcons';
 import { motion } from 'framer-motion';
 import { Users, Target, Award, TrendingUp, Code, Globe, Shield, Zap } from 'lucide-react';
 
-const About = () => {
+const AboutPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -190,4 +190,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default AboutPage;
