@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { ArrowRight, Code, Server, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link as RouterLink } from 'react-router-dom';
