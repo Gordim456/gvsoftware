@@ -1,42 +1,88 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Facebook, Instagram, Linkedin, Mail } from 'lucide-react';
+import { MessageCircle, Instagram, Linkedin, Facebook } from 'lucide-react';
 
 const SocialIcons = () => {
   const socialLinks = [
-    { icon: <Facebook />, href: '#', label: 'Facebook' },
-    { icon: <Instagram />, href: '#', label: 'Instagram' },
-    { icon: <Linkedin />, href: '#', label: 'LinkedIn' },
-    { icon: <Mail />, href: 'mailto:contato@gvsoftware.tech', label: 'Email' }
+    {
+      icon: <MessageCircle className="w-6 h-6" />,
+      href: "https://wa.me/5517997853416",
+      label: "WhatsApp",
+      color: "bg-green-500 hover:bg-green-600",
+      hoverColor: "hover:shadow-green-500/30"
+    },
+    {
+      icon: <Instagram className="w-6 h-6" />,
+      href: "#",
+      label: "Instagram",
+      color: "bg-gradient-to-tr from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600",
+      hoverColor: "hover:shadow-purple-500/30"
+    },
+    {
+      icon: <Linkedin className="w-6 h-6" />,
+      href: "#",
+      label: "LinkedIn",
+      color: "bg-blue-600 hover:bg-blue-700",
+      hoverColor: "hover:shadow-blue-500/30"
+    },
+    {
+      icon: <Facebook className="w-6 h-6" />,
+      href: "#",
+      label: "Facebook",
+      color: "bg-blue-500 hover:bg-blue-600",
+      hoverColor: "hover:shadow-blue-500/30"
+    }
   ];
 
   return (
-    <motion.div
-      className="fixed right-8 top-1/2 transform -translate-y-1/2 z-40"
-      initial={{ x: 100, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ delay: 1, duration: 0.5 }}
+    <motion.div 
+      className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 space-y-4"
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.6, delay: 1 }}
     >
-      <div className="flex flex-col space-y-4">
-        {socialLinks.map((link, index) => (
-          <motion.a
-            key={index}
-            href={link.href}
-            aria-label={link.label}
-            className="w-12 h-12 bg-gradient-to-br from-indigo-600/20 to-purple-600/20 backdrop-blur-sm border border-white/10 rounded-full flex items-center justify-center text-white hover:from-indigo-600/40 hover:to-purple-600/40 hover:border-white/20 transition-all duration-300 group"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ x: 50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 1.2 + index * 0.1 }}
+      {socialLinks.map((social, index) => (
+        <motion.a
+          key={index}
+          href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`
+            w-14 h-14 rounded-full ${social.color} ${social.hoverColor}
+            flex items-center justify-center text-white shadow-lg
+            transition-all duration-300 group
+          `}
+          whileHover={{ 
+            scale: 1.1,
+            rotate: [0, -10, 10, 0],
+            transition: { duration: 0.3 }
+          }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 1.2 + index * 0.1 }}
+        >
+          <motion.div
+            whileHover={{ rotate: 360 }}
+            transition={{ duration: 0.6 }}
           >
-            <div className="w-5 h-5 group-hover:scale-110 transition-transform duration-300">
-              {link.icon}
-            </div>
-          </motion.a>
-        ))}
-      </div>
+            {social.icon}
+          </motion.div>
+          
+          {/* Tooltip */}
+          <motion.span 
+            className="absolute right-16 bg-gray-900 text-white px-3 py-1 rounded-lg text-sm font-medium
+                     opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap
+                     shadow-lg"
+            initial={{ scale: 0.8 }}
+            whileHover={{ scale: 1 }}
+          >
+            {social.label}
+            <span className="absolute left-full top-1/2 transform -translate-y-1/2 border-4 border-transparent border-l-gray-900"></span>
+          </motion.span>
+        </motion.a>
+      ))}
     </motion.div>
   );
 };

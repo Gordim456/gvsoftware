@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Code, Zap, Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -26,22 +27,30 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <motion.button
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25"
+            <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Começar Projeto
-              <ArrowRight className="w-5 h-5" />
-            </motion.button>
+              <Link
+                to="/contact"
+                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25"
+              >
+                Começar Projeto
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </motion.div>
             
-            <motion.button
-              className="border-2 border-indigo-500 text-indigo-400 hover:bg-indigo-500 hover:text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300"
+            <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Ver Portfólio
-            </motion.button>
+              <Link
+                to="/portfolio"
+                className="border-2 border-indigo-500 text-indigo-400 hover:bg-indigo-500 hover:text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300"
+              >
+                Ver Portfólio
+              </Link>
+            </motion.div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">

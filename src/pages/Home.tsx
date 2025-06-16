@@ -3,7 +3,6 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
-import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
 import SocialIcons from '../components/SocialIcons';
 import ChatBot from '../components/chat/ChatBot';
@@ -14,11 +13,10 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gv-dark">
+    <div className="min-h-screen bg-slate-950">
       <Navbar />
       <Hero />
       <Services />
-      <Testimonials />
       <Footer />
       <SocialIcons />
       <ChatBot />
