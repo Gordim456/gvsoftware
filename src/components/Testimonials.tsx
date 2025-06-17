@@ -1,90 +1,78 @@
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Star, Quote } from 'lucide-react';
+import * as React from 'react';
+import { Star, ChartLine, TrendingUp } from 'lucide-react';
 
-const Testimonials = () => {
-  const testimonials = [
-    {
-      name: 'Maria Silva',
-      role: 'CEO, TechStart',
-      content: 'A GV Software transformou nossa ideia em uma aplicação incrível. A qualidade do código e o suporte são excepcionais.',
-      rating: 5,
-      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=64&h=64&fit=crop&crop=face'
-    },
-    {
-      name: 'João Santos',
-      role: 'CTO, InnovateCorp',
-      content: 'Profissionais extremamente competentes. Entregaram nosso projeto no prazo e superaram nossas expectativas.',
-      rating: 5,
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face'
-    },
-    {
-      name: 'Ana Costa',
-      role: 'Fundadora, DigitalFlow',
-      content: 'Excelente comunicação e resultados de alta qualidade. Recomendo a GV Software para qualquer projeto de desenvolvimento.',
-      rating: 5,
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face'
-    }
-  ];
+const TestimonialCard = ({ name, role, company, content, rating }: { 
+  name: string, 
+  role: string, 
+  company: string, 
+  content: string,
+  rating: number 
+}) => {
+  return (
+    <div className="bg-gv-dark p-8 rounded-xl border border-gray-800 hover:border-indigo-500/30 transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/20 animate-fade-in">
+      <div className="flex mb-4">
+        {Array.from({ length: rating }).map((_, i) => (
+          <Star key={i} className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+        ))}
+      </div>
+      <p className="text-gv-gray mb-6 italic">&ldquo;{content}&rdquo;</p>
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+          {name.charAt(0)}
+        </div>
+        <div>
+          <h4 className="font-semibold">{name}</h4>
+          <p className="text-sm text-gv-gray">{role}, {company}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Testimonials: React.FC = () => {
+  const testimonial = {
+    name: "Renan",
+    role: "Fundador",
+    company: "Bebidas ON",
+    content: "A GV Software desenvolveu nosso aplicativo Bebidas ON com excelência. A solução criada revolucionou nosso negócio de delivery de bebidas, proporcionando uma experiência incrível para nossos clientes e otimizando nossos processos internos. Recomendo totalmente!",
+    rating: 5
+  };
 
   return (
-    <section className="py-20 bg-gv-dark relative overflow-hidden">
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full filter blur-3xl animate-pulse"></div>
-      </div>
+    <section className="py-20 bg-gv-darker relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-pulse" style={{animationDelay: '2s'}}></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent">
-            O que nossos clientes dizem
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Conheça as experiências de quem confia na GV Software para transformar suas ideias em realidade.
+        <div className="text-center mb-16">
+          <div className="w-16 h-16 mx-auto bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6 animate-pulse">
+            <ChartLine className="w-8 h-8 text-indigo-400" />
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 animate-fade-in">O Que Nossos <span className="gradient-text">Clientes Dizem</span></h2>
+          <p className="text-gv-gray max-w-2xl mx-auto animate-fade-in">
+            Veja como nossos serviços têm transformado negócios e criado experiências digitais excepcionais.
           </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={index}
-              className="bg-gradient-to-br from-slate-900/50 to-slate-800/30 backdrop-blur-sm p-8 rounded-xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
-              whileHover={{ y: -5 }}
-            >
-              <div className="flex items-center mb-6">
-                <img
-                  src={testimonial.avatar}
-                  alt={testimonial.name}
-                  className="w-12 h-12 rounded-full mr-4"
-                />
-                <div>
-                  <h4 className="text-white font-semibold">{testimonial.name}</h4>
-                  <p className="text-gray-400 text-sm">{testimonial.role}</p>
-                </div>
-              </div>
-              
-              <div className="flex mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                ))}
-              </div>
-              
-              <div className="relative">
-                <Quote className="w-8 h-8 text-indigo-400/30 absolute -top-2 -left-2" />
-                <p className="text-gray-300 leading-relaxed pl-6">{testimonial.content}</p>
-              </div>
-            </motion.div>
-          ))}
+        </div>
+        
+        <div className="flex justify-center">
+          <div className="max-w-md">
+            <TestimonialCard
+              name={testimonial.name}
+              role={testimonial.role}
+              company={testimonial.company}
+              content={testimonial.content}
+              rating={testimonial.rating}
+            />
+          </div>
+        </div>
+        
+        <div className="mt-16 text-center animate-fade-in" style={{animationDelay: '0.5s'}}>
+          <div className="inline-flex items-center gap-2 text-indigo-400 bg-indigo-500/10 px-6 py-3 rounded-full">
+            <TrendingUp className="h-5 w-5" />
+            <span className="font-semibold">Aplicativo Bebidas ON - Transformando o delivery de bebidas</span>
+          </div>
         </div>
       </div>
     </section>

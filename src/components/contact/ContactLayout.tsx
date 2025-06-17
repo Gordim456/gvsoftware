@@ -1,5 +1,5 @@
 
-import React from 'react';
+import * as React from 'react';
 import ContactHeader from './ContactHeader';
 import ContactInfo from './ContactInfo';
 import ContactSuccess from './ContactSuccess';
@@ -11,7 +11,7 @@ type ContactLayoutProps = {
   onReset: () => void;
 };
 
-const ContactLayout = ({ isFormSubmitted, onSubmitSuccess, onReset }: ContactLayoutProps) => {
+const ContactLayout: React.FC<ContactLayoutProps> = ({ isFormSubmitted, onSubmitSuccess, onReset }) => {
   return (
     <>
       <ContactHeader />

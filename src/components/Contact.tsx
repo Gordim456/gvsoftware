@@ -1,10 +1,10 @@
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { toast } from 'sonner';
 import ContactBackground from './contact/ContactBackground';
 import ContactLayout from './contact/ContactLayout';
 
-const Contact = () => {
+const Contact: React.FC = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleSubmitSuccess = () => {

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -33,7 +33,7 @@ const sliderItems = [
 
 export const HeroSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const intervalRef = useRef<NodeJS.Timeout>();
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -41,7 +41,9 @@ export const HeroSlider = () => {
     }, 6000);
     
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     };
   }, []);
 
@@ -56,19 +58,21 @@ export const HeroSlider = () => {
   };
 
   return (
-    <div className="w-full h-[500px] relative overflow-hidden rounded-xl">
+    <div className="w-full h-[500px] relative overflow-hidden rounded-xl bg-slate-900">
       <div className="w-full h-full rounded-xl relative">
         {sliderItems.map((item, index) => (
           <div key={index} className={`absolute inset-0 transition-opacity duration-700 ${
             currentIndex === index ? 'opacity-100' : 'opacity-0'
           }`}>
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10 rounded-xl" />
-            <img
-              src={item.image}
-              alt={item.title}
-              className="w-full h-full object-contain rounded-xl bg-slate-900"
-              loading={index === 0 ? "eager" : "lazy"}
-            />
+            <div className="w-full h-full flex items-center justify-center p-8">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                loading={index === 0 ? "eager" : "lazy"}
+              />
+            </div>
             
             <div className="absolute bottom-6 left-6 right-6 z-20">
               <h3 className="text-2xl font-bold text-white mb-2">

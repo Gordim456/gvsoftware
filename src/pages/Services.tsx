@@ -1,244 +1,245 @@
-
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Code, Smartphone, Globe, Database, Shield, Zap, ArrowRight, CheckCircle } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Rocket, Code, Brush, CheckCircle, LayoutDashboard, Users, ShieldCheck, TrendingUp } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import SocialIcons from '../components/SocialIcons';
-import ChatBot from '../components/chat/ChatBot';
+import SocialIcons from '@/components/SocialIcons';
 
 const Services = () => {
-  React.useEffect(() => {
-    document.title = 'Serviços | GV Software - Soluções em Desenvolvimento';
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    document.title = 'Serviços | GV Software - Soluções Digitais Completas';
+    const timer = setTimeout(() => setIsVisible(true), 100);
+    return () => clearTimeout(timer);
+    
+    // SEO otimizado
+    const meta = document.createElement('meta');
+    meta.name = 'description';
+    meta.content = 'Serviços completos de desenvolvimento: Web, Mobile, UI/UX, SEO e Consultoria em TI. Soluções digitais modernas para seu negócio.';
+    if (!document.querySelector('meta[name="description"]')) {
+      document.head.appendChild(meta);
+    }
   }, []);
 
-  const services = [
-    {
-      icon: <Code />,
-      title: 'Desenvolvimento Web',
-      description: 'Aplicações web modernas e responsivas usando as mais recentes tecnologias.',
-      features: ['React & Next.js', 'TypeScript', 'Tailwind CSS', 'APIs RESTful'],
-      price: 'A partir de R$ 2.500',
-      color: 'from-blue-500 to-cyan-500'
-    },
-    {
-      icon: <Smartphone />,
-      title: 'Apps Mobile',
-      description: 'Aplicativos nativos e híbridos para iOS e Android.',
-      features: ['React Native', 'Flutter', 'Swift', 'Kotlin'],
-      price: 'A partir de R$ 3.500',
-      color: 'from-purple-500 to-pink-500'
-    },
-    {
-      icon: <Database />,
-      title: 'Backend & APIs',
-      description: 'Sistemas robustos e escaláveis para suportar suas aplicações.',
-      features: ['Node.js', 'Python', 'PostgreSQL', 'MongoDB'],
-      price: 'A partir de R$ 2.000',
-      color: 'from-green-500 to-emerald-500'
-    },
-    {
-      icon: <Globe />,
-      title: 'E-commerce',
-      description: 'Lojas virtuais completas com sistemas de pagamento integrados.',
-      features: ['Shopify', 'WooCommerce', 'Stripe', 'PayPal'],
-      price: 'A partir de R$ 4.000',
-      color: 'from-orange-500 to-red-500'
-    },
-    {
-      icon: <Shield />,
-      title: 'Segurança',
-      description: 'Implementação de medidas de segurança avançadas.',
-      features: ['SSL', 'Autenticação', 'Criptografia', 'Firewall'],
-      price: 'A partir de R$ 1.500',
-      color: 'from-indigo-500 to-purple-500'
-    },
-    {
-      icon: <Zap />,
-      title: 'Performance',
-      description: 'Otimização para máxima velocidade e eficiência.',
-      features: ['CDN', 'Cache', 'Minificação', 'Compressão'],
-      price: 'A partir de R$ 1.200',
-      color: 'from-yellow-500 to-orange-500'
-    }
-  ];
-
-  const process = [
-    {
-      step: '01',
-      title: 'Análise e Planejamento',
-      description: 'Entendemos suas necessidades e definimos a melhor estratégia para seu projeto.'
-    },
-    {
-      step: '02',
-      title: 'Design e Prototipagem',
-      description: 'Criamos protótipos interativos para validar a experiência do usuário.'
-    },
-    {
-      step: '03',
-      title: 'Desenvolvimento',
-      description: 'Codificamos sua solução seguindo as melhores práticas de desenvolvimento.'
-    },
-    {
-      step: '04',
-      title: 'Testes e Entrega',
-      description: 'Realizamos testes rigorosos antes de entregar seu projeto finalizado.'
-    }
-  ];
-
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950">
       <Navbar />
-      
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950"></div>
-        
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
-        
-        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent">
+      <SocialIcons />
+
+      <section className="pt-24 pb-16 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-12">
+            <div className="w-16 h-16 mx-auto bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-6 shadow-2xl">
+              <Rocket className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent">
               Nossos <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Serviços</span>
             </h1>
-            
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
-              Oferecemos soluções completas em desenvolvimento de software para impulsionar seu negócio digital.
+            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Oferecemos soluções completas para impulsionar o seu negócio no mundo digital.
             </p>
+          </div>
 
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              <Link
-                to="/contact"
-                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2"
-              >
-                Solicitar Orçamento
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </motion.div>
-          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-6 rounded-3xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-200 shadow-2xl">
+              <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+                <Code className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Desenvolvimento Web</h3>
+              <p className="text-gray-300 mb-4 leading-relaxed">
+                Criação de websites personalizados, desde landing pages até plataformas complexas,
+                com foco em performance e experiência do usuário.
+              </p>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-indigo-400" />
+                  Sites responsivos e otimizados
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-indigo-400" />
+                  E-commerce e lojas virtuais
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-indigo-400" />
+                  Sistemas web sob medida
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-6 rounded-3xl border border-slate-700/50 hover:border-purple-500/50 transition-all duration-200 shadow-2xl">
+              <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+                <Brush className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">UI/UX Design</h3>
+              <p className="text-gray-300 mb-4 leading-relaxed">
+                Design de interfaces intuitivas e agradáveis, focadas na melhor experiência do usuário
+                e alinhadas com a identidade visual da sua marca.
+              </p>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-purple-400" />
+                  Design de interface (UI)
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-purple-400" />
+                  Experiência do usuário (UX)
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-purple-400" />
+                  Protótipos interativos
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-6 rounded-3xl border border-slate-700/50 hover:border-pink-500/50 transition-all duration-200 shadow-2xl">
+              <div className="w-14 h-14 bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+                <LayoutDashboard className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Aplicações Mobile</h3>
+              <p className="text-gray-300 mb-4 leading-relaxed">
+                Desenvolvimento de aplicativos móveis nativos (iOS e Android) e híbridos,
+                com foco em performance, segurança e escalabilidade.
+              </p>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-pink-400" />
+                  Apps nativos (Swift, Kotlin)
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-pink-400" />
+                  Apps híbridos (React Native)
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-pink-400" />
+                  Testes e publicação nas lojas
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-6 rounded-3xl border border-slate-700/50 hover:border-blue-500/50 transition-all duration-200 shadow-2xl">
+              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+                <TrendingUp className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Otimização SEO</h3>
+              <p className="text-gray-300 mb-4 leading-relaxed">
+                Otimização de sites para melhorar o posicionamento nos resultados de busca do Google,
+                aumentando o tráfego orgânico e a visibilidade da sua marca.
+              </p>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-400" />
+                  Análise de palavras-chave
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-400" />
+                  Otimização on-page e off-page
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-400" />
+                  Relatórios e acompanhamento
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-6 rounded-3xl border border-slate-700/50 hover:border-green-500/50 transition-all duration-200 shadow-2xl">
+              <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+                <ShieldCheck className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Consultoria em TI</h3>
+              <p className="text-gray-300 mb-4 leading-relaxed">
+                Consultoria especializada para identificar as melhores soluções de tecnologia
+                para o seu negócio, desde a escolha de softwares até a implementação de infraestrutura.
+              </p>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Planejamento estratégico de TI
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Análise de sistemas e processos
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Implementação de soluções
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-6 rounded-3xl border border-slate-700/50 hover:border-yellow-500/50 transition-all duration-200 shadow-2xl">
+              <div className="w-14 h-14 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+                <Users className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Suporte e Manutenção</h3>
+              <p className="text-gray-300 mb-4 leading-relaxed">
+                Serviços de suporte técnico e manutenção para garantir o bom funcionamento
+                dos seus sistemas e aplicações, com atendimento rápido e eficiente.
+              </p>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-yellow-400" />
+                  Suporte técnico online
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-yellow-400" />
+                  Manutenção preventiva e corretiva
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-yellow-400" />
+                  Atualizações e upgrades
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Services Grid */}
-      <motion.section 
-        className="py-20 bg-slate-950 relative overflow-hidden"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-indigo-600 rounded-full filter blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-600 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <motion.div
-                key={index}
-                className="bg-gradient-to-br from-slate-900/50 to-slate-800/30 backdrop-blur-sm p-8 rounded-xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                whileHover={{ y: -5, scale: 1.02 }}
-              >
-                <div className={`w-16 h-16 mx-auto mb-6 bg-gradient-to-br ${service.color} rounded-xl flex items-center justify-center text-white shadow-lg`}>
-                  {service.icon}
-                </div>
-                
-                <h3 className="text-2xl font-bold text-white mb-4 text-center">{service.title}</h3>
-                <p className="text-gray-300 mb-6 text-center leading-relaxed">{service.description}</p>
-                
-                <div className="space-y-3 mb-6">
-                  {service.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-center text-gray-300">
-                      <CheckCircle className="w-5 h-5 text-green-400 mr-3" />
-                      <span>{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="text-center border-t border-slate-700 pt-6">
-                  <p className="text-2xl font-bold text-indigo-400 mb-4">{service.price}</p>
-                  <Link
-                    to="/contact"
-                    className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2"
-                  >
-                    Contratar
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Process Section */}
-      <motion.section 
-        className="py-20 bg-gradient-to-br from-slate-950 via-indigo-950/20 to-purple-950/20 relative"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
+      <section className="py-16 bg-gradient-to-br from-slate-950 via-purple-950 to-indigo-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent">
-              Nosso Processo
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              Por que <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Escolher</span> a GV Software?
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Um processo estruturado para garantir o sucesso do seu projeto.
+            <p className="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
+              Nossos diferenciais que garantem o sucesso do seu projeto.
             </p>
-          </motion.div>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {process.map((step, index) => (
-              <motion.div
-                key={index}
-                className="text-center relative"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2, duration: 0.6 }}
-              >
-                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
-                  {step.step}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-4">{step.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{step.description}</p>
-                
-                {index < process.length - 1 && (
-                  <div className="hidden lg:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 transform -translate-x-1/2"></div>
-                )}
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-6 rounded-3xl border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-200 shadow-2xl text-center">
+              <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <CheckCircle className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Expertise</h3>
+              <p className="text-gray-300 leading-relaxed">
+                Equipe altamente qualificada e experiente em diversas tecnologias e metodologias.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-6 rounded-3xl border border-slate-700/50 hover:border-purple-500/50 transition-all duration-200 shadow-2xl text-center">
+              <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Code className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Inovação</h3>
+              <p className="text-gray-300 leading-relaxed">
+                Buscamos constantemente as últimas tendências e tecnologias para oferecer soluções inovadoras.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-sm p-6 rounded-3xl border border-slate-700/50 hover:border-pink-500/50 transition-all duration-200 shadow-2xl text-center">
+              <div className="w-14 h-14 bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Users className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Foco no Cliente</h3>
+              <p className="text-gray-300 leading-relaxed">
+                Priorizamos a satisfação do cliente, oferecendo atendimento personalizado e soluções sob medida.
+              </p>
+            </div>
           </div>
         </div>
-      </motion.section>
+      </section>
 
       <Footer />
-      <SocialIcons />
-      <ChatBot />
     </div>
   );
 };
