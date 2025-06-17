@@ -27,24 +27,33 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
+  // Aplica tema escuro diretamente no App
+  React.useEffect(() => {
+    document.documentElement.classList.add('dark');
+    document.documentElement.style.colorScheme = 'dark';
+    document.body.style.backgroundColor = '#0f172a';
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider delayDuration={0}>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <div className="min-h-screen bg-slate-950 text-white">
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </div>
       </TooltipProvider>
     </QueryClientProvider>
   );

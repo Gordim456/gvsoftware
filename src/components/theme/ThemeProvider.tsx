@@ -1,14 +1,14 @@
 
 import React from 'react';
 
-// Simplified theme provider without hooks to avoid useState errors
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Apply dark theme by default without state management
+  // Aplica tema escuro por padrão sem gerenciamento de estado
   React.useEffect(() => {
     document.documentElement.classList.add('dark');
+    document.documentElement.style.colorScheme = 'dark';
   }, []);
 
-  return <>{children}</>;
+  return <div className="min-h-screen bg-slate-950">{children}</div>;
 }
 
 export const useTheme = () => {
