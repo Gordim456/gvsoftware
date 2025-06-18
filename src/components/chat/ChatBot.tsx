@@ -1,5 +1,6 @@
+
 import { useState, useEffect } from "react";
-import { MessageCircle, X, Sparkles, Zap } from "lucide-react";
+import { MessageCircle, X, Sparkles } from "lucide-react";
 import { FormData, ChatStep, ChatOption, AUTO_MESSAGES } from "./ChatBotTypes";
 import ChatBotForm from "./ChatBotForm";
 import ChatBotOptions from "./ChatBotOptions";
@@ -218,7 +219,7 @@ const ChatBot = () => {
           {/* Mensagem de ajuda sincronizada com o ícone */}
           <div className="absolute -top-12 -left-32 bg-white shadow-2xl border border-gray-200
                        px-4 py-3 rounded-2xl text-gray-800 transform transition-all 
-                       duration-300 hover:scale-105 backdrop-blur-sm animate-gentle-bounce">
+                       duration-300 hover:scale-105 backdrop-blur-sm animate-bounce">
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
               <span className="font-medium text-xs text-gray-700">Em que posso ajudar hoje? 🤖</span>
@@ -241,7 +242,7 @@ const ChatBot = () => {
               className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 
                        text-white p-2 rounded-full shadow-2xl hover:shadow-indigo-500/25 
                        transition-all duration-500 hover:scale-110 group
-                       border-2 border-white/30 animate-gentle-bounce hover:animate-none
+                       border-2 border-white/30 animate-bounce hover:animate-none
                        backdrop-blur-sm"
               style={{ width: '48px', height: '48px' }}
             >
@@ -268,11 +269,11 @@ const ChatBot = () => {
       )}
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 md:bg-transparent animate-fadeIn">
+        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 md:bg-transparent">
           <div className="fixed bottom-0 right-0 w-full md:w-[360px] h-full md:h-[520px] 
                        bg-white shadow-2xl transition-all duration-500 rounded-t-3xl md:rounded-3xl
                        md:bottom-6 md:right-6 overflow-hidden flex flex-col border border-gray-200
-                       animate-slideIn transform">
+                       transform">
             
             {/* Header Moderno */}
             <div className="relative flex items-center justify-between p-4 
@@ -315,17 +316,17 @@ const ChatBot = () => {
             {/* Content com animações */}
             <div className="flex-1 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
               {currentStep === 'welcome' && showWelcome && (
-                <div className="h-full flex items-center justify-center p-6 animate-form">
+                <div className="h-full flex items-center justify-center p-6">
                   <div className="text-center space-y-4">
                     <div className="w-16 h-16 mx-auto bg-gradient-to-r from-indigo-500 to-purple-600 
-                                  rounded-3xl flex items-center justify-center shadow-2xl animate-float">
+                                  rounded-3xl flex items-center justify-center shadow-2xl">
                       <RobotIcon className="w-8 h-8 text-white" />
                     </div>
                     <div className="space-y-2">
-                      <h4 className="font-bold text-gray-800 text-xl animate-fadeIn">
+                      <h4 className="font-bold text-gray-800 text-xl">
                         Olá! 👋
                       </h4>
-                      <p className="text-gray-600 text-sm leading-relaxed animate-fadeIn" style={{animationDelay: '0.2s'}}>
+                      <p className="text-gray-600 text-sm leading-relaxed">
                         Sou o assistente inteligente da<br/>
                         <span className="font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">GV Software</span><br/>
                         Como posso te ajudar hoje?
@@ -343,7 +344,7 @@ const ChatBot = () => {
               )}
 
               {currentStep === 'form' && (
-                <div className="h-full overflow-y-auto animate-form">
+                <div className="h-full overflow-y-auto">
                   <ChatBotForm 
                     formData={formData}
                     setFormData={setFormData}
@@ -353,7 +354,7 @@ const ChatBot = () => {
               )}
 
               {currentStep === 'options' && (
-                <div className="h-full overflow-y-auto animate-form">
+                <div className="h-full overflow-y-auto">
                   <ChatBotOptions 
                     onSelectOption={handleSelectOption}
                     userName={formData.name}
@@ -362,7 +363,7 @@ const ChatBot = () => {
               )}
 
               {currentStep === 'faq' && (
-                <div className="h-full overflow-y-auto animate-form">
+                <div className="h-full overflow-y-auto">
                   <ChatBotFAQ 
                     onBack={() => setCurrentStep('options')}
                     userName={formData.name}

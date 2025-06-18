@@ -74,13 +74,13 @@ const ChatBotForm = ({ formData, setFormData, onComplete }: ChatBotFormProps) =>
   const progress = ((currentStep + 1) / steps.length) * 100;
 
   return (
-    <div className="p-5 space-y-6 animate-form">
+    <div className="p-5 space-y-6">
       {/* Progress com animação */}
       <div className="space-y-2">
         <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden shadow-inner">
           <div 
             className="bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 h-2 rounded-full 
-                     transition-all duration-700 ease-out shadow-lg animate-glow"
+                     transition-all duration-700 ease-out shadow-lg"
             style={{ width: `${progress}%` }}
           ></div>
         </div>
@@ -91,7 +91,7 @@ const ChatBotForm = ({ formData, setFormData, onComplete }: ChatBotFormProps) =>
       </div>
 
       {/* Bot Message com animação */}
-      <div className="flex items-start gap-3 animate-fadeIn">
+      <div className="flex items-start gap-3">
         <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-600 
                       rounded-full flex items-center justify-center flex-shrink-0 animate-pulse">
           <Sparkles className="w-4 h-4 text-white" />
@@ -105,7 +105,7 @@ const ChatBotForm = ({ formData, setFormData, onComplete }: ChatBotFormProps) =>
       </div>
 
       {/* User Input com animações */}
-      <div className="flex items-end gap-3 justify-end animate-slideIn">
+      <div className="flex items-end gap-3 justify-end">
         <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 rounded-3xl rounded-br-lg 
                       p-5 max-w-[280px] shadow-2xl transform hover:scale-[1.02] transition-all duration-300">
           <div className="space-y-4">
@@ -143,7 +143,7 @@ const ChatBotForm = ({ formData, setFormData, onComplete }: ChatBotFormProps) =>
             
             {emailError && (
               <div className="text-red-100 text-xs bg-red-500/40 px-3 py-2 rounded-xl border border-red-400/50 
-                            backdrop-blur-sm animate-fadeIn">
+                            backdrop-blur-sm">
                 ⚠️ {emailError}
               </div>
             )}
