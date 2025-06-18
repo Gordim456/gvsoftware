@@ -6,7 +6,6 @@ import ChatBotForm from "./ChatBotForm";
 import ChatBotOptions from "./ChatBotOptions";
 import ChatBotFAQ from "./ChatBotFAQ";
 import ChatBotLiveChat from "./ChatBotLiveChat";
-import { ChatService } from "../../services/chatService";
 
 // Componente do ícone de robô 3D moderno
 const RobotIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
@@ -112,23 +111,10 @@ const ChatBot = () => {
 
   const handleFormComplete = async () => {
     try {
-      const conversation = await ChatService.createConversation({
-        user_name: formData.name,
-        user_email: formData.email,
-        user_phone: formData.phone,
-        subject: formData.subject
-      });
-
-      if (conversation) {
-        setConversationId(conversation.id);
-        
-        await ChatService.sendMessage({
-          conversation_id: conversation.id,
-          type: 'bot',
-          content: AUTO_MESSAGES.welcome,
-          sender_name: 'GV Assistant'
-        });
-      }
+      // Simular criação de conversa
+      const mockConversationId = Date.now().toString();
+      setConversationId(mockConversationId);
+      console.log('Conversa criada:', mockConversationId);
     } catch (error) {
       console.error('Erro ao criar conversa:', error);
     }
@@ -137,18 +123,7 @@ const ChatBot = () => {
   };
 
   const handleSelectOption = async (option: ChatOption) => {
-    if (conversationId && option.auto_message) {
-      try {
-        await ChatService.sendMessage({
-          conversation_id: conversationId,
-          type: 'bot',
-          content: option.auto_message,
-          sender_name: 'GV Assistant'
-        });
-      } catch (error) {
-        console.error('Erro ao enviar mensagem automática:', error);
-      }
-    }
+    console.log('Opção selecionada:', option.title);
 
     switch (option.type) {
       case 'live_chat':
@@ -158,43 +133,12 @@ const ChatBot = () => {
         setCurrentStep('faq');
         break;
       case 'quote':
-        if (conversationId) {
-          await ChatService.sendMessage({
-            conversation_id: conversationId,
-            type: 'user',
-            content: `Usuário clicou em: ${option.title}`,
-            sender_name: formData.name
-          });
-        }
         window.location.href = '/contact';
         break;
       case 'services':
-        if (conversationId) {
-          await ChatService.sendMessage({
-            conversation_id: conversationId,
-            type: 'user',
-            content: `Usuário clicou em: ${option.title}`,
-            sender_name: formData.name
-          });
-        }
         window.location.href = '/services';
         break;
       case 'meeting':
-        if (conversationId) {
-          await ChatService.sendMessage({
-            conversation_id: conversationId,
-            type: 'user',
-            content: `Usuário solicitou: ${option.title}`,
-            sender_name: formData.name
-          });
-          
-          await ChatService.sendMessage({
-            conversation_id: conversationId,
-            type: 'bot',
-            content: 'Perfeito! Vou te direcionar para o WhatsApp onde podemos agendar sua reunião. WhatsApp: (17) 99785-3416',
-            sender_name: 'GV Assistant'
-          });
-        }
         window.open('https://wa.me/5517997853416?text=Olá! Gostaria de agendar uma reunião para falar sobre meu projeto.', '_blank');
         break;
     }
