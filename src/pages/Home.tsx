@@ -1,5 +1,5 @@
 
-import React from 'react';
+import { useEffect } from 'react';
 import Hero from '@/components/Hero';
 import AboutSection from '@/components/AboutSection';
 import Services from '@/components/Services';
@@ -14,7 +14,7 @@ console.log('Home.tsx: Component loaded');
 const Home: React.FC = () => {
   console.log('Home.tsx: Home component rendering');
   
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = 'Início | GV Software - Desenvolvimento de Software';
     console.log('Home.tsx: Document title set');
   }, []);
